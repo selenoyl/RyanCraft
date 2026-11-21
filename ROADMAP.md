@@ -54,18 +54,49 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 - **Coats and capes** made from leather and wool. The trade-off: they take the armor slots, so to stay warm in the
   cold you take your armor off (no extra slot).
 
-## Creatures to raise and spar with (Pixelmon-like, but not Pokemon)
-A light creature-companion loop. No catching things in balls.
-- **Find and befriend**: rare wild creatures, each tied to a biome (forest, river, mountain, cave, the sky
-  dimension). You raise one from an egg or a young one, or win one over by feeding it over several days.
-- **They live with you**: companions follow you (a couple at most) or stay at a den or roost block you build at
-  home; a whistle calls them back.
-- **Grow and change**: they level up through sparring and grow through visible stages, like the deer's antlers.
-- **Spar with friends**: a sparring ring block where two players' companions face off. Simple moves (attack, guard,
-  a special per creature), easy type advantages between biome families, and nobody dies; the loser just tires out
-  and goes home.
-- **Collect them**: a field journal that fills in as you discover and befriend creatures; breed for rare colours,
-  like the deer's antler colours.
+## Mudlings: biome soldiers you collect and battle
+Our own take on the old Clay Soldiers idea, and the main "fight your friends" game.
+
+**Finding them**
+- Rare little squads of **mudlings** live in the wild, each biome with its own kind, made from that biome's stuff.
+- They patrol a tiny camp (a pebble fort, a twig lean-to) and scatter if you charge in, so sneaking and camo help.
+- Rare colour variants (gilded, mossy, charred) to collect.
+
+**Collecting**
+- Scoop them up with a **vanilla bundle**: right-click a mudling and it goes in. A bundle holds **up to 16 mudlings**
+  (mudling items stack to 16, which makes 16 fill a bundle exactly). One full bundle = one squad of one type.
+- Empty the bundle to deploy them; they hop out and form up.
+
+**Biome mudlings, their style, and what they crumble into**
+
+| Biome | Mudling | Style | Breaks down into |
+|---|---|---|---|
+| Plains | Sod soldier | All-rounder | Dirt, seeds, a flower |
+| Forest | Twig ranger | Quick, light hits | Sticks, saplings, leaves |
+| Taiga | Bark warden | Sturdy | Spruce bark, sweet berries |
+| Swamp | Mud slogger | Slow, slows enemies | Mud, clay, lily pad |
+| Desert | Sandstone legionary | Tough, shield wall | Sand, sandstone, dead bush |
+| Badlands | Terracotta brute | Heavy hitter | Coloured terracotta |
+| Snowy | Snowpack scout | Throws snowballs | Snow, ice, packed ice |
+| Jungle | Vine skirmisher | Climbs, ambushes | Vines, cocoa beans, bamboo |
+| Mountains | Gravel grenadier | Knocks foes back | Gravel, flint, stone |
+| Ocean/beach | Shell guard | Defensive | Sand, shells, kelp |
+| Caves | Pebble miner | Digs in | Cobblestone, coal, rare ore nugget |
+| Nether | Cinder imp | Sets things alight | Netherrack, quartz, blaze powder |
+| Sky dimension | Cloud kite | Flies | Sky materials |
+
+**Battles**
+- Set two armies down (on a battle table or anywhere) and they fight on their own while you watch.
+- **Type matchups**: simple counters (mud beats sand, sand beats snow, snow beats twig, and so on).
+- **Gear**: drop items on the table before a fight: leather for armour, a feather to glide, deer antler for a
+  lance, a coonskin cap for morale.
+- **Losers are toast**: they crumble into their biome's materials and are gone for good, so you go find more.
+- **Winners level up**: survivors get tougher with each fight they win.
+
+## Creature companions (maybe later)
+If we still want them alongside mudlings: rare biome creatures you raise from an egg or befriend by feeding, that
+follow you or live at a den, help out day to day (ore-sniffing, crop growth, fetching fish, light at night) and grow
+through visible stages. The sparring side is covered by mudlings.
 
 ## Trees
 **Common eastern US trees**, each with its own wood, leaves and saplings:
