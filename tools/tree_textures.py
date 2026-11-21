@@ -26,7 +26,7 @@ TREES = {
     "american_beech":   ("#b4b2ac", "smooth", "#d6b894", "#5c8c3a", None),
     "sycamore":         ("#a89a80", "mottled", "#d8c4a0", "#6a9a44", None),
     "eastern_redbud":   ("#4a3a32", "plates", "#b88a6a", "#5c8c3a", "#d0508e"),
-    "flowering_dogwood":("#5a4c40", "blocky", "#d8c8aa", "#4e8a3a", "#f2eee4"),
+    "flowering_dogwood":("#6e6054", "blocky", "#d8c8aa", "#4e8a3a", "#f2eee4"),
     "eastern_red_cedar":("#8a4a32", "stringy", "#b8644a", "#2e5a40", None),
     "black_cherry":     ("#2e2622", "flaky", "#a8604a", "#3c6e2c", None),
     "sassafras":        ("#7a6250", "furrows", "#c89a6a", "#6aa040", None),
@@ -75,14 +75,50 @@ def bark_side(seed, base, pattern):
             for dx in range(r.randint(2, 4)):
                 px[min(15, x + dx), y] = jit(r, shade(b, 1.6), 6) + (255,)
                 px[min(15, x + dx), min(15, y + 1)] = jit(r, shade(b, .6), 4) + (255,)
-    elif pattern == "stringy":                      # cedar: fine vertical fibres
-        for x in range(16):
-            k = 0.75 if x % 2 else 1.15
-            for y in range(16): px[x, y] = jit(r, shade(b, k), 6) + (255,)
-    elif pattern == "blocky":                       # dogwood: alligator-hide squares
-        for x in range(16):
+    elif pattern == "stringy":                      # red cedar: long fibrous strips that peel, some weathered grey
+        x = 0; strips = 0
+        while x < 16:
+            w = r.choice((1, 2, 2, 3))
+            weathered = r.random() < 0.35 or strips == 2          # always at least one weathered strip
+            strips += 1
+            strip = hexc("#8e7c72") if weathered else shade(b, r.choice((0.95, 1.05, 1.15)))
             for y in range(16):
-                if x % 3 == 0 or y % 3 == 0: px[x, y] = jit(r, shade(b, .65), 4) + (255,)
+                for dx in range(w):
+                    if x + dx < 16:
+                        c = strip
+                        if r.random() < 0.08: c = shade(b, 1.25)              # fibres catching the light
+                        px[x + dx, y] = jit(r, c, 5) + (255,)
+            # a dark crevice that wanders down the strip's edge
+            cx = min(15, x + w)
+            for y in range(16):
+                if r.random() < 0.2: cx = max(0, min(15, cx + r.choice((-1, 1))))
+                if cx < 16: px[cx, y] = jit(r, shade(b, 0.5), 4) + (255,)
+            # peeling: short lighter flaps lifting off the strip
+            if r.random() < 0.6:
+                y0 = r.randrange(12)
+                for y in range(y0, y0 + r.randint(2, 4)):
+                    px[min(15, x), min(15, y)] = jit(r, shade(b, 1.35), 5) + (255,)
+            x += w + 1
+    elif pattern == "blocky":                       # dogwood: "alligator hide" of small, uneven, squarish plates
+        y = 0
+        while y < 16:
+            h = r.choice((2, 3, 3, 4))
+            x = -r.randint(0, 3)
+            while x < 16:
+                w = r.choice((2, 3, 3, 4))
+                tone = shade(b, r.choice((0.95, 1.0, 1.08, 1.15, 1.2)))
+                crack_right, crack_bottom = r.random() < 0.75, r.random() < 0.8   # broken, not a perfect grid
+                for dy in range(h):
+                    for dx in range(w):
+                        X, Y = x + dx, y + dy
+                        if 0 <= X < 16 and Y < 16:
+                            c = tone
+                            if dy == 0 and dx < 2: c = shade(tone, 1.12)                  # worn top edge
+                            if (dx == w - 1 and crack_right) or (dy == h - 1 and crack_bottom):
+                                c = shade(b, r.choice((0.62, 0.68)))
+                            px[X, Y] = jit(r, c, 5) + (255,)
+                x += w
+            y += h
     return img
 
 # Five-shade wood palettes, structured like the vanilla wood textures (same layout rules, our own pixels).
