@@ -40,6 +40,27 @@ public final class AmbienceEngine {
             updateLoops(mc, cfg.ambienceVolume);
         }
         oneShots(mc, cfg.ambienceVolume);
+        splashes(mc, cfg.ambienceVolume);
+    }
+
+    private double wadeDistance;
+
+    /** Sloshing splashes as you wade or swim through water, paced by how fast you move. */
+    private void splashes(Minecraft mc, float master) {
+        var player = mc.player;
+        if (!player.isInWater() || player.isSpectator() || player.isPassenger()) { wadeDistance = 0; return; }
+        Vec3 v = player.getDeltaMovement();
+        double speed = Math.sqrt(v.x * v.x + v.z * v.z);
+        if (speed < 0.02) return;
+        boolean submerged = player.isEyeInFluid(net.minecraft.tags.FluidTags.WATER);
+        wadeDistance += speed;
+        double stride = submerged ? 1.6 : (player.onGround() ? 0.9 : 1.2);
+        if (wadeDistance >= stride) {
+            wadeDistance = 0;
+            float vol = (submerged ? 0.15f : 0.35f + (float) Math.min(speed, 0.3) * 1.2f) * master;
+            mc.getSoundManager().play(new SimpleSoundInstance(RyanSounds.SPLASH, SoundSource.PLAYERS, vol,
+                    (submerged ? 0.7f : 0.9f) + random.nextFloat() * 0.2f, random, player.getX(), player.getY() + 0.2, player.getZ()));
+        }
     }
 
     // ---------------- loops ----------------
@@ -53,7 +74,9 @@ public final class AmbienceEngine {
         // Wind: rises with altitude, mountains, deserts and storms; trees break it up
         float wind = 0;
         if (e.surface) {
-            wind = Mth.clamp((e.y - (e.seaLevel + 30)) / 70.0f, 0, 0.6f);
+            // A light breeze anywhere under open sky, building with altitude
+            wind = 0.12f * e.skyLight + Mth.clamp((e.y - (e.seaLevel + 15)) / 80.0f, 0, 0.6f);
+            if (e.night) wind += 0.05f;
             if (e.mountain) wind += 0.25f;
             if (e.desert || e.beach || e.ocean) wind += 0.2f;
             if (e.thundering) wind += 0.3f;
@@ -72,6 +95,17 @@ public final class AmbienceEngine {
         boolean lively = e.leaves > 3 || e.grass > 6 || e.forest || e.open || e.jungle || e.savanna;
         float crickets = e.surface && (e.night || e.dusk) && calm && !e.snowy && !e.desert && lively ? 0.5f : 0;
         loop(mc, RyanSounds.CRICKETS, crickets * m, null);
+
+        // Cicadas: the drone of a hot summer day in the trees
+        long t = mc.level.getDayTime() % 24000L;
+        float midday = Mth.clamp(1.0f - Math.abs(t - 6500L) / 5000.0f, 0, 1);
+        boolean warm = e.temperature >= 0.6f && !e.snowy;
+        float cicadas = e.surface && e.day && calm && warm && (e.leaves > 8 || e.jungle || e.savanna) ? 0.25f + 0.35f * midday : 0;
+        loop(mc, RyanSounds.CICADAS, cicadas * m, null);
+
+        // Waterfalls: roaring where water falls, placed at the falling water
+        float falls = e.fallingWater >= 2 ? Mth.clamp(e.fallingWater / 10.0f, 0.25f, 1.0f) * 0.9f : 0;
+        loop(mc, RyanSounds.WATERFALL, falls * master, e.fallingCentre);
 
         // Frogs: swamps at night, or ponds on warm nights
         float frogs = 0;
@@ -169,14 +203,9 @@ public final class AmbienceEngine {
             if (e.y < e.seaLevel - 10) maybe(mc, RyanSounds.STONE_SLIDE, 1800, 4800, 14, 36, -12, 6, 0.3f, 0.55f, master);
         }
         // Gusts rolling over summits and high ground
-        if (e.surface && (e.mountain || e.y > e.seaLevel + 50)) {
+        if (e.surface && (e.mountain || e.y > e.seaLevel + 35 || (e.thundering && e.skyLight > 0.8f))) {
             float g = e.thundering ? 0.8f : 0.55f;
             maybePlayer(mc, RyanSounds.GUST, e.thundering ? 160 : 300, e.thundering ? 500 : 900, g * 0.7f, g, master);
-        }
-        // Chattering teeth out in the cold (or stuck in powder snow)
-        boolean freezing = mc.player.isFreezing() || mc.player.getTicksFrozen() > 0;
-        if (freezing || (e.surface && e.snowy && (e.night || e.raining || e.y > e.seaLevel + 50))) {
-            maybePlayer(mc, RyanSounds.TEETH, freezing ? 100 : 500, freezing ? 260 : 1400, 0.35f, 0.5f, master);
         }
     }
 
@@ -197,7 +226,7 @@ public final class AmbienceEngine {
         return true;
     }
 
-    /** A sound that belongs to the player (your own teeth, a gust around you): not placed in the world. */
+    /** A sound that belongs to the player (a gust around you): not placed in the world. */
     private void maybePlayer(Minecraft mc, SoundEvent event, int minGap, int maxGap, float minVol, float maxVol, float master) {
         int cd = cooldowns.getOrDefault(event, minGap / 2 + random.nextInt(Math.max(1, minGap)));
         if (--cd > 0) { cooldowns.put(event, cd); return; }

@@ -287,19 +287,53 @@
     ],
     "subtitle": "subtitles.ryancraft.ambience.gust"
   },
-  "ambience.teeth": {
+  "ambience.cicadas": {
     "sounds": [
       {
-        "name": "ryancraft:ambience/teeth1"
-      },
-      {
-        "name": "ryancraft:ambience/teeth2"
-      },
-      {
-        "name": "ryancraft:ambience/teeth3"
+        "name": "ryancraft:ambience/cicadas",
+        "stream": true
       }
     ],
-    "subtitle": "subtitles.ryancraft.ambience.teeth"
+    "subtitle": "subtitles.ryancraft.ambience.cicadas"
+  },
+  "ambience.splash": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/splash1",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/splash2",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/splash3",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/splash4",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/splash5",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/splash6",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.splash"
+  },
+  "ambience.waterfall": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/waterfall",
+        "attenuation_distance": 24,
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.waterfall"
   },
   "entity.turkey.gobble": {
     "sounds": [

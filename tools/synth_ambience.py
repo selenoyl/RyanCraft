@@ -58,7 +58,8 @@ def loopify(x, xfade=2.0):
     """Make a seamless loop: crossfade the tail into the head."""
     n = int(xfade * SR); body = x[:-n].copy(); tail = x[-n:]
     w = np.linspace(0, 1, n)
-    body[:n] = body[:n] * np.sqrt(w) + tail * np.sqrt(1 - w)
+    theta = (np.pi / 2) * (w * w * (3 - 2 * w))          # smoothstep: eases in and out at both ends
+    body[:n] = body[:n] * np.sin(theta) + tail * np.cos(theta)   # equal power, so noise keeps its level
     return body
 def place(buf, snd, at):
     i = max(0, int(at * SR)); j = min(len(buf), i + len(snd))
@@ -444,4 +445,86 @@ def teeth_chatter():
 if __name__ == "__main__":
     for k in range(3): save(f"ambience/stone_slide{k+1}", stone_slide(), .8)
     for k in range(3): save(f"ambience/gust{k+1}", mountain_gust(), .75)
-    for k in range(3): save(f"ambience/teeth{k+1}", teeth_chatter(), .6)
+
+# ---------- The big three: wind, cicadas, splashing water ----------
+def svf(x, cutoff, q, mode="bp"):
+    """Chamberlin state-variable filter with per-sample cutoff (Hz array) and Q: smooth, click-free sweeps."""
+    low = band = 0.0
+    out = np.empty_like(x)
+    f = 2 * np.sin(np.pi * np.minimum(cutoff, SR / 6) / SR)
+    damp = 1.0 / q
+    xs = x.tolist(); fs = f.tolist()
+    for i in range(len(xs)):
+        fi = fs[i]
+        low += fi * band
+        high = xs[i] - low - damp * band
+        band += fi * high
+        out[i] = band if mode == "bp" else low if mode == "lp" else high
+    return out
+
+def wind2(dur=30, howl=False):
+    n = int(dur * SR); x = pink(n)
+    gust = smooth_rand(n, 0.25, 0.0, 1.0) ** 1.8          # slow gusts
+    flutter = smooth_rand(n, 2.0, 0.85, 1.0)               # small fast turbulence
+    g = gust * flutter
+    body = svf(x, 180 + 520 * g, 0.9, "lp") * (0.35 + 0.65 * g)
+    rush = svf(x, 500 + 1600 * g, 1.2) * g ** 1.5 * 0.6
+    whistle = svf(x, (420 if howl else 650) + (520 if howl else 350) * g, 9 if howl else 5) * g ** 2 * (1.6 if howl else 0.7)
+    return loopify(body + rush + whistle, 3.0)
+
+def gust2():
+    d = rng.uniform(3.5, 5.0); n = int(d * SR); u = np.linspace(0, 1, n)
+    env = np.sin(np.pi * u) ** 1.4 * smooth_rand(n, 3, 0.8, 1.0)
+    x = pink(n)
+    return (svf(x, 200 + 900 * env, 0.9, "lp") * env + svf(x, 450 + 700 * env, 7) * env ** 2 * 1.4
+            + svf(x, 1500 + 2500 * env, 1.5) * env ** 3 * 0.4)
+
+def cicada_voice(dur):
+    """One cicada: a buzzing tymbal drone that swells up, holds and sighs away (zeeeeee-ow)."""
+    n = int(dur * SR); u = np.linspace(0, 1, n); tt = np.arange(n) / SR
+    carrier_f = rng.uniform(4200, 5600)
+    rate = rng.uniform(120, 220)                                     # tymbal clicks per second
+    pulses = (0.5 + 0.5 * np.sin(2 * np.pi * rate * tt)) ** 6
+    noise = svf(white(n), carrier_f * (1 + 0.05 * np.sin(2 * np.pi * 0.3 * tt)), 6)
+    tone = np.sin(2 * np.pi * carrier_f * tt) * 0.3
+    shape = np.minimum(u / 0.25, 1) ** 2 * np.where(u > 0.8, (1 - u) / 0.2, 1)   # rise, hold, fall
+    pitch_sag = np.where(u > 0.8, 1 - (u - 0.8) * 1.5, 1)
+    return (noise + tone) * pulses * shape * pitch_sag
+
+def cicadas(dur=30):
+    n = int(dur * SR); buf = np.zeros(n)
+    chorus = svf(white(n), np.full(n, 4800.0), 3) * (0.5 + 0.5 * np.sin(2 * np.pi * 160 * np.arange(n) / SR)) ** 4 * 0.12
+    buf += chorus * smooth_rand(n, 0.1, 0.6, 1.0)
+    t = rng.uniform(0, 3)
+    while t < dur - 2:
+        d = rng.uniform(5, 11)
+        v = cicada_voice(min(d, dur - t)) * rng.uniform(0.4, 1.0)
+        place(buf, v, t); t += rng.uniform(2.5, 7)
+    return loopify(reverb(buf, .2, 1.0)[:n], 3.0)
+
+def wade_splash():
+    """A footstep sloshing through shallow water."""
+    d = rng.uniform(.35, .5); n = int(d * SR); tt = np.arange(n) / SR
+    slosh = svf(white(n), 600 + 1800 * np.exp(-tt / .08), 1.4) * np.exp(-tt / .1)
+    spray = hp(white(n), 2500) * np.exp(-tt / .05) * .4
+    buf = slosh + spray
+    for _ in range(rng.integers(6, 14)):                         # droplets falling back
+        f = rng.uniform(900, 3000); dd = rng.uniform(.01, .03); t2 = t_(dd)
+        b = np.sin(2 * np.pi * np.cumsum(f * (1 + 1.5 * t2 / dd)) / SR) * np.exp(-t2 / (dd / 4))
+        place(buf, b * rng.uniform(.1, .35), rng.uniform(.05, d - .05))
+    return buf * env_adsr(n, .005, .12)
+
+def waterfall(dur=24):
+    n = int(dur * SR); x = pink(n)
+    roar = svf(x, 400 + 300 * smooth_rand(n, 0.5), 0.8, "lp") * 0.9
+    hiss = hp(x, 1800) * (0.8 + 0.2 * smooth_rand(n, 4)) * 0.5
+    spatter = np.zeros(n); idx = rng.integers(0, n, int(dur * 500)); spatter[idx] = rng.uniform(-1, 1, len(idx))
+    return loopify(roar + hiss + bp(spatter, 1200, 6000) * 0.8, 2.0)
+
+if __name__ == "__main__":
+    save("ambience/wind", wind2(), .7)
+    save("ambience/wind_howl", wind2(howl=True), .7)
+    for k in range(3): save(f"ambience/gust{k+1}", gust2(), .75)
+    save("ambience/cicadas", cicadas(), .7)
+    for k in range(6): save(f"ambience/splash{k+1}", wade_splash(), .75)
+    save("ambience/waterfall", waterfall(), .7)

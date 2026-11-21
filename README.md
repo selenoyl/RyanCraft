@@ -6,7 +6,7 @@ A Fabric mod for **Minecraft 1.21.11**: the feel of 2012, Tekkit-era Minecraft 1
 
 ## Classic 1.2.5 pack
 On first launch the mod downloads the **official 1.2.5 files from Mojang's servers** (the same ones the launcher uses) and builds a resource pack on your machine called *RyanCraft Classic 1.2.5*, then switches it on. No Mojang assets are shipped in this mod.
-- **Textures**: every 1.2.5 block and item (yes, *that* gravel), the old crack animation, mobs and armor where the layout still matches, old Steve and zombie, the 1.2.5 font, clouds, rain, snow, and the old grass/foliage colours.
+- **Textures**: every 1.2.5 block and item (yes, *that* gravel), the old crack animation, old Steve and zombie, the 1.2.5 font, clouds, rain, snow, and the old grass/foliage colours. Mobs that changed shape since 1.2.5 (like the new warm and cold chickens, cows and pigs) keep their modern look; only mobs whose texture layout still matches get the old skin.
 - **GUI**: the 1.2.5 hotbar, hearts, hunger, armor, XP bar, crosshair and buttons, and the original title-screen panorama.
 - **Sounds**: the 1.2.5 sound set: footsteps, digging, damage, the old mob sounds, caves, rain, doors, explosions.
 - **Music**: only the original C418 tracks (calm 1-3, hal 1-4, nuance 1-2, piano 1-3), everywhere.
@@ -20,12 +20,21 @@ Turn it off any time in *Resource Packs*. Each part can be toggled in `config/ry
 The mod reads your surroundings every second (biome, time of day, how many trees are around, running water, caves, altitude, rain) and mixes:
 - **Beds that fade in and out**: wind (stronger high up, on mountains and in storms), howling wind in the snow, leaves rustling and distant twitter in forests, cricket chorus on warm nights, frogs in swamps and ponds, a babbling brook placed where the running water actually is, surf at the coast, rain pattering on leaves, deep cave air.
 - **Calls placed around you in 3D**: songbirds (loudest at dawn), woodpeckers, cuckoos, crows, hawks over open country, gulls at the beach, owls and distant wolf howls at night, bullfrogs, cave drips and rumbles, gusts through the leaves.
-- **MAtmos's signature moments, remade from scratch**: stones rattling down an old shaft somewhere deep underground, big gusts rolling over mountain tops, and your own teeth chattering when you're out in the cold or stuck in powder snow.
+- **The MAtmos big three, remade from scratch**:
+  - **Wind**: a light breeze anywhere under open sky that builds with altitude and storms, howling in the snow, with big gusts rolling over high ground.
+  - **Cicadas**: the drone of a hot summer day in the trees, swelling toward midday.
+  - **Splashing water**: sloshing splashes as you wade or swim, paced by how fast you move, and waterfalls that roar from where the water actually falls.
+- Also from the MAtmos spirit: stones rattling down an old shaft somewhere deep underground.
 - Wild turkeys **shock-gobble** back at owls, crows and hawks, like the real thing.
 
 All of it plays on the *Ambient/Environment* volume slider and has subtitles. `ambience` / `ambienceVolume` in the config. The sounds are original synths (see `tools/synth_ambience.py`), made in the spirit of [MAtmos](https://github.com/makamys/MAtmos) by Hurricaaane. MAtmos's code is WTFPL, but its classic 2012 soundpack has no stated license, so none of its audio is used here. Any resource pack can replace them with real recordings, since the files live under `assets/ryancraft/sounds/ambience/`.
 
 ## Animals
+
+![Field guide: every RyanCraft mob at the same scale](docs/field_guide.png)
+
+*Rendered from the game's own models and textures with `python3 tools/render_iso.py`.*
+
 | Animal | Where | What it does |
 |---|---|---|
 | **Wild Turkey** | Hardwood forests, meadows, plains | Roams in flocks of 4-7; gobbles at dawn and at thunder; toms fight back and the flock joins in; drops turkey and feathers |

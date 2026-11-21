@@ -23,8 +23,8 @@ final class Surroundings {
     boolean raining, thundering, rainHere, snowy;
     boolean forest, jungle, taiga, swamp, ocean, beach, river, desert, mountain, savanna, open;
     float temperature;
-    int leaves, logs, stone, grass, flowingWater, stillWater;
-    Vec3 flowingCentre, waterCentre;
+    int leaves, logs, stone, grass, flowingWater, stillWater, fallingWater;
+    Vec3 flowingCentre, waterCentre, fallingCentre;
     float skyLight;
 
     static Surroundings sample(Minecraft mc) {
@@ -65,7 +65,7 @@ final class Surroundings {
 
         // Block scan: 21x17x21 area, every other block
         BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
-        double fx = 0, fy = 0, fz = 0, wx = 0, wy = 0, wz = 0;
+        double fx = 0, fy = 0, fz = 0, wx = 0, wy = 0, wz = 0, ax = 0, ay = 0, az = 0;
         for (int dx = -10; dx <= 10; dx += 2) {
             for (int dz = -10; dz <= 10; dz += 2) {
                 for (int dy = -6; dy <= 10; dy += 2) {
@@ -79,12 +79,19 @@ final class Surroundings {
                     FluidState fluid = state.getFluidState();
                     if (fluid.is(FluidTags.WATER)) {
                         if (fluid.isSource()) { s.stillWater++; wx += p.getX(); wy += p.getY(); wz += p.getZ(); }
-                        else { s.flowingWater++; fx += p.getX(); fy += p.getY(); fz += p.getZ(); }
+                        else {
+                            s.flowingWater++; fx += p.getX(); fy += p.getY(); fz += p.getZ();
+                            if (fluid.hasProperty(net.minecraft.world.level.material.FlowingFluid.FALLING)
+                                    && fluid.getValue(net.minecraft.world.level.material.FlowingFluid.FALLING)) {
+                                s.fallingWater++; ax += p.getX(); ay += p.getY(); az += p.getZ();
+                            }
+                        }
                     }
                 }
             }
         }
         if (s.flowingWater > 0) s.flowingCentre = new Vec3(fx / s.flowingWater + .5, fy / s.flowingWater + .5, fz / s.flowingWater + .5);
+        if (s.fallingWater > 0) s.fallingCentre = new Vec3(ax / s.fallingWater + .5, ay / s.fallingWater + .5, az / s.fallingWater + .5);
         if (s.stillWater > 0) s.waterCentre = new Vec3(wx / s.stillWater + .5, wy / s.stillWater + .5, wz / s.stillWater + .5);
 
         s.underground = s.overworld && s.skyLight < 0.2f && !level.canSeeSky(eye) && s.stone > 60 && s.y < s.seaLevel + 10;
