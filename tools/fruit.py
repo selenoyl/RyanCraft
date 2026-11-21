@@ -47,13 +47,9 @@ def outline(img, col):
                 po[x, y] = col + (255,)
     return out
 
-# Cherry pie: the game's own pumpkin pie with the filling recoloured cherry red, done at load time by a
-# paletted_permutations atlas source (assets/minecraft/atlases/items.json). We ship only the two palette strips:
-# the pumpkin pie's filling shades (the key) and the red they become. Crust and rim pass through untouched.
-PIE_FILLING = [(234, 158, 96), (216, 139, 80), (238, 172, 110), (241, 184, 123), (183, 92, 18), (164, 84, 19), (219, 116, 34),
-               # the Programmer Art pie (used by the classic setup) has its own filling shades
-               (225, 136, 83), (198, 88, 34), (213, 98, 41), (219, 120, 71), (213, 109, 57), (198, 98, 47), (209, 114, 64),
-               (226, 129, 81), (219, 106, 51), (231, 140, 94), (237, 147, 102), (209, 101, 45), (203, 90, 34), (186, 77, 23)]
+# Cherry pie: a copy of the vanilla pumpkin pie with its filling hue-shifted to cherry red (read from the
+# Minecraft jar in the Gradle cache). Its own texture, so resource packs and Programmer Art don't touch it.
+PIE_FILLING = [(234, 158, 96), (216, 139, 80), (238, 172, 110), (241, 184, 123), (183, 92, 18), (164, 84, 19), (219, 116, 34)]
 
 def cherry_shade(c):
     import colorsys
@@ -61,18 +57,17 @@ def cherry_shade(c):
     h = (h - 0.085) % 1.0; s = min(0.9, s * 1.35); v *= 0.9
     return tuple(round(x * 255) for x in colorsys.hsv_to_rgb(h, s, v))
 
-def pie_palettes():
-    root = os.path.join(os.path.dirname(__file__), "../src/main/resources/assets")
-    os.makedirs(f"{root}/ryancraft/textures/palettes", exist_ok=True)
-    for name, cols in (("pie_filling", PIE_FILLING), ("pie_cherry", [cherry_shade(c) for c in PIE_FILLING])):
-        img = Image.new("RGBA", (len(cols), 1))
-        for i, c in enumerate(cols): img.putpixel((i, 0), c + (255,))
-        img.save(f"{root}/ryancraft/textures/palettes/{name}.png")
-    os.makedirs(f"{root}/minecraft/atlases", exist_ok=True)
-    with open(f"{root}/minecraft/atlases/items.json", "w") as f:
-        json.dump({"sources": [{"type": "minecraft:paletted_permutations", "textures": ["minecraft:item/pumpkin_pie"],
-                                "palette_key": "ryancraft:palettes/pie_filling",
-                                "permutations": {"cherry": "ryancraft:palettes/pie_cherry"}}]}, f, indent=2)
+def cherry_pie():
+    import glob, io, zipfile
+    root = os.path.join(os.path.dirname(__file__), "..")
+    jar = glob.glob(os.path.join(root, ".gradle/loom-cache/minecraftMaven/net/minecraft/minecraft-clientOnly-*/*/*.jar"))[0]
+    img = Image.open(io.BytesIO(zipfile.ZipFile(jar).read("assets/minecraft/textures/item/pumpkin_pie.png"))).convert("RGBA")
+    px = img.load(); red = {c: cherry_shade(c) for c in PIE_FILLING}
+    for x in range(img.width):
+        for y in range(img.height):
+            p = px[x, y]
+            if p[3] and p[:3] in red: px[x, y] = red[p[:3]] + (p[3],)
+    return img
 
 def sphere(cx, cy, rad, base, dark, light, speck, seed):
     r = random.Random(seed); img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
@@ -116,7 +111,6 @@ def shelled_walnut():
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for name, fn in (("cherries", cherries), ("black_walnut", walnut), ("shelled_walnut", shelled_walnut)):
+    for name, fn in (("cherries", cherries), ("cherry_pie", cherry_pie), ("black_walnut", walnut), ("shelled_walnut", shelled_walnut)):
         fn().save(f"{OUT}/{name}.png")
-    pie_palettes()
     print("ok")

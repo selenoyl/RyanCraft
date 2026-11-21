@@ -70,9 +70,8 @@ EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", 
             "elk", "moose", "pronghorn", "grizzly_bear", "bobcat"]
 ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap", "cherries", "cherry_pie", "black_walnut", "shelled_walnut"] \
         + [m + "_spawn_egg" for m in EGG_MOBS]
-LAYER0 = {"cherry_pie": "minecraft:item/pumpkin_pie_cherry"}     # recoloured from the game's own pumpkin pie (tools/fruit.py)
 for it in ITEMS:
-    w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": LAYER0.get(it, "ryancraft:item/" + it)}})
+    w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/" + it}})
     w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/" + it}})
 # Skull mount: one item, icon chosen by custom_model_data string, antlers tinted by its colour
 MOUNT_KEYS = ["s1", "s2", "s3", "s4", "drop3", "drop4", "cactus", "palmated", "lopsided"]
