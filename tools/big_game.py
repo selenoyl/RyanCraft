@@ -73,9 +73,8 @@ pronghorn = cervid((6, 8, 15), (2, 13), -7,          # "racer": long legs, tall 
 grizzly = quad((14, 13, 24), (5, 10), (10, 9, 8), snout=(5, 5, 5), ears=(3, 3), tail=(3, 3, 2, 0.6), head_up=-2)
 grizzly[0]["boxes"].append(box("hump", (-5, -9.5, -10), (10, 3, 8), "body"))
 
-# ---- bobcat: a long-legged, lynx-faced wildcat with tufted ears and a stubby tail
-bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0, extra_head=[   # "lanky"
-    box("tuft_r", (-2, -7.5, -2.5), (1, 2, 1), "tuft"), box("tuft_l", (1, -7.5, -2.5), (1, 2, 1), "tuft", mirror=True)])
+# ---- bobcat: a long-legged, lynx-faced wildcat with a stubby tail
+bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0)   # "lanky"
 
 CLEAR = {"c": None}
 ELK = {   # Roosevelt elk: deep reddish-brown, near-black mane, cream rump
