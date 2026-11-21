@@ -34,9 +34,7 @@ TREES = {
 }
 
 def bark_side(seed, base, pattern):
-    r = random.Random(seed); b = hexc(base); img = Image.new("RGBA", (16, 16)); px = img.load()
-    for x in range(16):
-        for y in range(16): px[x, y] = jit(r, b, 6) + (255,)
+    r = random.Random(seed); b = hexc(base); img = bark_base(r, base); px = img.load()
     if pattern in ("furrows", "stripes"):          # vertical dark furrows, wavy
         cols = [1, 5, 9, 13] if pattern == "furrows" else [2, 7, 12]
         for c in cols:
@@ -50,11 +48,16 @@ def bark_side(seed, base, pattern):
             for y in range(16):
                 px[c, y] = jit(r, shade(b, .55), 6) + (255,)
                 if (y + c) % 5 < 3: px[min(15, c + 1), y] = jit(r, shade(b, 1.22), 6) + (255,)
-    elif pattern == "plates":                       # blocky plates separated by cracks
-        for y in range(0, 16, 4):
-            for x in range(16): px[x, (y + (x // 4) * 2) % 16] = jit(r, shade(b, .68), 5) + (255,)
-        for x in range(0, 16, 4):
-            for y in range(16): px[x, y] = jit(r, shade(b, .7), 5) + (255,)
+    elif pattern == "plates":                       # irregular plates: wandering vertical cracks joined by short breaks
+        for c in (2, 7, 12):
+            x = c
+            for y in range(16):
+                if r.random() < .3: x = max(0, min(15, x + r.choice((-1, 1))))
+                px[x, y] = jit(r, shade(b, .62), 4) + (255,)
+        for _ in range(7):
+            x, y = r.randrange(16), r.randrange(16)
+            for dx in range(r.randint(2, 3)): px[(x + dx) % 16, y] = jit(r, shade(b, .66), 4) + (255,)
+            px[x, (y + 1) % 16] = jit(r, shade(b, 1.12), 4) + (255,)
     elif pattern == "smooth":                       # smooth with a few faint horizontal marks
         for _ in range(6):
             x, y = r.randrange(16), r.randrange(16)
@@ -82,36 +85,70 @@ def bark_side(seed, base, pattern):
                 if x % 3 == 0 or y % 3 == 0: px[x, y] = jit(r, shade(b, .65), 4) + (255,)
     return img
 
-def log_top(seed, bark, wood, stripped=False):
-    r = random.Random(seed); img = Image.new("RGBA", (16, 16)); px = img.load()
+# Five-shade wood palettes, structured like the vanilla wood textures (same layout rules, our own pixels).
+def palette(wood):
     w = hexc(wood)
+    return {"hi": shade(w, 1.08), "lt": shade(w, 1.0), "md": shade(w, .9), "mdk": shade(w, .8), "dk": shade(w, .66), "vdk": shade(w, .54)}
+
+def log_top(seed, bark, wood, stripped=False):
+    """Square concentric rings inside a 1px border (bark, or darker wood when stripped), with a mottled centre."""
+    r = random.Random(seed); p = palette(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
+    ring_tone = ["border", "lt", "mdk", "lt", "md", "mdk", "md", "mdk"]
     for x in range(16):
         for y in range(16):
-            d = math.hypot(x - 7.5, y - 7.5)
-            ring = int(d * 1.15) % 2
-            px[x, y] = jit(r, shade(w, .82 if ring else 1.0), 5) + (255,)
-            if not stripped and (x in (0, 15) or y in (0, 15)): px[x, y] = jit(r, hexc(bark), 6) + (255,)
+            k = min(x, y, 15 - x, 15 - y)
+            tone = ring_tone[k]
+            if tone == "border":
+                c = jit(r, hexc(bark), 8) if not stripped else jit(r, p["dk"], 5)
+            else:
+                c = p[tone]
+                roll = r.random() if k <= 4 else 1.0                          # inner rings stay clean
+                if roll < 0.12: c = p["md"] if tone != "md" else p["mdk"]       # small breaks in the outer rings
+                elif roll < 0.18 and tone == "lt": c = p["hi"]
+                c = jit(r, c, 3)
+            px[x, y] = c + (255,)
+    for x in (7, 8):                                                           # a small dark heart
+        for y in (7, 8): px[x, y] = jit(r, p["dk"], 3) + (255,)
     return img
 
 def stripped_side(seed, wood):
-    r = random.Random(seed); w = hexc(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
+    """Soft vertical streaks: each column wanders between light and mid tones, with a few darker grain runs."""
+    r = random.Random(seed); p = palette(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
     for x in range(16):
-        streak = r.uniform(.9, 1.06)
-        for y in range(16): px[x, y] = jit(r, shade(w, streak), 4) + (255,)
-    for _ in range(4):                                 # a few long grain lines
-        x = r.randrange(16)
-        for y in range(16): px[x, y] = jit(r, shade(w, .82), 3) + (255,)
+        tone = r.choice(["lt", "lt", "md", "hi"])
+        for y in range(16):
+            if r.random() < 0.18: tone = r.choice(["lt", "md", "hi", "lt"])
+            px[x, y] = jit(r, p[tone], 3) + (255,)
+    for _ in range(5):                                                         # darker grain runs
+        x, y0, n = r.randrange(16), r.randrange(16), r.randint(3, 7)
+        for y in range(y0, min(16, y0 + n)): px[x, y] = jit(r, p["mdk"], 3) + (255,)
     return img
 
 def planks(seed, wood):
-    r = random.Random(seed); w = hexc(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
-    for y in range(16):
-        row = y // 4
+    """Four boards, each 3px of wood over a dark 1px seam; a lighter top line and short darker grain streaks."""
+    r = random.Random(seed); p = palette(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
+    for board in range(4):
+        y0 = board * 4
         for x in range(16):
-            px[x, y] = jit(r, shade(w, .95 + .05 * (row % 2)), 5) + (255,)
-            if y % 4 == 3: px[x, y] = jit(r, shade(w, .62), 3) + (255,)
-        seam = (row * 7 + 3) % 16
-        if y % 4 != 3: px[seam, y] = jit(r, shade(w, .7), 3) + (255,)
+            px[x, y0] = jit(r, p["hi"] if r.random() < .55 else p["lt"], 3) + (255,)
+            px[x, y0 + 1] = jit(r, p["lt"] if r.random() < .6 else p["md"], 3) + (255,)
+            px[x, y0 + 2] = jit(r, p["md"] if r.random() < .6 else p["lt"], 3) + (255,)
+            px[x, y0 + 3] = jit(r, p["vdk"] if r.random() < .7 else p["dk"], 3) + (255,)
+        for _ in range(2):                                                     # grain streaks inside the board
+            row = y0 + r.choice((1, 2)); x0 = r.randrange(16); n = r.randint(2, 5)
+            for x in range(x0, x0 + n): px[x % 16, row] = jit(r, p["mdk"], 3) + (255,)
+        if r.random() < .5:                                                    # an occasional darker knot
+            px[r.randrange(16), y0 + 2] = jit(r, p["dk"], 3) + (255,)
+    return img
+
+def bark_base(r, base):
+    """Vanilla-style bark base: vertical streaks with darker crevices, before the species pattern goes on top."""
+    b = hexc(base); img = Image.new("RGBA", (16, 16)); px = img.load()
+    for x in range(16):
+        k = r.choice((.9, 1.0, 1.0, 1.08))
+        for y in range(16):
+            if r.random() < .15: k = r.choice((.85, 1.0, 1.08))
+            px[x, y] = jit(r, shade(b, k), 4) + (255,)
     return img
 
 def leaves(seed, leaf, bloom=None):
