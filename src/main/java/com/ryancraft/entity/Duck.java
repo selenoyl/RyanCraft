@@ -27,6 +27,7 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Paddles around rivers and ponds, flutters down instead of falling, and drops a feather now and then.
+ * Mallards would rather be on the water: they head for nearby streams and lakes and mostly paddle about there.
  * Tempted and bred with seeds, like chickens.
  */
 public class Duck extends RyanAnimal {
@@ -35,6 +36,7 @@ public class Duck extends RyanAnimal {
     public Duck(EntityType<? extends Duck> type, Level level) {
         super(type, level);
         this.featherTime = this.random.nextInt(6000) + 6000;
+        this.setPathfindingMalus(net.minecraft.world.level.pathfinder.PathType.WATER, 0.0f);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -50,10 +52,32 @@ public class Duck extends RyanAnimal {
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        // Plain stroll (not water-avoiding): ducks like water.
-        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0));
+        // Wander, but mostly toward (and around on) open water
+        this.goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0, 60) {
+            @Override protected Vec3 getPosition() {
+                boolean wet = Duck.this.isInWater();
+                if (Duck.this.random.nextFloat() < (wet ? 0.9f : 0.65f)) {
+                    Vec3 water = findWater(wet ? 8 : 16);
+                    if (water != null) return water;
+                }
+                return wet ? null : super.getPosition();
+            }
+        });
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+    }
+
+    /** A spot on the water surface within range (open sky above), or null. */
+    private Vec3 findWater(int range) {
+        net.minecraft.core.BlockPos.MutableBlockPos p = new net.minecraft.core.BlockPos.MutableBlockPos();
+        for (int i = 0; i < 24; i++) {
+            p.set(this.getBlockX() + this.random.nextInt(range * 2 + 1) - range, this.getBlockY() + this.random.nextInt(7) - 4,
+                    this.getBlockZ() + this.random.nextInt(range * 2 + 1) - range);
+            if (this.level().getFluidState(p).is(net.minecraft.tags.FluidTags.WATER) && this.level().getBlockState(p.above()).isAir()) {
+                return Vec3.atBottomCenterOf(p);
+            }
+        }
+        return null;
     }
 
     @Override

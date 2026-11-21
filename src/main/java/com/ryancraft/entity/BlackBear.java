@@ -98,7 +98,7 @@ public class BlackBear extends CritterAnimal {
                 (target, level) -> !this.fleeing && !this.isBaby() && crowding(target)));
     }
 
-    private boolean crowding(LivingEntity target) {
+    protected boolean crowding(LivingEntity target) {
         if (target instanceof Player p && (p.isCreative() || p.isSpectator())) return false;
         double reach = crowdReach(target);
         if (this.distanceTo(target) < reach) return true;
