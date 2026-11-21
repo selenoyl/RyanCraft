@@ -47,7 +47,29 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird, each with its own song |
 | **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; cook for a fish fry |
-| **Boar, Deer, Duck** | Forests, plains, rivers | Boar fights back; deer flee unless you sneak; ducks drop feathers |
+| **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
+| **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
+
+### Deer: antlers and hunting
+**Antlers grow with age.** A deer ages only while its chunk is loaded, and goes up one stage every 2-3 in-game weeks (each deer on its own clock):
+stage 0 (does and young) -> 1 spikes -> 2 forks -> 3 six-to-eight point -> 4 ten-point **Trophy Buck**. Fawns start once they're grown, and bigger racks come on bigger bodies.
+Wild deer spawn at every stage (mostly younger, about one in ten a trophy).
+The rare **Drop-Tine Buck** carries non-typical tines hanging off its beams: about 3% of big bucks spawn that way, and a few turn non-typical as they grow into it.
+
+![Antler stages](docs/antlers.png)
+
+**They're skittish.** A deer notices you at about 14 blocks walking, 24 sprinting, and only 5 sneaking. Night and rain make you harder to notice. When one deer flags, the whole herd within 16 blocks bolts.
+**Wear camo.** Each piece of leather armor dyed to blend in with the biome you're standing in cuts that distance by 15% (a full matching set: 40%, so sneaking in full camo gets you to about 2 blocks):
+
+| Where you are | Dye your leather |
+|---|---|
+| Snowy biomes | White or light gray |
+| Forests, taiga, jungle, swamps | Dark green or brown |
+| Plains, meadows | Lime or green |
+| Savanna, shrubland, badlands, desert | Yellow or brown |
+| Mountains | Gray or light gray |
+
+Close mixes count too, not just exact dye colours.
 
 ### Black bears
 - **Peaceful most of the time.** Get within about 4 blocks (2.5 if you're sneaking), or near her cubs, and she fights.

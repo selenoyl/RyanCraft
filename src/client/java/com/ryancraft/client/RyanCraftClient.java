@@ -26,8 +26,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(RyanEntities.BOAR,
                 ctx -> new RyanAnimalRenderer<>(ctx, new BoarModel(ctx.bakeLayer(BoarModel.LAYER)), 0.7f, "boar"));
-        EntityRendererRegistry.register(RyanEntities.DEER,
-                ctx -> new RyanAnimalRenderer<>(ctx, new DeerModel(ctx.bakeLayer(DeerModel.LAYER)), 0.6f, "deer"));
+        EntityRendererRegistry.register(RyanEntities.DEER, com.ryancraft.client.render.DeerRenderer::new);
         EntityRendererRegistry.register(RyanEntities.DUCK,
                 ctx -> new RyanAnimalRenderer<>(ctx, new DuckModel(ctx.bakeLayer(DuckModel.LAYER)), 0.3f, "duck"));
         EntityRendererRegistry.register(RyanEntities.TURKEY,

@@ -24,14 +24,151 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.DifficultyInstance;
+import org.jspecify.annotations.Nullable;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 /**
  * Skittish and fast. Runs from anyone who walks up to it; sneak to get close.
  * Drops venison. Tempted and bred with wheat or apples.
  */
 public class Deer extends RyanAnimal {
+    /** 0 none (does, young), 1 spikes, 2 forks, 3 six-to-eight point, 4 ten-point trophy. */
+    public static final int MAX_ANTLERS = 4;
+    private static final int DAY = 24000;
+    /** A stage takes 2-3 in-game weeks of the deer being loaded. */
+    private static final int MIN_STAGE_TICKS = 14 * DAY, MAX_STAGE_TICKS = 21 * DAY;
+    private static final EntityDataAccessor<Integer> ANTLERS = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DROP_TINE = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.BOOLEAN);
+
+    private int antlerAge;
+    private int nextStage = -1;
+
     public Deer(EntityType<? extends Deer> type, Level level) {
         super(type, level);
+    }
+
+    private Player spookedBy;
+    private int spookedTicks;
+
+    /** How far away this deer notices a player. */
+    public double noticeDistance(Player p) {
+        if (p.isCreative() || p.isSpectator()) return 0;
+        double d = p.isCrouching() ? 5.0 : p.isSprinting() ? 24.0 : 14.0;
+        d *= 1.0 - 0.15 * Camouflage.matchingPieces(p);          // full matching set: 40%
+        long t = this.level().getDayTime() % 24000L;
+        if (t > 13000L && t < 23000L) d *= 0.75;                   // harder to spot you at night
+        if (this.level().isRaining()) d *= 0.85;                   // rain covers your noise and scent
+        return d;
+    }
+
+    private boolean noticed(net.minecraft.world.entity.LivingEntity e) {
+        if (!(e instanceof Player p)) return false;
+        if (spookedTicks > 0 && p == spookedBy) return true;      // the herd took flight
+        double dist = this.distanceTo(p);
+        boolean seen = dist < noticeDistance(p) && (dist < 6 || this.hasLineOfSight(p));
+        if (seen) alarmHerd(p);
+        return seen;
+    }
+
+    /** One deer flags, they all run. */
+    private void alarmHerd(Player p) {
+        for (Deer other : this.level().getEntitiesOfClass(Deer.class, this.getBoundingBox().inflate(16), o -> o != this)) {
+            other.spookedBy = p;
+            other.spookedTicks = 100;
+        }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (spookedTicks > 0 && --spookedTicks == 0) spookedBy = null;
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ANTLERS, 0);
+        builder.define(DROP_TINE, false);
+    }
+
+    public int getAntlers() { return this.entityData.get(ANTLERS); }
+    public boolean hasDropTine() { return this.entityData.get(DROP_TINE); }
+
+    public void setAntlers(int stage, boolean dropTine) {
+        stage = Math.max(0, Math.min(MAX_ANTLERS, stage));
+        this.entityData.set(ANTLERS, stage);
+        this.entityData.set(DROP_TINE, dropTine && stage >= 3);
+        // Bigger racks come on bigger bodies
+        var scale = this.getAttribute(Attributes.SCALE);
+        if (scale != null) scale.setBaseValue(0.9 + 0.04 * stage);
+    }
+
+    private int stageLength() {
+        return MIN_STAGE_TICKS + this.random.nextInt(MAX_STAGE_TICKS - MIN_STAGE_TICKS);
+    }
+
+    /** Antlers grow while the deer is loaded: one stage every 2-3 in-game weeks. */
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide() || this.isBaby() || getAntlers() >= MAX_ANTLERS) return;
+        if (nextStage < 0) nextStage = stageLength();
+        if (++antlerAge >= nextStage) {
+            int stage = getAntlers() + 1;
+            // A few bucks turn non-typical as their rack fills out
+            boolean drop = hasDropTine() || (stage >= 3 && this.random.nextInt(25) == 0);
+            setAntlers(stage, drop);
+            antlerAge = 0;
+            nextStage = stageLength();
+        }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, EntitySpawnReason reason,
+                                        @Nullable SpawnGroupData data) {
+        var result = super.finalizeSpawn(level, difficulty, reason, data);
+        if (!this.isBaby() && reason != EntitySpawnReason.BREEDING) {
+            // Wild deer come in all sizes: mostly younger, about one in ten a trophy
+            int roll = this.random.nextInt(100);
+            int stage = roll < 26 ? 0 : roll < 50 ? 1 : roll < 72 ? 2 : roll < 90 ? 3 : 4;
+            setAntlers(stage, stage >= 3 && this.random.nextInt(33) == 0);
+            nextStage = stageLength();
+            antlerAge = this.random.nextInt(nextStage);   // stagger growth across the herd
+        } else {
+            setAntlers(0, false);
+        }
+        return result;
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput out) {
+        super.addAdditionalSaveData(out);
+        out.putInt("Antlers", getAntlers());
+        out.putBoolean("DropTine", hasDropTine());
+        out.putInt("AntlerAge", antlerAge);
+        out.putInt("NextAntlerStage", nextStage);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput in) {
+        super.readAdditionalSaveData(in);
+        setAntlers(in.getIntOr("Antlers", 0), in.getBooleanOr("DropTine", false));
+        antlerAge = in.getIntOr("AntlerAge", 0);
+        nextStage = in.getIntOr("NextAntlerStage", -1);
+    }
+
+    @Override
+    protected net.minecraft.network.chat.Component getTypeName() {
+        if (hasDropTine()) return net.minecraft.network.chat.Component.translatable("entity.ryancraft.deer.drop_tine");
+        if (getAntlers() == MAX_ANTLERS) return net.minecraft.network.chat.Component.translatable("entity.ryancraft.deer.trophy");
+        return super.getTypeName();
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -44,8 +181,8 @@ public class Deer extends RyanAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 2.2));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 10.0f, 1.5, 2.0,
-                e -> !e.isCrouching() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
+        // Skittish: bolts the moment it notices you. Sneak, come at night, wear biome camo.
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 26.0f, 1.6, 2.3, this::noticed));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.1, this::isFood, true));
         this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.2));

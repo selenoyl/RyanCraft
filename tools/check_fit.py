@@ -50,7 +50,8 @@ def check(name):
 
 if __name__ == "__main__":
     specs = sorted(os.path.basename(f)[:-5] for f in glob.glob(os.path.join(os.path.dirname(__file__), "..",
-                   "src/main/resources/assets/ryancraft/critter_models/*.json"))) + list(HAND)
+                   "src/main/resources/assets/ryancraft/critter_models/*.json")) if not f.endswith("deer_antlers.json")) \
+        + list(HAND) + ["deer:1", "deer:2", "deer:3", "deer:4", "deer:3:drop", "deer:4:drop"]
     bad = 0
     for n in specs:
         probs = check(n)

@@ -23,9 +23,7 @@ HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel)
         Pt([0, 13, 0], [B([0, 20], [-5, -5, -8], [10, 9, 16]), B([28, 6], [-1, -7, -7], [2, 2, 12])]),
         *[Pt([x, 17, z], [B([0, 48], [-2, 0, -2], [4, 7, 4])]) for x in (-3, 3) for z in (5, -5)]]),
     "deer": (64, 64, [
-        Pt([0, 8, -7], [B([0, 0], [-2, -7, -2], [4, 9, 4]), B([16, 0], [-3, -10, -6], [6, 5, 7]), B([42, 0], [-2, -8, -9], [4, 3, 3]),
-                        B([56, 0], [-3, -16, -2], [1, 6, 1]), B([56, 0], [2, -16, -2], [1, 6, 1], True),
-                        B([56, 8], [-6, -15, -2], [3, 1, 1]), B([56, 8], [3, -15, -2], [3, 1, 1], True)]),
+        Pt([0, 8, -7], [B([0, 0], [-2, -7, -2], [4, 9, 4]), B([16, 0], [-3, -10, -6], [6, 5, 7]), B([42, 0], [-2, -8, -9], [4, 3, 3])]),
         Pt([0, 11, 0], [B([0, 18], [-4, -4, -8], [8, 8, 16])]),
         Pt([0, 7, 8], [B([48, 30], [-1, 0, 0], [2, 3, 1])], (0.4, 0, 0)),
         *[Pt([x, 15, z], [B([48, 18], [-1.5, 0, -1.5], [3, 9, 3])]) for x in (-2.5, 2.5) for z in (6, -6)]]),
@@ -43,7 +41,19 @@ HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel)
         *[Pt([x, 18, 1], [B([36, 0], [-0.5, 0, -0.5], [1, 6, 1])]) for x in (-1.5, 1.5)]]),
 }
 
+def deer_antlers(stage, drop=False):
+    spec = json.load(open(os.path.join(ROOT, "critter_models", "deer_antlers.json")))
+    hp = spec["head_pivot"]; out = []
+    keys = ([str(stage)] if stage else []) + ([f"drop{stage}"] if drop and stage >= 3 else [])
+    for k in keys:
+        for p in spec["groups"][k]:
+            out.append({"pivot": [hp[i] + p["pivot"][i] for i in range(3)], "rot": p["rot"], "boxes": p["boxes"]})
+    return out
+
 def load_model(name):
+    if name.startswith("deer:"):            # deer:<stage>[:drop]
+        bits = name.split(":"); tw, th, parts = HAND["deer"]
+        return (tw, th), parts + deer_antlers(int(bits[1]), len(bits) > 2)
     if name in HAND:
         tw, th, parts = HAND[name]; return (tw, th), parts
     spec = json.load(open(os.path.join(ROOT, "critter_models", name + ".json")))
@@ -131,7 +141,7 @@ MOBS = [  # (label, subtitle, model, texture, scale, extra) ; extra = (texture, 
     ("Black Bear", "with cub", "black_bear", "black", 1.0, ("black", 0.5)),
     ("Cinnamon Bear", "rare colour phase", "black_bear", "cinnamon", 1.0, None),
     ("Wild Turkey", "tom", "turkey", "turkey", 1.0, None),
-    ("Deer", "", "deer", "deer", 1.0, None),
+    ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
     ("Boar", "", "boar", "boar", 1.0, None),
     ("Beaver", "", "beaver", "beaver", 1.0, None),
     ("Raccoon", "", "raccoon", "raccoon", 1.0, None),

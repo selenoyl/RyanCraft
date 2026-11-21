@@ -111,7 +111,7 @@ w("data/minecraft/tags/item/head_armor.json", {"replace": False, "values": ["rya
 
 # ---- lang
 lang.update({
-    "entity.ryancraft.boar": "Boar", "entity.ryancraft.deer": "Deer", "entity.ryancraft.duck": "Duck", "entity.ryancraft.turkey": "Wild Turkey",
+    "entity.ryancraft.boar": "Boar", "entity.ryancraft.deer": "Deer", "entity.ryancraft.deer.trophy": "Trophy Buck", "entity.ryancraft.deer.drop_tine": "Drop-Tine Buck", "entity.ryancraft.duck": "Duck", "entity.ryancraft.turkey": "Wild Turkey",
     "entity.ryancraft.black_bear": "Black Bear", "entity.ryancraft.black_bear.cinnamon": "Cinnamon Bear",
     "entity.ryancraft.raccoon": "Raccoon", "entity.ryancraft.skunk": "Striped Skunk", "entity.ryancraft.mink": "Mink",
     "entity.ryancraft.opossum": "Opossum", "entity.ryancraft.beaver": "Beaver",

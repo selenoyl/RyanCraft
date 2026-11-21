@@ -431,3 +431,44 @@ if __name__ == "__main__":
     save_item("coonskin_cap", coonskin_icon())
     p = os.path.join(ROOT, "textures/entity/equipment/humanoid/coonskin.png"); os.makedirs(os.path.dirname(p), exist_ok=True)
     coonskin_armor().save(p)
+
+# ---------------------------------------------------------------- deer antlers (stage groups, read by DeerModel.java)
+ANTLER_UV = [0, 42]           # all antler boxes share one antler-coloured patch of deer.png
+def antler_groups():
+    """Right-side boxes relative to the antler base; the left side is mirrored. Head-relative pivots.
+    y is up-negative, -z is forward. Beams rise, curve forward, and tines rise off the top (whitetail style)."""
+    R = {
+        "1": [((-0.5, -3, -0.5), (1, 3, 1))],                                                  # spikes
+        "2": [((-0.5, -5, -0.5), (1, 5, 1)), ((-0.5, -4, -2.5), (1, 1, 2)), ((-0.5, -6, -2.5), (1, 2, 1))],  # forks
+        "3": [((-0.5, -4, -0.5), (1, 4, 1)), ((-0.5, -5, -4.5), (1, 1, 5)),                    # 6-8 point
+              ((-0.5, -3, -1.5), (1, 1, 1)), ((-0.5, -7, -1.5), (1, 2, 1)), ((-0.5, -7, -3.5), (1, 2, 1)),
+              ((-0.5, -6, -4.5), (1, 1, 1))],
+        "4": [((-0.5, -5, -0.5), (1, 5, 1)), ((-0.5, -6, -6.5), (1, 1, 7)),                    # 10-point trophy
+              ((-0.5, -4, -1.5), (1, 1, 1)), ((-0.5, -9, -1.5), (1, 3, 1)), ((-0.5, -9, -3.5), (1, 3, 1)),
+              ((-0.5, -8, -5.5), (1, 2, 1)), ((-0.5, -7, -6.5), (1, 1, 1))],
+        "drop3": [((-0.5, -4, -2.5), (1, 2, 1)), ((-0.5, -4, -4.5), (1, 3, 1))],             # drop tines hang off the beam
+        "drop4": [((-0.5, -5, -3.5), (1, 3, 1)), ((-0.5, -5, -5.5), (1, 2, 1)), ((-0.5, -5, -1.5), (1, 2, 1))],
+    }
+    groups = {}
+    for key, boxes in R.items():
+        parts = []
+        for side, sx in (("r", -1), ("l", 1)):
+            parts.append({"name": f"antlers_{key}_{side}", "pivot": [sx * 2.5, -10, -2], "rot": [-0.1, sx * 0.4, sx * 0.6],
+                          "boxes": [{"uv": ANTLER_UV, "from": list(f), "size": list(sz), "mirror": sx > 0} for f, sz in boxes]})
+        groups[key] = parts
+    return groups
+
+def paint_antler_patch():
+    path = os.path.join(ROOT, "textures/entity/deer.png")
+    img = Image.open(path).convert("RGBA")
+    r = random.Random(1775)  # Boonesborough
+    for x in range(0, 64):
+        for y in range(42, 64):
+            base = hexc("#d6c49c") if r.random() > 0.25 else hexc("#bfa97c")
+            img.putpixel((x, y), tuple(max(0, min(255, v + r.randint(-8, 8))) for v in base) + (255,))
+    img.save(path)
+
+if __name__ == "__main__":
+    with open(os.path.join(ROOT, "critter_models", "deer_antlers.json"), "w") as f:
+        json.dump({"head_pivot": [0, 8, -7], "groups": antler_groups()}, f, indent=1)
+    paint_antler_patch()
