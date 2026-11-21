@@ -8,7 +8,9 @@
     "MinecraftServerMixin",
     "ServerPlayerMixin",
     "BundleItemMixin",
-    "ServerPlayerShoulderAccess"
+    "ServerPlayerShoulderAccess",
+    "PlayerCrowMixin",
+    "ServerPlayerCrowMixin"
   ],
   "injectors": {
     "defaultRequire": 0

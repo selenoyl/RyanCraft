@@ -581,6 +581,27 @@
     ],
     "subtitle": "subtitles.ryancraft.entity.coyote.howl"
   },
+  "entity.crow.caw": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/crow_caw1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/crow_caw2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/crow_caw3",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/crow_caw4",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.crow.caw"
+  },
   "entity.elk.bugle": {
     "sounds": [
       {

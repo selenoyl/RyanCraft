@@ -110,6 +110,16 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 - **Fall colours** (sugar maple orange-red, red maple scarlet, and so on) once seasons arrive.
 - A rougher pass on the plate-style bark (sugar maple, redbud, buckeye).
 
+**More trees (ideas)**
+- **Redwood**: a 2x2-trunk giant like the jungle tree, but taller.
+- **Olive**, **sakura** (cherry blossom, our own take) and **cypress**.
+
+**Berry bushes** out in the world (blackberry, raspberry, blueberry, elderberry, pawpaw...).
+
+## Storage and inventory (ideas)
+- **Backpack slot**: an extra inventory slot for a backpack.
+- **Clay pots and bowls** (Vintage Story style): in progress.
+
 ## Blocks and backports
 - **Concrete slabs and stairs**, backported from newer versions.
 - **Shelf mushrooms** (the newer shelf fungus that grows on tree trunks).

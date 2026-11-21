@@ -63,7 +63,8 @@ public final class Cages {
     private static final Map<EntityType<?>, Baggable.CageKind> KINDS = Map.of(
             RyanEntities.CHIPMUNK, Baggable.CageKind.CRITTER,
             RyanEntities.SONGBIRD, Baggable.CageKind.BIRD,
-            EntityType.PARROT, Baggable.CageKind.BIRD);
+            EntityType.PARROT, Baggable.CageKind.BIRD,
+            RyanEntities.CROW, Baggable.CageKind.BIRD);
 
     public static Baggable.CageKind kindOf(EntityType<?> type) { return KINDS.getOrDefault(type, Baggable.CageKind.NONE); }
 

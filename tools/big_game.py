@@ -76,6 +76,18 @@ grizzly[0]["boxes"].append(box("hump", (-5, -9.5, -10), (10, 3, 8), "body"))
 # ---- bobcat: a long-legged, lynx-faced wildcat with a stubby tail
 bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0)   # "lanky"
 
+# ---- crow: a big, all-black bird with a heavy beak and a long tail
+crow = [
+    part("body", (0, 18, 0), [box("body", (-2.5, -2.5, -4), (5, 5, 8), "body")], "body", rot=(-0.2, 0, 0)),
+    part("head", (0, 15, -3.5), [box("head", (-2, -3, -4), (4, 4, 4), "head"),
+                                 box("beak", (-0.5, -1.5, -7), (1, 2, 3), "beak")], "head"),
+    part("tail", (0, 17, 3.5), [box("tail", (-2, -0.5, 0), (4, 1, 6), "tail")], "tail", rot=(0.3, 0, 0)),
+    part("wing_r", (-2.5, 15.5, -2), [box("wing", (-1, 0, -2), (1, 4, 8), "wing")], "wing_r"),
+    part("wing_l", (2.5, 15.5, -2), [box("wing", (0, 0, -2), (1, 4, 8), "wing", mirror=True)], "wing_l"),
+    part("leg_r", (-1, 20.5, 1), [box("leg", (-0.5, 0, -0.5), (1, 3.5, 1), "leg")], "leg_r"),
+    part("leg_l", (1, 20.5, 1), [box("leg", (-0.5, 0, -0.5), (1, 3.5, 1), "leg", mirror=True)], "leg_l"),
+]
+
 CLEAR = {"c": None}
 ELK = {   # Roosevelt elk: deep reddish-brown, near-black mane, cream rump
        "body": {"c": "#8a5a36", "noise": 8, "tip": {"c": "#d8c09a", "frac": 0.14}, "belly": "#2e1c10", "bottom": "#2e1c10"},
@@ -112,9 +124,14 @@ VARIANTS = {
         "tuft": {"c": "#1a1410"}, "ruff": {"c": "#e8dcc8", "speckle": {"c": "#2a2018", "p": 0.3}},
         "leg": {"c": "#b48c62", "speckle": {"c": "#3e2c1c", "p": 0.15}}, "tail": {"c": "#b48c62", "tip": {"c": "#1a1410", "frac": 0.35}}}},
 }
-MODELS = {"elk": elk, "moose": moose, "pronghorn": pronghorn, "grizzly_bear": grizzly, "bobcat": bobcat}
+VARIANTS["crow"] = {"crow": {
+    "body": {"c": "#1a1a1e", "noise": 6, "speckle": {"c": "#2c3048", "p": 0.18}},
+    "head": {"c": "#1c1c20", "noise": 5, "side_eyes": "#3a2a1a", "eye_row": 1, "speckle": {"c": "#2c3048", "p": 0.1}},
+    "beak": {"c": "#0e0e10", "noise": 3}, "tail": {"c": "#18181c", "noise": 5, "speckle": {"c": "#262a40", "p": 0.2}},
+    "wing": {"c": "#16161a", "noise": 6, "speckle": {"c": "#2a2e46", "p": 0.25}}, "leg": {"c": "#121212", "noise": 3}}}
+MODELS = {"elk": elk, "moose": moose, "pronghorn": pronghorn, "grizzly_bear": grizzly, "bobcat": bobcat, "crow": crow}
 EGGS = {"elk": ("#8a5a36", "#24160c"), "moose": ("#5a3a24", "#8a7660"), "pronghorn": ("#c48a4c", "#f2ece0"),
-        "grizzly_bear": ("#3a2618", "#c4a882"), "bobcat": ("#b48c62", "#3e2c1c")}
+        "grizzly_bear": ("#3a2618", "#c4a882"), "crow": ("#1a1a1e", "#3a3e5a"), "bobcat": ("#b48c62", "#3e2c1c")}
 
 if __name__ == "__main__":
     for name, parts in MODELS.items():

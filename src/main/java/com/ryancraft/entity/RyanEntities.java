@@ -55,6 +55,8 @@ public final class RyanEntities {
             EntityType.Builder.of(GrizzlyBear::new, MobCategory.CREATURE).sized(1.4f, 1.5f).clientTrackingRange(10));
     public static final EntityType<Bobcat> BOBCAT = register("bobcat",
             EntityType.Builder.of(Bobcat::new, MobCategory.CREATURE).sized(0.6f, 0.8f).clientTrackingRange(10));
+    public static final EntityType<Crow> CROW = register("crow",
+            EntityType.Builder.of(Crow::new, MobCategory.CREATURE).sized(0.5f, 0.6f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -87,6 +89,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(PRONGHORN, Pronghorn.createAttributes());
         FabricDefaultAttributeRegistry.register(GRIZZLY_BEAR, GrizzlyBear.createAttributes());
         FabricDefaultAttributeRegistry.register(BOBCAT, Bobcat.createAttributes());
+        FabricDefaultAttributeRegistry.register(CROW, Crow.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());
