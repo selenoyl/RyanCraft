@@ -102,7 +102,14 @@ P["black_bear"] = {
 }
 P["raccoon"] = {"raccoon": {
     "body": {"c": "#7f7b74", "noise": 14, "belly": "#9a958c"},
-    "head": {"c": "#a8a49c", "mask": "#1c1c1c", "mask_rows": [1, 2], "eyes": "#e8e8e8", "eye_row": 1, "cap": "#7f7b74"},
+    "head": {"c": "#a8a49c", "mask": "#2a2725", "mask_rows": [1, 2], "cap": "#7f7b74",
+             # pale brows over each eye, dark stripe down the nose, pupil with a white glint, charcoal mask, pale cheeks
+             "front_map": ["gBsBg",
+                           "hpMph",
+                           "MMMMM",
+                           "WgggW"],
+             "front_colors": {"g": "#8a857c", "B": "#e6e2da", "s": "#3a3632", "h": "#f6f6f2", "p": "#050505",
+                              "M": "#2a2725", "W": "#e6e2da"}},
     "snout": {"c": "#e2ded6", "nose": "#151515"}, "ear": {"c": "#5f5b55"},
     "leg": {"c": "#2a2826"}, "tail": {"c": "#8a857c", "rings": {"c": "#2a2826", "n": 4}, "tip": {"c": "#2a2826", "frac": 0.15}}}}
 P["skunk"] = {"skunk": {
@@ -241,6 +248,11 @@ def paint_box(img, b, style):
         if "eye_white" in style:      # pupil on the outside, white toward the middle (like the cow, pig, polar bear)
             img.putpixel((left + 1, fy + r), hexc(style["eye_white"]) + (255,))
             img.putpixel((right - 1, fy + r), hexc(style["eye_white"]) + (255,))
+    if "front_map" in style:       # hand-drawn face, one character per pixel (" " = leave as is)
+        for j, row in enumerate(style["front_map"]):
+            for i, ch in enumerate(row):
+                if ch != " " and i < fw and j < fh:
+                    img.putpixel((fx + i, fy + j), hexc(style["front_colors"][ch]) + (255,))
     if "nose" in style:
         cx = fx + fw // 2
         for x in ([cx - 1, cx] if fw % 2 == 0 else [cx]):
