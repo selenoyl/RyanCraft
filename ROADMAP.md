@@ -119,6 +119,9 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 ## Storage and inventory (ideas)
 - **Backpack slot**: an extra inventory slot for a backpack.
 - ~~**Clay pots, placeable bowls and buckets**~~ (built). Next: fired clay bowls and crocks, food spoilage.
+- **Bowls**: a little smaller, and up to 4 per block (Vintage Story style).
+- **Buckets**: can be placed diagonally (rotated 45 degrees).
+- **Wooden bucket**: crafted from 3 planks and 1 iron ingot; holds water/milk and looks good set down in a house.
 
 ## Blocks and backports
 - **Concrete slabs and stairs**, backported from newer versions.
