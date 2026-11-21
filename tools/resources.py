@@ -59,6 +59,17 @@ ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in F
 for it in ITEMS:
     w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/" + it}})
     w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/" + it}})
+# Skull mount: one item, icon chosen by custom_model_data string, antlers tinted by its colour
+MOUNT_KEYS = ["s1", "s2", "s3", "s4", "drop3", "drop4", "cactus", "palmated", "lopsided"]
+def mount_model(k):
+    return {"type": "minecraft:model", "model": "ryancraft:item/deer_skull_mount_" + k,
+            "tints": [{"type": "minecraft:constant", "value": -1},
+                      {"type": "minecraft:custom_model_data", "index": 0, "default": -2702180}]}
+for k in MOUNT_KEYS:
+    w(f"assets/ryancraft/models/item/deer_skull_mount_{k}.json", {"parent": "minecraft:item/generated",
+      "textures": {"layer0": "ryancraft:item/deer_skull_mount_base", "layer1": "ryancraft:item/deer_skull_mount_antlers_" + k}})
+w("assets/ryancraft/items/deer_skull_mount.json", {"model": {"type": "minecraft:select", "property": "minecraft:custom_model_data",
+  "index": 0, "cases": [{"when": k, "model": mount_model(k)} for k in MOUNT_KEYS], "fallback": mount_model("s4")}})
 w("assets/ryancraft/equipment/coonskin.json", {"layers": {"humanoid": [{"texture": "ryancraft:coonskin"}]}})
 
 # ---- recipes
@@ -89,6 +100,14 @@ loot("songbird", [pool("minecraft:feather", 0, 1)])
 for name in ["skunk", "opossum", "squirrel"]: loot(name, [])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
+
+# Armadillos drop their scutes when killed; no brush needed (babies drop nothing)
+w("data/minecraft/loot_table/entities/armadillo.json", {"type": "minecraft:entity", "random_sequence": "minecraft:entities/armadillo",
+  "pools": [{"rolls": 1, "conditions": [{"condition": "minecraft:entity_properties", "entity": "this",
+                                         "predicate": {"flags": {"is_baby": False}}}],
+             "entries": [{"type": "minecraft:item", "name": "minecraft:armadillo_scute", "functions": [
+                 {"function": "minecraft:set_count", "count": cnt(1, 3)},
+                 {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": cnt(0, 1)}]}]}]})
 
 # Fishing: Kentucky fish join the catch (same overall fish odds as vanilla)
 def fish_entry(item, weight, cook=True):
@@ -130,7 +149,16 @@ lang.update({
     "item.ryancraft.channel_catfish": "Raw Channel Catfish", "item.ryancraft.cooked_channel_catfish": "Fried Catfish",
     "item.ryancraft.bluegill_bucket": "Bucket of Bluegill", "item.ryancraft.crappie_bucket": "Bucket of Crappie",
     "item.ryancraft.largemouth_bass_bucket": "Bucket of Largemouth Bass", "item.ryancraft.channel_catfish_bucket": "Bucket of Channel Catfish",
-    "item.ryancraft.raccoon_tail": "Raccoon Tail", "item.ryancraft.coonskin_cap": "Coonskin Cap",
+    "item.ryancraft.raccoon_tail": "Raccoon Tail",
+    "item.ryancraft.deer_skull_mount": "Deer Skull Mount",
+    "item.ryancraft.deer_skull_mount.s1": "Spike Buck Skull Mount", "item.ryancraft.deer_skull_mount.s2": "Fork Buck Skull Mount",
+    "item.ryancraft.deer_skull_mount.s3": "Eight-Point Skull Mount", "item.ryancraft.deer_skull_mount.s4": "Trophy Buck Skull Mount",
+    "item.ryancraft.deer_skull_mount.drop": "Drop-Tine Buck Skull Mount", "item.ryancraft.deer_skull_mount.cactus": "Cactus Buck Skull Mount",
+    "item.ryancraft.deer_skull_mount.palmated": "Palmated Buck Skull Mount", "item.ryancraft.deer_skull_mount.lopsided": "Lopsided Buck Skull Mount",
+    "item.ryancraft.deer_skull_mount.dark": "Dark antlers", "item.ryancraft.deer_skull_mount.chocolate": "Chocolate antlers (rare)",
+    "item.ryancraft.deer_skull_mount.rare": "Super rare rack",
+    "entity.ryancraft.deer_skull_mount": "Deer Skull Mount",
+    "entity.ryancraft.deer.cactus": "Cactus Buck", "entity.ryancraft.deer.palmated": "Palmated Buck", "entity.ryancraft.deer.lopsided": "Lopsided Buck", "item.ryancraft.coonskin_cap": "Coonskin Cap",
     "biome.ryancraft.rainforest": "Rainforest", "biome.ryancraft.seasonal_forest": "Seasonal Forest",
     "biome.ryancraft.shrubland": "Shrubland", "biome.ryancraft.tundra": "Tundra",
     "tag.item.ryancraft.kentucky_fish": "Kentucky Fish", "tag.item.ryancraft.repairs_coonskin": "Coonskin Cap Repair Materials",

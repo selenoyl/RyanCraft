@@ -59,6 +59,10 @@ public final class RyanItems {
     /** Daniel Boone would approve. */
     public static final Item COONSKIN_CAP = register("coonskin_cap", Item::new, new Item.Properties().humanoidArmor(COONSKIN, ArmorType.HELMET));
 
+    /** Primitive skull mount; its rack comes from the buck it was taken from. */
+    public static final Item DEER_SKULL_MOUNT = register("deer_skull_mount", com.ryancraft.item.DeerSkullMountItem::new,
+            new Item.Properties().stacksTo(16));
+
     private static final Map<EntityType<?>, Item> BUCKETS = new HashMap<>();
     static {
         BUCKETS.put(RyanEntities.BLUEGILL, BLUEGILL_BUCKET);
@@ -96,6 +100,11 @@ public final class RyanItems {
             for (Item i : new Item[]{BLUEGILL_BUCKET, CRAPPIE_BUCKET, LARGEMOUTH_BASS_BUCKET, CHANNEL_CATFISH_BUCKET}) e.accept(i);
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(e -> e.accept(COONSKIN_CAP));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(e -> {
+            for (int[] v : new int[][]{{1, 0, 0, 0}, {2, 0, 0, 0}, {3, 0, 0, 0}, {4, 0, 0, 0}, {4, 1, 0, 1}, {4, 0, 1, 2}, {4, 0, 2, 0}, {4, 0, 3, 1}}) {
+                e.accept(com.ryancraft.item.DeerSkullMountItem.create(v[0], v[1] == 1, v[2], v[3]));
+            }
+        });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> e.accept(RACCOON_TAIL));
     }
 

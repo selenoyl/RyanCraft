@@ -58,6 +58,11 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
     }
 
     public static LayerDefinition createLayer(String name) {
+        JsonArray tex = spec(name).getAsJsonArray("texture");
+        return LayerDefinition.create(createMesh(name), tex.get(0).getAsInt(), tex.get(1).getAsInt());
+    }
+
+    public static MeshDefinition createMesh(String name) {
         JsonObject spec = spec(name);
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
@@ -77,8 +82,7 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
                     pv.get(0).getAsFloat(), pv.get(1).getAsFloat(), pv.get(2).getAsFloat(),
                     rot.get(0).getAsFloat(), rot.get(1).getAsFloat(), rot.get(2).getAsFloat()));
         }
-        JsonArray tex = spec.getAsJsonArray("texture");
-        return LayerDefinition.create(mesh, tex.get(0).getAsInt(), tex.get(1).getAsInt());
+        return mesh;
     }
 
     @Override

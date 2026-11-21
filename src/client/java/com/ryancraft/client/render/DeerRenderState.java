@@ -5,4 +5,6 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 public class DeerRenderState extends LivingEntityRenderState {
     public int antlers;
     public boolean dropTine;
+    public int rack;
+    public int antlerColor;
 }

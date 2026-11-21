@@ -50,6 +50,19 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.LARGEMOUTH_BASS, c -> new CritterRenderer<>(c, "largemouth_bass", 0.25f, 1.0f, true, "largemouth_bass"));
         EntityRendererRegistry.register(RyanEntities.CHANNEL_CATFISH, c -> new CritterRenderer<>(c, "channel_catfish", 0.3f, 1.0f, true, "channel_catfish"));
 
+        EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.model.DeerMountModel.LAYER, com.ryancraft.client.model.DeerMountModel::createBodyLayer);
+        EntityRendererRegistry.register(RyanEntities.DEER_MOUNT, com.ryancraft.client.render.DeerMountRenderer::new);
+
+        // Skeleton variants (cracked skulls, missing ribs, dark bones), rebuilt whenever resources reload
+        EntityRendererRegistry.register(net.minecraft.world.entity.EntityType.SKELETON, com.ryancraft.client.skeleton.VariantSkeletonRenderer::new);
+        net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(net.minecraft.server.packs.PackType.CLIENT_RESOURCES)
+                .registerReloadListener(new net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener() {
+                    @Override public net.minecraft.resources.Identifier getFabricId() { return com.ryancraft.RyanCraft.id("skeleton_variants"); }
+                    @Override public void onResourceManagerReload(net.minecraft.server.packs.resources.ResourceManager manager) {
+                        com.ryancraft.client.skeleton.SkeletonVariants.invalidate();
+                    }
+                });
+
         AmbienceEngine ambience = new AmbienceEngine();
         ClientTickEvents.END_CLIENT_TICK.register(ambience::tick);
         ClientLifecycleEvents.CLIENT_STARTED.register(ClassicPack::start);

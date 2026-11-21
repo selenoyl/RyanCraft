@@ -41,6 +41,9 @@ public final class RyanEntities {
     public static final EntityType<KentuckyFish> LARGEMOUTH_BASS = fish("largemouth_bass", 0.5f, 0.4f);
     public static final EntityType<KentuckyFish> CHANNEL_CATFISH = fish("channel_catfish", 0.6f, 0.3f);
 
+    public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
+            EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
+
     private static EntityType<KentuckyFish> fish(String name, float w, float h) {
         return register(name, EntityType.Builder.of(KentuckyFish::new, MobCategory.WATER_AMBIENT).sized(w, h).clientTrackingRange(4));
     }
@@ -63,6 +66,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(BEAVER, Beaver.createAttributes());
         FabricDefaultAttributeRegistry.register(SQUIRREL, Squirrel.createAttributes());
         FabricDefaultAttributeRegistry.register(SONGBIRD, Songbird.createAttributes());
+        FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());
         }

@@ -438,6 +438,7 @@ def antler_groups():
     """Right-side boxes relative to the antler base; the left side is mirrored. Head-relative pivots.
     y is up-negative, -z is forward. Beams rise, curve forward, and tines rise off the top (whitetail style)."""
     R = {
+        "0": [((-0.5, -1, -0.5), (1, 1, 1))],                                                  # little nubs (stage 0)
         "1": [((-0.5, -3, -0.5), (1, 3, 1))],                                                  # spikes
         "2": [((-0.5, -5, -0.5), (1, 5, 1)), ((-0.5, -4, -2.5), (1, 1, 2)), ((-0.5, -6, -2.5), (1, 2, 1))],  # forks
         "3": [((-0.5, -4, -0.5), (1, 4, 1)), ((-0.5, -5, -4.5), (1, 1, 5)),                    # 6-8 point
@@ -448,27 +449,108 @@ def antler_groups():
               ((-0.5, -8, -5.5), (1, 2, 1)), ((-0.5, -7, -6.5), (1, 1, 1))],
         "drop3": [((-0.5, -4, -2.5), (1, 2, 1)), ((-0.5, -4, -4.5), (1, 3, 1))],             # drop tines hang off the beam
         "drop4": [((-0.5, -5, -3.5), (1, 3, 1)), ((-0.5, -5, -5.5), (1, 2, 1)), ((-0.5, -5, -1.5), (1, 2, 1))],
+        # --- super-rare racks (stage 4 only) ---
+        "cactus": [((-0.5, -5, -0.5), (1, 5, 1)), ((-0.5, -6, -5.5), (1, 1, 6)),             # knobby points everywhere
+                   ((-0.5, -8, -1.5), (1, 2, 1)), ((-0.5, -7, -2.5), (1, 1, 1)), ((-0.5, -9, -3.5), (1, 3, 1)),
+                   ((-0.5, -7, -4.5), (1, 1, 1)), ((-0.5, -8, -5.5), (1, 2, 1)),
+                   ((-1.5, -6, -2.5), (1, 1, 1)), ((-1.5, -6, -4.5), (1, 1, 1)), ((-1.5, -3, -0.5), (1, 1, 1)),
+                   ((0.5, -6, -3.5), (1, 1, 1)), ((0.5, -4, -0.5), (1, 1, 1)), ((-1.5, -7, -5.5), (1, 1, 1)),
+                   ((-0.5, -5, -2.5), (1, 1, 1)), ((-0.5, -5, -4.5), (1, 2, 1))],
+        "palmated": [((-0.5, -4, -0.5), (1, 4, 1)), ((-0.5, -8, -5.5), (1, 4, 6)),            # flat moose-like paddles
+                     ((-0.5, -9, -1.5), (1, 1, 1)), ((-0.5, -10, -3.5), (1, 2, 1)), ((-0.5, -9, -5.5), (1, 1, 1)),
+                     ((-0.5, -9, -0.5), (1, 1, 1))],
     }
+    LOPSIDED_L = [((-0.5, -4, -0.5), (1, 4, 1))]          # a lone spike on the other side
     groups = {}
-    for key, boxes in R.items():
+    for key, boxes in list(R.items()) + [("lopsided", None)]:
         parts = []
         for side, sx in (("r", -1), ("l", 1)):
+            bx = boxes if key != "lopsided" else (R["4"] if side == "r" else LOPSIDED_L)
             parts.append({"name": f"antlers_{key}_{side}", "pivot": [sx * 2.5, -10, -2], "rot": [-0.1, sx * 0.4, sx * 0.6],
-                          "boxes": [{"uv": ANTLER_UV, "from": list(f), "size": list(sz), "mirror": sx > 0} for f, sz in boxes]})
+                          "boxes": [{"uv": ANTLER_UV, "from": list(f), "size": list(sz), "mirror": sx > 0} for f, sz in bx]})
         groups[key] = parts
     return groups
 
-def paint_antler_patch():
-    path = os.path.join(ROOT, "textures/entity/deer.png")
-    img = Image.open(path).convert("RGBA")
+ANTLER_COLOURS = {"": ("#d6c49c", "#bfa97c"), "_dark": ("#957652", "#7e6242"), "_chocolate": ("#5e4430", "#4c3626")}
+
+def paint_antler_patch(img, colour):
     r = random.Random(1775)  # Boonesborough
+    light, dark = ANTLER_COLOURS[colour]
     for x in range(0, 64):
         for y in range(42, 64):
-            base = hexc("#d6c49c") if r.random() > 0.25 else hexc("#bfa97c")
+            base = hexc(light) if r.random() > 0.25 else hexc(dark)
             img.putpixel((x, y), tuple(max(0, min(255, v + r.randint(-8, 8))) for v in base) + (255,))
-    img.save(path)
+
+def antler_textures():
+    base = Image.open(os.path.join(ROOT, "textures/entity/deer.png")).convert("RGBA")
+    for colour in ANTLER_COLOURS:
+        img = base.copy(); paint_antler_patch(img, colour)
+        img.save(os.path.join(ROOT, f"textures/entity/deer{colour}.png"))
 
 if __name__ == "__main__":
     with open(os.path.join(ROOT, "critter_models", "deer_antlers.json"), "w") as f:
         json.dump({"head_pivot": [0, 8, -7], "groups": antler_groups()}, f, indent=1)
-    paint_antler_patch()
+    antler_textures()
+
+
+# ---------------------------------------------------------------- primitive skull mount
+def mount_assets():
+    """Bleached deer skull nailed to a rough plank. Skull coordinates match the deer head, so the same
+    antler groups (deer_antlers.json, head-relative) sit on it exactly."""
+    hp = [0, 21, -1]          # where the skull's 'head pivot' sits in the mount model
+    parts = [
+        part("plank", hp, [box("plank", (-5, -14, 1), (10, 11, 1), "plank")], "mount_plank"),
+        part("skull", hp, [box("cranium", (-3, -10, -6), (6, 5, 7), "skull"),
+                           box("snout", (-2, -8, -9), (4, 3, 3), "snout")], "mount_skull"),
+    ]
+    size = pack(parts)
+    size = (64, 64)                                   # antler patch lives at y 42-63, like deer.png
+    styles = {"plank": {"c": "#8a6440", "noise": 14, "speckle": {"c": "#6a4a2c", "p": 0.18}},
+              "skull": {"c": "#e8e2d2", "noise": 8, "speckle": {"c": "#d2c8b2", "p": 0.15}, "side_eyes": "#2a2420", "eye_row": 2,
+                        "front": "#e8e2d2"},
+              "snout": {"c": "#ddd6c4", "noise": 6, "nose": "#3a322c"}}
+    emit_model("deer_mount", parts, size)
+    for colour in ANTLER_COLOURS:
+        img = Image.new("RGBA", size, (0, 0, 0, 0))
+        for p_ in parts:
+            for b in p_["boxes"]:
+                paint_box(img, b, styles[b["paint"]])
+        for x, y in [(3 + 1, 1 + 1), (3 + 8, 1 + 1), (3 + 1, 1 + 9), (3 + 8, 1 + 9)]:   # iron nails on the plank front
+            fx, fy = parts[0]["boxes"][0]["uv"]; img.putpixel((fx + 1 + x - 3, fy + 1 + y - 1), (70, 70, 74, 255))
+        paint_antler_patch(img, colour)
+        img.save(os.path.join(ROOT, f"textures/entity/deer_mount{colour}.png"))
+    mount_icons()
+
+MOUNT_ICONS = {   # 16x16 antler silhouettes ('#' pixels), drawn over a skull-on-plank base; tinted by antler colour
+    "s1": ["", "", "", "", "    #      #    ", "    #      #    ", "    #      #    "],
+    "s2": ["", "", "", "  #  #    #  #  ", "  #  #    #  #  ", "   ###    ###   ", "    #      #    ", "    #      #    "],
+    "s3": ["", " # #  ", " # #  #    # # #", " #####      ### ", "#   #      #   #", "    #      #    ", "    #      #    "],
+    "s4": ["# # #      # # #", "# # #      # # #", "#####      #####", "#   #      #   #", "    #      #    ", "    #      #    ", "    #      #    "],
+    "drop3": ["", " # #        # # ", " #####    ##### ", " #  ##    ##  # ", "  # #      # #  ", "    #      #    ", "    #      #    "],
+    "drop4": ["# # #      # # #", "#####      #####", "#  ##      ##  #", " # #        # # ", " # #        # # ", "    #      #    ", "    #      #    "],
+    "cactus": ["## # #    # # ##", "# ####    #### #", "######    ######", "## #  #  #  # ##", "  ###      ###  ", "  # #      # #  ", "    #      #    "],
+    "palmated": [" # # #    # # # ", "#####      #####", "#####      #####", "#####      #####", "  ##        ##  ", "    #      #    ", "    #      #    "],
+    "lopsided": ["# # #           ", "# # #           ", "#####           ", "#   #      #    ", "    #      #    ", "    #      #    ", "    #      #    "],
+}
+
+def mount_icons():
+    base = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    for x in range(3, 13):                     # plank
+        for y in range(6, 16):
+            base.putpixel((x, y), noisy(hexc("#8a6440"), 12))
+    for x, y in [(4, 7), (11, 7), (4, 14), (11, 14)]: base.putpixel((x, y), (70, 70, 74, 255))
+    for y, row in enumerate(["  ####  ", " ###### ", " #o##o# ", " ###### ", "  ####  ", "  #nn#  ", "   ##   "]):
+        for x, ch in enumerate(row):
+            if ch == "#": base.putpixel((4 + x, 7 + y), noisy(hexc("#ece6d6"), 6))
+            elif ch == "o": base.putpixel((4 + x, 7 + y), (42, 36, 32, 255))
+            elif ch == "n": base.putpixel((4 + x, 7 + y), (58, 50, 44, 255))
+    save_item("deer_skull_mount_base", base)
+    for key, rows in MOUNT_ICONS.items():
+        layer = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+        for y, row in enumerate(rows):
+            for x, ch in enumerate(row):
+                if ch == "#" and x < 16: layer.putpixel((x, y), noisy((236, 236, 236), 10))
+        save_item(f"deer_skull_mount_antlers_{key}", layer)
+
+if __name__ == "__main__":
+    mount_assets()

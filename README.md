@@ -58,6 +58,16 @@ The rare **Drop-Tine Buck** carries non-typical tines hanging off its beams: abo
 
 ![Antler stages](docs/antlers.png)
 
+**Collect them.** Every deer also rolls an antler colour (normal, dark about 1 in 5, chocolate about 1 in 17), and when a buck reaches stage 4 it has a small chance of a super-rare rack:
+**Cactus Buck** (knobby points everywhere, ~1%), **Palmated Buck** (flat moose-like paddles, ~0.8%), **Lopsided Buck** (a full rack on one side, a spike on the other, ~1.5%).
+Stage 0 deer just have two little antler-coloured nubs.
+
+**Skull mounts.** Kill an antlered deer and it drops a primitive skull mount (bleached skull nailed to a plank) with that exact rack and colour,
+named for what it is ("Drop-Tine Buck Skull Mount", "Cactus Buck Skull Mount"...). Use it on a wall to hang it; punch it to take it down.
+
+![Rare racks, antler colours and skull mounts](docs/racks_and_mounts.png)
+![A trophy wall](docs/trophy_wall.png)
+
 **They're skittish.** A deer notices you at about 14 blocks walking, 24 sprinting, and only 5 sneaking. Night and rain make you harder to notice. When one deer flags, the whole herd within 16 blocks bolts.
 **Wear camo.** Each piece of leather armor dyed to blend in with the biome you're standing in cuts that distance by 15% (a full matching set: 40%, so sneaking in full camo gets you to about 2 blocks):
 
@@ -80,6 +90,12 @@ Close mixes count too, not just exact dye colours.
 ![A sow with cubs, a turkey flock, and the two squirrels](docs/bears_turkeys_squirrels.png)
 
 Breeding foods: turkey and songbirds take seeds; bears take berries, honey or fish; raccoons take berries, eggs or fish; squirrels take berries or seeds; beavers take saplings.
+
+## Vanilla tweaks
+- **Skeletons come in variants**: cracked skulls, missing ribs, darker aged bones, and the odd dark one with a cracked skull. The variant textures are built on your machine from whatever skeleton texture is active (vanilla, the classic 1.2.5 pack, or any resource pack).
+- **Armadillos drop their scutes when killed** (1-3, more with Looting). No brush needed.
+
+![Skeleton variants](docs/skeletons.png)
 
 ## Biomes
 Rainforest, Seasonal Forest, Shrubland and Tundra (the Beta 1.7 set), placed by **[TerraBlender](https://modrinth.com/mod/terrablender)**. Without TerraBlender everything else still works.

@@ -1,0 +1,93 @@
+{
+ "texture": [
+  64,
+  64
+ ],
+ "parts": [
+  {
+   "name": "plank",
+   "parent": null,
+   "pivot": [
+    0,
+    21,
+    -1
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "mount_plank",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      0
+     ],
+     "from": [
+      -5,
+      -14,
+      1
+     ],
+     "size": [
+      10,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "skull",
+   "parent": null,
+   "pivot": [
+    0,
+    21,
+    -1
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "mount_skull",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      12
+     ],
+     "from": [
+      -3,
+      -10,
+      -6
+     ],
+     "size": [
+      6,
+      5,
+      7
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      0,
+      24
+     ],
+     "from": [
+      -2,
+      -8,
+      -9
+     ],
+     "size": [
+      4,
+      3,
+      3
+     ],
+     "mirror": false
+    }
+   ]
+  }
+ ]
+}

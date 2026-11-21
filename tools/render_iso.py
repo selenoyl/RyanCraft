@@ -41,19 +41,25 @@ HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel)
         *[Pt([x, 18, 1], [B([36, 0], [-0.5, 0, -0.5], [1, 6, 1])]) for x in (-1.5, 1.5)]]),
 }
 
-def deer_antlers(stage, drop=False):
+def deer_antlers(stage, drop=False, head_pivot=None):
     spec = json.load(open(os.path.join(ROOT, "critter_models", "deer_antlers.json")))
-    hp = spec["head_pivot"]; out = []
-    keys = ([str(stage)] if stage else []) + ([f"drop{stage}"] if drop and stage >= 3 else [])
+    hp = head_pivot or spec["head_pivot"]; out = []
+    if isinstance(stage, str) and not stage.isdigit(): keys = [stage]          # rare racks: cactus, palmated, lopsided
+    else:
+        stage = int(stage); keys = [str(stage)] + ([f"drop{stage}"] if drop and stage >= 3 else [])
     for k in keys:
         for p in spec["groups"][k]:
             out.append({"pivot": [hp[i] + p["pivot"][i] for i in range(3)], "rot": p["rot"], "boxes": p["boxes"]})
     return out
 
 def load_model(name):
-    if name.startswith("deer:"):            # deer:<stage>[:drop]
+    if name.startswith("deer:"):            # deer:<stage|rare>[:drop]
         bits = name.split(":"); tw, th, parts = HAND["deer"]
-        return (tw, th), parts + deer_antlers(int(bits[1]), len(bits) > 2)
+        return (tw, th), parts + deer_antlers(bits[1], len(bits) > 2)
+    if name.startswith("mount:"):           # mount:<stage|rare>[:drop]
+        bits = name.split(":")
+        spec = json.load(open(os.path.join(ROOT, "critter_models", "deer_mount.json")))
+        return tuple(spec["texture"]), spec["parts"] + deer_antlers(bits[1], len(bits) > 2, head_pivot=[0, 21, -1])
     if name in HAND:
         tw, th, parts = HAND[name]; return (tw, th), parts
     spec = json.load(open(os.path.join(ROOT, "critter_models", name + ".json")))

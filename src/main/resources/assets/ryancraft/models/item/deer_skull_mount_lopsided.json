@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ryancraft:item/deer_skull_mount_base",
+    "layer1": "ryancraft:item/deer_skull_mount_antlers_lopsided"
+  }
+}

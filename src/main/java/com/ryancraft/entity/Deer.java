@@ -46,6 +46,11 @@ public class Deer extends RyanAnimal {
     private static final int MIN_STAGE_TICKS = 14 * DAY, MAX_STAGE_TICKS = 21 * DAY;
     private static final EntityDataAccessor<Integer> ANTLERS = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DROP_TINE = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.BOOLEAN);
+    /** 0 typical, 1 cactus, 2 palmated, 3 lopsided (the last three are super rare, stage 4 only). */
+    private static final EntityDataAccessor<Integer> RACK = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.INT);
+    /** 0 normal, 1 dark, 2 chocolate. */
+    private static final EntityDataAccessor<Integer> ANTLER_COLOR = SynchedEntityData.defineId(Deer.class, EntityDataSerializers.INT);
+    public static final String[] RACK_NAMES = {"typical", "cactus", "palmated", "lopsided"};
 
     private int antlerAge;
     private int nextStage = -1;
@@ -96,10 +101,28 @@ public class Deer extends RyanAnimal {
         super.defineSynchedData(builder);
         builder.define(ANTLERS, 0);
         builder.define(DROP_TINE, false);
+        builder.define(RACK, 0);
+        builder.define(ANTLER_COLOR, 0);
     }
 
     public int getAntlers() { return this.entityData.get(ANTLERS); }
     public boolean hasDropTine() { return this.entityData.get(DROP_TINE); }
+    public int getRack() { return this.entityData.get(RACK); }
+    public int getAntlerColor() { return this.entityData.get(ANTLER_COLOR); }
+    public void setRack(int rack) { this.entityData.set(RACK, Math.max(0, Math.min(3, rack))); }
+    public void setAntlerColor(int c) { this.entityData.set(ANTLER_COLOR, Math.max(0, Math.min(2, c))); }
+
+    /** Antler colour for a new deer: mostly normal, some dark, a few chocolate. */
+    private int rollAntlerColor() {
+        int r = this.random.nextInt(100);
+        return r < 72 ? 0 : r < 94 ? 1 : 2;
+    }
+
+    /** Super-rare racks, rolled when a buck reaches (or spawns at) stage 4. */
+    private int rollRareRack() {
+        int r = this.random.nextInt(1000);
+        return r < 10 ? 1 : r < 18 ? 2 : r < 33 ? 3 : 0;     // cactus 1%, palmated 0.8%, lopsided 1.5%
+    }
 
     public void setAntlers(int stage, boolean dropTine) {
         stage = Math.max(0, Math.min(MAX_ANTLERS, stage));
@@ -125,6 +148,7 @@ public class Deer extends RyanAnimal {
             // A few bucks turn non-typical as their rack fills out
             boolean drop = hasDropTine() || (stage >= 3 && this.random.nextInt(25) == 0);
             setAntlers(stage, drop);
+            if (stage == MAX_ANTLERS && getRack() == 0) setRack(rollRareRack());
             antlerAge = 0;
             nextStage = stageLength();
         }
@@ -139,12 +163,24 @@ public class Deer extends RyanAnimal {
             int roll = this.random.nextInt(100);
             int stage = roll < 26 ? 0 : roll < 50 ? 1 : roll < 72 ? 2 : roll < 90 ? 3 : 4;
             setAntlers(stage, stage >= 3 && this.random.nextInt(33) == 0);
+            if (stage == MAX_ANTLERS) setRack(rollRareRack());
             nextStage = stageLength();
             antlerAge = this.random.nextInt(nextStage);   // stagger growth across the herd
         } else {
             setAntlers(0, false);
         }
+        setAntlerColor(rollAntlerColor());
         return result;
+    }
+
+    /** Hunted bucks leave their rack: a skull mount that matches it exactly. */
+    @Override
+    protected void dropCustomDeathLoot(ServerLevel level, net.minecraft.world.damagesource.DamageSource source, boolean recentlyHit) {
+        super.dropCustomDeathLoot(level, source, recentlyHit);
+        boolean byPlayer = source.getEntity() instanceof Player || this.getLastHurtByPlayer() != null;
+        if (byPlayer && !this.isBaby() && getAntlers() >= 1) {
+            this.spawnAtLocation(level, com.ryancraft.item.DeerSkullMountItem.create(getAntlers(), hasDropTine(), getRack(), getAntlerColor()));
+        }
     }
 
     @Override
@@ -154,6 +190,8 @@ public class Deer extends RyanAnimal {
         out.putBoolean("DropTine", hasDropTine());
         out.putInt("AntlerAge", antlerAge);
         out.putInt("NextAntlerStage", nextStage);
+        out.putInt("Rack", getRack());
+        out.putInt("AntlerColor", getAntlerColor());
     }
 
     @Override
@@ -162,10 +200,14 @@ public class Deer extends RyanAnimal {
         setAntlers(in.getIntOr("Antlers", 0), in.getBooleanOr("DropTine", false));
         antlerAge = in.getIntOr("AntlerAge", 0);
         nextStage = in.getIntOr("NextAntlerStage", -1);
+        setRack(in.getIntOr("Rack", 0));
+        setAntlerColor(in.getIntOr("AntlerColor", 0));
     }
 
     @Override
     protected net.minecraft.network.chat.Component getTypeName() {
+        if (getRack() > 0 && getAntlers() == MAX_ANTLERS)
+            return net.minecraft.network.chat.Component.translatable("entity.ryancraft.deer." + RACK_NAMES[getRack()]);
         if (hasDropTine()) return net.minecraft.network.chat.Component.translatable("entity.ryancraft.deer.drop_tine");
         if (getAntlers() == MAX_ANTLERS) return net.minecraft.network.chat.Component.translatable("entity.ryancraft.deer.trophy");
         return super.getTypeName();
@@ -198,7 +240,9 @@ public class Deer extends RyanAnimal {
 
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
-        return RyanEntities.DEER.create(level, EntitySpawnReason.BREEDING);
+        Deer fawn = RyanEntities.DEER.create(level, EntitySpawnReason.BREEDING);
+        if (fawn != null) fawn.setAntlerColor(this.random.nextInt(100) < 72 ? 0 : this.random.nextInt(100) < 80 ? 1 : 2);
+        return fawn;
     }
 
     @Override

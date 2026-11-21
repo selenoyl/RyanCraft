@@ -10,7 +10,9 @@ import net.minecraft.resources.Identifier;
 
 /** Deer with antlers that match the animal's age stage (and the rare drop-tine rack). */
 public class DeerRenderer extends MobRenderer<Deer, DeerRenderState, DeerModel> {
-    private static final Identifier TEXTURE = RyanCraft.id("textures/entity/deer.png");
+    /** Antler colour variants: normal, dark, chocolate. */
+    private static final Identifier[] TEXTURES = {RyanCraft.id("textures/entity/deer.png"),
+            RyanCraft.id("textures/entity/deer_dark.png"), RyanCraft.id("textures/entity/deer_chocolate.png")};
 
     public DeerRenderer(EntityRendererProvider.Context ctx) {
         super(ctx, new DeerModel(ctx.bakeLayer(DeerModel.LAYER)), 0.6f);
@@ -21,11 +23,15 @@ public class DeerRenderer extends MobRenderer<Deer, DeerRenderState, DeerModel> 
     @Override
     public void extractRenderState(Deer deer, DeerRenderState state, float partialTick) {
         super.extractRenderState(deer, state, partialTick);
-        state.antlers = deer.isBaby() ? 0 : deer.getAntlers();
+        state.antlers = deer.isBaby() ? -1 : deer.getAntlers();     // fawns are bare
         state.dropTine = deer.hasDropTine();
+        state.rack = deer.getRack();
+        state.antlerColor = deer.getAntlerColor();
     }
 
-    @Override public Identifier getTextureLocation(DeerRenderState state) { return TEXTURE; }
+    @Override public Identifier getTextureLocation(DeerRenderState state) {
+        return TEXTURES[Math.floorMod(state.antlerColor, TEXTURES.length)];
+    }
 
     @Override
     protected void scale(DeerRenderState state, PoseStack pose) {
