@@ -76,4 +76,4 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 ## Build
 Needs Java 21: `./gradlew build` (jar in `build/libs/`), `./gradlew runClient`.
 
-Regenerating art and sound: `python3 tools/critters.py` (models + textures from one spec), `python3 tools/synth_ambience.py` (needs numpy, scipy, ffmpeg), `python3 tools/resources.py` (JSON data).
+Regenerating art and sound: `python3 tools/critters.py` (models + textures from one spec), `python3 tools/check_fit.py` (fails if any head, leg, tail or ear floats free of its body), `python3 tools/synth_ambience.py` (needs numpy, scipy, ffmpeg), `python3 tools/resources.py` (JSON data).

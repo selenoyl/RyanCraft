@@ -37,7 +37,8 @@ def quad(body, leg, head, snout=None, ears=None, tail=None, head_up=0, head_fwd=
         hb.append(box("ear_r", (-hw / 2, -hh / 2 - eh, -hd / 2 - 0.5), (ew, eh, 1), "ear"))
         hb.append(box("ear_l", (hw / 2 - ew, -hh / 2 - eh, -hd / 2 - 0.5), (ew, eh, 1), "ear", mirror=True))
     hb += list(extra_head)
-    parts.append(part("head", (0, body_top + hh / 2 - head_up, -bl / 2 + 1 - head_fwd), hb, "head"))
+    # The head's back face sits 1px inside the body, so turning the head never opens a gap.
+    parts.append(part("head", (0, body_top + hh / 2 - head_up, -bl / 2 + 1), hb, "head"))
     for nm, sx, sz, role in [("leg_rf", -1, -1, "leg_rf"), ("leg_lf", 1, -1, "leg_lf"), ("leg_rb", -1, 1, "leg_rb"), ("leg_lb", 1, 1, "leg_lb")]:
         x = sx * (bw / 2 - lw / 2); z = sz * (bl / 2 - lw / 2 - leg_inset)
         parts.append(part(nm, (x, 24 - lh, z), [box("leg", (-lw / 2, 0, -lw / 2), (lw, lh, lw), "leg", mirror=sx > 0)], role))
@@ -94,7 +95,7 @@ MODELS = {
 # paint = per box-paint-key style dict (see painter below)
 P = {}
 P["black_bear"] = {
-    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#3a2a1a", "eye_row": 3},
+    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#7a5232", "eye_row": 3},
               "snout": {"c": "#b08a5e", "nose": "#111111"}, "ear": {"c": "#141212"}, "leg": {"c": "#161414"}, "tail": {"c": "#1d1b1b"}},
     "cinnamon": {"body": {"c": "#7b4a28", "noise": 10}, "head": {"c": "#7b4a28", "eyes": "#1a1a1a", "eye_row": 3},
                  "snout": {"c": "#c79a68", "nose": "#111111"}, "ear": {"c": "#6a3d20"}, "leg": {"c": "#5e361c"}, "tail": {"c": "#7b4a28"}},
@@ -125,14 +126,14 @@ P["squirrel"] = {
     "gray_squirrel": {
         "body": {"c": "#8e8b86", "noise": 6, "grizzle": {"c": ["#5f5c58", "#c2beb6", "#9c7c60"], "p": [0.24, 0.2, 0.16]}, "belly": "#f0ece4"},
         "head": {"c": "#8a857f", "noise": 6, "grizzle": {"c": ["#5f5c58", "#a8825e", "#bdb8b0"], "p": [0.18, 0.25, 0.15]},
-                 "bottom": "#f0ece4", "side_eyes": "#0a0a0a", "eye_ring": "#ece8e0", "eye_row": 1},
+                 "bottom": "#f0ece4", "eyes": "#0a0a0a", "eye_row": 1, "nose": "#5a4a44"},
         "ear": {"c": "#9c8f84", "noise": 6}, "leg": {"c": "#8f7c6a", "noise": 8},
         "tail": {"c": "#7a7774", "noise": 8, "grizzle": {"c": ["#3c3a38", "#c8c4bc"], "p": [0.3, 0.2]}, "fringe": "#ece8e2"}},
     # Fox squirrel: bigger, rusty-grizzled back, orange belly, orange-fringed tail
     "fox_squirrel": {
         "body": {"c": "#9a6740", "noise": 6, "grizzle": {"c": ["#5e3e28", "#c08a58", "#7d7168"], "p": [0.24, 0.24, 0.12]}, "belly": "#d9883f"},
         "head": {"c": "#8c6040", "noise": 6, "grizzle": {"c": ["#5e3e28", "#a87a50"], "p": [0.2, 0.25]},
-                 "bottom": "#e0a46a", "side_eyes": "#0a0a0a", "eye_ring": "#d8a878", "eye_row": 1},
+                 "bottom": "#e0a46a", "eyes": "#0a0a0a", "eye_row": 1, "nose": "#4a3020"},
         "ear": {"c": "#c47a42", "noise": 6}, "leg": {"c": "#b8743c", "noise": 8},
         "tail": {"c": "#a4643a", "noise": 8, "grizzle": {"c": ["#4a3020", "#c88a50"], "p": [0.25, 0.2]}, "fringe": "#e29a52"}},
 }
