@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "ryancraft:block/sycamore_door_bottom",
+    "top": "ryancraft:block/sycamore_door_top"
+  }
+}

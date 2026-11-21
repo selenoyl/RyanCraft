@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "ryancraft:block/eastern_red_cedar_door_bottom",
+    "top": "ryancraft:block/eastern_red_cedar_door_top"
+  }
+}

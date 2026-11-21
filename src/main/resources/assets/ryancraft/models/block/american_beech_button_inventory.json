@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "ryancraft:block/american_beech_planks"
+  }
+}

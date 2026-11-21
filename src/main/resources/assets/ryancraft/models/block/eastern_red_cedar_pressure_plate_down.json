@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_down",
+  "textures": {
+    "texture": "ryancraft:block/eastern_red_cedar_planks"
+  }
+}

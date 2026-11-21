@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ryancraft:block/stripped_shagbark_hickory_log",
+    "side": "ryancraft:block/stripped_shagbark_hickory_log"
+  }
+}

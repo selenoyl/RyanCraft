@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/eastern_redbud_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/eastern_redbud_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/eastern_redbud_slab_top"
+    }
+  }
+}

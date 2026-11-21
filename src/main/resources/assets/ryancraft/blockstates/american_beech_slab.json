@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/american_beech_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/american_beech_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/american_beech_slab_top"
+    }
+  }
+}

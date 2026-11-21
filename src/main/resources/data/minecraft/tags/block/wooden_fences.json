@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_fence",
+    "ryancraft:red_oak_fence",
+    "ryancraft:sugar_maple_fence",
+    "ryancraft:red_maple_fence",
+    "ryancraft:tulip_poplar_fence",
+    "ryancraft:shagbark_hickory_fence",
+    "ryancraft:black_walnut_fence",
+    "ryancraft:american_beech_fence",
+    "ryancraft:sycamore_fence",
+    "ryancraft:eastern_redbud_fence",
+    "ryancraft:flowering_dogwood_fence",
+    "ryancraft:eastern_red_cedar_fence",
+    "ryancraft:black_cherry_fence",
+    "ryancraft:sassafras_fence",
+    "ryancraft:ohio_buckeye_fence"
+  ]
+}

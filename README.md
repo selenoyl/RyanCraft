@@ -104,6 +104,17 @@ Breeding foods: turkey and songbirds take seeds; bears take berries, honey or fi
 
 ![Skeleton variants](docs/skeletons.png)
 
+## Trees
+Fifteen eastern US trees grow in the world: white and red oak, sugar and red maple, tulip poplar, shagbark hickory,
+black walnut, American beech, sycamore, eastern redbud, flowering dogwood, eastern red cedar, black cherry, sassafras
+and Ohio buckeye. The hardwoods mix into forests, redbud and dogwood fill the understory, sycamores line rivers and
+swamps, and red cedars dot plains, hills and savannas. No two trees are the same: each one varies in height, limbs,
+crown and lean, and some fork into twin trunks. Every species has a full wood set (logs, stripped logs, planks,
+slabs, stairs, fences, gates, doors, trapdoors, buttons, pressure plates, leaves and saplings), and its door and
+trapdoor have their own design.
+
+![Tree variation](docs/trees_variation_small.png)
+
 ## Biomes
 Rainforest, Seasonal Forest, Shrubland and Tundra (the Beta 1.7 set), placed by **[TerraBlender](https://modrinth.com/mod/terrablender)**. Without TerraBlender everything else still works.
 

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_slab",
+    "ryancraft:red_oak_slab",
+    "ryancraft:sugar_maple_slab",
+    "ryancraft:red_maple_slab",
+    "ryancraft:tulip_poplar_slab",
+    "ryancraft:shagbark_hickory_slab",
+    "ryancraft:black_walnut_slab",
+    "ryancraft:american_beech_slab",
+    "ryancraft:sycamore_slab",
+    "ryancraft:eastern_redbud_slab",
+    "ryancraft:flowering_dogwood_slab",
+    "ryancraft:eastern_red_cedar_slab",
+    "ryancraft:black_cherry_slab",
+    "ryancraft:sassafras_slab",
+    "ryancraft:ohio_buckeye_slab"
+  ]
+}

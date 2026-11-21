@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right",
+  "textures": {
+    "bottom": "ryancraft:block/flowering_dogwood_door_bottom",
+    "top": "ryancraft:block/flowering_dogwood_door_top"
+  }
+}

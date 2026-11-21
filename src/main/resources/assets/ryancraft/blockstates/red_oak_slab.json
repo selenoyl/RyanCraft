@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/red_oak_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/red_oak_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/red_oak_slab_top"
+    }
+  }
+}

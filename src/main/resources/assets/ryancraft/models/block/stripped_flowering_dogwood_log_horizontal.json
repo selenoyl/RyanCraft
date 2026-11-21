@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "ryancraft:block/stripped_flowering_dogwood_log_top",
+    "side": "ryancraft:block/stripped_flowering_dogwood_log"
+  }
+}

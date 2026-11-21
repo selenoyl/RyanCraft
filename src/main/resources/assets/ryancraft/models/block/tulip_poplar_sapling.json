@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "ryancraft:block/tulip_poplar_sapling"
+  }
+}

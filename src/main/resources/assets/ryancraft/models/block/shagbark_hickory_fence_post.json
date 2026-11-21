@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "ryancraft:block/shagbark_hickory_planks"
+  }
+}

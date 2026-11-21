@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_stairs",
+    "ryancraft:red_oak_stairs",
+    "ryancraft:sugar_maple_stairs",
+    "ryancraft:red_maple_stairs",
+    "ryancraft:tulip_poplar_stairs",
+    "ryancraft:shagbark_hickory_stairs",
+    "ryancraft:black_walnut_stairs",
+    "ryancraft:american_beech_stairs",
+    "ryancraft:sycamore_stairs",
+    "ryancraft:eastern_redbud_stairs",
+    "ryancraft:flowering_dogwood_stairs",
+    "ryancraft:eastern_red_cedar_stairs",
+    "ryancraft:black_cherry_stairs",
+    "ryancraft:sassafras_stairs",
+    "ryancraft:ohio_buckeye_stairs"
+  ]
+}

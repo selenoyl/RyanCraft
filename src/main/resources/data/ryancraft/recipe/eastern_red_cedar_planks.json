@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:eastern_red_cedar_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:eastern_red_cedar_planks"
+  }
+}

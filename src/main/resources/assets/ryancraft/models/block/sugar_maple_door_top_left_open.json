@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "ryancraft:block/sugar_maple_door_bottom",
+    "top": "ryancraft:block/sugar_maple_door_top"
+  }
+}

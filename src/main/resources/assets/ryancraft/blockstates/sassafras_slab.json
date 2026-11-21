@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/sassafras_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/sassafras_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/sassafras_slab_top"
+    }
+  }
+}

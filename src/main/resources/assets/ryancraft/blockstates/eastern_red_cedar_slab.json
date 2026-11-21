@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/eastern_red_cedar_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/eastern_red_cedar_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/eastern_red_cedar_slab_top"
+    }
+  }
+}

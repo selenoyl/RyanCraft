@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/sycamore_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/sycamore_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/sycamore_slab_top"
+    }
+  }
+}

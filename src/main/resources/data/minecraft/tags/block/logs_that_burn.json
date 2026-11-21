@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "#ryancraft:white_oak_logs",
+    "#ryancraft:red_oak_logs",
+    "#ryancraft:sugar_maple_logs",
+    "#ryancraft:red_maple_logs",
+    "#ryancraft:tulip_poplar_logs",
+    "#ryancraft:shagbark_hickory_logs",
+    "#ryancraft:black_walnut_logs",
+    "#ryancraft:american_beech_logs",
+    "#ryancraft:sycamore_logs",
+    "#ryancraft:eastern_redbud_logs",
+    "#ryancraft:flowering_dogwood_logs",
+    "#ryancraft:eastern_red_cedar_logs",
+    "#ryancraft:black_cherry_logs",
+    "#ryancraft:sassafras_logs",
+    "#ryancraft:ohio_buckeye_logs"
+  ]
+}

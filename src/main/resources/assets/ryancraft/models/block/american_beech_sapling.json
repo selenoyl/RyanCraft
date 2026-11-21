@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "ryancraft:block/american_beech_sapling"
+  }
+}

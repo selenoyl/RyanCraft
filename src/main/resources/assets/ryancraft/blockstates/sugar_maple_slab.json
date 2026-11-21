@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/sugar_maple_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/sugar_maple_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/sugar_maple_slab_top"
+    }
+  }
+}

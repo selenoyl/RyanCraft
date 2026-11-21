@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_button",
+    "ryancraft:red_oak_button",
+    "ryancraft:sugar_maple_button",
+    "ryancraft:red_maple_button",
+    "ryancraft:tulip_poplar_button",
+    "ryancraft:shagbark_hickory_button",
+    "ryancraft:black_walnut_button",
+    "ryancraft:american_beech_button",
+    "ryancraft:sycamore_button",
+    "ryancraft:eastern_redbud_button",
+    "ryancraft:flowering_dogwood_button",
+    "ryancraft:eastern_red_cedar_button",
+    "ryancraft:black_cherry_button",
+    "ryancraft:sassafras_button",
+    "ryancraft:ohio_buckeye_button"
+  ]
+}

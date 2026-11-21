@@ -103,16 +103,12 @@ follow you or live at a den, help out day to day (ore-sniffing, crop growth, fet
 through visible stages. The sparring side is covered by mudlings.
 
 ## Trees
-**Common eastern US trees**, each with the full vanilla set: log and wood, **stripped (debarked) log and wood**,
-planks, slabs, stairs, fences, doors, trapdoors, signs, boats, leaves and saplings. Shape sketches: `docs/trees.png`
-(`python3 tools/trees.py`); first block textures, including the stripped logs: `docs/tree_textures.png`
-(`python3 tools/tree_textures.py`). The plate-style bark (sugar maple, redbud, buckeye) needs a rougher pass.
-- Oaks: white oak, red oak
-- Maples: sugar maple (orange-red in fall), red maple
-- Tulip poplar (Kentucky's state tree)
-- Hickory, black walnut, American beech, sycamore
-- Eastern redbud and flowering dogwood (spring blossoms)
-- Eastern red cedar, black cherry, sassafras, Ohio buckeye
+**Built:** all 15 species, generating in the world and growing from saplings, each with log, wood, stripped log and
+wood, planks, slab, stairs, fence, gate, door, trapdoor, button, pressure plate, leaves and sapling. Every tree rolls
+its own height, limbs, crown size and occasional forks, so no two match. Still to do:
+- **Signs, hanging signs and boats** for each species (these need their own wood type, entity and textures).
+- **Fall colours** (sugar maple orange-red, red maple scarlet, and so on) once seasons arrive.
+- A rougher pass on the plate-style bark (sugar maple, redbud, buckeye).
 
 ## Blocks and backports
 - **Concrete slabs and stairs**, backported from newer versions.

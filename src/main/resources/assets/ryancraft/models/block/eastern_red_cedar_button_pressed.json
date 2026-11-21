@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_pressed",
+  "textures": {
+    "texture": "ryancraft:block/eastern_red_cedar_planks"
+  }
+}

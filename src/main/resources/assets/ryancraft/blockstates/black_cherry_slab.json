@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/black_cherry_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/black_cherry_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/black_cherry_slab_top"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_pressure_plate",
+    "ryancraft:red_oak_pressure_plate",
+    "ryancraft:sugar_maple_pressure_plate",
+    "ryancraft:red_maple_pressure_plate",
+    "ryancraft:tulip_poplar_pressure_plate",
+    "ryancraft:shagbark_hickory_pressure_plate",
+    "ryancraft:black_walnut_pressure_plate",
+    "ryancraft:american_beech_pressure_plate",
+    "ryancraft:sycamore_pressure_plate",
+    "ryancraft:eastern_redbud_pressure_plate",
+    "ryancraft:flowering_dogwood_pressure_plate",
+    "ryancraft:eastern_red_cedar_pressure_plate",
+    "ryancraft:black_cherry_pressure_plate",
+    "ryancraft:sassafras_pressure_plate",
+    "ryancraft:ohio_buckeye_pressure_plate"
+  ]
+}

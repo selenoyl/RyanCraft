@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/ohio_buckeye_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/ohio_buckeye_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/ohio_buckeye_slab_top"
+    }
+  }
+}

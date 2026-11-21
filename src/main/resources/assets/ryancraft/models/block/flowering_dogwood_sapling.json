@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "ryancraft:block/flowering_dogwood_sapling"
+  }
+}

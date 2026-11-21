@@ -1,7 +1,7 @@
 """
 Block textures for the eastern US trees: bark log (side + top), stripped/debarked log (side + top), planks, leaves.
   python3 tools/tree_textures.py
-Writes src/main/resources/assets/ryancraft/textures/block/<species>_{log,log_top,stripped_log,stripped_log_top,planks,leaves}.png
+Writes src/main/resources/assets/ryancraft/textures/block/<species>_{log,log_top,planks,leaves}.png and stripped_<species>_{log,log_top}.png
 and a preview sheet at docs/tree_textures.png.
 """
 import math, os, random
@@ -192,13 +192,15 @@ def bark_base(r, base):
     return img
 
 def leaves(seed, leaf, bloom=None, bloom_only=False):
-    r = random.Random(seed); l = hexc(leaf); img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
+    r = random.Random(seed); l = hexc(leaf)
+    # see-through pixels keep a dark leaf colour, which is what shows with Fast leaves (like vanilla's textures)
+    img = Image.new("RGBA", (16, 16), shade(l, .42) + (0,)); px = img.load()
     for x in range(16):
         for y in range(16):
-            if r.random() < 0.12: continue                     # holes, like vanilla fancy leaves
+            if r.random() < 0.12: px[x, y] = jit(r, shade(l, .42), 4) + (0,); continue                     # holes, like vanilla fancy leaves
             c = l
             if bloom and r.random() < 0.7: c = hexc(bloom)
-            elif bloom_only: continue                          # pure blossom: the gaps are see-through
+            elif bloom_only: px[x, y] = jit(r, shade(l, .5), 4) + (0,); continue                          # pure blossom: the gaps are see-through
             px[x, y] = jit(r, shade(c, r.choice((.8, .95, 1.0, 1.1))), 6) + (255,)
     return img
 
@@ -218,12 +220,14 @@ if __name__ == "__main__":
     for k, (name, (bark, pattern, wood, leaf, bloom)) in enumerate(TREES.items()):
         s = 7000 + k * 10
         texs = {"log": bark_side(s, bark, pattern), "log_top": log_top(s + 1, bark, wood),
-                "stripped_log": stripped_side(s + 2, wood), "stripped_log_top": log_top(s + 3, bark, wood, True),
+                "STRIP_log": stripped_side(s + 2, wood), "STRIP_log_top": log_top(s + 3, bark, wood, True),
                 "planks": planks(s + 4, wood), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"))}
-        for suffix, im in texs.items(): im.save(os.path.join(OUT, f"{name}_{suffix}.png"))
+        for suffix, im in texs.items():
+            fn = f"stripped_{name}_{suffix[6:]}" if suffix.startswith("STRIP_") else f"{name}_{suffix}"
+            im.save(os.path.join(OUT, fn + ".png"))
         y = 100 + k * rowh
         d.text((24, y + T // 2), name.replace("_", " ").title(), font=font(18, True), fill=(46, 42, 36), anchor="lm")
-        for i, suffix in enumerate(["log", "log_top", "stripped_log", "stripped_log_top", "planks", "leaves"]):
+        for i, suffix in enumerate(["log", "log_top", "STRIP_log", "STRIP_log_top", "planks", "leaves"]):
             big = texs[suffix].resize((T, T), Image.NEAREST)
             bg = Image.new("RGBA", (T, T), (205, 198, 184, 255)); bg.alpha_composite(big)
             sheet.paste(bg.convert("RGB"), (260 + i * (T + 16), y))

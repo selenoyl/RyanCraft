@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_side",
+  "textures": {
+    "texture": "ryancraft:block/black_cherry_planks"
+  }
+}

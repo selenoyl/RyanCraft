@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_planks",
+    "ryancraft:red_oak_planks",
+    "ryancraft:sugar_maple_planks",
+    "ryancraft:red_maple_planks",
+    "ryancraft:tulip_poplar_planks",
+    "ryancraft:shagbark_hickory_planks",
+    "ryancraft:black_walnut_planks",
+    "ryancraft:american_beech_planks",
+    "ryancraft:sycamore_planks",
+    "ryancraft:eastern_redbud_planks",
+    "ryancraft:flowering_dogwood_planks",
+    "ryancraft:eastern_red_cedar_planks",
+    "ryancraft:black_cherry_planks",
+    "ryancraft:sassafras_planks",
+    "ryancraft:ohio_buckeye_planks"
+  ]
+}

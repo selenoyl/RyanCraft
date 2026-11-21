@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_leaves",
+    "ryancraft:red_oak_leaves",
+    "ryancraft:sugar_maple_leaves",
+    "ryancraft:red_maple_leaves",
+    "ryancraft:tulip_poplar_leaves",
+    "ryancraft:shagbark_hickory_leaves",
+    "ryancraft:black_walnut_leaves",
+    "ryancraft:american_beech_leaves",
+    "ryancraft:sycamore_leaves",
+    "ryancraft:eastern_redbud_leaves",
+    "ryancraft:flowering_dogwood_leaves",
+    "ryancraft:eastern_red_cedar_leaves",
+    "ryancraft:black_cherry_leaves",
+    "ryancraft:sassafras_leaves",
+    "ryancraft:ohio_buckeye_leaves"
+  ]
+}

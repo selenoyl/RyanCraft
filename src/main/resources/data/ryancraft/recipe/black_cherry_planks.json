@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:black_cherry_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:black_cherry_planks"
+  }
+}

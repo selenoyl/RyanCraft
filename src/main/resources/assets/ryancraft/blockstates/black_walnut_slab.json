@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/black_walnut_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/black_walnut_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/black_walnut_slab_top"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ryancraft:block/american_beech_sapling"
+  }
+}

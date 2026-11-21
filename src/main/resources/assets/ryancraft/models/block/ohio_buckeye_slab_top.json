@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "ryancraft:block/ohio_buckeye_planks",
+    "side": "ryancraft:block/ohio_buckeye_planks",
+    "top": "ryancraft:block/ohio_buckeye_planks"
+  }
+}

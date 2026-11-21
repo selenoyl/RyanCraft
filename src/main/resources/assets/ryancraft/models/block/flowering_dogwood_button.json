@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "ryancraft:block/flowering_dogwood_planks"
+  }
+}

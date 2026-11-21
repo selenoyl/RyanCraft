@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "ryancraft:block/sugar_maple_pressure_plate"
+    },
+    "powered=true": {
+      "model": "ryancraft:block/sugar_maple_pressure_plate_down"
+    }
+  }
+}

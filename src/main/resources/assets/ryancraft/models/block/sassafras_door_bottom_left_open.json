@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_left_open",
+  "textures": {
+    "bottom": "ryancraft:block/sassafras_door_bottom",
+    "top": "ryancraft:block/sassafras_door_top"
+  }
+}

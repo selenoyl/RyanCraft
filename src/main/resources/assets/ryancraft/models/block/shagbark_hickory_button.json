@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "ryancraft:block/shagbark_hickory_planks"
+  }
+}

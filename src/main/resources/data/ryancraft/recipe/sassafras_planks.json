@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:sassafras_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:sassafras_planks"
+  }
+}

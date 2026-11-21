@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "group": "wooden_button",
+  "ingredients": [
+    "ryancraft:red_maple_planks"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ryancraft:red_maple_button"
+  }
+}

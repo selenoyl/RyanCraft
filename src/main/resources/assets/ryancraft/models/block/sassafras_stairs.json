@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "ryancraft:block/sassafras_planks",
+    "side": "ryancraft:block/sassafras_planks",
+    "top": "ryancraft:block/sassafras_planks"
+  }
+}

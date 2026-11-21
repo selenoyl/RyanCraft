@@ -22,6 +22,7 @@ public class RyanCraft implements ModInitializer {
         RyanItems.init();
         RyanEntities.init();
         RyanBiomes.init();
+        com.ryancraft.trees.RyanWood.init();
         LOGGER.info("RyanCraft loaded. Boars are in the woods.");
     }
 }

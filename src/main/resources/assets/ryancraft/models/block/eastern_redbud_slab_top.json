@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "ryancraft:block/eastern_redbud_planks",
+    "side": "ryancraft:block/eastern_redbud_planks",
+    "top": "ryancraft:block/eastern_redbud_planks"
+  }
+}

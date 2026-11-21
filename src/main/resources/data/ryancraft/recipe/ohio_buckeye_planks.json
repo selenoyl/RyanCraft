@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:ohio_buckeye_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:ohio_buckeye_planks"
+  }
+}

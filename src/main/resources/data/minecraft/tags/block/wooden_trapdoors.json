@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_trapdoor",
+    "ryancraft:red_oak_trapdoor",
+    "ryancraft:sugar_maple_trapdoor",
+    "ryancraft:red_maple_trapdoor",
+    "ryancraft:tulip_poplar_trapdoor",
+    "ryancraft:shagbark_hickory_trapdoor",
+    "ryancraft:black_walnut_trapdoor",
+    "ryancraft:american_beech_trapdoor",
+    "ryancraft:sycamore_trapdoor",
+    "ryancraft:eastern_redbud_trapdoor",
+    "ryancraft:flowering_dogwood_trapdoor",
+    "ryancraft:eastern_red_cedar_trapdoor",
+    "ryancraft:black_cherry_trapdoor",
+    "ryancraft:sassafras_trapdoor",
+    "ryancraft:ohio_buckeye_trapdoor"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "ryancraft:block/sassafras_planks"
+  }
+}

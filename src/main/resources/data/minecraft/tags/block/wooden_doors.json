@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_door",
+    "ryancraft:red_oak_door",
+    "ryancraft:sugar_maple_door",
+    "ryancraft:red_maple_door",
+    "ryancraft:tulip_poplar_door",
+    "ryancraft:shagbark_hickory_door",
+    "ryancraft:black_walnut_door",
+    "ryancraft:american_beech_door",
+    "ryancraft:sycamore_door",
+    "ryancraft:eastern_redbud_door",
+    "ryancraft:flowering_dogwood_door",
+    "ryancraft:eastern_red_cedar_door",
+    "ryancraft:black_cherry_door",
+    "ryancraft:sassafras_door",
+    "ryancraft:ohio_buckeye_door"
+  ]
+}

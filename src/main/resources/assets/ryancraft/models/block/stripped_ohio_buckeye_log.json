@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ryancraft:block/stripped_ohio_buckeye_log_top",
+    "side": "ryancraft:block/stripped_ohio_buckeye_log"
+  }
+}

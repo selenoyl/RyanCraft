@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/flowering_dogwood_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/flowering_dogwood_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/flowering_dogwood_slab_top"
+    }
+  }
+}

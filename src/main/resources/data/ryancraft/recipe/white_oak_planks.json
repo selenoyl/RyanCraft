@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:white_oak_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:white_oak_planks"
+  }
+}

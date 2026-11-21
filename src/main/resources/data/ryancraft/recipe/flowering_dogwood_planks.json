@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "planks",
+  "ingredients": [
+    "#ryancraft:flowering_dogwood_logs"
+  ],
+  "result": {
+    "count": 4,
+    "id": "ryancraft:flowering_dogwood_planks"
+  }
+}

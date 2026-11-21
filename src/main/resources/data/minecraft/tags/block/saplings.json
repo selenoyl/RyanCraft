@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_sapling",
+    "ryancraft:red_oak_sapling",
+    "ryancraft:sugar_maple_sapling",
+    "ryancraft:red_maple_sapling",
+    "ryancraft:tulip_poplar_sapling",
+    "ryancraft:shagbark_hickory_sapling",
+    "ryancraft:black_walnut_sapling",
+    "ryancraft:american_beech_sapling",
+    "ryancraft:sycamore_sapling",
+    "ryancraft:eastern_redbud_sapling",
+    "ryancraft:flowering_dogwood_sapling",
+    "ryancraft:eastern_red_cedar_sapling",
+    "ryancraft:black_cherry_sapling",
+    "ryancraft:sassafras_sapling",
+    "ryancraft:ohio_buckeye_sapling"
+  ]
+}

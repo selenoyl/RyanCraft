@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ryancraft:block/eastern_red_cedar_planks"
+  }
+}
