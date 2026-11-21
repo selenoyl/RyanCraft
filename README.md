@@ -51,14 +51,14 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Pronghorn** | Plains, savanna, badlands, Shrubland | The fastest animal on the plains. Spooks from 20+ blocks and outruns anything; snorts the alarm |
 | **Grizzly Bear** | Old-growth taiga, windswept hills, meadows, groves | A bigger, shorter-tempered bear with a shoulder hump. Gives you far less room than a black bear and fights nearly to the end |
 | **Bobcat** | Forests, swamps, savanna, badlands, Shrubland (always scarce) | A shy wildcat: slips away from people, climbs trees, hunts rabbits, chickens, squirrels and chipmunks, and screams at night |
-
-![Big game](docs/big_game.png)
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
 | **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; cook for a fish fry |
 | **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
 | **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
+
+![Big game](docs/big_game.png)
 
 ### Deer: antlers and hunting
 **Antlers grow with age.** A deer ages only while its chunk is loaded, and goes up one stage every 2-3 in-game weeks (each deer on its own clock):
