@@ -59,6 +59,10 @@ Our own take on the old Clay Soldiers idea, and the main "fight your friends" ga
 
 **Finding them**
 - Rare little squads of **mudlings** live in the wild, each biome with its own kind, made from that biome's stuff.
+- **Rarity: relatively rare, never teeming, never unobtainable.** Mudlings only live at their camps (they don't
+  spawn freely like animals). Aim for roughly one camp every 400-600 blocks of a given biome, generated as a small
+  world structure, with 3-6 mudlings per camp. A camp doesn't refill once it's emptied, so filling a bundle of 16
+  means finding a few camps. Rare colour variants are about 1 in 20 mudlings.
 - They patrol a tiny camp (a pebble fort, a twig lean-to) and scatter if you charge in, so sneaking and camo help.
 - Rare colour variants (gilded, mossy, charred) to collect.
 
