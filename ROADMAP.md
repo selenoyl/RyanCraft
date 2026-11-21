@@ -103,8 +103,10 @@ follow you or live at a den, help out day to day (ore-sniffing, crop growth, fet
 through visible stages. The sparring side is covered by mudlings.
 
 ## Trees
-**Common eastern US trees**, each with its own wood, leaves and saplings. Shape sketches: `docs/trees.png`
-(regenerate with `python3 tools/trees.py`).
+**Common eastern US trees**, each with the full vanilla set: log and wood, **stripped (debarked) log and wood**,
+planks, slabs, stairs, fences, doors, trapdoors, signs, boats, leaves and saplings. Shape sketches: `docs/trees.png`
+(`python3 tools/trees.py`); first block textures, including the stripped logs: `docs/tree_textures.png`
+(`python3 tools/tree_textures.py`). The plate-style bark (sugar maple, redbud, buckeye) needs a rougher pass.
 - Oaks: white oak, red oak
 - Maples: sugar maple (orange-red in fall), red maple
 - Tulip poplar (Kentucky's state tree)
