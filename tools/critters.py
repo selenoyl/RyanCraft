@@ -95,9 +95,9 @@ MODELS = {
 # paint = per box-paint-key style dict (see painter below)
 P = {}
 P["black_bear"] = {
-    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#7a5232", "eye_row": 3},
+    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#5a3a22", "eye_white": "#ece8de", "eye_row": 3},
               "snout": {"c": "#b08a5e", "nose": "#111111"}, "ear": {"c": "#141212"}, "leg": {"c": "#161414"}, "tail": {"c": "#1d1b1b"}},
-    "cinnamon": {"body": {"c": "#7b4a28", "noise": 10}, "head": {"c": "#7b4a28", "eyes": "#1a1a1a", "eye_row": 3},
+    "cinnamon": {"body": {"c": "#7b4a28", "noise": 10}, "head": {"c": "#7b4a28", "eyes": "#1a1210", "eye_white": "#ece8de", "eye_row": 3},
                  "snout": {"c": "#c79a68", "nose": "#111111"}, "ear": {"c": "#6a3d20"}, "leg": {"c": "#5e361c"}, "tail": {"c": "#7b4a28"}},
 }
 P["raccoon"] = {"raccoon": {
@@ -235,8 +235,12 @@ def paint_box(img, b, style):
     fx, fy, fw, fh = faces["front"]
     if "eyes" in style and fw >= 3:
         r = style.get("eye_row", 1)
-        for x in (fx + (1 if fw >= 5 else 0), fx + fw - (2 if fw >= 5 else 1)):
+        left, right = fx + (1 if fw >= 5 else 0), fx + fw - (2 if fw >= 5 else 1)
+        for x in (left, right):
             img.putpixel((x, fy + r), hexc(style["eyes"]) + (255,))
+        if "eye_white" in style:      # pupil on the outside, white toward the middle (like the cow, pig, polar bear)
+            img.putpixel((left + 1, fy + r), hexc(style["eye_white"]) + (255,))
+            img.putpixel((right - 1, fy + r), hexc(style["eye_white"]) + (255,))
     if "nose" in style:
         cx = fx + fw // 2
         for x in ([cx - 1, cx] if fw % 2 == 0 else [cx]):
