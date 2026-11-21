@@ -34,6 +34,13 @@ public class Squirrel extends CritterAnimal {
     }
 
     @Override protected int variantCount() { return 2; }
+
+    /** Fox squirrels are the bigger of the two; eastern grays are noticeably smaller. */
+    @Override
+    protected void onVariantSet(int variant) {
+        var scale = this.getAttribute(Attributes.SCALE);
+        if (scale != null) scale.setBaseValue(variant == FOX ? 1.15 : 0.85);
+    }
     @Override protected boolean climbs() { return true; }
 
     @Override

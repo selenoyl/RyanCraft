@@ -165,6 +165,18 @@ public final class AmbienceEngine {
         if (e.underground) {
             maybe(mc, RyanSounds.DRIP, 40, 220, 2, 8, 1, 5, 0.25f, 0.6f, master);
             if (e.y < e.seaLevel - 20) maybe(mc, RyanSounds.RUMBLE, 1200, 3600, 10, 30, -8, 4, 0.3f, 0.5f, master);
+            // The old-shaft stone slide: somewhere off in the dark, deeper down
+            if (e.y < e.seaLevel - 10) maybe(mc, RyanSounds.STONE_SLIDE, 1800, 4800, 14, 36, -12, 6, 0.3f, 0.55f, master);
+        }
+        // Gusts rolling over summits and high ground
+        if (e.surface && (e.mountain || e.y > e.seaLevel + 50)) {
+            float g = e.thundering ? 0.8f : 0.55f;
+            maybePlayer(mc, RyanSounds.GUST, e.thundering ? 160 : 300, e.thundering ? 500 : 900, g * 0.7f, g, master);
+        }
+        // Chattering teeth out in the cold (or stuck in powder snow)
+        boolean freezing = mc.player.isFreezing() || mc.player.getTicksFrozen() > 0;
+        if (freezing || (e.surface && e.snowy && (e.night || e.raining || e.y > e.seaLevel + 50))) {
+            maybePlayer(mc, RyanSounds.TEETH, freezing ? 100 : 500, freezing ? 260 : 1400, 0.35f, 0.5f, master);
         }
     }
 
@@ -183,6 +195,16 @@ public final class AmbienceEngine {
         float pitch = 0.9f + random.nextFloat() * 0.2f;
         mc.getSoundManager().play(new SimpleSoundInstance(event, SoundSource.AMBIENT, vol, pitch, random, x, y, z));
         return true;
+    }
+
+    /** A sound that belongs to the player (your own teeth, a gust around you): not placed in the world. */
+    private void maybePlayer(Minecraft mc, SoundEvent event, int minGap, int maxGap, float minVol, float maxVol, float master) {
+        int cd = cooldowns.getOrDefault(event, minGap / 2 + random.nextInt(Math.max(1, minGap)));
+        if (--cd > 0) { cooldowns.put(event, cd); return; }
+        cooldowns.put(event, minGap + random.nextInt(Math.max(1, maxGap - minGap)));
+        float vol = (minVol + random.nextFloat() * (maxVol - minVol)) * master;
+        mc.getSoundManager().play(new SimpleSoundInstance(event.location(), SoundSource.AMBIENT, vol, 0.95f + random.nextFloat() * 0.1f,
+                random, false, 0, net.minecraft.client.resources.sounds.SoundInstance.Attenuation.NONE, 0, 0, 0, true));
     }
 
     /** Real gobblers "shock gobble" at owls, crows and hawks. Nearby toms answer, a beat later. */

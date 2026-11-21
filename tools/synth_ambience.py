@@ -61,7 +61,7 @@ def loopify(x, xfade=2.0):
     body[:n] = body[:n] * np.sqrt(w) + tail * np.sqrt(1 - w)
     return body
 def place(buf, snd, at):
-    i = int(at * SR); j = min(len(buf), i + len(snd))
+    i = max(0, int(at * SR)); j = min(len(buf), i + len(snd))
     if i < len(buf): buf[i:j] += snd[:j - i]
 def save(name, x, peak=0.9, q=4):
     path = os.path.join(OUT, name + ".ogg"); os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -399,3 +399,49 @@ if __name__ == "__main__":
     for k in range(2): save(f"critter/opossum_hiss{k+1}", opossum_hiss(), .8)
     for k in range(3): save(f"critter/mink_squeak{k+1}", mink_squeak(), .75)
     for k in range(2): save(f"critter/beaver_slap{k+1}", beaver_slap(), .9)
+
+# ---------- MAtmos-inspired signature moments (our own versions) ----------
+def stone_slide():
+    """Distant rattle of stones and gravel sliding down an old shaft."""
+    d = rng.uniform(3.0, 4.5); n = int(d * SR); u = np.linspace(0, 1, n)
+    density = np.sin(np.pi * np.minimum(u * 1.3, 1)) ** 1.5           # builds, then trickles out
+    buf = np.zeros(n)
+    t = 0.0
+    while t < d - .1:
+        rate = 6 + 70 * density[int(t * SR)]
+        size = rng.uniform(.3, 1.0)
+        n2 = int(rng.uniform(.006, .025) * SR)
+        click = bp(white(n2), rng.uniform(500, 1500), rng.uniform(2500, 5000), 2) * np.exp(-np.arange(n2) / (SR * .004)) * size
+        place(buf, click, t); t += rng.exponential(1 / rate)
+    rumble = lp(brown(n), 160, 4) * density * 0.8
+    return reverb(lp(buf, 4500) * .7 + rumble, .6, 1.8)
+
+def mountain_gust():
+    """A big gust rolling over a summit: roar plus a rising whistle."""
+    d = rng.uniform(3.5, 5.0); n = int(d * SR); u = np.linspace(0, 1, n)
+    env = np.sin(np.pi * u) ** 1.4 * (0.85 + 0.15 * smooth_rand(n, 3))
+    x = pink(n)
+    roar = (lp(x, 700) + bp(x, 400, 2500) * .5) * env
+    f0 = rng.uniform(520, 700)
+    whistle = np.zeros(n); seg = 2048
+    centre = f0 * (1 + 0.5 * env)
+    for i in range(0, n, seg):
+        c = centre[i]; chunk = bp(x[max(0, i - 4096):i + seg], c * .95, c * 1.05)
+        whistle[i:i + seg] = chunk[-len(whistle[i:i + seg]):]
+    return roar + whistle * 1.6 * env ** 2
+
+def teeth_chatter():
+    """Your own teeth chattering in the cold."""
+    d = rng.uniform(.9, 1.4); n = int(d * SR); buf = np.zeros(n)
+    t = 0.0; rate = rng.uniform(13, 17)
+    while t < d - .03:
+        n2 = int(.012 * SR)
+        click = bp(white(n2), 2500, 7500, 2) * np.exp(-np.arange(n2) / (SR * .0015))
+        place(buf, click * rng.uniform(.6, 1.0), t + rng.uniform(-.004, .004)); t += 1 / rate
+    shiver = bp(white(n), 300, 1200) * .05 * np.sin(np.pi * np.linspace(0, 1, n))   # breath
+    return (buf + shiver) * env_adsr(n, .05, .2)
+
+if __name__ == "__main__":
+    for k in range(3): save(f"ambience/stone_slide{k+1}", stone_slide(), .8)
+    for k in range(3): save(f"ambience/gust{k+1}", mountain_gust(), .75)
+    for k in range(3): save(f"ambience/teeth{k+1}", teeth_chatter(), .6)

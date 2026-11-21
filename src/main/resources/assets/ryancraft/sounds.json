@@ -256,6 +256,51 @@
     ],
     "subtitle": "subtitles.ryancraft.ambience.bullfrog"
   },
+  "ambience.stone_slide": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/stone_slide1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:ambience/stone_slide2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:ambience/stone_slide3",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.stone_slide"
+  },
+  "ambience.gust": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/gust1"
+      },
+      {
+        "name": "ryancraft:ambience/gust2"
+      },
+      {
+        "name": "ryancraft:ambience/gust3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.gust"
+  },
+  "ambience.teeth": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/teeth1"
+      },
+      {
+        "name": "ryancraft:ambience/teeth2"
+      },
+      {
+        "name": "ryancraft:ambience/teeth3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.teeth"
+  },
   "entity.turkey.gobble": {
     "sounds": [
       {

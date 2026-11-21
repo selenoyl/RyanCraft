@@ -43,7 +43,11 @@ def quad(body, leg, head, snout=None, ears=None, tail=None, head_up=0, head_fwd=
         parts.append(part(nm, (x, 24 - lh, z), [box("leg", (-lw / 2, 0, -lw / 2), (lw, lh, lw), "leg", mirror=sx > 0)], role))
     if tail:
         tw, th, tl, trot = tail[:4]
-        parts.append(part("tail", (0, body_top + th / 2, bl / 2 - 1), [box("tail", (-tw / 2, -th / 2, 0), (tw, th, tl), "tail")], "tail", rot=(trot, 0, 0)))
+        curl = tail[4] if len(tail) > 4 else 0
+        tboxes = [box("tail", (-tw / 2, -th / 2, 0), (tw, th, tl), "tail")]
+        if curl:   # bushy tip that curls forward over the back
+            tboxes.append(box("tail_tip", (-tw / 2, -th / 2 - curl, tl - 2), (tw, curl, 3), "tail"))
+        parts.append(part("tail", (0, body_top + th / 2, bl / 2 - 1), tboxes, "tail", rot=(trot, 0, 0)))
     return parts
 
 def bird():
@@ -79,7 +83,7 @@ MODELS = {
     "opossum": quad((6, 5, 9), (2, 3), (4, 4, 4), snout=(2, 2, 3), ears=(2, 2), tail=(1, 1, 9, -0.25), head_fwd=1),
     "beaver": quad((8, 7, 11), (2, 3), (6, 5, 5), snout=(4, 3, 2), ears=(1, 1), tail=(6, 1, 8, -0.05), head_fwd=1,
                    extra_head=[box("teeth", (-1, 2.5, -7.1), (2, 2, 1), "teeth")]),
-    "squirrel": quad((4, 4, 6), (2, 3), (4, 4, 4), ears=(1, 2), tail=(4, 4, 7, 1.25), head_up=1, leg_inset=0),
+    "squirrel": quad((4, 4, 6), (2, 3), (4, 4, 4), ears=(1, 2), tail=(4, 3, 6, 0.75, 4), head_up=1, leg_inset=0),
     "songbird": bird(),
     "bluegill": fish((2, 6, 7), (1, 5, 3), dorsal=(1, 2, 5)),
     "crappie": fish((2, 6, 8), (1, 5, 3), dorsal=(1, 2, 5)),
@@ -117,10 +121,20 @@ P["beaver"] = {"beaver": {
     "snout": {"c": "#5a3820", "nose": "#141010"}, "ear": {"c": "#4e301a"}, "leg": {"c": "#3e2614"},
     "tail": {"c": "#2e2622", "speckle": {"c": "#463a33", "p": 0.4}}, "teeth": {"c": "#e3892a"}}}
 P["squirrel"] = {
-    "gray_squirrel": {"body": {"c": "#8b8a86", "noise": 14, "belly": "#ece8e0"}, "head": {"c": "#8b8a86", "eyes": "#0c0c0c", "eye_row": 1, "bottom": "#ece8e0"},
-                      "ear": {"c": "#8b8a86"}, "leg": {"c": "#7a7975"}, "tail": {"c": "#8f8e8a", "noise": 20, "tip": {"c": "#d9d6d0", "frac": 0.2}}},
-    "fox_squirrel": {"body": {"c": "#a8653a", "noise": 14, "belly": "#e0a060"}, "head": {"c": "#a8653a", "eyes": "#0c0c0c", "eye_row": 1, "bottom": "#e0a060"},
-                     "ear": {"c": "#b87444"}, "leg": {"c": "#94562e"}, "tail": {"c": "#b06a3a", "noise": 22, "tip": {"c": "#d88a4a", "frac": 0.25}}},
+    # Eastern gray: salt-and-pepper back with a cinnamon wash, white belly and eye ring, silver-fringed tail
+    "gray_squirrel": {
+        "body": {"c": "#8e8b86", "noise": 6, "grizzle": {"c": ["#5f5c58", "#c2beb6", "#9c7c60"], "p": [0.24, 0.2, 0.16]}, "belly": "#f0ece4"},
+        "head": {"c": "#8a857f", "noise": 6, "grizzle": {"c": ["#5f5c58", "#a8825e", "#bdb8b0"], "p": [0.18, 0.25, 0.15]},
+                 "bottom": "#f0ece4", "side_eyes": "#0a0a0a", "eye_ring": "#ece8e0", "eye_row": 1},
+        "ear": {"c": "#9c8f84", "noise": 6}, "leg": {"c": "#8f7c6a", "noise": 8},
+        "tail": {"c": "#7a7774", "noise": 8, "grizzle": {"c": ["#3c3a38", "#c8c4bc"], "p": [0.3, 0.2]}, "fringe": "#ece8e2"}},
+    # Fox squirrel: bigger, rusty-grizzled back, orange belly, orange-fringed tail
+    "fox_squirrel": {
+        "body": {"c": "#9a6740", "noise": 6, "grizzle": {"c": ["#5e3e28", "#c08a58", "#7d7168"], "p": [0.24, 0.24, 0.12]}, "belly": "#d9883f"},
+        "head": {"c": "#8c6040", "noise": 6, "grizzle": {"c": ["#5e3e28", "#a87a50"], "p": [0.2, 0.25]},
+                 "bottom": "#e0a46a", "side_eyes": "#0a0a0a", "eye_ring": "#d8a878", "eye_row": 1},
+        "ear": {"c": "#c47a42", "noise": 6}, "leg": {"c": "#b8743c", "noise": 8},
+        "tail": {"c": "#a4643a", "noise": 8, "grizzle": {"c": ["#4a3020", "#c88a50"], "p": [0.25, 0.2]}, "fringe": "#e29a52"}},
 }
 CLEAR = {"c": None}
 P["songbird"] = {
@@ -177,13 +191,21 @@ def paint_box(img, b, style):
         col = hexc(style[f]) if f in style else hexc(style["sides"]) if f.startswith("side") and "sides" in style else base
         for i in range(fw):
             for j in range(fh):
+                fc = col
+                if "grizzle" in style and f != "bottom" and f not in style:
+                    roll = rnd.random()
+                    for gc, gp in zip(style["grizzle"]["c"], style["grizzle"]["p"]):
+                        if roll < gp: fc = hexc(gc); break
+                        roll -= gp
                 # depth coordinate t: 0 = front (-z), 1 = back
                 t = None
                 if f == "side1": t = 1 - (i + .5) / max(1, fw)
                 elif f == "side2": t = (i + .5) / max(1, fw)
                 elif f == "top": t = 1 - (j + .5) / max(1, fh)
                 elif f == "bottom": t = (j + .5) / max(1, fh)
-                c = col
+                c = fc
+                if "fringe" in style and (f.startswith("side") or f == "back") and (j == 0 or j == fh - 1) and rnd.random() < 0.55:
+                    c = hexc(style["fringe"])
                 if "belly" in style:
                     if f == "bottom" or (f.startswith("side") and j >= fh * 0.65): c = hexc(style["belly"])
                 if "cap" in style and (f == "top" or (f in ("front", "side1", "side2", "back") and j < max(1, fh * 0.35))):
@@ -220,9 +242,14 @@ def paint_box(img, b, style):
             img.putpixel((x, fy), hexc(style["nose"]) + (255,))
     if "side_eyes" in style:
         s1x, s1y, s1w, s1h = faces["side1"]; s2x, s2y, s2w, s2h = faces["side2"]
-        r = 1 if s1h > 2 else 0
-        img.putpixel((s1x + s1w - 2 if s1w > 2 else s1x, s1y + r), hexc(style["side_eyes"]) + (255,))
-        img.putpixel((s2x + 1 if s2w > 2 else s2x, s2y + r), hexc(style["side_eyes"]) + (255,))
+        r = style.get("eye_row", 1 if s1h > 2 else 0)
+        e1 = (s1x + s1w - 2 if s1w > 2 else s1x, s1y + r); e2 = (s2x + 1 if s2w > 2 else s2x, s2y + r)
+        if "eye_ring" in style:
+            for (ex, ey) in (e1, e2):
+                for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    if 0 <= ex + dx < img.width and 0 <= ey + dy < img.height: img.putpixel((ex + dx, ey + dy), hexc(style["eye_ring"]) + (255,))
+        img.putpixel(e1, hexc(style["side_eyes"]) + (255,))
+        img.putpixel(e2, hexc(style["side_eyes"]) + (255,))
     if "spot" in style:
         s1x, s1y, s1w, s1h = faces["side1"]; s2x, s2y, s2w, s2h = faces["side2"]
         img.putpixel((s1x + s1w - 3, s1y + 2), hexc(style["spot"]) + (255,))

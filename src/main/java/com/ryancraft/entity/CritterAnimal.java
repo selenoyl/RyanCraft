@@ -57,14 +57,21 @@ public abstract class CritterAnimal extends RyanAnimal implements CritterVisual 
     @Override
     public int getVariant() { return this.entityData.get(VARIANT); }
 
-    public void setVariant(int v) { this.entityData.set(VARIANT, Math.floorMod(v, Math.max(1, variantCount()))); }
+    public void setVariant(int v) {
+        int variant = Math.floorMod(v, Math.max(1, variantCount()));
+        this.entityData.set(VARIANT, variant);
+        onVariantSet(variant);
+    }
+
+    /** Called whenever the variant is set (spawn, birth, load). */
+    protected void onVariantSet(int variant) {}
 
     @Override
-    public boolean isClimbingVisual() { return this.entityData.get(CLIMBING); }
+    public boolean isClimbingVisual() { return this.entityData.get(CLIMBING) && !this.onGround(); }
 
     @Override
     public boolean onClimbable() {
-        return climbs() ? this.isClimbingVisual() : super.onClimbable();
+        return climbs() ? this.entityData.get(CLIMBING) : super.onClimbable();
     }
 
     @Override

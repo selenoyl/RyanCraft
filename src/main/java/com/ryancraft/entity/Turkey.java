@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.FollowParentGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
@@ -37,19 +38,28 @@ public class Turkey extends RyanAnimal {
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 8.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.25);
+                .add(Attributes.MOVEMENT_SPEED, 0.25)
+                .add(Attributes.ATTACK_DAMAGE, 2.0);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.9));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.9));
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0f));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        // Poults run; grown birds stand and fight, and the flock piles in
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.9) {
+            @Override public boolean canUse() { return Turkey.this.isBaby() && super.canUse(); }
+        });
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.4, true));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.0, this::isFood, false));
+        this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(6, new StayWithFlockGoal<>(this, Turkey.class, 1.0, 24, 6));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.8));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0f));
+        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(1, new net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal(this) {
+            @Override public boolean canUse() { return !Turkey.this.isBaby() && super.canUse(); }
+        }.setAlertOthers(Turkey.class));
     }
 
     @Override

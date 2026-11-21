@@ -27,13 +27,18 @@ public class Beaver extends CritterAnimal {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 12.0).add(Attributes.MOVEMENT_SPEED, 0.2)
-                .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 1.0);
+                .add(Attributes.WATER_MOVEMENT_EFFICIENCY, 1.0)
+                .add(Attributes.ATTACK_DAMAGE, 3.0);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.5) {
+            @Override public boolean canUse() { return Beaver.this.isBaby() && super.canUse(); }
+        });
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.3, true));
+        this.targetSelector.addGoal(1, new net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal(this).setAlertOthers(Beaver.class));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));

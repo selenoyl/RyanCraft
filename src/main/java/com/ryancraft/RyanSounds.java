@@ -29,6 +29,9 @@ public final class RyanSounds {
     public static final SoundEvent RUMBLE = reg("ambience.rumble");
     public static final SoundEvent LEAVES = reg("ambience.leaves");
     public static final SoundEvent BULLFROG = reg("ambience.bullfrog");
+    public static final SoundEvent STONE_SLIDE = reg("ambience.stone_slide");
+    public static final SoundEvent GUST = reg("ambience.gust");
+    public static final SoundEvent TEETH = reg("ambience.teeth");
     // Turkey
     public static final SoundEvent TURKEY_GOBBLE = reg("entity.turkey.gobble");
     public static final SoundEvent TURKEY_CLUCK = reg("entity.turkey.cluck");

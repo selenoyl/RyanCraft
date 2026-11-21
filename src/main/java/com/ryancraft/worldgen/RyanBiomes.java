@@ -77,7 +77,7 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, SHRUBLAND,
                         Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST,
                         Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.WINDSWEPT_FOREST),
-                MobCategory.CREATURE, RyanEntities.TURKEY, 9, 3, 5);
+                MobCategory.CREATURE, RyanEntities.TURKEY, 9, 4, 7);
     }
 
     /** Native Kentucky wildlife. */
@@ -85,7 +85,7 @@ public final class RyanBiomes {
         var hardwoods = new net.minecraft.resources.ResourceKey[]{SEASONAL_FOREST, Biomes.FOREST, Biomes.BIRCH_FOREST,
                 Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.WINDSWEPT_FOREST};
         spawn(sel(hardwoods, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA),
-                MobCategory.CREATURE, RyanEntities.BLACK_BEAR, 3, 1, 2);
+                MobCategory.CREATURE, RyanEntities.BLACK_BEAR, 3, 1, 1);
         spawn(sel(hardwoods, Biomes.SWAMP, RAINFOREST), MobCategory.CREATURE, RyanEntities.RACCOON, 6, 1, 3);
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.MEADOW, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.FOREST, SHRUBLAND, SEASONAL_FOREST}),
                 MobCategory.CREATURE, RyanEntities.SKUNK, 4, 1, 2);
