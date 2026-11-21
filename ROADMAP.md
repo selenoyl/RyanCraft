@@ -103,7 +103,8 @@ follow you or live at a den, help out day to day (ore-sniffing, crop growth, fet
 through visible stages. The sparring side is covered by mudlings.
 
 ## Trees
-**Common eastern US trees**, each with its own wood, leaves and saplings:
+**Common eastern US trees**, each with its own wood, leaves and saplings. Shape sketches: `docs/trees.png`
+(regenerate with `python3 tools/trees.py`).
 - Oaks: white oak, red oak
 - Maples: sugar maple (orange-red in fall), red maple
 - Tulip poplar (Kentucky's state tree)
