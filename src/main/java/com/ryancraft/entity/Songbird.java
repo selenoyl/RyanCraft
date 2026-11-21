@@ -25,9 +25,11 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Kentucky songbirds, each with its own song: Northern Cardinal (the state bird),
- * American Goldfinch, American Robin, Blue Jay and Eastern Bluebird.
+ * American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove.
+ * Shy: they flit off when you come close, unless you win one over with seeds. Catch them with a bundle and
+ * keep them in a bird cage.
  */
-public class Songbird extends CritterAnimal implements FlyingAnimal {
+public class Songbird extends CritterAnimal implements FlyingAnimal, com.ryancraft.bag.Baggable {
     public static final int CARDINAL = 0, GOLDFINCH = 1, ROBIN = 2, BLUE_JAY = 3, BLUEBIRD = 4, MOURNING_DOVE = 5;
     private static final int[] WEIGHTS = {24, 14, 20, 14, 8, 20};   // sums to 100
 
@@ -42,6 +44,9 @@ public class Songbird extends CritterAnimal implements FlyingAnimal {
     }
 
     @Override protected int variantCount() { return 6; }
+    @Override protected boolean skittish() { return true; }
+    @Override public int bagCapacity() { return 4; }
+    @Override public CageKind cageKind() { return CageKind.BIRD; }
 
     @Override
     protected int chooseVariant(ServerLevelAccessor level, BlockPos pos) {
@@ -62,8 +67,12 @@ public class Songbird extends CritterAnimal implements FlyingAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
-        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, true));
+        this.goalSelector.addGoal(2, new TemptGoal(this, 0.8, this::isFood, true) {
+            @Override public boolean canUse() { return !Songbird.this.isTrusting() && super.canUse(); }
+        });
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 7.0f, 1.2, 1.5,
+                e -> !this.isTrusting() && net.minecraft.world.entity.EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));

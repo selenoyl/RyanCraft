@@ -34,6 +34,39 @@ public abstract class CritterAnimal extends RyanAnimal implements CritterVisual 
         return this.random.nextInt(variantCount());
     }
 
+    // ---- shy until fed (like ocelots): bolts from people until you win it over with food
+    private boolean trusting;
+
+    /** Wild ones run from people until fed (see {@link #isTrusting()}). */
+    protected boolean skittish() { return false; }
+    public boolean isTrusting() { return trusting; }
+    public void setTrusting(boolean t) { trusting = t; }
+
+    @Override
+    public net.minecraft.world.InteractionResult mobInteract(net.minecraft.world.entity.player.Player player, net.minecraft.world.InteractionHand hand) {
+        net.minecraft.world.item.ItemStack stack = player.getItemInHand(hand);
+        if (skittish() && !trusting && isFood(stack) && player.distanceToSqr(this) < 9.0) {
+            this.usePlayerItem(player, hand, stack);
+            if (!this.level().isClientSide()) {
+                if (this.random.nextInt(3) == 0) { trusting = true; this.level().broadcastEntityEvent(this, (byte) 41); }
+                else this.level().broadcastEntityEvent(this, (byte) 40);
+            }
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        if (id == 40 || id == 41) {
+            var particle = id == 41 ? net.minecraft.core.particles.ParticleTypes.HEART : net.minecraft.core.particles.ParticleTypes.SMOKE;
+            for (int i = 0; i < 7; i++) {
+                this.level().addParticle(particle, this.getRandomX(1.0), this.getRandomY() + 0.3, this.getRandomZ(1.0),
+                        this.random.nextGaussian() * 0.02, this.random.nextGaussian() * 0.02, this.random.nextGaussian() * 0.02);
+            }
+        } else super.handleEntityEvent(id);
+    }
+
     /** Scampers up walls and tree trunks like a spider. */
     protected boolean climbs() { return false; }
 
@@ -86,12 +119,14 @@ public abstract class CritterAnimal extends RyanAnimal implements CritterVisual 
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putInt("Variant", getVariant());
+        if (trusting) out.putBoolean("Trusting", true);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput in) {
         super.readAdditionalSaveData(in);
         setVariant(in.getIntOr("Variant", 0));
+        trusting = in.getBooleanOr("Trusting", false);
     }
 
     @Override
@@ -108,6 +143,7 @@ public abstract class CritterAnimal extends RyanAnimal implements CritterVisual 
         if (child != null) {
             int v = (partner instanceof CritterAnimal other && this.random.nextBoolean()) ? other.getVariant() : this.getVariant();
             child.setVariant(v);
+            child.setTrusting(this.trusting || (partner instanceof CritterAnimal o && o.trusting));
         }
         return child;
     }

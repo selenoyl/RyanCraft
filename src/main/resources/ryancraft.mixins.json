@@ -6,7 +6,9 @@
   "mixins": [
     "DedicatedServerMixin",
     "MinecraftServerMixin",
-    "ServerPlayerMixin"
+    "ServerPlayerMixin",
+    "BundleItemMixin",
+    "ServerPlayerShoulderAccess"
   ],
   "injectors": {
     "defaultRequire": 0

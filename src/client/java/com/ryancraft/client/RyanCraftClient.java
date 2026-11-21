@@ -19,6 +19,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 public class RyanCraftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
+                com.ryancraft.bag.Cages.BIRD_CAGE, com.ryancraft.bag.Cages.CHIPMUNK_CAGE);
+        // Mob bags list who's inside
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, ctx, type, lines) -> {
+            com.ryancraft.bag.MobBag bag = com.ryancraft.bag.MobBags.get(stack);
+            if (bag == null || bag.count() == 0) return;
+            lines.add(1, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.mob_bag", bag.count(), bag.capacity())
+                    .withStyle(net.minecraft.ChatFormatting.GRAY));
+            for (int i = 0; i < bag.names().size(); i++) {
+                lines.add(2 + i, net.minecraft.network.chat.Component.literal("  ").append(bag.names().get(i)).withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
+            }
+        });
         for (com.ryancraft.trees.WoodSet w : com.ryancraft.trees.RyanWood.sets())
             net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, w.door(), w.trapdoor(), w.sapling(), w.pottedSapling());
         EntityModelLayerRegistry.registerModelLayer(BoarModel.LAYER, BoarModel::createBodyLayer);

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "bbb",
+    "b b",
+    "ppp"
+  ],
+  "key": {
+    "b": "minecraft:iron_bars",
+    "p": "#minecraft:planks"
+  },
+  "result": {
+    "count": 1,
+    "id": "ryancraft:chipmunk_cage"
+  }
+}

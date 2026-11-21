@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    " n ",
+    "bbb",
+    "ccc"
+  ],
+  "key": {
+    "n": "minecraft:iron_nugget",
+    "b": "minecraft:iron_bars",
+    "c": "minecraft:copper_ingot"
+  },
+  "result": {
+    "count": 1,
+    "id": "ryancraft:bird_cage"
+  }
+}
