@@ -52,6 +52,10 @@ public final class RyanSounds {
     public static final SoundEvent SONG_ROBIN = reg("entity.songbird.robin");
     public static final SoundEvent SONG_BLUE_JAY = reg("entity.songbird.blue_jay");
     public static final SoundEvent SONG_BLUEBIRD = reg("entity.songbird.bluebird");
+    public static final SoundEvent SONG_DOVE = reg("entity.songbird.mourning_dove");
+    public static final SoundEvent CHIPMUNK_CHIP = reg("entity.chipmunk.chip");
+    public static final SoundEvent COYOTE_YIPS = reg("entity.coyote.yips");
+    public static final SoundEvent COYOTE_HOWL = reg("entity.coyote.howl");
 
     private static SoundEvent reg(String name) {
         var id = RyanCraft.id(name);

@@ -25,6 +25,7 @@ The mod reads your surroundings every second (biome, time of day, how many trees
   - **Cicadas**: the drone of a hot summer day in the trees, swelling toward midday.
   - **Splashing water**: sloshing splashes as you wade or swim, paced by how fast you move, and waterfalls that roar from where the water actually falls.
 - Also from the MAtmos spirit: stones rattling down an old shaft somewhere deep underground.
+- **Fireflies** drift over fields and through the woods on warm, dry nights.
 - Wild turkeys **shock-gobble** back at owls, crows and hawks, like the real thing.
 
 All of it plays on the *Ambient/Environment* volume slider and has subtitles. `ambience` / `ambienceVolume` in the config. The sounds are original synths (see `tools/synth_ambience.py`), made in the spirit of [MAtmos](https://github.com/makamys/MAtmos) by Hurricaaane. MAtmos's code is WTFPL, but its classic 2012 soundpack has no stated license, so none of its audio is used here. Any resource pack can replace them with real recordings, since the files live under `assets/ryancraft/sounds/ambience/`.
@@ -44,8 +45,10 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Opossum** | Forests, swamps, plains | Hisses; hit it and it **plays possum** for a few seconds |
 | **Beaver** | Rivers, swamps | Swims, slaps its tail in alarm, bites back if attacked, leaves gnawed sticks |
 | **Mink** | Rivers, swamps | Swims and hunts fish |
+| **Coyote** | Plains, meadows, savanna, woodland edges | Loose packs; leave you alone unless you crowd them, then the pack piles in; run when badly hurt; hunt small game; yip and howl at night |
+| **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
-| **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird, each with its own song |
+| **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
 | **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; cook for a fish fry |
 | **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
 | **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
@@ -88,6 +91,8 @@ Close mixes count too, not just exact dye colours.
 - **Grown cubs go their own way.** Every week or two of game time a sow may have a new litter, but only where there are fewer than 4 bears within ~100 blocks, so the woods don't fill up.
 
 ![A sow with cubs, a turkey flock, and the two squirrels](docs/bears_turkeys_squirrels.png)
+
+Every RyanCraft mob has a **spawn egg** in the Spawn Eggs tab.
 
 Breeding foods: turkey and songbirds take seeds; bears take berries, honey or fish; raccoons take berries, eggs or fish; squirrels take berries or seeds; beavers take saplings.
 

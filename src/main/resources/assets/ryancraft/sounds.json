@@ -523,5 +523,62 @@
       }
     ],
     "subtitle": "subtitles.ryancraft.entity.songbird.bluebird"
+  },
+  "entity.songbird.mourning_dove": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/mourning_dove1",
+        "attenuation_distance": 40
+      },
+      {
+        "name": "ryancraft:songbird/mourning_dove2",
+        "attenuation_distance": 40
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.mourning_dove"
+  },
+  "entity.chipmunk.chip": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/chipmunk_chip1"
+      },
+      {
+        "name": "ryancraft:critter/chipmunk_chip2"
+      },
+      {
+        "name": "ryancraft:critter/chipmunk_chip3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.chipmunk.chip"
+  },
+  "entity.coyote.yips": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/coyote_yips1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/coyote_yips2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/coyote_yips3",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.coyote.yips"
+  },
+  "entity.coyote.howl": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/coyote_howl1",
+        "attenuation_distance": 64
+      },
+      {
+        "name": "ryancraft:critter/coyote_howl2",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.coyote.howl"
   }
 }

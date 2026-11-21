@@ -4,6 +4,9 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 
 ## Next up
 - **Seasons**: the next big one. Antler shedding in late winter would tie in here.
+- **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
+- **Old-school spawn eggs**: redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
+- **Chipmunk eyes**: they're tiny, so the eyes may need to move to the sides of the head; check in game.
 
 ## Wildlife
 **Deer family**
@@ -41,9 +44,57 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 
 ## Hunting
 - **Hunting gear**: game calls (turkey and deer calls that draw animals in), a tree stand, and the like.
-- **Pelts**: coyotes and wolves can be hunted for their pelts.
-- **Taxidermy** (later): stuff and mount pelts and animals; right-click a mount to cycle through poses, the way the
+- **No pelt system**: vanilla mobs stay as they are. Our animals drop leather where it makes sense (deer give
+  buckskin leather like a cow, coyotes a little leather).
+- **Taxidermy** (later): stuff and mount animals; right-click a mount to cycle through poses, the way the
   copper golem statue switches poses.
+
+## Cold and warm clothing
+- **Cold in snowy biomes**: you get cold out in the snow without warm clothing.
+- **Coats and capes** made from leather and wool. The trade-off: they take the armor slots, so to stay warm in the
+  cold you take your armor off (no extra slot).
+
+## Creatures to raise and spar with (Pixelmon-like, but not Pokemon)
+A light creature-companion loop. No catching things in balls.
+- **Find and befriend**: rare wild creatures, each tied to a biome (forest, river, mountain, cave, the sky
+  dimension). You raise one from an egg or a young one, or win one over by feeding it over several days.
+- **They live with you**: companions follow you (a couple at most) or stay at a den or roost block you build at
+  home; a whistle calls them back.
+- **Grow and change**: they level up through sparring and grow through visible stages, like the deer's antlers.
+- **Spar with friends**: a sparring ring block where two players' companions face off. Simple moves (attack, guard,
+  a special per creature), easy type advantages between biome families, and nobody dies; the loser just tires out
+  and goes home.
+- **Collect them**: a field journal that fills in as you discover and befriend creatures; breed for rare colours,
+  like the deer's antler colours.
+
+## Trees
+**Common eastern US trees**, each with its own wood, leaves and saplings:
+- Oaks: white oak, red oak
+- Maples: sugar maple (orange-red in fall), red maple
+- Tulip poplar (Kentucky's state tree)
+- Hickory, black walnut, American beech, sycamore
+- Eastern redbud and flowering dogwood (spring blossoms)
+- Eastern red cedar, black cherry, sassafras, Ohio buckeye
+
+## Blocks and backports
+- **Concrete slabs and stairs**, backported from newer versions.
+- **Shelf mushrooms** (the newer shelf fungus that grows on tree trunks).
+- **Ruby and sapphire blocks**, alongside the emerald block.
+
+## Villagers
+- **Trade rework around emeralds, rubies and sapphires**: give the new gems a real use as currency tiers, each
+  with a storage block.
+
+## Mobs: vanilla variants
+- **Creeper variants**: biome-specific creepers, with the original still by far the most common.
+
+## Power and automation (vanilla-friendly)
+- Light-touch power generation and automation, not a full industrial tech tree. Redstone already covers a lot, so
+  this would fill the gaps (simple generators, machines that fit the vanilla look).
+
+## Vehicles (primitive, Flan's-style)
+- **A little biplane**: basically a boat with wings, fuelled with coal, with that primitive early-mod look.
+- Other simple vehicles in the same style.
 
 ## A sky dimension (our own, not the Aether)
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,

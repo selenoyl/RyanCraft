@@ -86,6 +86,8 @@ MODELS = {
                    extra_head=[box("teeth", (-1, 2.5, -7.1), (2, 2, 1), "teeth")]),
     "squirrel": quad((4, 4, 6), (2, 3), (4, 4, 4), ears=(1, 2), tail=(4, 3, 6, 0.75, 4), head_up=1, leg_inset=0),
     "songbird": bird(),
+    "chipmunk": quad((4, 3, 5), (1, 2), (3, 3, 3), ears=(1, 1), tail=(1, 1, 4, 1.1), head_up=1, leg_inset=0),
+    "coyote": quad((5, 6, 12), (2, 7), (5, 5, 5), snout=(3, 2, 3), ears=(2, 3), tail=(3, 3, 7, -0.55)),
     "bluegill": fish((2, 6, 7), (1, 5, 3), dorsal=(1, 2, 5)),
     "crappie": fish((2, 6, 8), (1, 5, 3), dorsal=(1, 2, 5)),
     "largemouth_bass": fish((3, 5, 11), (1, 5, 3), dorsal=(1, 2, 7)),
@@ -157,7 +159,25 @@ P["songbird"] = {
                  "wing": {"c": "#3d72c8", "wingbar": "#f4f4f0", "rings": {"c": "#141414", "n": 3}}, "leg": {"c": "#2a2a2a"}},
     "eastern_bluebird": {"body": {"c": "#2f6dd8", "noise": 8, "belly": "#efe9e0", "front": "#c87a3e"}, "head": {"c": "#2f6dd8", "side_eyes": "#0a0a0a"},
                          "beak": {"c": "#1e1e1e"}, "crest": CLEAR, "tail": {"c": "#2a5fc4"}, "wing": {"c": "#2f6dd8", "noise": 10}, "leg": {"c": "#2a2a2a"}},
+    "mourning_dove": {"body": {"c": "#a89c8c", "noise": 6, "belly": "#d8b8a8", "front": "#d4b4a2"}, "head": {"c": "#b0a49a", "side_eyes": "#0a0a0a"},
+                      "beak": {"c": "#2a2a2a"}, "crest": CLEAR, "tail": {"c": "#8a8070", "tip": {"c": "#e8e4dc", "frac": 0.2}},
+                      "wing": {"c": "#9a8e7e", "noise": 6, "speckle": {"c": "#1a1614", "p": 0.15}}, "leg": {"c": "#c87a7a"}},
 }
+P["chipmunk"] = {"chipmunk": {
+    # stripes down the back: dark centre, pale and dark bands along each side
+    "body": {"c": "#9a6a44", "noise": 8, "top_cols": ["#e6d8bc", "#1e1610", "#1e1610", "#e6d8bc"],
+             "side_rows": ["#1e1610", "#e6d8bc", "#a87048"], "belly": "#efe6d6"},
+    "head": {"c": "#9a6a44", "noise": 6,
+             "front_map": ["cDc", "EwE", "wnw"],
+             "front_colors": {"c": "#e6d8bc", "D": "#3a2a1e", "E": "#0a0a0a", "w": "#e6d8bc", "n": "#3a2a24"}},
+    "ear": {"c": "#8a5a38"}, "leg": {"c": "#a87048"}, "tail": {"c": "#7a5638", "noise": 12}}}
+P["coyote"] = {"coyote": {
+    "body": {"c": "#9a8468", "noise": 6, "grizzle": {"c": ["#6a5a48", "#c0ac8c", "#8a8a86"], "p": [0.25, 0.2, 0.12]}, "belly": "#e6dcc8"},
+    "head": {"c": "#a08868", "noise": 6, "grizzle": {"c": ["#7a6650", "#c0ac8c"], "p": [0.2, 0.2]},
+             "eyes": "#1e140a", "eye_white": "#ece8de", "eye_inset": 0, "eye_row": 2, "bottom": "#e6dcc8"},
+    "snout": {"c": "#c8b494", "noise": 6, "nose": "#1a1410"},
+    "ear": {"c": "#8a7458", "back": "#4a3a2a"}, "leg": {"c": "#b8a07c", "noise": 8},
+    "tail": {"c": "#8a7a62", "noise": 8, "grizzle": {"c": ["#5a4a3a", "#b8a88c"], "p": [0.25, 0.2]}, "tip": {"c": "#1a1612", "frac": 0.18}}}}
 P["bluegill"] = {"bluegill": {"body": {"c": "#5b7a48", "noise": 8, "belly": "#e2a23a", "bars": {"c": "#3e5a30", "n": 5}, "spot": "#1a1f2e", "side_eyes": "#0a0a0a"}, "fin": {"c": "#4a6440"}}}
 P["crappie"] = {"crappie": {"body": {"c": "#cdd4c6", "noise": 8, "belly": "#eef0ea", "speckle": {"c": "#2a3028", "p": 0.25}, "side_eyes": "#0a0a0a"}, "fin": {"c": "#9aa294", "speckle": {"c": "#2a3028", "p": 0.3}}}}
 P["largemouth_bass"] = {"largemouth_bass": {"body": {"c": "#5d7f3a", "noise": 10, "belly": "#e6e6d6", "band": "#2c3d1c", "side_eyes": "#c8a020"}, "fin": {"c": "#4d6a30"}}}
@@ -212,6 +232,10 @@ def paint_box(img, b, style):
                 elif f == "top": t = 1 - (j + .5) / max(1, fh)
                 elif f == "bottom": t = (j + .5) / max(1, fh)
                 c = fc
+                if "top_cols" in style and f == "top":
+                    c = hexc(style["top_cols"][min(i, len(style["top_cols"]) - 1)])
+                if "side_rows" in style and f.startswith("side"):
+                    c = hexc(style["side_rows"][min(j, len(style["side_rows"]) - 1)])
                 if "fringe" in style and (f.startswith("side") or f == "back") and (j == 0 or j == fh - 1) and rnd.random() < 0.55:
                     c = hexc(style["fringe"])
                 if "belly" in style:
@@ -565,3 +589,50 @@ def mount_icons():
 
 if __name__ == "__main__":
     mount_assets()
+
+
+# ---------------------------------------------------------------- pelts and spawn eggs
+def pelt_icon(base, dark, light):
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    rows = ["   ##      ##   ", "   ###    ###   ", "    ########    ", "   ##########   ", "  ############  ", " ############## ",
+            " ############## ", "  ############  ", "  ############  ", "   ##########   ", "   ##########   ", "  ####    ####  ",
+            "  ###      ###  ", "       ##       ", "       ##       ", "       #        "]
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch == "#":
+                edge = x == 0 or row[x - 1] != "#" or x + 1 >= len(row) or row[x + 1] != "#"
+                c = dark if edge else (light if 5 <= x <= 10 and 4 <= y <= 10 else base)
+                img.putpixel((x, y), noisy(hexc(c), 12))
+    return img
+
+EGGS = {"boar": ("#5a3d2b", "#c8917a"), "deer": ("#a0703f", "#efe4cf"), "duck": ("#9a9a92", "#1f6b3a"),
+        "turkey": ("#4a3220", "#c42a2a"), "black_bear": ("#1d1b1b", "#b08a5e"), "raccoon": ("#7f7b74", "#1c1c1c"),
+        "skunk": ("#141414", "#f2f2ee"), "mink": ("#3b2517", "#e9e2d6"), "opossum": ("#b8b2a6", "#e3b0aa"),
+        "beaver": ("#6b4428", "#2e2622"), "squirrel": ("#8e8b86", "#b06a3a"), "songbird": ("#c3161c", "#3d72c8"),
+        "bluegill": ("#5b7a48", "#e2a23a"), "crappie": ("#cdd4c6", "#2a3028"), "largemouth_bass": ("#5d7f3a", "#2c3d1c"),
+        "channel_catfish": ("#6a7682", "#2a3038"), "chipmunk": ("#9a6a44", "#1e1610"), "coyote": ("#9a8468", "#e6dcc8")}
+
+def egg_icon(base, spots, seed):
+    r = random.Random(seed)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    b, sp = hexc(base), hexc(spots)
+    outline = tuple(max(0, int(v * 0.55)) for v in b)
+    for y in range(16):
+        for x in range(16):
+            # egg: narrower at the top
+            cy = 8.6; ry = 6.6; rx = 4.6 + 0.9 * max(0, (y - 4) / 8)
+            if ((x - 7.5) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1.0:
+                inner = ((x - 7.5) / (rx - 1)) ** 2 + ((y - cy) / (ry - 1)) ** 2 <= 1.0
+                c = b if inner else outline
+                img.putpixel((x, y), tuple(max(0, min(255, v + r.randint(-6, 6))) for v in c) + (255,))
+    for _ in range(7):                                  # spots
+        x, y = r.randint(4, 11), r.randint(4, 13)
+        if img.getpixel((x, y))[3] and img.getpixel((x, y))[:3] != outline:
+            for dx, dy in ((0, 0), (1, 0), (0, 1)):
+                if r.random() < 0.8 and img.getpixel((x + dx, y + dy))[3]: img.putpixel((x + dx, y + dy), sp + (255,))
+    img.putpixel((6, 4), (255, 255, 255, 180)); img.putpixel((5, 5), (255, 255, 255, 140))   # shine
+    return img
+
+if __name__ == "__main__":
+    for i, (mob, (base, spots)) in enumerate(EGGS.items()):
+        save_item(f"{mob}_spawn_egg", egg_icon(base, spots, 1000 + i))

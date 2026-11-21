@@ -41,6 +41,21 @@ public final class AmbienceEngine {
         }
         oneShots(mc, cfg.ambienceVolume);
         splashes(mc, cfg.ambienceVolume);
+        fireflies(mc);
+    }
+
+    /** Fireflies blinking over fields and through the woods on warm, dry nights. */
+    private void fireflies(Minecraft mc) {
+        Surroundings e = env;
+        if (e == null || !e.surface || !(e.night || e.dusk) || e.rainHere || e.snowy || e.desert || e.temperature < 0.5f) return;
+        if (e.grass < 6 && e.leaves < 5) return;
+        if (random.nextFloat() > 0.6f) return;
+        var player = mc.player;
+        double x = player.getX() + (random.nextDouble() - 0.5) * 28, z = player.getZ() + (random.nextDouble() - 0.5) * 28;
+        int ground = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z));
+        if (Math.abs(ground - player.getY()) > 12) return;
+        double y = ground + 0.4 + random.nextDouble() * 2.6;
+        mc.level.addParticle(net.minecraft.core.particles.ParticleTypes.FIREFLY, x, y, z, 0, 0, 0);
     }
 
     private double wadeDistance;

@@ -36,6 +36,10 @@ EVENTS = {  # event: (file prefix, subtitle, attenuation distance or None, strea
     "entity.songbird.cardinal": ("songbird/cardinal", "Cardinal sings", 32, False), "entity.songbird.goldfinch": ("songbird/goldfinch", "Goldfinch sings", 32, False),
     "entity.songbird.robin": ("songbird/robin", "Robin sings", 32, False), "entity.songbird.blue_jay": ("songbird/blue_jay", "Blue jay calls", 32, False),
     "entity.songbird.bluebird": ("songbird/bluebird", "Bluebird warbles", 32, False),
+    "entity.songbird.mourning_dove": ("songbird/mourning_dove", "Mourning dove coos", 40, False),
+    "entity.chipmunk.chip": ("critter/chipmunk_chip", "Chipmunk chips", None, False),
+    "entity.coyote.yips": ("critter/coyote_yips", "Coyotes yip", 48, False),
+    "entity.coyote.howl": ("critter/coyote_howl", "Coyote howls", 64, False),
 }
 sounds, lang = {}, {}
 for ev, (prefix, sub, att, stream) in EVENTS.items():
@@ -55,7 +59,10 @@ w("assets/ryancraft/sounds.json", sounds)
 # ---- items
 FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
-ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap"]
+EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
+            "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish"]
+ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap"] \
+        + [m + "_spawn_egg" for m in EGG_MOBS]
 for it in ITEMS:
     w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/" + it}})
     w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/" + it}})
@@ -97,7 +104,8 @@ loot("raccoon", [pool("ryancraft:raccoon_tail", 1, 1, chance=0.5)])
 loot("mink", [pool("minecraft:leather", 0, 1)])
 loot("beaver", [pool("minecraft:leather", 0, 1), pool("minecraft:stick", 0, 2, looting=False)])
 loot("songbird", [pool("minecraft:feather", 0, 1)])
-for name in ["skunk", "opossum", "squirrel"]: loot(name, [])
+for name in ["skunk", "opossum", "squirrel", "chipmunk"]: loot(name, [])
+loot("coyote", [pool("minecraft:leather", 0, 1), pool("minecraft:bone", 0, 1)])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
@@ -167,6 +175,8 @@ lang.update({
     "item.ryancraft.bluegill_bucket": "Bucket of Bluegill", "item.ryancraft.crappie_bucket": "Bucket of Crappie",
     "item.ryancraft.largemouth_bass_bucket": "Bucket of Largemouth Bass", "item.ryancraft.channel_catfish_bucket": "Bucket of Channel Catfish",
     "item.ryancraft.raccoon_tail": "Raccoon Tail",
+    "entity.ryancraft.coyote": "Coyote", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
+    "entity.ryancraft.songbird.mourning_dove": "Mourning Dove",
     "item.ryancraft.deer_skull_mount": "Deer Skull Mount",
     "item.ryancraft.deer_skull_mount.s1": "Spike Buck Skull Mount", "item.ryancraft.deer_skull_mount.s2": "Fork Buck Skull Mount",
     "item.ryancraft.deer_skull_mount.s3": "Eight-Point Skull Mount", "item.ryancraft.deer_skull_mount.s4": "Trophy Buck Skull Mount",
@@ -180,5 +190,10 @@ lang.update({
     "biome.ryancraft.shrubland": "Shrubland", "biome.ryancraft.tundra": "Tundra",
     "tag.item.ryancraft.kentucky_fish": "Kentucky Fish", "tag.item.ryancraft.repairs_coonskin": "Coonskin Cap Repair Materials",
 })
+EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Turkey", "black_bear": "Black Bear", "raccoon": "Raccoon",
+             "skunk": "Skunk", "mink": "Mink", "opossum": "Opossum", "beaver": "Beaver", "squirrel": "Squirrel", "songbird": "Songbird",
+             "chipmunk": "Chipmunk", "coyote": "Coyote", "bluegill": "Bluegill", "crappie": "Crappie", "largemouth_bass": "Largemouth Bass",
+             "channel_catfish": "Channel Catfish"}
+for m, n in EGG_NAMES.items(): lang[f"item.ryancraft.{m}_spawn_egg"] = f"{n} Spawn Egg"
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

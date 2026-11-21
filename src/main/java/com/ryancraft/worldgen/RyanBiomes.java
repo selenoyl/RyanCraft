@@ -95,6 +95,11 @@ public final class RyanBiomes {
         spawn(sel(hardwoods, Biomes.PLAINS, Biomes.MEADOW, Biomes.SAVANNA, SHRUBLAND), MobCategory.CREATURE, RyanEntities.SQUIRREL, 10, 2, 3);
         spawn(sel(hardwoods, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SWAMP, SHRUBLAND, RAINFOREST),
                 MobCategory.CREATURE, RyanEntities.SONGBIRD, 10, 2, 3);
+        // Coyotes: open country and woodland edges, in loose packs
+        spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SAVANNA,
+                        Biomes.BADLANDS, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST}),
+                MobCategory.CREATURE, RyanEntities.COYOTE, 5, 3, 5);
+        spawn(sel(hardwoods, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.CHIPMUNK, 8, 2, 3);
         var creeks = BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
         spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.BLUEGILL, 15, 3, 6);
         spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CRAPPIE, 10, 3, 5);

@@ -63,6 +63,21 @@ public final class RyanItems {
     public static final Item DEER_SKULL_MOUNT = register("deer_skull_mount", com.ryancraft.item.DeerSkullMountItem::new,
             new Item.Properties().stacksTo(16));
 
+    /** Spawn eggs for every RyanCraft mob (ids: <mob>_spawn_egg). */
+    public static final java.util.List<Item> SPAWN_EGGS = new java.util.ArrayList<>();
+    static {
+        egg("boar", RyanEntities.BOAR); egg("deer", RyanEntities.DEER); egg("duck", RyanEntities.DUCK); egg("turkey", RyanEntities.TURKEY);
+        egg("black_bear", RyanEntities.BLACK_BEAR); egg("raccoon", RyanEntities.RACCOON); egg("skunk", RyanEntities.SKUNK);
+        egg("mink", RyanEntities.MINK); egg("opossum", RyanEntities.OPOSSUM); egg("beaver", RyanEntities.BEAVER);
+        egg("squirrel", RyanEntities.SQUIRREL); egg("songbird", RyanEntities.SONGBIRD); egg("chipmunk", RyanEntities.CHIPMUNK);
+        egg("coyote", RyanEntities.COYOTE); egg("bluegill", RyanEntities.BLUEGILL); egg("crappie", RyanEntities.CRAPPIE);
+        egg("largemouth_bass", RyanEntities.LARGEMOUTH_BASS); egg("channel_catfish", RyanEntities.CHANNEL_CATFISH);
+    }
+
+    private static void egg(String mob, EntityType<?> type) {
+        SPAWN_EGGS.add(register(mob + "_spawn_egg", net.minecraft.world.item.SpawnEggItem::new, new Item.Properties().spawnEgg(type)));
+    }
+
     private static final Map<EntityType<?>, Item> BUCKETS = new HashMap<>();
     static {
         BUCKETS.put(RyanEntities.BLUEGILL, BLUEGILL_BUCKET);
@@ -106,6 +121,7 @@ public final class RyanItems {
             }
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> e.accept(RACCOON_TAIL));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(e -> SPAWN_EGGS.forEach(e::accept));
     }
 
     private RyanItems() {}

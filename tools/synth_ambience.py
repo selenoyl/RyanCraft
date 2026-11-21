@@ -528,3 +528,45 @@ if __name__ == "__main__":
     save("ambience/cicadas", cicadas(), .7)
     for k in range(6): save(f"ambience/splash{k+1}", wade_splash(), .75)
     save("ambience/waterfall", waterfall(), .7)
+
+# ---------- coyotes, chipmunks, mourning doves ----------
+def chipmunk_chip():
+    """'chip-chip-chip': sharp, high, repeated."""
+    n_chips = rng.integers(3, 7); parts = []
+    for _ in range(n_chips):
+        parts += [syl(.035, rng.uniform(5200, 6200), rng.uniform(4200, 4800), 1, (1, .3)), np.zeros(int(rng.uniform(.09, .14) * SR))]
+    return reverb(np.concatenate(parts), .12, .5)
+
+def coyote_yips():
+    """A burst of high yips and short barks, the way a pack sounds off."""
+    out = np.zeros(int(2.2 * SR)); t = 0.0
+    for _ in range(rng.integers(5, 9)):
+        d = rng.uniform(.07, .16); f0 = rng.uniform(900, 1300)
+        s = sweep(d, f0, f0 * rng.uniform(1.2, 1.6), .5, (1, .5, .3, .15)) * env_adsr(int(d * SR), .005, .05)
+        place(out, bp(s + white(len(s)) * .1, 500, 6000), t); t += d + rng.uniform(.03, .12)
+    return reverb(out, .35, 1.2)
+
+def coyote_howl():
+    """Higher and more warbling than a wolf: rises, wavers, breaks into yips."""
+    d = rng.uniform(2.0, 2.6); n = int(d * SR); u = np.linspace(0, 1, n)
+    f = 700 + 500 * np.sin(np.pi * np.minimum(u * 1.6, 1)) ** .7 - 250 * u
+    f *= 1 + .035 * np.sin(2 * np.pi * 7 * u * d)                      # warble
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    s = (np.sin(ph) + .4 * np.sin(2 * ph) + .15 * np.sin(3 * ph)) * env_adsr(n, .25, .5)
+    tail = coyote_yips()[:int(1.0 * SR)] * .7
+    return reverb(np.concatenate([lp(s, 3000), tail]), .55, 1.6)
+
+def dove_coo():
+    """Mourning dove: 'coo-OOO-oo ... oo ... oo', low, soft and breathy."""
+    def coo(d, f0, f1, shape=1.0):
+        s = sweep(d, f0, f1, shape, (1, .15, .05)) * env_adsr(int(d * SR), .06, .12)
+        return lp(s + bp(white(len(s)), 300, 900) * .05 * env_adsr(len(s), .06, .12), 1500)
+    first = np.concatenate([coo(.35, 480, 540), coo(.55, 560, 680, .6) * 1.1, coo(.45, 640, 470)])
+    rest = [coo(.55, 500, 470), coo(.55, 495, 465), coo(.55, 490, 460)]
+    return reverb(seq([first] + rest, .35), .3, 1.1)
+
+if __name__ == "__main__":
+    for k in range(3): save(f"critter/chipmunk_chip{k+1}", chipmunk_chip(), .75)
+    for k in range(3): save(f"critter/coyote_yips{k+1}", coyote_yips(), .8)
+    for k in range(2): save(f"critter/coyote_howl{k+1}", coyote_howl(), .8)
+    for k in range(2): save(f"songbird/mourning_dove{k+1}", dove_coo(), .75)

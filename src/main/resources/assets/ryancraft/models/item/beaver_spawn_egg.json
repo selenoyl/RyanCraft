@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ryancraft:item/beaver_spawn_egg"
+  }
+}

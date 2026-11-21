@@ -28,8 +28,8 @@ import net.minecraft.world.phys.Vec3;
  * American Goldfinch, American Robin, Blue Jay and Eastern Bluebird.
  */
 public class Songbird extends CritterAnimal implements FlyingAnimal {
-    public static final int CARDINAL = 0, GOLDFINCH = 1, ROBIN = 2, BLUE_JAY = 3, BLUEBIRD = 4;
-    private static final int[] WEIGHTS = {30, 18, 25, 17, 10};
+    public static final int CARDINAL = 0, GOLDFINCH = 1, ROBIN = 2, BLUE_JAY = 3, BLUEBIRD = 4, MOURNING_DOVE = 5;
+    private static final int[] WEIGHTS = {24, 14, 20, 14, 8, 20};   // sums to 100
 
     public Songbird(EntityType<? extends Songbird> type, Level level) {
         super(type, level);
@@ -41,7 +41,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal {
                 .add(Attributes.FLYING_SPEED, 0.5).add(Attributes.MOVEMENT_SPEED, 0.2);
     }
 
-    @Override protected int variantCount() { return 5; }
+    @Override protected int variantCount() { return 6; }
 
     @Override
     protected int chooseVariant(ServerLevelAccessor level, BlockPos pos) {
@@ -91,6 +91,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal {
             case ROBIN -> RyanSounds.SONG_ROBIN;
             case BLUE_JAY -> RyanSounds.SONG_BLUE_JAY;
             case BLUEBIRD -> RyanSounds.SONG_BLUEBIRD;
+            case MOURNING_DOVE -> RyanSounds.SONG_DOVE;
             default -> RyanSounds.SONG_CARDINAL;
         };
     }
@@ -99,5 +100,5 @@ public class Songbird extends CritterAnimal implements FlyingAnimal {
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
     @Override public int getAmbientSoundInterval() { return 160; }
     @Override protected float getSoundVolume() { return 0.8f; }
-    @Override protected String variantName() { return switch (getVariant()) { case GOLDFINCH -> "goldfinch"; case ROBIN -> "robin"; case BLUE_JAY -> "blue_jay"; case BLUEBIRD -> "bluebird"; default -> null; }; }
+    @Override protected String variantName() { return switch (getVariant()) { case GOLDFINCH -> "goldfinch"; case ROBIN -> "robin"; case BLUE_JAY -> "blue_jay"; case BLUEBIRD -> "bluebird"; case MOURNING_DOVE -> "mourning_dove"; default -> null; }; }
 }
