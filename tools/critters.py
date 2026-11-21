@@ -95,7 +95,7 @@ MODELS = {
 # paint = per box-paint-key style dict (see painter below)
 P = {}
 P["black_bear"] = {
-    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#5a3a22", "eye_white": "#ece8de", "eye_row": 3},
+    "black": {"body": {"c": "#1d1b1b", "noise": 8}, "head": {"c": "#1d1b1b", "eyes": "#080504", "eye_white": "#ece8de", "eye_row": 3},
               "snout": {"c": "#b08a5e", "nose": "#111111"}, "ear": {"c": "#141212"}, "leg": {"c": "#161414"}, "tail": {"c": "#1d1b1b"}},
     "cinnamon": {"body": {"c": "#7b4a28", "noise": 10}, "head": {"c": "#7b4a28", "eyes": "#1a1210", "eye_white": "#ece8de", "eye_row": 3},
                  "snout": {"c": "#c79a68", "nose": "#111111"}, "ear": {"c": "#6a3d20"}, "leg": {"c": "#5e361c"}, "tail": {"c": "#7b4a28"}},
