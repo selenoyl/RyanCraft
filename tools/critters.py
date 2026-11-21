@@ -168,7 +168,7 @@ P["chipmunk"] = {"chipmunk": {
     "body": {"c": "#9a6a44", "noise": 8, "top_cols": ["#e6d8bc", "#1e1610", "#1e1610", "#e6d8bc"],
              "side_rows": ["#1e1610", "#e6d8bc", "#a87048"], "belly": "#efe6d6"},
     "head": {"c": "#9a6a44", "noise": 6,
-             "front_map": ["cDc", "EwE", "wnw"],
+             "front_map": ["ccc", "EwE", "wnw"],
              "front_colors": {"c": "#e6d8bc", "D": "#3a2a1e", "E": "#0a0a0a", "w": "#e6d8bc", "n": "#3a2a24"}},
     "ear": {"c": "#8a5a38"}, "leg": {"c": "#a87048"}, "tail": {"c": "#7a5638", "noise": 12}}}
 P["coyote"] = {"coyote": {
