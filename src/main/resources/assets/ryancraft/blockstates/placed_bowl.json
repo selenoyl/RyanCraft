@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "contents=empty": {
+      "model": "ryancraft:block/placed_bowl_empty"
+    },
+    "contents=mushroom_stew": {
+      "model": "ryancraft:block/placed_bowl_mushroom_stew"
+    },
+    "contents=beetroot_soup": {
+      "model": "ryancraft:block/placed_bowl_beetroot_soup"
+    },
+    "contents=rabbit_stew": {
+      "model": "ryancraft:block/placed_bowl_rabbit_stew"
+    }
+  }
+}

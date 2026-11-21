@@ -1,0 +1,77 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:bucket",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "ryancraft:placed_bucket",
+              "properties": {
+                "contents": "empty"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:water_bucket",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "ryancraft:placed_bucket",
+              "properties": {
+                "contents": "water"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:lava_bucket",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "ryancraft:placed_bucket",
+              "properties": {
+                "contents": "lava"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:milk_bucket",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "ryancraft:placed_bucket",
+              "properties": {
+                "contents": "milk"
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:powder_snow_bucket",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "ryancraft:placed_bucket",
+              "properties": {
+                "contents": "powder_snow"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "ryancraft:blocks/placed_bucket"
+}

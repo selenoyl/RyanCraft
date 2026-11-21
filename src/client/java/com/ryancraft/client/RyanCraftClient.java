@@ -21,6 +21,11 @@ public class RyanCraftClient implements ClientModInitializer {
     public void onInitializeClient() {
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.bag.Cages.BIRD_CAGE, com.ryancraft.bag.Cages.CHIPMUNK_CAGE);
+        net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.storage.RyanStorage.POT_MENU, com.ryancraft.client.screen.PotScreen::new);
+        // Water in a placed bucket takes the biome's water colour
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->
+                level != null && pos != null ? net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(level, pos) : 0x3F76E4,
+                com.ryancraft.storage.RyanStorage.PLACED_BUCKET);
         // Mob bags list who's inside
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, ctx, type, lines) -> {
             com.ryancraft.bag.MobBag bag = com.ryancraft.bag.MobBags.get(stack);

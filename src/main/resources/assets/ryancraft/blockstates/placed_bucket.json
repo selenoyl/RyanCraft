@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "contents=empty": {
+      "model": "ryancraft:block/placed_bucket_empty"
+    },
+    "contents=water": {
+      "model": "ryancraft:block/placed_bucket_water"
+    },
+    "contents=lava": {
+      "model": "ryancraft:block/placed_bucket_lava"
+    },
+    "contents=milk": {
+      "model": "ryancraft:block/placed_bucket_milk"
+    },
+    "contents=powder_snow": {
+      "model": "ryancraft:block/placed_bucket_powder_snow"
+    }
+  }
+}

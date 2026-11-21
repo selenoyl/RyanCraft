@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "ingredient": "ryancraft:unfired_clay_pot",
+  "result": {
+    "id": "ryancraft:clay_pot"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}

@@ -216,5 +216,6 @@ EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Tur
 for m, n in EGG_NAMES.items(): lang[f"item.ryancraft.{m}_spawn_egg"] = f"{n} Spawn Egg"
 sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; lang.update(lang_entries())
 from cages import lang_entries as cage_lang; lang.update(cage_lang())
+from storage_assets import lang_entries as storage_lang; lang.update(storage_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "pots=1": {
+      "model": "ryancraft:block/clay_pot_1"
+    },
+    "pots=2": {
+      "model": "ryancraft:block/clay_pot_2"
+    },
+    "pots=3": {
+      "model": "ryancraft:block/clay_pot_3"
+    },
+    "pots=4": {
+      "model": "ryancraft:block/clay_pot_4"
+    }
+  }
+}

@@ -118,7 +118,7 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 
 ## Storage and inventory (ideas)
 - **Backpack slot**: an extra inventory slot for a backpack.
-- **Clay pots and bowls** (Vintage Story style): in progress.
+- ~~**Clay pots, placeable bowls and buckets**~~ (built). Next: fired clay bowls and crocks, food spoilage.
 
 ## Blocks and backports
 - **Concrete slabs and stairs**, backported from newer versions.
