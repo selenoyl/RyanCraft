@@ -29,6 +29,21 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 
 **Small life**
 - **Butterflies**
+- **Fireflies**: drifting over plains and through the woods on summer nights (the game only has the firefly bush).
+- **Chipmunks**
+
+**Canines**
+- **Coyotes**: a smaller, untameable wolf. Like the black bear, mostly leaves you alone unless you get close;
+  travels in loose packs the way vanilla wolves do.
+
+**Songbirds**
+- **Mourning doves**, with their iconic soft cooing call (in the songbird family and the ambience).
+
+## Hunting
+- **Hunting gear**: game calls (turkey and deer calls that draw animals in), a tree stand, and the like.
+- **Pelts**: coyotes and wolves can be hunted for their pelts.
+- **Taxidermy** (later): stuff and mount pelts and animals; right-click a mount to cycle through poses, the way the
+  copper golem statue switches poses.
 
 ## A sky dimension (our own, not the Aether)
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
