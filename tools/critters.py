@@ -125,7 +125,7 @@ P["opossum"] = {"opossum": {
     "head": {"c": "#ece8e0", "eyes": "#0a0a0a", "eye_row": 1, "noise": 6}, "snout": {"c": "#ece8e0", "nose": "#e8a0a8"},
     "ear": {"c": "#141414"}, "leg": {"c": "#252322"}, "tail": {"c": "#e3b0aa", "noise": 6, "front": "#3a3634"}}}
 P["beaver"] = {"beaver": {
-    "body": {"c": "#6b4428", "noise": 12, "belly": "#7d5434"}, "head": {"c": "#6b4428", "eyes": "#0c0c0c", "eye_row": 1},
+    "body": {"c": "#6b4428", "noise": 12, "belly": "#7d5434"}, "head": {"c": "#6b4428", "eyes": "#0c0c0c", "eye_white": "#ece8de", "eye_inset": 0, "eye_row": 1},
     "snout": {"c": "#5a3820", "nose": "#141010"}, "ear": {"c": "#4e301a"}, "leg": {"c": "#3e2614"},
     "tail": {"c": "#2e2622", "speckle": {"c": "#463a33", "p": 0.4}}, "teeth": {"c": "#e3892a"}}}
 P["squirrel"] = {
@@ -242,7 +242,8 @@ def paint_box(img, b, style):
     fx, fy, fw, fh = faces["front"]
     if "eyes" in style and fw >= 3:
         r = style.get("eye_row", 1)
-        left, right = fx + (1 if fw >= 5 else 0), fx + fw - (2 if fw >= 5 else 1)
+        inset = style.get("eye_inset", 1 if fw >= 5 else 0)
+        left, right = fx + inset, fx + fw - 1 - inset
         for x in (left, right):
             img.putpixel((x, fy + r), hexc(style["eyes"]) + (255,))
         if "eye_white" in style:      # pupil on the outside, white toward the middle (like the cow, pig, polar bear)

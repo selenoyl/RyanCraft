@@ -42,6 +42,7 @@ im=Image.new("RGBA",(64,64),(0,0,0,0))
 box(im,0,0,4,9,4,"#a0703f")                         # neck
 fx,fy=box(im,16,0,6,5,7,"#a0703f")                  # skull
 for x in (fx,fx+5): px(im,x,fy+1,"#111111")
+px(im,fx+1,fy+1,"#eeeae0"); px(im,fx+4,fy+1,"#eeeae0")   # white beside each eye, cow-style
 nx,ny=box(im,42,0,4,3,3,"#b58552",front="#c0956a")  # snout
 px(im,nx+1,ny,"#222222"); px(im,nx+2,ny,"#222222")
 box(im,56,0,1,6,1,"#d9c7a0"); box(im,56,8,3,1,1,"#d9c7a0")
