@@ -155,13 +155,14 @@ def bark_base(r, base):
             px[x, y] = jit(r, shade(b, k), 4) + (255,)
     return img
 
-def leaves(seed, leaf, bloom=None):
+def leaves(seed, leaf, bloom=None, bloom_only=False):
     r = random.Random(seed); l = hexc(leaf); img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
     for x in range(16):
         for y in range(16):
             if r.random() < 0.12: continue                     # holes, like vanilla fancy leaves
             c = l
             if bloom and r.random() < 0.7: c = hexc(bloom)
+            elif bloom_only: continue                          # pure blossom: the gaps are see-through
             px[x, y] = jit(r, shade(c, r.choice((.8, .95, 1.0, 1.1))), 6) + (255,)
     return img
 
@@ -182,7 +183,7 @@ if __name__ == "__main__":
         s = 7000 + k * 10
         texs = {"log": bark_side(s, bark, pattern), "log_top": log_top(s + 1, bark, wood),
                 "stripped_log": stripped_side(s + 2, wood), "stripped_log_top": log_top(s + 3, bark, wood, True),
-                "planks": planks(s + 4, wood), "leaves": leaves(s + 5, leaf, bloom)}
+                "planks": planks(s + 4, wood), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"))}
         for suffix, im in texs.items(): im.save(os.path.join(OUT, f"{name}_{suffix}.png"))
         y = 100 + k * rowh
         d.text((24, y + T // 2), name.replace("_", " ").title(), font=font(18, True), fill=(46, 42, 36), anchor="lm")
