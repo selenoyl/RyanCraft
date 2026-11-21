@@ -78,30 +78,33 @@ bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=
     box("tuft_r", (-2, -7.5, -2.5), (1, 2, 1), "tuft"), box("tuft_l", (1, -7.5, -2.5), (1, 2, 1), "tuft", mirror=True)])
 
 CLEAR = {"c": None}
-ELK = {"body": {"c": "#b48a58", "noise": 8, "back": "#e6d4ac", "belly": "#5e4028", "bottom": "#5e4028"},
-       "head": {"c": "#6a4a2e", "noise": 6, "side_eyes": "#100c08", "eye_row": 2},
-       "snout": {"c": "#4e3622", "noise": 6, "front": "#2a1c12"}, "mane": {"c": "#4e3420", "noise": 10},
-       "ear": {"c": "#7a5838"}, "leg": {"c": "#4a3220", "noise": 6}, "tail": {"c": "#e6d4ac"}}
-MOOSE = {"body": {"c": "#2e2018", "noise": 8}, "head": {"c": "#5a4230", "noise": 6, "side_eyes": "#080604", "eye_row": 2},
-         "snout": {"c": "#4a3626", "noise": 6, "front": "#241810", "top": "#5a4230"}, "mane": {"c": "#2a1c14", "noise": 8},
-         "bell": {"c": "#2a1c14"}, "ear": {"c": "#3a2a1e"}, "leg": {"c": "#9a8a74", "noise": 8, "top": "#2e2018"},
-         "tail": {"c": "#2e2018"}}
+ELK = {   # Roosevelt elk: deep reddish-brown, near-black mane, cream rump
+       "body": {"c": "#8a5a36", "noise": 8, "tip": {"c": "#d8c09a", "frac": 0.14}, "belly": "#2e1c10", "bottom": "#2e1c10"},
+       "head": {"c": "#3a2616", "noise": 6, "side_eyes": "#0a0806", "eye_row": 2},
+       "snout": {"c": "#2e1e12", "noise": 6, "front": "#140c08"}, "mane": {"c": "#2e1c10", "noise": 10, "fringe": "#1a0e08"},
+       "ear": {"c": "#5a3a22"}, "leg": {"c": "#2a1a0e", "noise": 6}, "tail": {"c": "#d8c09a"}}
+MOOSE = {   # rusty: warm chestnut, grizzled, dark tops to the pale stockings
+         "body": {"c": "#5a3a24", "noise": 8, "grizzle": {"c": ["#7a5232", "#3e2818"], "p": [0.2, 0.15]}},
+         "head": {"c": "#6a4a30", "noise": 6, "side_eyes": "#080604", "eye_row": 2},
+         "snout": {"c": "#4a3220", "noise": 6, "front": "#1e140c", "top": "#6a4a30"}, "mane": {"c": "#3a2414", "noise": 12, "fringe": "#24160c"},
+         "bell": {"c": "#2a1c14"}, "ear": {"c": "#3a2a1e"}, "leg": {"c": "#8a7660", "noise": 8, "top": "#3e2818"},
+         "tail": {"c": "#3e2818"}}
 PRONG = {"body": {"c": "#c48a4c", "noise": 6, "belly": "#f2ece0", "back": "#f2ece0"},
          "mane": {"c": "#c48a4c", "noise": 4, "side_rows": ["#c48a4c", "#f2ece0", "#c48a4c", "#c48a4c", "#f2ece0", "#f2ece0", "#c48a4c", "#c48a4c"]},
          "head": {"c": "#c48a4c", "noise": 4, "side_eyes": "#0a0806", "eye_ring": "#f2ece0", "eye_row": 1, "bottom": "#f2ece0"},
          "ear": {"c": "#b07a40", "back": "#2a2018"}, "leg": {"c": "#c8925a", "noise": 4}, "tail": {"c": "#f2ece0"}}
 VARIANTS = {
     "elk": {"elk": dict(ELK, antler=CLEAR),
-            "elk_bull": dict(ELK, mane={"c": "#3a2616", "noise": 10}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}})},
+            "elk_bull": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}})},
     "moose": {"moose": dict(MOOSE, antler=CLEAR),
               "moose_bull": dict(MOOSE, antler={"c": "#d0bc96", "noise": 12, "speckle": {"c": "#b8a27a", "p": 0.2}})},
     "pronghorn": {"pronghorn": dict(PRONG, snout={"c": "#c48a4c", "front": "#3a2c20"}, horn=CLEAR),
                   "pronghorn_buck": dict(PRONG, snout={"c": "#2a2018", "noise": 4}, horn={"c": "#1a1816", "noise": 4})},
-    "grizzly_bear": {"grizzly_bear": {
-        "body": {"c": "#7a5634", "noise": 8, "grizzle": {"c": ["#b89468", "#5a3e26"], "p": [0.25, 0.15]}},
-        "head": {"c": "#8a643e", "noise": 6, "grizzle": {"c": ["#c0a070"], "p": [0.2]}, "eyes": "#080504", "eye_white": "#ece8de", "eye_row": 3},
-        "snout": {"c": "#9a7a54", "noise": 6, "nose": "#141010"}, "ear": {"c": "#5a3e26"}, "leg": {"c": "#4a3220", "noise": 8},
-        "tail": {"c": "#6a4a2c"}}},
+    "grizzly_bear": {"grizzly_bear": {   # dark chocolate, pale muzzle and chest collar
+        "body": {"c": "#3a2618", "noise": 8, "grizzle": {"c": ["#5a3e28", "#24180e"], "p": [0.2, 0.15]}, "front": "#8a6a48"},
+        "head": {"c": "#4a3220", "noise": 6, "eyes": "#080504", "eye_white": "#ece8de", "eye_row": 3},
+        "snout": {"c": "#c4a882", "noise": 6, "nose": "#141010"}, "ear": {"c": "#2a1c12"}, "leg": {"c": "#20140c", "noise": 6},
+        "tail": {"c": "#2a1c12"}}},
     "bobcat": {"bobcat": {
         "body": {"c": "#b48c62", "noise": 8, "speckle": {"c": "#3e2c1c", "p": 0.22}, "belly": "#efe6d8"},
         "head": {"c": "#b48c62", "noise": 6, "front_map": ["cDcDc", "cEcEc", "wwnww"],
@@ -111,8 +114,8 @@ VARIANTS = {
         "leg": {"c": "#b48c62", "speckle": {"c": "#3e2c1c", "p": 0.15}}, "tail": {"c": "#b48c62", "tip": {"c": "#1a1410", "frac": 0.35}}}},
 }
 MODELS = {"elk": elk, "moose": moose, "pronghorn": pronghorn, "grizzly_bear": grizzly, "bobcat": bobcat}
-EGGS = {"elk": ("#b08454", "#4e3420"), "moose": ("#2e2018", "#9a8a74"), "pronghorn": ("#c48a4c", "#f2ece0"),
-        "grizzly_bear": ("#7a5634", "#c0a070"), "bobcat": ("#b48c62", "#3e2c1c")}
+EGGS = {"elk": ("#8a5a36", "#24160c"), "moose": ("#5a3a24", "#8a7660"), "pronghorn": ("#c48a4c", "#f2ece0"),
+        "grizzly_bear": ("#3a2618", "#c4a882"), "bobcat": ("#b48c62", "#3e2c1c")}
 
 if __name__ == "__main__":
     for name, parts in MODELS.items():

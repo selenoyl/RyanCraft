@@ -58,7 +58,7 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
 | **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
 
-![Big game](docs/big_game.png)
+![Big game](docs/big_game_iso.png)
 
 ### Deer: antlers and hunting
 **Antlers grow with age.** A deer ages only while its chunk is loaded, and goes up one stage every 2-3 in-game weeks (each deer on its own clock):
