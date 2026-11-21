@@ -94,6 +94,8 @@ Breeding foods: turkey and songbirds take seeds; bears take berries, honey or fi
 ## Vanilla tweaks
 - **Skeletons come in variants**: cracked skulls, missing ribs, darker aged bones, and the odd dark one with a cracked skull. The variant textures are built on your machine from whatever skeleton texture is active (vanilla, the classic 1.2.5 pack, or any resource pack).
 - **Armadillos drop their scutes when killed** (1-3, more with Looting). No brush needed.
+- **Goats drop their horns when killed** (1-2 playable horns with a random goat-horn sound). No ramming needed.
+- **Turtles drop scutes when killed** (1-3, on top of their usual drops). No waiting for babies to grow up.
 
 ![Skeleton variants](docs/skeletons.png)
 

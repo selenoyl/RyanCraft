@@ -109,6 +109,23 @@ w("data/minecraft/loot_table/entities/armadillo.json", {"type": "minecraft:entit
                  {"function": "minecraft:set_count", "count": cnt(1, 3)},
                  {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": cnt(0, 1)}]}]}]})
 
+ADULT = [{"condition": "minecraft:entity_properties", "entity": "this", "predicate": {"flags": {"is_baby": False}}}]
+LOOTING = {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": cnt(0, 1)}
+# Goats drop their horns when killed (vanilla: only from ramming)
+w("data/minecraft/loot_table/entities/goat.json", {"type": "minecraft:entity", "random_sequence": "minecraft:entities/goat",
+  "pools": [{"rolls": cnt(1, 2), "conditions": ADULT, "entries": [{"type": "minecraft:item", "name": "minecraft:goat_horn",
+             "functions": [{"function": "minecraft:set_instrument", "options": "#minecraft:regular_goat_horns"}]}]}]})
+# Turtles drop scutes when killed (vanilla: only when a baby grows up); vanilla seagrass and lightning bowl kept
+w("data/minecraft/loot_table/entities/turtle.json", {"type": "minecraft:entity", "random_sequence": "minecraft:entities/turtle",
+  "pools": [
+    {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:seagrass",
+                              "functions": [{"function": "minecraft:set_count", "count": cnt(0, 2)}, LOOTING]}]},
+    {"rolls": 1, "conditions": [{"condition": "minecraft:damage_source_properties",
+                                 "predicate": {"tags": [{"id": "minecraft:is_lightning", "expected": True}]}}],
+     "entries": [{"type": "minecraft:item", "name": "minecraft:bowl"}]},
+    {"rolls": 1, "conditions": ADULT, "entries": [{"type": "minecraft:item", "name": "minecraft:turtle_scute",
+                              "functions": [{"function": "minecraft:set_count", "count": cnt(1, 3)}, LOOTING]}]}]})
+
 # Fishing: Kentucky fish join the catch (same overall fish odds as vanilla)
 def fish_entry(item, weight, cook=True):
     e = {"type": "minecraft:item", "name": item, "weight": weight}
