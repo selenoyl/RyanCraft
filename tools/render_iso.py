@@ -143,12 +143,19 @@ def render(name, textures, scale=1.0, pose=None):
         zbuf[y0:y1, x0:x1][ok] = depth[ok]
     return Image.fromarray(img.clip(0, 255).astype(np.uint8))
 
-MOBS = [  # (label, subtitle, model, texture, scale, extra) ; extra = (texture, scale) of a cub shown alongside
+MOBS = [  # (label, subtitle, model, texture, scale, extra) ; extra = (texture, scale) of a young one shown alongside
+    ("Elk", "Roosevelt bull, with calf", "elk", "elk_bull", 1.0, ("elk", 0.5)),
+    ("Moose", "bull, with calf", "moose", "moose_bull", 1.0, ("moose", 0.5)),
+    ("Grizzly Bear", "with cub", "grizzly_bear", "grizzly_bear", 1.0, ("grizzly_bear", 0.5)),
+    ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
+    ("Pronghorn", "buck, with doe", "pronghorn", "pronghorn_buck", 1.0, ("pronghorn", 1.0)),
     ("Black Bear", "with cub", "black_bear", "black", 1.0, ("black", 0.5)),
     ("Cinnamon Bear", "rare colour phase", "black_bear", "cinnamon", 1.0, None),
-    ("Wild Turkey", "tom", "turkey", "turkey", 1.0, None),
-    ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
     ("Boar", "", "boar", "boar", 1.0, None),
+    ("Coyote", "", "coyote", "coyote", 1.0, None),
+    ("Bobcat", "", "bobcat", "bobcat", 1.0, None),
+    ("Wild Turkey", "tom", "turkey", "turkey", 1.0, None),
+    ("Duck", "mallard drake", "duck", "duck", 1.0, None),
     ("Beaver", "", "beaver", "beaver", 1.0, None),
     ("Raccoon", "", "raccoon", "raccoon", 1.0, None),
     ("Opossum", "", "opossum", "opossum", 1.0, None),
@@ -156,12 +163,13 @@ MOBS = [  # (label, subtitle, model, texture, scale, extra) ; extra = (texture, 
     ("Mink", "", "mink", "mink", 1.0, None),
     ("Fox Squirrel", "", "squirrel", "fox_squirrel", 1.15, None),
     ("Eastern Gray Squirrel", "", "squirrel", "gray_squirrel", 0.85, None),
-    ("Duck", "mallard drake", "duck", "duck", 1.0, None),
+    ("Eastern Chipmunk", "", "chipmunk", "chipmunk", 1.0, None),
     ("Northern Cardinal", "Kentucky's state bird", "songbird", "cardinal", 0.8, None),
     ("American Goldfinch", "", "songbird", "goldfinch", 0.8, None),
     ("American Robin", "", "songbird", "robin", 0.8, None),
     ("Blue Jay", "", "songbird", "blue_jay", 0.8, None),
     ("Eastern Bluebird", "", "songbird", "eastern_bluebird", 0.8, None),
+    ("Mourning Dove", "", "songbird", "mourning_dove", 0.8, None),
     ("Bluegill", "", "bluegill", "bluegill", 1.0, None),
     ("Crappie", "", "crappie", "crappie", 1.0, None),
     ("Largemouth Bass", "", "largemouth_bass", "largemouth_bass", 1.0, None),
@@ -176,17 +184,18 @@ def font(size, bold=False):
 
 def sheet(out):
     BG = (243, 239, 230); INK = (46, 42, 36); SUB = (128, 118, 104)
-    cols, cell_w, label_h, gap = 4, 420, 90, 30
+    cols, label_h, gap = 5, 90, 30
     renders = []
     for label, sub, model, tex, sc, extra in MOBS:
         imgs = [render(model, tex, sc)] + ([render(model, extra[0], extra[1])] if extra else [])
         renders.append((label, sub, imgs))
+    cell_w = max(sum(im.width for im in r[2]) + 20 * (len(r[2]) - 1) for r in renders) + 30
     rows = [renders[i:i + cols] for i in range(0, len(renders), cols)]
     row_h = [max(max(im.height for im in r[2]) for r in row) + label_h + gap for row in rows]
     W, H = cols * cell_w + 80, 170 + sum(row_h) + 30
     canvas = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(canvas)
-    d.text((40, 36), "RyanCraft field guide", font=font(44, True), fill=INK)
+    d.text((40, 36), "RyanCraft field guide: %d animals" % len(MOBS), font=font(44, True), fill=INK)
     d.text((42, 92), "All drawn at the same scale: one model pixel = %d screen pixels." % PX, font=font(20), fill=SUB)
     y = 160
     for row, rh in zip(rows, row_h):
