@@ -35,7 +35,8 @@ public class RyanCraftClient implements ClientModInitializer {
                 ctx -> new RyanAnimalRenderer<>(ctx, new TurkeyModel(ctx.bakeLayer(TurkeyModel.LAYER)), 0.5f, "turkey"));
 
         for (String m : new String[]{"black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel", "songbird",
-                "bluegill", "crappie", "largemouth_bass", "channel_catfish", "chipmunk", "coyote"}) {
+                "bluegill", "crappie", "largemouth_bass", "channel_catfish", "chipmunk", "coyote",
+                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat"}) {
             EntityModelLayerRegistry.registerModelLayer(CritterModel.layer(m), () -> CritterModel.createLayer(m));
         }
         EntityRendererRegistry.register(RyanEntities.BLACK_BEAR, c -> new CritterRenderer<>(c, "black_bear", 0.9f, 1.0f, false, "black", "cinnamon"));
@@ -48,6 +49,11 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.SONGBIRD, c -> new CritterRenderer<>(c, "songbird", 0.25f, 0.8f, false,
                 "cardinal", "goldfinch", "robin", "blue_jay", "eastern_bluebird", "mourning_dove"));
         EntityRendererRegistry.register(RyanEntities.COYOTE, c -> new CritterRenderer<>(c, "coyote", 0.5f, 1.0f, false, "coyote"));
+        EntityRendererRegistry.register(RyanEntities.ELK, c -> new CritterRenderer<>(c, "elk", 1.0f, 1.0f, false, "elk", "elk_bull").plainBabies());
+        EntityRendererRegistry.register(RyanEntities.MOOSE, c -> new CritterRenderer<>(c, "moose", 1.1f, 1.0f, false, "moose", "moose_bull").plainBabies());
+        EntityRendererRegistry.register(RyanEntities.PRONGHORN, c -> new CritterRenderer<>(c, "pronghorn", 0.6f, 1.0f, false, "pronghorn", "pronghorn_buck").plainBabies());
+        EntityRendererRegistry.register(RyanEntities.GRIZZLY_BEAR, c -> new CritterRenderer<>(c, "grizzly_bear", 1.1f, 1.0f, false, "grizzly_bear"));
+        EntityRendererRegistry.register(RyanEntities.BOBCAT, c -> new CritterRenderer<>(c, "bobcat", 0.4f, 1.0f, false, "bobcat"));
         EntityRendererRegistry.register(RyanEntities.CHIPMUNK, c -> new CritterRenderer<>(c, "chipmunk", 0.25f, 1.0f, false, "chipmunk"));
         EntityRendererRegistry.register(RyanEntities.BLUEGILL, c -> new CritterRenderer<>(c, "bluegill", 0.2f, 1.0f, true, "bluegill"));
         EntityRendererRegistry.register(RyanEntities.CRAPPIE, c -> new CritterRenderer<>(c, "crappie", 0.2f, 1.0f, true, "crappie"));

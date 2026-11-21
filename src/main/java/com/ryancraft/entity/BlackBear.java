@@ -50,6 +50,13 @@ public class BlackBear extends CritterAnimal {
 
     public BlackBear(EntityType<? extends BlackBear> type, Level level) { super(type, level); }
 
+    /** How close you can get before she fights (the grizzly is far less patient). */
+    protected double crowdReach(LivingEntity target) { return target.isCrouching() ? 2.5 : 4.0; }
+    /** Health fraction at which she breaks off and runs. */
+    protected float fleeAt() { return 0.5f; }
+    @SuppressWarnings("unchecked")
+    protected EntityType<? extends BlackBear> cubType() { return (EntityType<? extends BlackBear>) this.getType(); }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 30.0).add(Attributes.MOVEMENT_SPEED, 0.25)
@@ -93,7 +100,7 @@ public class BlackBear extends CritterAnimal {
 
     private boolean crowding(LivingEntity target) {
         if (target instanceof Player p && (p.isCreative() || p.isSpectator())) return false;
-        double reach = target.isCrouching() ? 2.5 : 4.0;
+        double reach = crowdReach(target);
         if (this.distanceTo(target) < reach) return true;
         return !this.level().getEntitiesOfClass(BlackBear.class, target.getBoundingBox().inflate(8), BlackBear::isBaby).isEmpty()
                 && this.distanceTo(target) < 12;
@@ -105,7 +112,7 @@ public class BlackBear extends CritterAnimal {
         if (!(this.level() instanceof ServerLevel level)) return;
 
         // Fight until half health, then run; stop running once mostly healed
-        if (!fleeing && !this.isBaby() && this.getHealth() <= this.getMaxHealth() * 0.5f) {
+        if (!fleeing && !this.isBaby() && this.getHealth() <= this.getMaxHealth() * fleeAt()) {
             fleeing = true;
             this.setTarget(null);
             this.playSound(SoundEvents.POLAR_BEAR_HURT, 1.0f, 0.7f);
@@ -137,7 +144,7 @@ public class BlackBear extends CritterAnimal {
     }
 
     private boolean tryWildLitter(ServerLevel level) {
-        int bears = level.getEntitiesOfClass(BlackBear.class, this.getBoundingBox().inflate(96)).size();
+        int bears = level.getEntitiesOfClass(this.getClass(), this.getBoundingBox().inflate(96)).size();
         boolean hasCubs = !level.getEntitiesOfClass(BlackBear.class, this.getBoundingBox().inflate(16), BlackBear::isBaby).isEmpty();
         if (bears >= MAX_BEARS_NEARBY || hasCubs || this.random.nextInt(2) != 0) return false;
         spawnCubs(level, 1 + this.random.nextInt(2));
@@ -146,7 +153,7 @@ public class BlackBear extends CritterAnimal {
 
     private void spawnCubs(ServerLevelAccessor level, int count) {
         for (int i = 0; i < count; i++) {
-            BlackBear cub = RyanEntities.BLACK_BEAR.create(level.getLevel(), EntitySpawnReason.BREEDING);
+            BlackBear cub = cubType().create(level.getLevel(), EntitySpawnReason.BREEDING);
             if (cub == null) continue;
             cub.setVariant(this.random.nextInt(4) == 0 ? (getVariant() ^ 1) : getVariant());
             cub.setAge(CUB_AGE);
@@ -200,7 +207,7 @@ public class BlackBear extends CritterAnimal {
     }
 
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) { return offspring(RyanEntities.BLACK_BEAR, level, partner); }
+    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) { return offspring(cubType(), level, partner); }
 
     @Override protected SoundEvent getAmbientSound() { return this.isBaby() ? SoundEvents.POLAR_BEAR_AMBIENT_BABY : SoundEvents.POLAR_BEAR_AMBIENT; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.POLAR_BEAR_HURT; }

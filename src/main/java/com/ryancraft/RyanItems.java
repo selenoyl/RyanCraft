@@ -77,6 +77,8 @@ public final class RyanItems {
         egg("squirrel", RyanEntities.SQUIRREL); egg("songbird", RyanEntities.SONGBIRD); egg("chipmunk", RyanEntities.CHIPMUNK);
         egg("coyote", RyanEntities.COYOTE); egg("bluegill", RyanEntities.BLUEGILL); egg("crappie", RyanEntities.CRAPPIE);
         egg("largemouth_bass", RyanEntities.LARGEMOUTH_BASS); egg("channel_catfish", RyanEntities.CHANNEL_CATFISH);
+        egg("elk", RyanEntities.ELK); egg("moose", RyanEntities.MOOSE); egg("pronghorn", RyanEntities.PRONGHORN);
+        egg("grizzly_bear", RyanEntities.GRIZZLY_BEAR); egg("bobcat", RyanEntities.BOBCAT);
     }
 
     private static void egg(String mob, EntityType<?> type) {

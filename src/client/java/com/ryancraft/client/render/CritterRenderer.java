@@ -16,6 +16,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
     private final Identifier[] textures;
     private final float scale;
     private final boolean fish;
+    private boolean plainBabies;
 
     public CritterRenderer(EntityRendererProvider.Context ctx, String model, float shadow, float scale, boolean fish, String... textures) {
         super(ctx, new CritterModel(ctx.bakeLayer(CritterModel.layer(model)), model), shadow * scale);
@@ -24,6 +25,9 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
         this.textures = new Identifier[textures.length];
         for (int i = 0; i < textures.length; i++) this.textures[i] = RyanCraft.id("textures/entity/" + textures[i] + ".png");
     }
+
+    /** Babies always use the first texture (so young bulls don't sprout antlers). */
+    public CritterRenderer<T> plainBabies() { this.plainBabies = true; return this; }
 
     @Override
     public CritterRenderState createRenderState() {
@@ -45,6 +49,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
 
     @Override
     public Identifier getTextureLocation(CritterRenderState state) {
+        if (plainBabies && state.isBaby) return textures[0];
         return textures[Math.floorMod(state.variant, textures.length)];
     }
 

@@ -30,6 +30,7 @@ public final class RyanBiomes {
 
     public static void init() {
         kentucky();
+        bigGame();
         var all = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND, TUNDRA);
         var temperate = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND);
 
@@ -105,6 +106,26 @@ public final class RyanBiomes {
         spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CRAPPIE, 10, 3, 5);
         spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.LARGEMOUTH_BASS, 8, 1, 3);
         spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CHANNEL_CATFISH, 6, 1, 2);
+    }
+
+    /** Big game and predators of the wider continent. */
+    public static void bigGame() {
+        // Elk: mountain meadows, open woods and high grassland
+        spawn(BiomeSelectors.includeByKey(Biomes.MEADOW, Biomes.WINDSWEPT_FOREST, Biomes.WINDSWEPT_HILLS, Biomes.CHERRY_GROVE,
+                Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, SHRUBLAND, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ELK, 6, 3, 6);
+        // Moose: cold wetlands and spruce forest, usually alone or a cow with her calf
+        spawn(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.SWAMP, TUNDRA,
+                Biomes.SNOWY_PLAINS), MobCategory.CREATURE, RyanEntities.MOOSE, 4, 1, 2);
+        // Pronghorn: open grassland and shrubland
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, SHRUBLAND,
+                Biomes.BADLANDS, Biomes.WOODED_BADLANDS), MobCategory.CREATURE, RyanEntities.PRONGHORN, 7, 3, 6);
+        // Grizzlies: the high country, rarely
+        spawn(BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.WINDSWEPT_HILLS,
+                Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.GROVE, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.GRIZZLY_BEAR, 2, 1, 1);
+        // Bobcats: almost anywhere with cover, but always scarce
+        spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
+                Biomes.SWAMP, Biomes.SAVANNA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.WINDSWEPT_FOREST, SEASONAL_FOREST, SHRUBLAND}),
+                MobCategory.CREATURE, RyanEntities.BOBCAT, 2, 1, 1);
     }
 
     @SafeVarargs

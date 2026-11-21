@@ -580,5 +580,98 @@
       }
     ],
     "subtitle": "subtitles.ryancraft.entity.coyote.howl"
+  },
+  "entity.elk.bugle": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/elk_bugle1",
+        "attenuation_distance": 96
+      },
+      {
+        "name": "ryancraft:critter/elk_bugle2",
+        "attenuation_distance": 96
+      },
+      {
+        "name": "ryancraft:critter/elk_bugle3",
+        "attenuation_distance": 96
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.elk.bugle"
+  },
+  "entity.elk.chirp": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/elk_chirp1"
+      },
+      {
+        "name": "ryancraft:critter/elk_chirp2"
+      },
+      {
+        "name": "ryancraft:critter/elk_chirp3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.elk.chirp"
+  },
+  "entity.moose.call": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/moose_call1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/moose_call2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/moose_call3",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/moose_call4",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.moose.call"
+  },
+  "entity.pronghorn.snort": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/pronghorn_snort1"
+      },
+      {
+        "name": "ryancraft:critter/pronghorn_snort2"
+      },
+      {
+        "name": "ryancraft:critter/pronghorn_snort3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.pronghorn.snort"
+  },
+  "entity.bobcat.scream": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/bobcat_scream1",
+        "attenuation_distance": 64
+      },
+      {
+        "name": "ryancraft:critter/bobcat_scream2",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.bobcat.scream"
+  },
+  "entity.bobcat.growl": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/bobcat_growl1"
+      },
+      {
+        "name": "ryancraft:critter/bobcat_growl2"
+      },
+      {
+        "name": "ryancraft:critter/bobcat_growl3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.bobcat.growl"
   }
 }

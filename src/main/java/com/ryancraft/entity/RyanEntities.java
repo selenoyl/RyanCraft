@@ -45,6 +45,16 @@ public final class RyanEntities {
             EntityType.Builder.of(Coyote::new, MobCategory.CREATURE).sized(0.6f, 0.8f).clientTrackingRange(10));
     public static final EntityType<Chipmunk> CHIPMUNK = register("chipmunk",
             EntityType.Builder.of(Chipmunk::new, MobCategory.CREATURE).sized(0.35f, 0.35f).clientTrackingRange(10));
+    public static final EntityType<Elk> ELK = register("elk",
+            EntityType.Builder.of(Elk::new, MobCategory.CREATURE).sized(1.2f, 2.0f).clientTrackingRange(10));
+    public static final EntityType<Moose> MOOSE = register("moose",
+            EntityType.Builder.of(Moose::new, MobCategory.CREATURE).sized(1.3f, 2.3f).clientTrackingRange(10));
+    public static final EntityType<Pronghorn> PRONGHORN = register("pronghorn",
+            EntityType.Builder.of(Pronghorn::new, MobCategory.CREATURE).sized(0.8f, 1.4f).clientTrackingRange(10));
+    public static final EntityType<GrizzlyBear> GRIZZLY_BEAR = register("grizzly_bear",
+            EntityType.Builder.of(GrizzlyBear::new, MobCategory.CREATURE).sized(1.4f, 1.5f).clientTrackingRange(10));
+    public static final EntityType<Bobcat> BOBCAT = register("bobcat",
+            EntityType.Builder.of(Bobcat::new, MobCategory.CREATURE).sized(0.6f, 0.65f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -72,6 +82,11 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(SONGBIRD, Songbird.createAttributes());
         FabricDefaultAttributeRegistry.register(COYOTE, Coyote.createAttributes());
         FabricDefaultAttributeRegistry.register(CHIPMUNK, Chipmunk.createAttributes());
+        FabricDefaultAttributeRegistry.register(ELK, Elk.createAttributes());
+        FabricDefaultAttributeRegistry.register(MOOSE, Moose.createAttributes());
+        FabricDefaultAttributeRegistry.register(PRONGHORN, Pronghorn.createAttributes());
+        FabricDefaultAttributeRegistry.register(GRIZZLY_BEAR, GrizzlyBear.createAttributes());
+        FabricDefaultAttributeRegistry.register(BOBCAT, Bobcat.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());

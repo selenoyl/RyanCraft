@@ -46,6 +46,11 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Beaver** | Rivers, swamps | Swims, slaps its tail in alarm, bites back if attacked, leaves gnawed sticks |
 | **Mink** | Rivers, swamps | Swims and hunts fish |
 | **Coyote** | Plains, meadows, savanna, woodland edges | Loose packs; leave you alone unless you crowd them, then the pack piles in; run when badly hurt; hunt small game; yip and howl at night |
+| **Elk** | Meadows, windswept hills and forest, taiga, Shrubland | Herds of cows with a few bulls carrying big swept-back racks. Bulls bugle at dawn and dusk and fight back when hurt; cows bolt. Sneak to get close |
+| **Moose** | Taiga, snowy taiga, swamps, Tundra | Usually alone or a cow and calf. They don't run from you, they charge: keep your distance, more so from a calf. Bulls carry palmate paddles |
+| **Pronghorn** | Plains, savanna, badlands, Shrubland | The fastest animal on the plains. Spooks from 20+ blocks and outruns anything; snorts the alarm |
+| **Grizzly Bear** | Old-growth taiga, windswept hills, meadows, groves | A bigger, shorter-tempered bear with a shoulder hump. Gives you far less room than a black bear and fights nearly to the end |
+| **Bobcat** | Forests, swamps, savanna, badlands, Shrubland (always scarce) | A shy wildcat: slips away from people, climbs trees, hunts rabbits, chickens, squirrels and chipmunks, and screams at night |
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
@@ -116,6 +121,8 @@ trapdoor have their own design. Saplings are hand-drawn in each tree's own leaf 
 **Fruit:** black cherry leaves drop **cherries** (eat them straight away, or bake 3 with sugar and an egg into a
 **cherry pie**). Black walnut leaves drop **black walnuts** in their green husks; crack one open in the crafting grid
 for a **shelled walnut**.
+
+![Big game](docs/big_game.png)
 
 ![Tree variation](docs/trees_variation_small.png)
 

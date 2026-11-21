@@ -10,13 +10,13 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 
 ## Wildlife
 **Deer family**
-- **Elk** and **moose**, each in their own biomes (moose in cold wetlands and spruce forests, elk in mountain meadows and open woods).
+- ~~**Elk** and **moose**~~ (built)
 - **Black-tailed deer** (western coastal forests).
-- **Pronghorn** (open grassland and shrubland). Not technically a deer, but a great hunting animal.
+- ~~**Pronghorn**~~ (built)
 
 **Predators and big game**
-- **Grizzly bear**
-- **Bobcat**
+- ~~**Grizzly bear**~~ (built)
+- ~~**Bobcat**~~ (built)
 - **Alligator** (swamps)
 
 **Birds**
