@@ -18,9 +18,19 @@ class Tree:
             for dx in range(w):
                 for dz in range(w): self.put(dx - (w - 1) // 2, y, dz - (w - 1) // 2, kind, True)
     def line(self, a, b, kind="log"):
+        """A branch from a to b, connected face to face (no diagonal-only joints, so limbs never look broken)."""
         n = int(max(abs(b[i] - a[i]) for i in range(3))) * 2 + 1
+        prev = None
         for i in range(n + 1):
-            t = i / n; self.put(*(a[j] + (b[j] - a[j]) * t for j in range(3)), kind)
+            t = i / n
+            cur = tuple(round(a[j] + (b[j] - a[j]) * t) for j in range(3))
+            if prev is not None and cur != prev:
+                # step one axis at a time between consecutive cells
+                p = list(prev)
+                for ax in (1, 0, 2):
+                    if p[ax] != cur[ax]:
+                        p[ax] = cur[ax]; self.put(*p, kind)
+            self.put(*cur, kind); prev = cur
     def blob(self, c, rx, ry, rz, density=0.92, kind="leaf", flat_bottom=False):
         cx, cy, cz = c
         for x in range(int(cx - rx) - 1, int(cx + rx) + 2):
