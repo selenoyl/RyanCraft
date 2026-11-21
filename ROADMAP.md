@@ -44,8 +44,8 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 
 ## Hunting
 - **Hunting gear**: game calls (turkey and deer calls that draw animals in), a tree stand, and the like.
-- **No pelt system**: vanilla mobs stay as they are. Our animals drop leather where it makes sense (deer give
-  buckskin leather like a cow, coyotes a little leather).
+- **No pelt system for now**: vanilla mobs stay as they are, and coyotes drop no leather. Deer give buckskin
+  leather like a cow. Wolf and coyote pelts might come later, but it's unlikely.
 - **Taxidermy** (later): stuff and mount animals; right-click a mount to cycle through poses, the way the
   copper golem statue switches poses.
 

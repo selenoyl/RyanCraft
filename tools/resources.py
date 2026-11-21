@@ -105,7 +105,7 @@ loot("mink", [pool("minecraft:leather", 0, 1)])
 loot("beaver", [pool("minecraft:leather", 0, 1), pool("minecraft:stick", 0, 2, looting=False)])
 loot("songbird", [pool("minecraft:feather", 0, 1)])
 for name in ["skunk", "opossum", "squirrel", "chipmunk"]: loot(name, [])
-loot("coyote", [pool("minecraft:leather", 0, 1), pool("minecraft:bone", 0, 1)])
+loot("coyote", [pool("minecraft:bone", 0, 1)])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
