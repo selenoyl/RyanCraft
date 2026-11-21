@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:black_walnut"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ryancraft:shelled_walnut"
+  }
+}

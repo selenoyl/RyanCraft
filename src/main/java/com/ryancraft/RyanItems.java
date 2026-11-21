@@ -36,6 +36,11 @@ public final class RyanItems {
     public static final Item RAW_TURKEY = food("raw_turkey", 3, 0.3f);
     public static final Item COOKED_TURKEY = food("cooked_turkey", 8, 0.7f);
 
+    public static final Item CHERRIES = food("cherries", 2, 0.3f);
+    public static final Item CHERRY_PIE = food("cherry_pie", 8, 0.3f);
+    public static final Item BLACK_WALNUT = register("black_walnut", Item::new, new Item.Properties());
+    public static final Item SHELLED_WALNUT = food("shelled_walnut", 3, 0.6f);
+
     public static final Item BLUEGILL = food("bluegill", 2, 0.1f);
     public static final Item COOKED_BLUEGILL = food("cooked_bluegill", 5, 0.6f);
     public static final Item CRAPPIE = food("crappie", 2, 0.1f);
@@ -109,7 +114,7 @@ public final class RyanItems {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(e -> {
             for (Item i : new Item[]{VENISON, COOKED_VENISON, RAW_DUCK, COOKED_DUCK, RAW_TURKEY, COOKED_TURKEY,
                     BLUEGILL, COOKED_BLUEGILL, CRAPPIE, COOKED_CRAPPIE, LARGEMOUTH_BASS, COOKED_LARGEMOUTH_BASS,
-                    CHANNEL_CATFISH, COOKED_CHANNEL_CATFISH}) e.accept(i);
+                    CHANNEL_CATFISH, COOKED_CHANNEL_CATFISH, CHERRIES, CHERRY_PIE, SHELLED_WALNUT}) e.accept(i);
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(e -> {
             for (Item i : new Item[]{BLUEGILL_BUCKET, CRAPPIE_BUCKET, LARGEMOUTH_BASS_BUCKET, CHANNEL_CATFISH_BUCKET}) e.accept(i);
@@ -120,7 +125,7 @@ public final class RyanItems {
                 e.accept(com.ryancraft.item.DeerSkullMountItem.create(v[0], v[1] == 1, v[2], v[3]));
             }
         });
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> e.accept(RACCOON_TAIL));
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> { e.accept(RACCOON_TAIL); e.accept(BLACK_WALNUT); });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(e -> SPAWN_EGGS.forEach(e::accept));
     }
 

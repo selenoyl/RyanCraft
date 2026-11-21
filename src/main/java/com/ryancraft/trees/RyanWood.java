@@ -82,6 +82,9 @@ public final class RyanWood {
             CompostingChanceRegistry.INSTANCE.add(w.leaves(), 0.3f);
             CompostingChanceRegistry.INSTANCE.add(w.sapling(), 0.3f);
         }
+        for (var fruit : List.of(com.ryancraft.RyanItems.CHERRIES, com.ryancraft.RyanItems.BLACK_WALNUT, com.ryancraft.RyanItems.SHELLED_WALNUT)) {
+            CompostingChanceRegistry.INSTANCE.add(fruit, 0.65f);
+        }
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(e -> {
             for (WoodSet w : SETS.values()) for (Block b : w.all()) if (b != w.leaves() && b != w.sapling()) e.accept(b);
@@ -132,6 +135,7 @@ public final class RyanWood {
         TreeGrower grower = new TreeGrower(RyanCraft.MOD_ID + ":" + n, Optional.empty(), Optional.of(tree), Optional.empty());
         Block sapling = block(n + "_sapling", p -> new SaplingBlock(grower, p), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
                 .noCollision().randomTicks().instabreak().sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY));
+        Block potted = register("potted_" + n + "_sapling", p -> new FlowerPotBlock(sapling, p), Blocks.flowerPotProperties());
         Block slab = block(n + "_slab", SlabBlock::new, wooden(look.wood()).strength(2.0f, 3.0f));
         Block stairs = block(n + "_stairs", p -> new StairBlock(planks.defaultBlockState(), p), wooden(look.wood()).strength(2.0f, 3.0f));
         Block fence = block(n + "_fence", FenceBlock::new, wooden(look.wood()).strength(2.0f, 3.0f));
@@ -142,16 +146,20 @@ public final class RyanWood {
         Block button = block(n + "_button", p -> new ButtonBlock(BlockSetType.OAK, 30, p), Blocks.buttonProperties());
         Block plate = block(n + "_pressure_plate", p -> new PressurePlateBlock(BlockSetType.OAK, p),
                 wooden(look.wood()).forceSolidOn().noCollision().strength(0.5f).pushReaction(PushReaction.DESTROY));
-        return new WoodSet(s, log, wood, sLog, sWood, planks, leaves, sapling, slab, stairs, fence, gate, door, trapdoor, button, plate);
+        return new WoodSet(s, log, wood, sLog, sWood, planks, leaves, sapling, potted, slab, stairs, fence, gate, door, trapdoor, button, plate);
     }
 
     private static BlockBehaviour.Properties wooden(MapColor color) {
         return BlockBehaviour.Properties.of().mapColor(color).instrument(NoteBlockInstrument.BASS).sound(SoundType.WOOD).ignitedByLava();
     }
 
-    private static Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties props) {
+    private static Block register(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties props) {
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, RyanCraft.id(name));
-        Block block = Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(props.setId(key)));
+        return Registry.register(BuiltInRegistries.BLOCK, key, factory.apply(props.setId(key)));
+    }
+
+    private static Block block(String name, Function<BlockBehaviour.Properties, Block> factory, BlockBehaviour.Properties props) {
+        Block block = register(name, factory, props);
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, RyanCraft.id(name));
         Item.Properties ip = new Item.Properties().setId(itemKey).useBlockDescriptionPrefix();
         Registry.register(BuiltInRegistries.ITEM, itemKey, block instanceof DoorBlock ? new DoubleHighBlockItem(block, ip) : new BlockItem(block, ip));

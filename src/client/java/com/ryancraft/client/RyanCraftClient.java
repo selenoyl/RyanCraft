@@ -20,7 +20,7 @@ public class RyanCraftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         for (com.ryancraft.trees.WoodSet w : com.ryancraft.trees.RyanWood.sets())
-            net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, w.door(), w.trapdoor(), w.sapling());
+            net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, w.door(), w.trapdoor(), w.sapling(), w.pottedSapling());
         EntityModelLayerRegistry.registerModelLayer(BoarModel.LAYER, BoarModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(DeerModel.LAYER, DeerModel::createBodyLayer);
         EntityModelLayerRegistry.registerModelLayer(DuckModel.LAYER, DuckModel::createBodyLayer);

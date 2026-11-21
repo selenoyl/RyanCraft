@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:cherries",
+    "ryancraft:cherries",
+    "ryancraft:cherries",
+    "minecraft:sugar",
+    "#minecraft:eggs"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ryancraft:cherry_pie"
+  }
+}

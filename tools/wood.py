@@ -10,6 +10,7 @@ import zipfile
 sys.path.insert(0, os.path.dirname(__file__))
 from tree_textures import TREES, hexc, shade, jit, palette
 from PIL import Image
+import saplings
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 RES = os.path.join(ROOT, "src/main/resources")
@@ -100,28 +101,6 @@ def trapdoor_texture(k, sp):
             for x in range(2, 14): px[x, y] = clear
     img.save(f"{TEX}/block/{sp}_trapdoor.png")
 
-def sapling_texture(k, sp):
-    bark, _, wood, leaf, bloom = TREES[sp]
-    r = random.Random(9500 + k)
-    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
-    stem = hexc(bark)
-    x = 7 + r.choice((0, 1))
-    for y in range(15, 7, -1):
-        px[x, y] = jit(r, shade(stem, .8 if y % 2 else .95), 4) + (255,)
-        if r.random() < .2: x = max(5, min(10, x + r.choice((-1, 1))))
-    col = hexc(bloom) if bloom else hexc(leaf)
-    tall = sp in ("tulip_poplar", "eastern_red_cedar", "red_maple")
-    clumps = [(x, 4 if tall else 6), (x - 3, 7), (x + 3, 6), (x + 1, 2 if tall else 4)]
-    if sp == "eastern_red_cedar": clumps = [(x, y) for y in range(2, 13, 2)]
-    for cx, cy in clumps:
-        rad = 1.3 if sp == "eastern_red_cedar" else 2.2
-        for dx in range(-2, 3):
-            for dy in range(-2, 3):
-                if dx * dx + dy * dy <= rad * rad and r.random() < .85 and 0 <= cx + dx < 16 and 0 <= cy + dy < 16:
-                    c = col if (not bloom or r.random() < .75) else hexc(leaf)
-                    px[cx + dx, cy + dy] = jit(r, shade(c, r.choice((.75, .9, 1.0, 1.1))), 5) + (255,)
-    img.save(f"{TEX}/block/{sp}_sapling.png")
-
 # ---------------------------------------------------------------- JSON from the oak family
 OAK_PARTS = ["log", "wood", "planks", "slab", "stairs", "fence", "fence_gate", "door", "trapdoor", "button", "pressure_plate", "sapling"]
 
@@ -133,6 +112,8 @@ def swap(text, sp):
     text = text.replace("#minecraft:oak_logs", f"#ryancraft:{sp}_logs")
     text = text.replace("minecraft:oak_", f"ryancraft:{sp}_")
     return text
+
+FRUIT = {"black_cherry": ("ryancraft:cherries", 5), "black_walnut": ("ryancraft:black_walnut", 4)}
 
 def resources():
     cj, dj = jar("clientOnly"), jar("common")
@@ -163,6 +144,21 @@ def resources():
         w(f"assets/ryancraft/items/{sp}_leaves.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{sp}_leaves"}})
         w(f"data/ryancraft/loot_table/blocks/{sp}_leaves.json",
           json.loads(dj.read("data/minecraft/loot_table/blocks/birch_leaves.json").decode().replace("minecraft:birch_", f"ryancraft:{sp}_")))
+        # potted sapling
+        names.append(f"potted_{sp}_sapling")
+        w(f"assets/ryancraft/blockstates/potted_{sp}_sapling.json", {"variants": {"": {"model": f"ryancraft:block/potted_{sp}_sapling"}}})
+        w(f"assets/ryancraft/models/block/potted_{sp}_sapling.json", json.loads(swap(cj.read("assets/minecraft/models/block/potted_oak_sapling.json").decode(), sp)))
+        w(f"data/ryancraft/loot_table/blocks/potted_{sp}_sapling.json", json.loads(swap(dj.read("data/minecraft/loot_table/blocks/potted_oak_sapling.json").decode(), sp)))
+        # fruit trees drop their fruit from leaves the way oaks drop apples, only more often
+        if sp in FRUIT:
+            fruit, mult = FRUIT[sp]
+            loot = json.loads(swap(dj.read("data/minecraft/loot_table/blocks/oak_leaves.json").decode(), sp).replace("minecraft:apple", fruit))
+            for pool in loot["pools"]:
+                for e in pool["entries"]:
+                    if e.get("name") == fruit:
+                        for c in e["conditions"]:
+                            if c["condition"] == "minecraft:table_bonus": c["chances"] = [round(x * mult, 4) for x in c["chances"]]
+            w(f"data/ryancraft/loot_table/blocks/{sp}_leaves.json", loot)
         # worldgen: the configured feature (one variable tree) and where it is placed
         w(f"data/ryancraft/worldgen/configured_feature/{sp}.json", {"type": "ryancraft:species_tree", "config": {"species": sp}})
         w(f"data/ryancraft/tags/block/{sp}_logs.json", {"values": [f"ryancraft:{sp}_log", f"ryancraft:{sp}_wood", f"ryancraft:stripped_{sp}_log", f"ryancraft:stripped_{sp}_wood"]})
@@ -183,6 +179,12 @@ def resources():
             {"type": "minecraft:biome"},
             {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:would_survive",
                 "state": {"Name": f"ryancraft:{sp}_sapling", "Properties": {"stage": "0"}}}}]})
+    # fruit recipes: cherry pie like pumpkin pie; a walnut is cracked open in the crafting grid
+    w("data/ryancraft/recipe/cherry_pie.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
+      "ingredients": ["ryancraft:cherries", "ryancraft:cherries", "ryancraft:cherries", "minecraft:sugar", "#minecraft:eggs"],
+      "result": {"count": 1, "id": "ryancraft:cherry_pie"}})
+    w("data/ryancraft/recipe/shelled_walnut.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
+      "ingredients": ["ryancraft:black_walnut"], "result": {"count": 1, "id": "ryancraft:shelled_walnut"}})
     # vanilla tags
     def each(fmt): return [fmt.format(sp=sp) for sp in SPECIES]
     shared = {
@@ -205,12 +207,15 @@ def lang_entries():
             lang[f"block.ryancraft.{sp}_{part}"] = f"{t} {part.replace('_', ' ').title()}"
         lang[f"block.ryancraft.stripped_{sp}_log"] = f"Stripped {t} Log"
         lang[f"block.ryancraft.stripped_{sp}_wood"] = f"Stripped {t} Wood"
+        lang[f"block.ryancraft.potted_{sp}_sapling"] = f"Potted {t} Sapling"
+    lang.update({"item.ryancraft.cherries": "Cherries", "item.ryancraft.cherry_pie": "Cherry Pie",
+                 "item.ryancraft.black_walnut": "Black Walnut", "item.ryancraft.shelled_walnut": "Shelled Walnut"})
     return lang
 
 if __name__ == "__main__":
     os.makedirs(f"{TEX}/item", exist_ok=True)
     for k, sp in enumerate(SPECIES):
-        door_textures(k, sp); trapdoor_texture(k, sp); sapling_texture(k, sp)
+        door_textures(k, sp); trapdoor_texture(k, sp); saplings.sapling(sp).save(f"{TEX}/block/{sp}_sapling.png")
     resources()
     p = os.path.join(RES, "assets/ryancraft/lang/en_us.json")
     lang = json.load(open(p)); lang.update(lang_entries())

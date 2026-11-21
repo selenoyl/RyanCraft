@@ -61,7 +61,7 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish"]
-ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap"] \
+ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap", "cherries", "cherry_pie", "black_walnut", "shelled_walnut"] \
         + [m + "_spawn_egg" for m in EGG_MOBS]
 for it in ITEMS:
     w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/" + it}})

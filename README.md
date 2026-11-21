@@ -111,7 +111,11 @@ and Ohio buckeye. The hardwoods mix into forests, redbud and dogwood fill the un
 swamps, and red cedars dot plains, hills and savannas. No two trees are the same: each one varies in height, limbs,
 crown and lean, and some fork into twin trunks. Every species has a full wood set (logs, stripped logs, planks,
 slabs, stairs, fences, gates, doors, trapdoors, buttons, pressure plates, leaves and saplings), and its door and
-trapdoor have their own design.
+trapdoor have their own design. Saplings are hand-drawn in each tree's own leaf shape, and they go in flower pots.
+
+**Fruit:** black cherry leaves drop **cherries** (eat them straight away, or bake 3 with sugar and an egg into a
+**cherry pie**). Black walnut leaves drop **black walnuts** in their green husks; crack one open in the crafting grid
+for a **shelled walnut**.
 
 ![Tree variation](docs/trees_variation_small.png)
 
