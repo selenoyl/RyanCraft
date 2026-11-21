@@ -18,6 +18,7 @@ public class RyanCraft implements ModInitializer {
     @Override
     public void onInitialize() {
         RyanConfig.get();
+        RyanSounds.init();
         RyanItems.init();
         RyanEntities.init();
         RyanBiomes.init();

@@ -29,6 +29,7 @@ public final class RyanBiomes {
     }
 
     public static void init() {
+        kentucky();
         var all = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND, TUNDRA);
         var temperate = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND);
 
@@ -71,6 +72,41 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(RAINFOREST, SHRUBLAND,
                         Biomes.RIVER, Biomes.PLAINS, Biomes.SWAMP, Biomes.MANGROVE_SWAMP),
                 MobCategory.CREATURE, RyanEntities.DUCK, 10, 2, 4);
+
+        // Wild turkeys: hardwood forests, forest edges and meadows, like back home in Kentucky
+        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, SHRUBLAND,
+                        Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST,
+                        Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.WINDSWEPT_FOREST),
+                MobCategory.CREATURE, RyanEntities.TURKEY, 9, 3, 5);
+    }
+
+    /** Native Kentucky wildlife. */
+    public static void kentucky() {
+        var hardwoods = new net.minecraft.resources.ResourceKey[]{SEASONAL_FOREST, Biomes.FOREST, Biomes.BIRCH_FOREST,
+                Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.WINDSWEPT_FOREST};
+        spawn(sel(hardwoods, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA),
+                MobCategory.CREATURE, RyanEntities.BLACK_BEAR, 3, 1, 2);
+        spawn(sel(hardwoods, Biomes.SWAMP, RAINFOREST), MobCategory.CREATURE, RyanEntities.RACCOON, 6, 1, 3);
+        spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.MEADOW, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.FOREST, SHRUBLAND, SEASONAL_FOREST}),
+                MobCategory.CREATURE, RyanEntities.SKUNK, 4, 1, 2);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.MINK, 6, 1, 2);
+        spawn(sel(hardwoods, Biomes.SWAMP, Biomes.PLAINS, RAINFOREST), MobCategory.CREATURE, RyanEntities.OPOSSUM, 5, 1, 3);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.BEAVER, 6, 1, 3);
+        spawn(sel(hardwoods, Biomes.PLAINS, Biomes.MEADOW, Biomes.SAVANNA, SHRUBLAND), MobCategory.CREATURE, RyanEntities.SQUIRREL, 10, 2, 3);
+        spawn(sel(hardwoods, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SWAMP, SHRUBLAND, RAINFOREST),
+                MobCategory.CREATURE, RyanEntities.SONGBIRD, 10, 2, 3);
+        var creeks = BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.BLUEGILL, 15, 3, 6);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CRAPPIE, 10, 3, 5);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.LARGEMOUTH_BASS, 8, 1, 3);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CHANNEL_CATFISH, 6, 1, 2);
+    }
+
+    @SafeVarargs
+    private static Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> sel(ResourceKey<Biome>[] base, ResourceKey<Biome>... more) {
+        java.util.List<ResourceKey<Biome>> all = new java.util.ArrayList<>(java.util.List.of(base));
+        all.addAll(java.util.List.of(more));
+        return BiomeSelectors.includeByKey(all);
     }
 
     private static void spawn(Predicate<net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext> where,

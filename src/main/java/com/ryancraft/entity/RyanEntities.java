@@ -17,6 +17,34 @@ public final class RyanEntities {
     public static final EntityType<Duck> DUCK = register("duck",
             EntityType.Builder.of(Duck::new, MobCategory.CREATURE).sized(0.4f, 0.7f).clientTrackingRange(10));
 
+    public static final EntityType<Turkey> TURKEY = register("turkey",
+            EntityType.Builder.of(Turkey::new, MobCategory.CREATURE).sized(0.7f, 1.2f).clientTrackingRange(10));
+
+    public static final EntityType<BlackBear> BLACK_BEAR = register("black_bear",
+            EntityType.Builder.of(BlackBear::new, MobCategory.CREATURE).sized(1.2f, 1.3f).clientTrackingRange(10));
+    public static final EntityType<Raccoon> RACCOON = register("raccoon",
+            EntityType.Builder.of(Raccoon::new, MobCategory.CREATURE).sized(0.6f, 0.6f).clientTrackingRange(10));
+    public static final EntityType<Skunk> SKUNK = register("skunk",
+            EntityType.Builder.of(Skunk::new, MobCategory.CREATURE).sized(0.6f, 0.6f).clientTrackingRange(10));
+    public static final EntityType<Mink> MINK = register("mink",
+            EntityType.Builder.of(Mink::new, MobCategory.CREATURE).sized(0.5f, 0.4f).clientTrackingRange(10));
+    public static final EntityType<Opossum> OPOSSUM = register("opossum",
+            EntityType.Builder.of(Opossum::new, MobCategory.CREATURE).sized(0.6f, 0.55f).clientTrackingRange(10));
+    public static final EntityType<Beaver> BEAVER = register("beaver",
+            EntityType.Builder.of(Beaver::new, MobCategory.CREATURE).sized(0.7f, 0.6f).clientTrackingRange(10));
+    public static final EntityType<Squirrel> SQUIRREL = register("squirrel",
+            EntityType.Builder.of(Squirrel::new, MobCategory.CREATURE).sized(0.4f, 0.45f).clientTrackingRange(10));
+    public static final EntityType<Songbird> SONGBIRD = register("songbird",
+            EntityType.Builder.of(Songbird::new, MobCategory.CREATURE).sized(0.4f, 0.5f).clientTrackingRange(10));
+    public static final EntityType<KentuckyFish> BLUEGILL = fish("bluegill", 0.4f, 0.45f);
+    public static final EntityType<KentuckyFish> CRAPPIE = fish("crappie", 0.4f, 0.45f);
+    public static final EntityType<KentuckyFish> LARGEMOUTH_BASS = fish("largemouth_bass", 0.5f, 0.4f);
+    public static final EntityType<KentuckyFish> CHANNEL_CATFISH = fish("channel_catfish", 0.6f, 0.3f);
+
+    private static EntityType<KentuckyFish> fish(String name, float w, float h) {
+        return register(name, EntityType.Builder.of(KentuckyFish::new, MobCategory.WATER_AMBIENT).sized(w, h).clientTrackingRange(4));
+    }
+
     private static <T extends net.minecraft.world.entity.Entity> EntityType<T> register(String name, EntityType.Builder<T> builder) {
         ResourceKey<EntityType<?>> key = ResourceKey.create(Registries.ENTITY_TYPE, RyanCraft.id(name));
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(key));
@@ -26,6 +54,18 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(BOAR, Boar.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER, Deer.createAttributes());
         FabricDefaultAttributeRegistry.register(DUCK, Duck.createAttributes());
+        FabricDefaultAttributeRegistry.register(TURKEY, Turkey.createAttributes());
+        FabricDefaultAttributeRegistry.register(BLACK_BEAR, BlackBear.createAttributes());
+        FabricDefaultAttributeRegistry.register(RACCOON, Raccoon.createAttributes());
+        FabricDefaultAttributeRegistry.register(SKUNK, Skunk.createAttributes());
+        FabricDefaultAttributeRegistry.register(MINK, Mink.createAttributes());
+        FabricDefaultAttributeRegistry.register(OPOSSUM, Opossum.createAttributes());
+        FabricDefaultAttributeRegistry.register(BEAVER, Beaver.createAttributes());
+        FabricDefaultAttributeRegistry.register(SQUIRREL, Squirrel.createAttributes());
+        FabricDefaultAttributeRegistry.register(SONGBIRD, Songbird.createAttributes());
+        for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
+            FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());
+        }
     }
 
     private RyanEntities() {}

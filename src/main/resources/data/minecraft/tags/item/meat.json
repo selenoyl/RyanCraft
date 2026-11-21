@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:venison",
+    "ryancraft:cooked_venison",
+    "ryancraft:raw_duck",
+    "ryancraft:cooked_duck",
+    "ryancraft:raw_turkey",
+    "ryancraft:cooked_turkey"
+  ]
+}

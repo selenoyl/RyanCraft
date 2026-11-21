@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:bluegill",
+    "ryancraft:crappie",
+    "ryancraft:largemouth_bass",
+    "ryancraft:channel_catfish",
+    "ryancraft:cooked_bluegill",
+    "ryancraft:cooked_crappie",
+    "ryancraft:cooked_largemouth_bass",
+    "ryancraft:cooked_channel_catfish"
+  ]
+}

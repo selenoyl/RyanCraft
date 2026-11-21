@@ -3,7 +3,7 @@
   "id": "ryancraft",
   "version": "${version}",
   "name": "RyanCraft",
-  "description": "Boars, deer and ducks, the Beta biomes back (Rainforest, Seasonal Forest, Shrubland, Tundra), and classic-feeling tweaks: no chat reporting, no profanity filter, Steve & Alex only, old-school title screen.",
+  "description": "Kentucky wildlife (turkeys, black bears, raccoons, skunks, opossums, beavers, mink, squirrels, songbirds, creek fish) plus boars, deer and ducks; the Beta biomes; MAtmos-style ambience; a locally built classic 1.2.5 texture/sound/music pack; and classic tweaks.",
   "authors": ["selenoyl"],
   "license": "MIT",
   "icon": "assets/ryancraft/icon.png",

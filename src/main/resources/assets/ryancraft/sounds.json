@@ -1,0 +1,448 @@
+{
+  "ambience.wind": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/wind",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.wind"
+  },
+  "ambience.wind_howl": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/wind_howl",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.wind_howl"
+  },
+  "ambience.forest": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/forest",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.forest"
+  },
+  "ambience.crickets": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/crickets",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.crickets"
+  },
+  "ambience.frogs": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/frogs",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.frogs"
+  },
+  "ambience.stream": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/stream",
+        "attenuation_distance": 24,
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.stream"
+  },
+  "ambience.ocean": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/ocean",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.ocean"
+  },
+  "ambience.rain_leaves": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/rain_leaves",
+        "stream": true
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.rain_leaves"
+  },
+  "ambience.cave": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/cave",
+        "stream": true
+      }
+    ]
+  },
+  "ambience.bird": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/bird1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bird2",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bird3",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bird4",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bird5",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bird6",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.bird"
+  },
+  "ambience.woodpecker": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/woodpecker1",
+        "attenuation_distance": 40
+      },
+      {
+        "name": "ryancraft:ambience/woodpecker2",
+        "attenuation_distance": 40
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.woodpecker"
+  },
+  "ambience.cuckoo": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/cuckoo1",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.cuckoo"
+  },
+  "ambience.owl": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/owl1",
+        "attenuation_distance": 40
+      },
+      {
+        "name": "ryancraft:ambience/owl2",
+        "attenuation_distance": 40
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.owl"
+  },
+  "ambience.crow": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/crow1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:ambience/crow2",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.crow"
+  },
+  "ambience.wolf_howl": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/wolf_howl1",
+        "attenuation_distance": 64
+      },
+      {
+        "name": "ryancraft:ambience/wolf_howl2",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.wolf_howl"
+  },
+  "ambience.seagull": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/seagull1",
+        "attenuation_distance": 40
+      },
+      {
+        "name": "ryancraft:ambience/seagull2",
+        "attenuation_distance": 40
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.seagull"
+  },
+  "ambience.hawk": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/hawk1",
+        "attenuation_distance": 64
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.hawk"
+  },
+  "ambience.drip": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/drip1",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/drip2",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/drip3",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/drip4",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.drip"
+  },
+  "ambience.rumble": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/rumble1",
+        "attenuation_distance": 40
+      },
+      {
+        "name": "ryancraft:ambience/rumble2",
+        "attenuation_distance": 40
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.rumble"
+  },
+  "ambience.leaves": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/leaves1",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/leaves2",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:ambience/leaves3",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.leaves"
+  },
+  "ambience.bullfrog": {
+    "sounds": [
+      {
+        "name": "ryancraft:ambience/bullfrog1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:ambience/bullfrog2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.ambience.bullfrog"
+  },
+  "entity.turkey.gobble": {
+    "sounds": [
+      {
+        "name": "ryancraft:turkey/gobble1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:turkey/gobble2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:turkey/gobble3",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.turkey.gobble"
+  },
+  "entity.turkey.cluck": {
+    "sounds": [
+      {
+        "name": "ryancraft:turkey/cluck1"
+      },
+      {
+        "name": "ryancraft:turkey/cluck2"
+      },
+      {
+        "name": "ryancraft:turkey/cluck3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.turkey.cluck"
+  },
+  "entity.turkey.hurt": {
+    "sounds": [
+      {
+        "name": "ryancraft:turkey/hurt1"
+      },
+      {
+        "name": "ryancraft:turkey/hurt2"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.turkey.hurt"
+  },
+  "entity.turkey.death": {
+    "sounds": [
+      {
+        "name": "ryancraft:turkey/death1"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.turkey.death"
+  },
+  "entity.squirrel.chatter": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/squirrel_chatter1"
+      },
+      {
+        "name": "ryancraft:critter/squirrel_chatter2"
+      },
+      {
+        "name": "ryancraft:critter/squirrel_chatter3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.squirrel.chatter"
+  },
+  "entity.raccoon.chitter": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/raccoon_chitter1"
+      },
+      {
+        "name": "ryancraft:critter/raccoon_chitter2"
+      },
+      {
+        "name": "ryancraft:critter/raccoon_chitter3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.raccoon.chitter"
+  },
+  "entity.skunk.spray": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/skunk_spray1"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.skunk.spray"
+  },
+  "entity.opossum.hiss": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/opossum_hiss1"
+      },
+      {
+        "name": "ryancraft:critter/opossum_hiss2"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.opossum.hiss"
+  },
+  "entity.mink.squeak": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/mink_squeak1"
+      },
+      {
+        "name": "ryancraft:critter/mink_squeak2"
+      },
+      {
+        "name": "ryancraft:critter/mink_squeak3"
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.mink.squeak"
+  },
+  "entity.beaver.slap": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/beaver_slap1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:critter/beaver_slap2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.beaver.slap"
+  },
+  "entity.songbird.cardinal": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/cardinal1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:songbird/cardinal2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.cardinal"
+  },
+  "entity.songbird.goldfinch": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/goldfinch1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:songbird/goldfinch2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.goldfinch"
+  },
+  "entity.songbird.robin": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/robin1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:songbird/robin2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.robin"
+  },
+  "entity.songbird.blue_jay": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/blue_jay1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:songbird/blue_jay2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.blue_jay"
+  },
+  "entity.songbird.bluebird": {
+    "sounds": [
+      {
+        "name": "ryancraft:songbird/bluebird1",
+        "attenuation_distance": 32
+      },
+      {
+        "name": "ryancraft:songbird/bluebird2",
+        "attenuation_distance": 32
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.songbird.bluebird"
+  }
+}
