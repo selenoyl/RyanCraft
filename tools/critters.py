@@ -498,17 +498,28 @@ def mount_assets():
     """Bleached deer skull nailed to a rough plank. Skull coordinates match the deer head, so the same
     antler groups (deer_antlers.json, head-relative) sit on it exactly."""
     hp = [0, 21, -1]          # where the skull's 'head pivot' sits in the mount model
+    # The skull is built hollow: eye sockets go clean through the sides, and two nostril holes
+    # (with a bony septum between) run back into the snout.
     parts = [
         part("plank", hp, [box("plank", (-5, -14, 1), (10, 11, 1), "plank")], "mount_plank"),
-        part("skull", hp, [box("cranium", (-3, -10, -6), (6, 5, 7), "skull"),
-                           box("snout", (-2, -8, -9), (4, 3, 3), "snout")], "mount_skull"),
+        part("skull", hp, [
+            box("cranium_top", (-3, -10, -6), (6, 2, 7), "skull"),
+            box("cranium_bottom", (-3, -7, -6), (6, 2, 7), "skull"),
+            box("cranium_back", (-3, -8, -3), (6, 1, 4), "skull"),      # behind the eye sockets
+            box("brow", (-3, -8, -6), (6, 1, 1), "skull"),              # in front of the eye sockets
+            box("snout_top", (-2.5, -8, -9), (5, 1, 3), "skull"),
+            box("snout_wall_r", (-2.5, -7, -9), (1, 1, 3), "skull"),
+            box("septum", (-0.5, -7, -9), (1, 1, 3), "skull"),
+            box("snout_wall_l", (1.5, -7, -9), (1, 1, 3), "skull"),
+            box("snout_bottom", (-2.5, -6, -9), (5, 1, 3), "skull"),
+            box("nasal_cavity", (-1.5, -7, -6.25), (3, 1, 0.25), "cavity"),   # dark back wall of the nostrils
+        ], "mount_skull"),
     ]
     size = pack(parts)
     size = (64, 64)                                   # antler patch lives at y 42-63, like deer.png
     styles = {"plank": {"c": "#8a6440", "noise": 14, "speckle": {"c": "#6a4a2c", "p": 0.18}},
-              "skull": {"c": "#e8e2d2", "noise": 8, "speckle": {"c": "#d2c8b2", "p": 0.15}, "side_eyes": "#2a2420", "eye_row": 2,
-                        "front": "#e8e2d2"},
-              "snout": {"c": "#ddd6c4", "noise": 6, "nose": "#3a322c"}}
+              "skull": {"c": "#e8e2d2", "noise": 8, "speckle": {"c": "#d2c8b2", "p": 0.15}},
+              "cavity": {"c": "#3a322c", "noise": 4}}
     emit_model("deer_mount", parts, size)
     for colour in ANTLER_COLOURS:
         img = Image.new("RGBA", size, (0, 0, 0, 0))

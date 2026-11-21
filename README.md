@@ -53,16 +53,16 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 ### Deer: antlers and hunting
 **Antlers grow with age.** A deer ages only while its chunk is loaded, and goes up one stage every 2-3 in-game weeks (each deer on its own clock):
 stage 0 (does and young) -> 1 spikes -> 2 forks -> 3 six-to-eight point -> 4 ten-point **Trophy Buck**. Fawns start once they're grown, and bigger racks come on bigger bodies.
-Wild deer spawn at every stage (mostly younger, about one in ten a trophy).
+Wild deer spawn at every stage, but big bucks take some hunting: about 38% are does or young, 28% spikes, 20% forks, 10% six-to-eight point, and only about 4% (one in 25) trophies. Herds gain more as their deer age.
 The rare **Drop-Tine Buck** carries non-typical tines hanging off its beams: about 3% of big bucks spawn that way, and a few turn non-typical as they grow into it.
 
 ![Antler stages](docs/antlers.png)
 
 **Collect them.** Every deer also rolls an antler colour (normal, dark about 1 in 5, chocolate about 1 in 17), and when a buck reaches stage 4 it has a small chance of a super-rare rack:
-**Cactus Buck** (knobby points everywhere, ~1%), **Palmated Buck** (flat moose-like paddles, ~0.8%), **Lopsided Buck** (a full rack on one side, a spike on the other, ~1.5%).
+**Cactus Buck** (knobby points everywhere), **Palmated Buck** (flat moose-like paddles) and **Lopsided Buck** (a full rack on one side, a spike on the other); together about 6% of trophies.
 Stage 0 deer just have two little antler-coloured nubs.
 
-**Skull mounts.** Kill an antlered deer and it drops a primitive skull mount (bleached skull nailed to a plank) with that exact rack and colour,
+**Skull mounts.** Kill an antlered deer and it drops a primitive skull mount (a hollow bleached skull, with real eye-socket and nostril holes, nailed to a plank) with that exact rack and colour,
 named for what it is ("Drop-Tine Buck Skull Mount", "Cactus Buck Skull Mount"...). Use it on a wall to hang it; punch it to take it down.
 
 ![Rare racks, antler colours and skull mounts](docs/racks_and_mounts.png)
@@ -107,6 +107,9 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 - `disableChatReporting`: never creates a chat-signing key, so your messages can't be reported. Vanilla servers with `enforce-secure-profile=true` will refuse you while this is on.
 - `hideReportButton`, `disableProfanityFilter`, `classicDefaultSkins` (Steve or Alex only).
 - No "Java Edition" badge, and Alpha/Beta-style splash text.
+
+## Roadmap
+See [ROADMAP.md](ROADMAP.md) for what's queued: seasons, elk, moose, grizzlies, eagles, whales, sharks, new ores and more.
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.

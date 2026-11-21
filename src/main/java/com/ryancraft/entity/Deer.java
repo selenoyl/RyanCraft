@@ -121,7 +121,7 @@ public class Deer extends RyanAnimal {
     /** Super-rare racks, rolled when a buck reaches (or spawns at) stage 4. */
     private int rollRareRack() {
         int r = this.random.nextInt(1000);
-        return r < 10 ? 1 : r < 18 ? 2 : r < 33 ? 3 : 0;     // cactus 1%, palmated 0.8%, lopsided 1.5%
+        return r < 20 ? 1 : r < 36 ? 2 : r < 60 ? 3 : 0;     // cactus 2%, palmated 1.6%, lopsided 2.4% of trophies
     }
 
     public void setAntlers(int stage, boolean dropTine) {
@@ -159,9 +159,9 @@ public class Deer extends RyanAnimal {
                                         @Nullable SpawnGroupData data) {
         var result = super.finalizeSpawn(level, difficulty, reason, data);
         if (!this.isBaby() && reason != EntitySpawnReason.BREEDING) {
-            // Wild deer come in all sizes: mostly younger, about one in ten a trophy
+            // Wild deer are mostly young; big bucks take some hunting (about 1 in 25 is a trophy)
             int roll = this.random.nextInt(100);
-            int stage = roll < 26 ? 0 : roll < 50 ? 1 : roll < 72 ? 2 : roll < 90 ? 3 : 4;
+            int stage = roll < 38 ? 0 : roll < 66 ? 1 : roll < 86 ? 2 : roll < 96 ? 3 : 4;
             setAntlers(stage, stage >= 3 && this.random.nextInt(33) == 0);
             if (stage == MAX_ANTLERS) setRack(rollRareRack());
             nextStage = stageLength();
