@@ -90,25 +90,29 @@ def palette(wood):
     w = hexc(wood)
     return {"hi": shade(w, 1.08), "lt": shade(w, 1.0), "md": shade(w, .9), "mdk": shade(w, .8), "dk": shade(w, .66), "vdk": shade(w, .54)}
 
+# Ring brightness relative to the first light ring, and the few discrete shades each ring uses.
+# Measured as ratios from the vanilla log tops (all of which share these proportions); the pixels are our own.
+RINGS = {
+    1: [0.97, 1.00, 1.00, 1.04],          # light, slight variation
+    2: [0.76, 0.83, 0.83, 0.90],          # dark, speckled
+    3: [1.00, 1.02, 1.02, 1.05],          # light, nearly flat
+    4: [0.96],                            # flat
+    5: [0.75, 0.82, 0.82, 0.89],          # dark, speckled
+    6: [0.96],                            # flat
+    7: [0.82, 0.85, 0.85, 0.88],          # centre
+}
+
 def log_top(seed, bark, wood, stripped=False):
-    """Square concentric rings inside a 1px border (bark, or darker wood when stripped), with a mottled centre."""
-    r = random.Random(seed); p = palette(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
-    ring_tone = ["border", "lt", "mdk", "lt", "md", "mdk", "md", "mdk"]
+    """Square concentric rings inside a 1px border: bark on a log, darker wood (72%) on a stripped log."""
+    r = random.Random(seed); w = hexc(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
     for x in range(16):
         for y in range(16):
             k = min(x, y, 15 - x, 15 - y)
-            tone = ring_tone[k]
-            if tone == "border":
-                c = jit(r, hexc(bark), 8) if not stripped else jit(r, p["dk"], 5)
+            if k == 0:
+                c = jit(r, hexc(bark), 8) if not stripped else shade(w, r.choice((0.69, 0.72, 0.72, 0.75)))
             else:
-                c = p[tone]
-                roll = r.random() if k <= 4 else 1.0                          # inner rings stay clean
-                if roll < 0.12: c = p["md"] if tone != "md" else p["mdk"]       # small breaks in the outer rings
-                elif roll < 0.18 and tone == "lt": c = p["hi"]
-                c = jit(r, c, 3)
+                c = shade(w, r.choice(RINGS[k]))
             px[x, y] = c + (255,)
-    for x in (7, 8):                                                           # a small dark heart
-        for y in (7, 8): px[x, y] = jit(r, p["dk"], 3) + (255,)
     return img
 
 def stripped_side(seed, wood):
