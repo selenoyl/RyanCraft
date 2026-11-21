@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:rainforest",
+    "ryancraft:seasonal_forest",
+    "ryancraft:shrubland",
+    "ryancraft:tundra"
+  ]
+}

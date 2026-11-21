@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "ryancraft",
+  "version": "${version}",
+  "name": "RyanCraft",
+  "description": "Boars, deer and ducks, the Beta biomes back (Rainforest, Seasonal Forest, Shrubland, Tundra), and classic-feeling tweaks: no chat reporting, no profanity filter, Steve & Alex only, old-school title screen.",
+  "authors": ["selenoyl"],
+  "license": "MIT",
+  "icon": "assets/ryancraft/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["com.ryancraft.RyanCraft"],
+    "client": ["com.ryancraft.client.RyanCraftClient"],
+    "terrablender": ["com.ryancraft.worldgen.RyanTerraBlender"]
+  },
+  "mixins": [
+    "ryancraft.mixins.json",
+    { "config": "ryancraft.client.mixins.json", "environment": "client" }
+  ],
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "recommends": {
+    "terrablender": "*"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "com.ryancraft.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "DedicatedServerMixin",
+    "MinecraftServerMixin",
+    "ServerPlayerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 0
+  }
+}

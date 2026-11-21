@@ -1,0 +1,13 @@
+{
+  "entity.ryancraft.boar": "Boar",
+  "entity.ryancraft.deer": "Deer",
+  "entity.ryancraft.duck": "Duck",
+  "item.ryancraft.venison": "Raw Venison",
+  "item.ryancraft.cooked_venison": "Cooked Venison",
+  "item.ryancraft.raw_duck": "Raw Duck",
+  "item.ryancraft.cooked_duck": "Cooked Duck",
+  "biome.ryancraft.rainforest": "Rainforest",
+  "biome.ryancraft.seasonal_forest": "Seasonal Forest",
+  "biome.ryancraft.shrubland": "Shrubland",
+  "biome.ryancraft.tundra": "Tundra"
+}
