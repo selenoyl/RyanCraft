@@ -30,6 +30,18 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 **Small life**
 - **Butterflies**
 
+## A sky dimension (our own, not the Aether)
+A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
+creatures and way in (no glowstone portal, holystone, skyroot, moas or aerwhales).
+- **Getting there**: a portal of our own, e.g. a frame that has to be charged by a lightning strike, or riding a
+  strong updraft from a mountain peak.
+- **The land**: floating islands of grassy meadow, cloud blocks you can stand on (some bouncy, some that drop you),
+  updraft columns that carry you between islands, waterfalls pouring off the edges into nothing.
+- **Great winged creatures**: big gliding sky rays that drift in flocks, huge soaring birds with nests on the high
+  islands, maybe a rideable one you have to raise from an egg.
+- **Its own materials**: sky-only wood and stone, a light ore for gear suited to falling and gliding.
+- **Ambience**: high winds, the creak of floating rock, distant calls of the big birds.
+
 ## Ores and the world underground (very Tekkit)
 - **Salt**, found in **salt caves**
 - **Aluminum, tin, zinc, lead, silver, uranium**
