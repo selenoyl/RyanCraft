@@ -47,6 +47,12 @@ creatures and way in (no glowstone portal, holystone, skyroot, moas or aerwhales
 - **Aluminum, tin, zinc, lead, silver, uranium**
 - **Ruby and sapphire**
 
-## Shelved
-- **NPC encounters beyond villagers**, such as silent bandit camps to fight. Parked because most of what makes NPCs interesting (talking, travelling the roads) needs a pre-built, populated world.
-- **Native American tribes** as encounters. Parked; if revisited it would need to be done with real care and respect rather than as enemies or set dressing.
+## NPCs beyond villagers
+Built around **places you find** rather than a populated world: camps generate as their own structures, with
+their people living there, so they work in any normal world.
+- **Bandit camps**: hostile, silent (no chat), with tents, a campfire, loot to take. You fight your way in.
+- **Tribal camps**: their own settlements and people.
+- **Wanderers**: now and then a couple of these NPCs walking around in a village, so the world feels less empty.
+- If tribes are based on real Native American peoples, they should be done with care and respect: neutral or
+  friendly people with their own camps and trade, not enemies or set dressing. (Could also be original,
+  fictional groups instead.)
