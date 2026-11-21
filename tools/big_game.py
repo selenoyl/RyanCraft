@@ -64,19 +64,18 @@ moose = cervid((11, 13, 22), (3, 17), -5,
 
 # ---- pronghorn: slim and fast, tan over white, white neck bands, short black pronged horns
 PRONG_HORN = [((-2, -8, -4), (1, 5, 1)), ((-2, -6, -5), (1, 1, 1)), ((-2, -9, -3), (1, 1, 1))]
-pronghorn = cervid((7, 8, 14), (2, 11), -6,
-                   neck=((-1.5, -1, -3), (3, 8, 4)), head=((-2, -3, -8), (4, 4, 5)), snout=((-1.5, -2, -10), (3, 3, 2)),
-                   ears=((-3, -6, -4), (1, 3, 1)), tail=((-1, 0, 0), (2, 2, 1), 0.4),
-                   extra_head=mirror(PRONG_HORN, "horn", "horn"))
+pronghorn = cervid((6, 8, 15), (2, 13), -7,          # "racer": long legs, tall ears
+                   neck=((-1.5, -1, -3), (3, 9, 4)), head=((-2, -3, -8), (4, 4, 5)), snout=((-1.5, -2, -10), (3, 3, 2)),
+                   ears=((-3, -7, -4), (1, 4, 1)), tail=((-1, 0, 0), (2, 2, 1), 0.4),
+                   extra_head=mirror(PRONG_HORN + [((-2, -10, -3), (1, 1, 1))], "horn", "horn"))
 
 # ---- grizzly: bigger than the black bear, with the shoulder hump and a dished face
 grizzly = quad((14, 13, 24), (5, 10), (10, 9, 8), snout=(5, 5, 5), ears=(3, 3), tail=(3, 3, 2, 0.6), head_up=-2)
 grizzly[0]["boxes"].append(box("hump", (-5, -9.5, -10), (10, 3, 8), "body"))
 
-# ---- bobcat: a lynx-faced wildcat with tufted ears, cheek ruffs and a stubby tail
-bobcat = quad((6, 6, 12), (2, 6), (5, 5, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0, extra_head=[
-    box("tuft_r", (-2, -7.5, -2.5), (1, 2, 1), "tuft"), box("tuft_l", (1, -7.5, -2.5), (1, 2, 1), "tuft", mirror=True),
-    box("ruff_r", (-3.5, -0.5, -3), (1, 3, 2), "ruff"), box("ruff_l", (2.5, -0.5, -3), (1, 3, 2), "ruff", mirror=True)])
+# ---- bobcat: a long-legged, lynx-faced wildcat with tufted ears and a stubby tail
+bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0, extra_head=[   # "lanky"
+    box("tuft_r", (-2, -7.5, -2.5), (1, 2, 1), "tuft"), box("tuft_l", (1, -7.5, -2.5), (1, 2, 1), "tuft", mirror=True)])
 
 CLEAR = {"c": None}
 ELK = {"body": {"c": "#b48a58", "noise": 8, "back": "#e6d4ac", "belly": "#5e4028", "bottom": "#5e4028"},
@@ -89,7 +88,7 @@ MOOSE = {"body": {"c": "#2e2018", "noise": 8}, "head": {"c": "#5a4230", "noise":
          "tail": {"c": "#2e2018"}}
 PRONG = {"body": {"c": "#c48a4c", "noise": 6, "belly": "#f2ece0", "back": "#f2ece0"},
          "mane": {"c": "#c48a4c", "noise": 4, "side_rows": ["#c48a4c", "#f2ece0", "#c48a4c", "#c48a4c", "#f2ece0", "#f2ece0", "#c48a4c", "#c48a4c"]},
-         "head": {"c": "#c48a4c", "noise": 4, "side_eyes": "#0a0806", "eye_row": 1, "bottom": "#f2ece0"},
+         "head": {"c": "#c48a4c", "noise": 4, "side_eyes": "#0a0806", "eye_ring": "#f2ece0", "eye_row": 1, "bottom": "#f2ece0"},
          "ear": {"c": "#b07a40", "back": "#2a2018"}, "leg": {"c": "#c8925a", "noise": 4}, "tail": {"c": "#f2ece0"}}
 VARIANTS = {
     "elk": {"elk": dict(ELK, antler=CLEAR),
