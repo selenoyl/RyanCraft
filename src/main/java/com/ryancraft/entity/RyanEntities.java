@@ -56,7 +56,7 @@ public final class RyanEntities {
     public static final EntityType<Bobcat> BOBCAT = register("bobcat",
             EntityType.Builder.of(Bobcat::new, MobCategory.CREATURE).sized(0.6f, 0.8f).clientTrackingRange(10));
     public static final EntityType<Crow> CROW = register("crow",
-            EntityType.Builder.of(Crow::new, MobCategory.CREATURE).sized(0.5f, 0.6f).clientTrackingRange(10));
+            EntityType.Builder.of(Crow::new, MobCategory.CREATURE).sized(0.4f, 0.6f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 

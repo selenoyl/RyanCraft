@@ -77,15 +77,15 @@ grizzly[0]["boxes"].append(box("hump", (-5, -9.5, -10), (10, 3, 8), "body"))
 bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0)   # "lanky"
 
 # ---- crow: a big, all-black bird with a heavy beak and a long tail
-crow = [
-    part("body", (0, 18, 0), [box("body", (-2.5, -2.5, -4), (5, 5, 8), "body")], "body", rot=(-0.2, 0, 0)),
-    part("head", (0, 15, -3.5), [box("head", (-2, -3, -4), (4, 4, 4), "head"),
-                                 box("beak", (-0.5, -1.5, -7), (1, 2, 3), "beak")], "head"),
-    part("tail", (0, 17, 3.5), [box("tail", (-2, -0.5, 0), (4, 1, 6), "tail")], "tail", rot=(0.3, 0, 0)),
-    part("wing_r", (-2.5, 15.5, -2), [box("wing", (-1, 0, -2), (1, 4, 8), "wing")], "wing_r"),
-    part("wing_l", (2.5, 15.5, -2), [box("wing", (0, 0, -2), (1, 4, 8), "wing", mirror=True)], "wing_l"),
-    part("leg_r", (-1, 20.5, 1), [box("leg", (-0.5, 0, -0.5), (1, 3.5, 1), "leg")], "leg_r"),
-    part("leg_l", (1, 20.5, 1), [box("leg", (-0.5, 0, -0.5), (1, 3.5, 1), "leg", mirror=True)], "leg_l"),
+crow = [   # "sleek": narrow body, small head, long tail
+    part("body", (0, 18, 0), [box("body", (-1.5, -2, -4.5), (3, 4, 9), "body")], "body", rot=(-0.2, 0, 0)),
+    part("head", (0, 15.5, -4), [box("head", (-1.5, -3, -3), (3, 3, 3), "head"),
+                                 box("beak", (-0.5, -1.5, -6), (1, 2, 3), "beak")], "head"),
+    part("tail", (0, 17, 4), [box("tail", (-1.5, -0.5, 0), (3, 1, 6), "tail")], "tail", rot=(0.3, 0, 0)),
+    part("wing_r", (-1.5, 16, -2.5), [box("wing", (-1, 0, -2), (1, 3, 9), "wing")], "wing_r"),
+    part("wing_l", (1.5, 16, -2.5), [box("wing", (0, 0, -2), (1, 3, 9), "wing", mirror=True)], "wing_l"),
+    part("leg_r", (-1, 20, 1), [box("leg", (-0.5, 0, -0.5), (1, 4, 1), "leg")], "leg_r"),
+    part("leg_l", (1, 20, 1), [box("leg", (-0.5, 0, -0.5), (1, 4, 1), "leg", mirror=True)], "leg_l"),
 ]
 
 CLEAR = {"c": None}
