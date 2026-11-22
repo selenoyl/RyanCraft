@@ -28,6 +28,39 @@ def moobloom_texture():
             px[x, y] = c + (a,)
     out.save(os.path.join(A, "textures", "entity", "moobloom.png"))
 
+def w(path, obj):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w") as f: json.dump(obj, f, indent=2)
+
+def rose():
+    """The original 1.2.5 rose: the classic pack's rose tile (shipped as its poppy), copied as the rose's own texture so it
+    keeps the old look whatever packs are on."""
+    classic = os.path.join(RES, "resourcepacks", "classic", "assets", "minecraft", "textures", "block", "poppy.png")
+    Image.open(classic).convert("RGBA").save(os.path.join(A, "textures", "block", "rose.png"))
+    w(f"{A}/blockstates/rose.json", {"variants": {"": {"model": "ryancraft:block/rose"}}})
+    w(f"{A}/models/block/rose.json", {"parent": "minecraft:block/cross", "textures": {"cross": "ryancraft:block/rose"}})
+    w(f"{A}/blockstates/potted_rose.json", {"variants": {"": {"model": "ryancraft:block/potted_rose"}}})
+    w(f"{A}/models/block/potted_rose.json", {"parent": "minecraft:block/flower_pot_cross", "textures": {"plant": "ryancraft:block/rose"}})
+    w(f"{A}/models/item/rose.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:block/rose"}})
+    w(f"{A}/items/rose.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/rose"}})
+    surv = [{"condition": "minecraft:survives_explosion"}]
+    w(f"{D}/ryancraft/loot_table/blocks/rose.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:rose"}], "conditions": surv}]})
+    w(f"{D}/ryancraft/loot_table/blocks/potted_rose.json", {"type": "minecraft:block", "pools": [
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:flower_pot"}], "conditions": surv},
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:rose"}], "conditions": surv}]})
+    # 1 rose bush -> 2 roses -> 2 red dye, the same as the bush's own vanilla recipe (rose bush -> 2 red dye)
+    w(f"{D}/ryancraft/recipe/rose_from_rose_bush.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
+        "ingredients": ["minecraft:rose_bush"], "result": {"id": "ryancraft:rose", "count": 2}})
+    w(f"{D}/ryancraft/recipe/red_dye_from_rose.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "group": "red_dye",
+        "ingredients": ["ryancraft:rose"], "result": {"id": "minecraft:red_dye", "count": 1}})
+    for tag in ("small_flowers", "flowers"):
+        w(f"{D}/minecraft/tags/item/{tag}.json", {"replace": False, "values": ["ryancraft:rose"]})
+    w(f"{D}/minecraft/tags/block/small_flowers.json", {"replace": False, "values": ["ryancraft:rose"]})
+    w(f"{D}/minecraft/tags/block/flower_pots.json", {"replace": False, "values": ["ryancraft:potted_rose"]})
+
+def lang_entries():
+    return {"block.ryancraft.rose": "Rose", "block.ryancraft.potted_rose": "Potted Rose"}
+
 if __name__ == "__main__":
-    moobloom_texture()
-    print("moobloom ok")
+    moobloom_texture(); rose()
+    print("flora ok")
