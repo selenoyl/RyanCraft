@@ -45,5 +45,10 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **Natural, not robotic.** Bird calls need pitch glides, amplitude envelopes, slight randomness per call, and some noise and harmonics; no pure steady sine beeps.
 - [ ] **The right sound for the action.** Swimming must not sound like walking (classic pack maps swim to a quiet splash).
 
+## Wiring
+- [ ] **Every new critter model is registered.** Add its name to the model-layer list in `RyanCraftClient`. A missing layer makes
+      resource loading hang on a black screen (swan). Each new mob also needs an entity type, attributes, renderer, spawn egg, egg colour, loot, lang and spawns.
+- [ ] **Breedable, with sensible food.** Every animal breeds on something it would really eat (swans: grain and seagrass; frogs: slimeballs, as vanilla).
+
 ## Release
 - [ ] **Rebuild the release jar** in `releases/` after a round of changes, so the downloadable jar matches the code.

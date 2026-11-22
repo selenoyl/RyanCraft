@@ -76,7 +76,7 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish",
-            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom",
+            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
             "orca", "blue_whale", "shark", "manta_ray", "jellyfish",
@@ -133,6 +133,7 @@ loot("grizzly_bear", [pool("minecraft:leather", 1, 3)])
 loot("bobcat", [])
 loot("crow", [pool("minecraft:feather", 0, 2)])
 loot("zebra", [pool("minecraft:leather", 0, 2)])
+loot("swan", [pool("minecraft:feather", 1, 3), pool("minecraft:chicken", 1, 2, True)])
 loot("moobloom", [pool("minecraft:beef", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("reindeer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("black_tailed_deer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 1)])
@@ -262,6 +263,7 @@ sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; la
 from cages import lang_entries as cage_lang; lang.update(cage_lang())
 from storage_assets import lang_entries as storage_lang; lang.update(storage_lang())
 lang["entity.ryancraft.moobloom"] = "Moobloom"; lang["item.ryancraft.moobloom_spawn_egg"] = "Moobloom Spawn Egg"
+lang["entity.ryancraft.swan"] = "Mute Swan"; lang["entity.ryancraft.swan.black"] = "Black Swan"; lang["item.ryancraft.swan_spawn_egg"] = "Swan Spawn Egg"
 from flora import lang_entries as flora_lang; lang.update(flora_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

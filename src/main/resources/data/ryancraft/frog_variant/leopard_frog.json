@@ -1,0 +1,17 @@
+{
+  "asset_id": "ryancraft:entity/frog/leopard_frog",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": [
+          "minecraft:river",
+          "minecraft:plains",
+          "minecraft:meadow",
+          "minecraft:swamp"
+        ]
+      },
+      "priority": 1
+    }
+  ]
+}

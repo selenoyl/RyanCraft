@@ -53,7 +53,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
         for (String m : new String[]{"black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel", "songbird",
                 "bluegill", "crappie", "largemouth_bass", "channel_catfish", "chipmunk", "coyote",
-                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine", "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose", "orca", "blue_whale", "shark", "manta_ray", "jellyfish", "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator"}) {
+                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine", "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose", "orca", "blue_whale", "shark", "manta_ray", "jellyfish", "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator", "swan"}) {
             EntityModelLayerRegistry.registerModelLayer(CritterModel.layer(m), () -> CritterModel.createLayer(m));
         }
         EntityRendererRegistry.register(RyanEntities.BLACK_BEAR, c -> new CritterRenderer<>(c, "black_bear", 0.9f, 1.0f, false, "black", "cinnamon"));
@@ -101,6 +101,7 @@ public class RyanCraftClient implements ClientModInitializer {
                 net.minecraft.client.particle.FallingLeavesParticle.CherryProvider::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.flora.RyanFlora.ROSE, com.ryancraft.flora.RyanFlora.POTTED_ROSE);
+        EntityRendererRegistry.register(RyanEntities.SWAN, c -> new CritterRenderer<>(c, "swan", 0.45f, 1.0f, false, "swan", "black_swan"));
         EntityRendererRegistry.register(RyanEntities.MOOBLOOM, com.ryancraft.client.render.MoobloomRenderer::create);
         EntityRendererRegistry.register(RyanEntities.REINDEER, com.ryancraft.client.render.ReindeerRenderer::new);
         EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);

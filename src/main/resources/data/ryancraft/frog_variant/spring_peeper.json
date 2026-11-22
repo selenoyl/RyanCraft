@@ -1,0 +1,17 @@
+{
+  "asset_id": "ryancraft:entity/frog/spring_peeper",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": [
+          "minecraft:forest",
+          "minecraft:birch_forest",
+          "ryancraft:seasonal_forest",
+          "minecraft:flower_forest"
+        ]
+      },
+      "priority": 1
+    }
+  ]
+}

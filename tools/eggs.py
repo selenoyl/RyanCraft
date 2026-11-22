@@ -2,7 +2,7 @@
 import critters, big_game, wildlife
 from critters import egg_icon, save_item
 
-EXTRA = {"reindeer": ("#e8e2d6", "#6a5a48"), "butterfly": ("#e08a2a", "#1a1414"), "moobloom": ("#f2c626", "#fbf2d0")}
+EXTRA = {"reindeer": ("#e8e2d6", "#6a5a48"), "butterfly": ("#e08a2a", "#1a1414"), "moobloom": ("#f2c626", "#fbf2d0"), "swan": ("#f4f4f0", "#e8902a")}
 
 if __name__ == "__main__":
     eggs = dict(critters.EGGS); eggs.update(big_game.EGGS)

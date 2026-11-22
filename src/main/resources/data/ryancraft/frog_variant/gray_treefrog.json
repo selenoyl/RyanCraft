@@ -1,0 +1,16 @@
+{
+  "asset_id": "ryancraft:entity/frog/gray_treefrog",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": [
+          "minecraft:dark_forest",
+          "minecraft:old_growth_birch_forest",
+          "minecraft:taiga"
+        ]
+      },
+      "priority": 1
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "asset_id": "ryancraft:entity/frog/green_frog",
+  "spawn_conditions": [
+    {
+      "condition": {
+        "type": "minecraft:biome",
+        "biomes": [
+          "minecraft:swamp",
+          "minecraft:river",
+          "ryancraft:rainforest"
+        ]
+      },
+      "priority": 1
+    }
+  ]
+}

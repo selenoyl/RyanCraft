@@ -189,6 +189,11 @@ public final class RyanBiomes {
         // Reindeer: herds across the snowy north
         spawn(BiomeSelectors.includeByKey(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.ICE_SPIKES, Biomes.GROVE, Biomes.SNOWY_SLOPES, TUNDRA),
                 MobCategory.CREATURE, RyanEntities.REINDEER, 8, 4, 8);
+        // Frogs and toads beyond the swamp (their species skin comes from the biome: data/ryancraft/frog_variant)
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST,
+                Biomes.TAIGA, Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, SEASONAL_FOREST, RAINFOREST), MobCategory.CREATURE, EntityType.FROG, 4, 1, 3);
+        // Swans: pairs on rivers and the ponds of open country
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, Biomes.SWAMP, Biomes.FLOWER_FOREST), MobCategory.CREATURE, RyanEntities.SWAN, 3, 2, 2);
         // Mooblooms: a rare few among the flowers
         spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS), MobCategory.CREATURE, RyanEntities.MOOBLOOM, 4, 2, 4);
         // Zebras: herds on the savanna
