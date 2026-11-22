@@ -39,6 +39,8 @@ public final class ClassicPack {
         selected.add(PACK_ID);          // last = highest priority
         cfg.classicPackAutoEnabled = true;
         cfg.save();
+        mc.options.menuBackgroundBlurriness().set(0);   // the old menus drew the panorama sharp
+        mc.options.save();
         repo.setSelected(selected);
         mc.options.updateResourcePacks(repo);
     }
