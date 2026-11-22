@@ -71,6 +71,7 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.PRONGHORN, c -> new CritterRenderer<>(c, "pronghorn", 0.6f, 1.0f, false, "pronghorn", "pronghorn_buck").plainBabies());
         EntityRendererRegistry.register(RyanEntities.GRIZZLY_BEAR, c -> new CritterRenderer<>(c, "grizzly_bear", 1.1f, 1.0f, false, "grizzly_bear"));
         EntityRendererRegistry.register(RyanEntities.BOBCAT, c -> new CritterRenderer<>(c, "bobcat", 0.4f, 1.0f, false, "bobcat"));
+        EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);
         EntityRendererRegistry.register(RyanEntities.CROW, c -> new CritterRenderer<>(c, "crow", 0.3f, 1.0f, false, "crow"));
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {

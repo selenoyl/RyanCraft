@@ -126,6 +126,8 @@ public final class RyanBiomes {
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
                 Biomes.SWAMP, Biomes.SAVANNA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.WINDSWEPT_FOREST, SEASONAL_FOREST, SHRUBLAND}),
                 MobCategory.CREATURE, RyanEntities.BOBCAT, 2, 1, 1);
+        // Zebras: herds on the savanna
+        spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST,
                 Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.SAVANNA, Biomes.SWAMP, SEASONAL_FOREST, SHRUBLAND}),

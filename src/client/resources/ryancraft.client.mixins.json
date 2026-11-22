@@ -8,7 +8,8 @@
     "DefaultPlayerSkinMixin",
     "MinecraftMixin",
     "PlayerEntryMixin",
-    "AvatarRendererCrowMixin"
+    "AvatarRendererCrowMixin",
+    "HorseRendererZebraMixin"
   ],
   "injectors": {
     "defaultRequire": 0

@@ -131,7 +131,7 @@ VARIANTS["crow"] = {"crow": {
     "wing": {"c": "#16161a", "noise": 6, "speckle": {"c": "#2a2e46", "p": 0.25}}, "leg": {"c": "#121212", "noise": 3}}}
 MODELS = {"elk": elk, "moose": moose, "pronghorn": pronghorn, "grizzly_bear": grizzly, "bobcat": bobcat, "crow": crow}
 EGGS = {"elk": ("#8a5a36", "#24160c"), "moose": ("#5a3a24", "#8a7660"), "pronghorn": ("#c48a4c", "#f2ece0"),
-        "grizzly_bear": ("#3a2618", "#c4a882"), "crow": ("#1a1a1e", "#3a3e5a"), "bobcat": ("#b48c62", "#3e2c1c")}
+        "grizzly_bear": ("#3a2618", "#c4a882"), "crow": ("#1a1a1e", "#3a3e5a"), "zebra": ("#f2f0ea", "#161616"), "bobcat": ("#b48c62", "#3e2c1c")}
 
 if __name__ == "__main__":
     for name, parts in MODELS.items():
