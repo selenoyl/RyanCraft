@@ -243,6 +243,11 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Once you've beaten a rabbit, its temple's portal home stays open, so later trips can be two-way.
   - **The land:**
     - low gravity (big floaty jumps, slow falls)
+    - **Arrows fly flat.** On the moon, arrows, tridents, snowballs and other thrown things barely drop, so a bow
+      shot carries almost straight and far past where it would land on Earth. Long shots get easy, missed shots
+      sail off into the distance, and skeletons become sharpshooters.
+      (How: in 1.21 every projectile has a gravity value, 0.05 per tick for arrows. A mixin scales it to about a
+      sixth when the projectile is in the moon dimension. Dropped items and falling blocks can drift slowly too.)
     - pale moon-dust plains and craters
     - old craters, some still holding meteor iron
     - silvery moon-tree groves and chalky cliffs
