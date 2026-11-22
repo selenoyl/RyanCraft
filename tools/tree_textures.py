@@ -33,16 +33,22 @@ TREES = {
     "ohio_buckeye":     ("#8a847a", "plates", "#e0d4b8", "#4c7e30", None),
 }
 
+def wander(r, start, p):
+    """Column of a wavy crack for y = 0..15 that comes back to where it started, so the texture tiles vertically."""
+    n = sum(r.random() < p for _ in range(8))                 # moves each way
+    steps = [1] * n + [-1] * n + [0] * (16 - 2 * n); r.shuffle(steps)
+    xs, x = [], start
+    for st in steps: xs.append(x % 16); x += st
+    return xs
+
 def bark_side(seed, base, pattern):
     r = random.Random(seed); b = hexc(base); img = bark_base(r, base); px = img.load()
     if pattern in ("furrows", "stripes"):          # vertical dark furrows, wavy
         cols = [1, 5, 9, 13] if pattern == "furrows" else [2, 7, 12]
         for c in cols:
-            x = c
-            for y in range(16):
-                if r.random() < 0.25: x = max(0, min(15, x + r.choice((-1, 1))))
+            for y, x in enumerate(wander(r, c, 0.25)):
                 px[x, y] = jit(r, shade(b, .62), 5) + (255,)
-                if pattern == "stripes" and r.random() < .5: px[min(15, x + 1), y] = jit(r, shade(b, 1.18), 5) + (255,)
+                if pattern == "stripes" and r.random() < .5: px[(x + 1) % 16, y] = jit(r, shade(b, 1.18), 5) + (255,)
     elif pattern == "shaggy":                       # long loose strips, light edges and dark gaps
         for c in range(0, 16, 3):
             for y in range(16):
@@ -50,9 +56,7 @@ def bark_side(seed, base, pattern):
                 if (y + c) % 5 < 3: px[min(15, c + 1), y] = jit(r, shade(b, 1.22), 6) + (255,)
     elif pattern == "plates":                       # irregular plates: wandering vertical cracks joined by short breaks
         for c in (2, 7, 12):
-            x = c
-            for y in range(16):
-                if r.random() < .3: x = max(0, min(15, x + r.choice((-1, 1))))
+            for y, x in enumerate(wander(r, c, .3)):
                 px[x, y] = jit(r, shade(b, .62), 4) + (255,)
         for _ in range(7):
             x, y = r.randrange(16), r.randrange(16)
@@ -165,20 +169,13 @@ def stripped_side(seed, wood):
     return img
 
 def planks(seed, wood):
-    """Four boards, each 3px of wood over a dark 1px seam; a lighter top line and short darker grain streaks."""
-    r = random.Random(seed); p = palette(wood); img = Image.new("RGBA", (16, 16)); px = img.load()
-    for board in range(4):
-        y0 = board * 4
-        for x in range(16):
-            px[x, y0] = jit(r, p["hi"] if r.random() < .55 else p["lt"], 3) + (255,)
-            px[x, y0 + 1] = jit(r, p["lt"] if r.random() < .6 else p["md"], 3) + (255,)
-            px[x, y0 + 2] = jit(r, p["md"] if r.random() < .6 else p["lt"], 3) + (255,)
-            px[x, y0 + 3] = jit(r, p["vdk"] if r.random() < .7 else p["dk"], 3) + (255,)
-        for _ in range(2):                                                     # grain streaks inside the board
-            row = y0 + r.choice((1, 2)); x0 = r.randrange(16); n = r.randint(2, 5)
-            for x in range(x0, x0 + n): px[x % 16, row] = jit(r, p["mdk"], 3) + (255,)
-        if r.random() < .5:                                                    # an occasional darker knot
-            px[r.randrange(16), y0 + 2] = jit(r, p["dk"], 3) + (255,)
+    """The base game's plank template (classic / Programmer Art oak planks) recoloured to the species' wood:
+    every pixel keeps its brightness relative to the template's average, so boards, seams and grain match vanilla."""
+    t = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template_oak_planks.png")).convert("RGB")
+    lum = [0.299 * r + 0.587 * g + 0.114 * b for r, g, b in list(t.getdata())]
+    mean = sum(lum) / len(lum); w = hexc(wood)
+    img = Image.new("RGBA", (16, 16))
+    img.putdata([shade(w, 0.86 * (l / mean) ** 1.35) + (255,) for l in lum])
     return img
 
 def bark_base(r, base):
