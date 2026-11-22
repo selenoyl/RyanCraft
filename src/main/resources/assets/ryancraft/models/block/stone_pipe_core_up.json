@@ -1,0 +1,34 @@
+{
+  "parent": "block/block",
+  "render_type": "cutout",
+  "ambientocclusion": false,
+  "textures": {
+    "t": "ryancraft:block/stone_pipe_end",
+    "particle": "ryancraft:block/stone_pipe"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        4,
+        4
+      ],
+      "to": [
+        12,
+        12,
+        12
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#t"
+        }
+      }
+    }
+  ]
+}

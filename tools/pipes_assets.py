@@ -24,20 +24,29 @@ def pipe_texture(kind):
     for y in range(16):
         for x in range(4, 12):
             c = b[x, y]
-            if x in (4, 11): px[x, y] = shade(c, 0.6)                            # the pipe's edges
-            elif y % 8 == 0: px[x, y] = shade(c, 0.9)                            # a thin rib
-            else: px[x, y] = (0, 0, 0, 0)                                        # open: see the items
+            if x in (4, 11): px[x, y] = shade(c, 0.6)                            # the pipe's outer edges
+            elif x in (5, 10): px[x, y] = shade(c, 0.9)                          # a band of material each side
+            elif y in (3, 12): px[x, y] = shade(c, 0.85)                         # ribs across the window, mirrored about the middle
+            else: px[x, y] = (0, 0, 0, 0)                                        # a 4-px window down the middle: see the items
             if kind == "fluid" and x in (4, 11): px[x, y] = (70, 130, 60, 255)    # green sealant seams
-            if kind == "ender" and (x in (4, 11) and y % 4 == 2 or y % 8 == 0 and x in (6, 9)): px[x, y] = (40, 170, 140, 255)  # ender-pearl teal
+            if kind == "ender" and (x in (4, 11) and y % 4 in (1, 2) or y in (3, 12) and x in (6, 9)): px[x, y] = (40, 170, 140, 255)  # ender-pearl teal
     img.save(os.path.join(A, "textures", "block", f"{kind}_pipe.png"))
     # the end cap where a pipe meets an inventory: a ring of the material around an open mouth
     cap = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); cp = cap.load()
     for y in range(4, 12):
         for x in range(4, 12):
-            ring = x in (4, 11) or y in (4, 11)
-            cp[x, y] = shade(b[x, y], 0.6) if ring else (0, 0, 0, 0)
-            if kind == "ender" and ring and (x + y) % 3 == 0: cp[x, y] = (40, 170, 140, 255)
+            outer = x in (4, 11) or y in (4, 11); band = x in (5, 10) or y in (5, 10)
+            cp[x, y] = shade(b[x, y], 0.6) if outer else shade(b[x, y], 0.9) if band else (0, 0, 0, 0)
+            if kind == "ender" and band and (x + y) % 3 == 0: cp[x, y] = (40, 170, 140, 255)
     cap.save(os.path.join(A, "textures", "block", f"{kind}_pipe_end.png"))
+    # a 4-way junction's free faces: a plate of the material wearing a little creeper face
+    CREEPER = ["........", ".XX..XX.", ".XX..XX.", "...XX...", "..XXXX..", "..XXXX..", "..X..X..", "........"]
+    cr = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); crp = cr.load()
+    for y in range(4, 12):
+        for x in range(4, 12):
+            ring = x in (4, 11) or y in (4, 11)
+            crp[x, y] = shade(b[x, y], 0.6) if ring else (shade(b[x, y], 0.3) if CREEPER[y - 4][x - 4] == "X" else shade(b[x, y], 0.9))
+    cr.save(os.path.join(A, "textures", "block", f"{kind}_pipe_creeper.png"))
 
 def face(uv, tex, cull=None, rot=0):
     f = {"uv": uv, "texture": tex}
@@ -48,15 +57,24 @@ def face(uv, tex, cull=None, rot=0):
 def pipe_models(kind):
     t = f"ryancraft:block/{kind}_pipe"; e = f"ryancraft:block/{kind}_pipe_end"
     s = [4, 0, 12, 16]                                                       # a full pipe-wall strip
-    core = {"from": [4, 4, 4], "to": [12, 12, 12], "faces": {d: face([4, 4, 12, 12], "#pipe") for d in ("north", "south", "east", "west", "up", "down")}}
-    w(f"assets/ryancraft/models/block/{kind}_pipe_core.json", {"parent": "block/block", "render_type": "cutout", "ambientocclusion": False,
-        "textures": {"pipe": t, "particle": t}, "elements": [core]})
+    # the core is drawn one face at a time, only where there's no arm, so corners and junctions turn cleanly
+    cr = f"ryancraft:block/{kind}_pipe_creeper"
+    for d in ("north", "south", "east", "west", "up", "down"):
+        for name, tex in (("core_" + d, e), ("creeper_" + d, cr)):
+            w(f"assets/ryancraft/models/block/{kind}_pipe_{name}.json", {"parent": "block/block", "render_type": "cutout", "ambientocclusion": False,
+                "textures": {"t": tex, "particle": t}, "elements": [{"from": [4, 4, 4], "to": [12, 12, 12], "faces": {d: face([4, 4, 12, 12], "#t")}}]})
     arm = {"from": [4, 4, 0], "to": [12, 12, 4], "faces": {"east": face([4, 0, 12, 4], "#pipe", rot=90), "west": face([4, 0, 12, 4], "#pipe", rot=90),
            "up": face([4, 0, 12, 4], "#pipe"), "down": face([4, 0, 12, 4], "#pipe"), "north": face([4, 4, 12, 12], "#end", "north")}}
     w(f"assets/ryancraft/models/block/{kind}_pipe_arm.json", {"parent": "block/block", "render_type": "cutout", "ambientocclusion": False,
         "textures": {"pipe": t, "end": e, "particle": t}, "elements": [arm]})
     rot = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}, "up": {"x": 270}, "down": {"x": 90}}
-    parts = [{"apply": {"model": f"ryancraft:block/{kind}_pipe_core"}}]
+    perp = {"north": ("east", "west", "up", "down"), "south": ("east", "west", "up", "down"), "east": ("north", "south", "up", "down"),
+            "west": ("north", "south", "up", "down"), "up": ("north", "south", "east", "west"), "down": ("north", "south", "east", "west")}
+    parts = []
+    for d in rot:
+        # a free face shows the creeper when the four sides around it all connect (a cross junction), else the open ring
+        parts.append({"when": dict({d: "false"}, **{p: "true" for p in perp[d]}), "apply": {"model": f"ryancraft:block/{kind}_pipe_creeper_{d}"}})
+        parts.append({"when": {"OR": [{d: "false", p: "false"} for p in perp[d]]}, "apply": {"model": f"ryancraft:block/{kind}_pipe_core_{d}"}})
     for d, r in rot.items(): parts.append({"when": {d: "true"}, "apply": dict({"model": f"ryancraft:block/{kind}_pipe_arm"}, **r)})
     w(f"assets/ryancraft/blockstates/{kind}_pipe.json", {"multipart": parts})
     # item: a straight run of pipe
@@ -119,45 +137,73 @@ def heat_glass(hot):
             t.putpixel((x, y), (34, 30, 28, 255) if edge else (a if (x // 2 + y // 2) % 2 else b) + (255,))
     return t
 
-def engine_textures():
-    p_top, p_side, p_inner = src("piston_top"), src("piston_side"), src("piston_inner")
-    planks, stone, cob, iron = src("oak_planks"), src("stone"), src("cobblestone"), src("iron_block")
-    stone_head = p_top.copy()                                             # the piston head's iron square, set in stone
+def framed(tex, frame=(46, 30, 16), inner=0.85):
+    """BuildCraft's engine plate face: the material set in a thick dark frame, with a soft inner shadow."""
+    t = tex.copy(); px = t.load()
     for y in range(16):
         for x in range(16):
-            r, g, b, al = p_top.getpixel((x, y))
-            if not (4 <= x <= 11 and 4 <= y <= 11): stone_head.putpixel((x, y), stone.getpixel((x, y)))
-    bellows = Image.new("RGBA", (16, 16))
+            e = min(x, y, 15 - x, 15 - y)
+            if e < 2: px[x, y] = tuple(max(0, min(255, frame[i] + (8 if e == 1 else 0))) for i in range(3)) + (255,)
+            elif e == 2: px[x, y] = shade(px[x, y], inner)
+    return t
+
+def plate_side(tex, h, frame=(46, 30, 16)):
+    """A plate's edge: dark rims top and bottom with the material between, like the old engines."""
+    t = Image.new("RGBA", (16, h))
+    for y in range(h):
+        for x in range(16):
+            t.putpixel((x, y), frame + (255,) if y in (0, h - 1) or x in (0, 15) else tex.getpixel((x, (y + 6) % 16)))
+    return t
+
+def heat_glass(hot):
+    """The heat trunk: checkered glowing glass with bevelled dark edges, blue when cool, green when warm."""
+    a, b = ((86, 210, 86), (44, 150, 44)) if hot else ((60, 140, 255), (20, 80, 220))
+    t = Image.new("RGBA", (16, 16))
     for y in range(16):
-        for x in range(16): bellows.putpixel((x, y), shade(iron.getpixel((x, y)), 0.35 if y % 3 == 0 else 0.55))
+        for x in range(16):
+            e = min(x, y, 15 - x, 15 - y)
+            if e == 0: c = (30, 26, 24)
+            elif e == 1: c = (60, 52, 46)
+            else: c = a if (x // 2 + y // 2) % 2 else b
+            t.putpixel((x, y), c + (255,))
+    return t
+
+def engine_textures():
+    planks, stone, iron = src("oak_planks"), src("stone"), src("iron_block")
+    dark_wood = Image.new("RGBA", (16, 16))
+    for y in range(16):
+        for x in range(16): dark_wood.putpixel((x, y), shade(planks.getpixel((x, y)), 0.42 if x % 4 else 0.3))
+    dark_iron = Image.new("RGBA", (16, 16))
+    for y in range(16):
+        for x in range(16): dark_iron.putpixel((x, y), shade(iron.getpixel((x, y)), 0.35 if x % 4 else 0.25))
     for hot in (False, True):
         glass = heat_glass(hot)
         glass.save(os.path.join(A, "textures", "block", "engine_trunk" + ("_hot" if hot else "") + ".png"))
         for kind in ("redstone", "stirling"):
             mat = planks if kind == "redstone" else stone
+            frame = (46, 30, 16) if kind == "redstone" else (40, 40, 44)
             img = Image.new("RGBA", (128, 64), (0, 0, 0, 0))
-            base_side = strip(mat if kind == "redstone" else cob, 4)
-            if kind == "stirling":                                         # a furnace mouth in the base, lit while burning
-                furn = src("furnace_front_on" if hot else "furnace_front")
-                base_side.paste(furn.crop((4, 9, 12, 13)), (4, 0))
-            box_faces(img, 0, 0, 16, 4, 16, trimmed(mat if kind == "redstone" else cob), mat, base_side)                   # base plate
-            box_faces(img, 0, 20, 16, 4, 16, p_top if kind == "redstone" else stone_head, trimmed(mat), strip(mat, 4))     # piston-head plate
-            box_faces(img, 64, 0, 12, 8, 12, bellows, bellows, bellows)                                                     # bellows chamber
-            box_faces(img, 64, 32, 8, 8, 8, glass, glass, glass)                                                            # heat trunk
+            box_faces(img, 0, 0, 16, 4, 16, framed(mat, frame), framed(mat, frame), plate_side(mat, 4, frame))       # base plate
+            box_faces(img, 0, 20, 16, 4, 16, framed(mat, frame), framed(mat, frame), plate_side(mat, 4, frame))      # piston plate
+            ch = dark_wood if kind == "redstone" else dark_iron
+            box_faces(img, 64, 0, 12, 8, 12, ch, ch, ch)                                                             # chamber
+            box_faces(img, 64, 32, 8, 8, 8, glass, glass, glass)                                                    # heat trunk
             os.makedirs(os.path.join(A, "textures", "entity", "engine"), exist_ok=True)
             img.save(os.path.join(A, "textures", "entity", "engine", kind + ("_hot" if hot else "") + ".png"))
+            framed(mat, frame).save(os.path.join(A, "textures", "block", f"{kind}_engine_plate.png"))
+            plate_side(mat, 16, frame).save(os.path.join(A, "textures", "block", f"{kind}_engine_side.png"))
     for kind in ("redstone", "stirling"):
-        base = "minecraft:block/oak_planks" if kind == "redstone" else "minecraft:block/cobblestone"
-        head = "minecraft:block/piston_top" if kind == "redstone" else "minecraft:block/stone"
+        base = f"ryancraft:block/{kind}_engine_side"
+        head = f"ryancraft:block/{kind}_engine_plate"
         w(f"assets/ryancraft/models/block/{kind}_engine.json", {"textures": {"particle": base}})
         w(f"assets/ryancraft/blockstates/{kind}_engine.json", {"variants": {"": {"model": f"ryancraft:block/{kind}_engine"}}})
         w(f"assets/ryancraft/models/item/{kind}_engine.json", {"parent": "block/block", "textures": {
             "base": base, "head": head, "trunk": "ryancraft:block/engine_trunk", "particle": base},
             "elements": [
-                {"from": [0, 0, 0], "to": [16, 4, 16], "faces": {**{d: face([0, 6, 16, 10], "#base") for d in ("north", "south", "east", "west")},
-                                                                 "up": face([0, 0, 16, 16], "#base"), "down": face([0, 0, 16, 16], "#base")}},
-                {"from": [0, 4, 0], "to": [16, 8, 16], "faces": {**{d: face([0, 6, 16, 10], "#base") for d in ("north", "south", "east", "west")},
-                                                                 "up": face([0, 0, 16, 16], "#head"), "down": face([0, 0, 16, 16], "#base")}},
+                {"from": [0, 0, 0], "to": [16, 4, 16], "faces": {**{d: face([0, 0, 16, 4], "#base") for d in ("north", "south", "east", "west")},
+                                                                 "up": face([0, 0, 16, 16], "#head"), "down": face([0, 0, 16, 16], "#head")}},
+                {"from": [0, 4, 0], "to": [16, 8, 16], "faces": {**{d: face([0, 0, 16, 4], "#base") for d in ("north", "south", "east", "west")},
+                                                                 "up": face([0, 0, 16, 16], "#head"), "down": face([0, 0, 16, 16], "#head")}},
                 {"from": [4, 8, 4], "to": [12, 16, 12], "faces": {d: face([4, 4, 12, 12], "#trunk") for d in ("north", "south", "east", "west", "up")}}]})
         w(f"assets/ryancraft/items/{kind}_engine.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{kind}_engine"}})
 
