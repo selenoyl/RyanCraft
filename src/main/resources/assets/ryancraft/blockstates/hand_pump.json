@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ryancraft:block/hand_pump"
+    },
+    "facing=east": {
+      "model": "ryancraft:block/hand_pump",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ryancraft:block/hand_pump",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ryancraft:block/hand_pump",
+      "y": 270
+    }
+  }
+}

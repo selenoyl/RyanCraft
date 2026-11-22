@@ -13,6 +13,8 @@
     "ryancraft:pump",
     "ryancraft:ender_terminal",
     "ryancraft:ender_pipe",
-    "minecraft:end_portal_frame"
+    "minecraft:end_portal_frame",
+    "ryancraft:hand_pump",
+    "ryancraft:tank"
   ]
 }

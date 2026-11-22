@@ -111,18 +111,19 @@ public final class RyanBiomes {
                         Biomes.BADLANDS, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST, AUTUMN_FOREST}),
                 MobCategory.CREATURE, RyanEntities.COYOTE, 5, 3, 5);
         spawn(sel(hardwoods, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.CHIPMUNK, 8, 2, 3);
+        // Fish like the base game: their combined weight is about vanilla salmon's (5), in small groups, so rivers aren't crowded
         var creeks = BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
-        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.BLUEGILL, 15, 3, 6);
-        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CRAPPIE, 10, 3, 5);
-        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.LARGEMOUTH_BASS, 8, 1, 3);
-        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CHANNEL_CATFISH, 6, 1, 2);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.BLUEGILL, 2, 1, 3);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CRAPPIE, 1, 1, 3);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.LARGEMOUTH_BASS, 1, 1, 2);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.CHANNEL_CATFISH, 1, 1, 1);
         // Game fish: trout in cold, clear rivers; smallmouth, perch and walleye in rivers; pike in weedy rivers and swamps; muskie rare
         var coldRivers = BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.FROZEN_RIVER, Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
-        spawn(coldRivers, MobCategory.WATER_AMBIENT, RyanEntities.RAINBOW_TROUT, 8, 2, 4);
-        spawn(BiomeSelectors.includeByKey(Biomes.RIVER), MobCategory.WATER_AMBIENT, RyanEntities.SMALLMOUTH_BASS, 7, 1, 3);
-        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.YELLOW_PERCH, 10, 3, 6);
-        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.FROZEN_RIVER), MobCategory.WATER_AMBIENT, RyanEntities.WALLEYE, 6, 1, 3);
-        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.FROZEN_RIVER), MobCategory.WATER_AMBIENT, RyanEntities.NORTHERN_PIKE, 4, 1, 1);
+        spawn(coldRivers, MobCategory.WATER_AMBIENT, RyanEntities.RAINBOW_TROUT, 2, 1, 3);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER), MobCategory.WATER_AMBIENT, RyanEntities.SMALLMOUTH_BASS, 1, 1, 2);
+        spawn(creeks, MobCategory.WATER_AMBIENT, RyanEntities.YELLOW_PERCH, 2, 1, 3);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.FROZEN_RIVER), MobCategory.WATER_AMBIENT, RyanEntities.WALLEYE, 1, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.FROZEN_RIVER), MobCategory.WATER_AMBIENT, RyanEntities.NORTHERN_PIKE, 1, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER), MobCategory.WATER_AMBIENT, RyanEntities.MUSKELLUNGE, 1, 1, 1);
     }
 

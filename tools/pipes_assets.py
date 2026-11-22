@@ -209,23 +209,7 @@ def engine_textures():
 
 def simple_blocks():
     iron, glass, obs = src("iron_block"), src("glass"), src("obsidian")
-    # pump: iron casing with dark bands and an intake underneath
-    side = iron.copy(); top = iron.copy(); bottom = iron.copy()
-    for x in range(16):
-        for y in (3, 12): side.putpixel((x, y), shade(iron.getpixel((x, y)), 0.5))
-    for y in range(5, 11):
-        for x in range(5, 11): bottom.putpixel((x, y), (30, 30, 34, 255) if 6 <= x <= 9 and 6 <= y <= 9 else shade(iron.getpixel((x, y)), 0.6))
-        for x in range(6, 10): top.putpixel((x, y), (60, 90, 170, 255) if 7 <= y <= 8 else shade(iron.getpixel((x, y)), 0.7))
-    for n, im in (("pump_side", side), ("pump_top", top), ("pump_bottom", bottom)): im.save(os.path.join(A, "textures", "block", n + ".png"))
-    w("assets/ryancraft/models/block/pump.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
-        "side": "ryancraft:block/pump_side", "top": "ryancraft:block/pump_top", "bottom": "ryancraft:block/pump_bottom"}})
-    # tank: a glass box with a metal-edged frame
-    tank = glass.copy()
-    for i in range(16):
-        for (x, y) in ((i, 0), (i, 15), (0, i), (15, i)): tank.putpixel((x, y), shade(iron.getpixel((x, y)), 0.7))
-    tank.save(os.path.join(A, "textures", "block", "tank.png"))
-    w("assets/ryancraft/models/block/tank.json", {"parent": "block/block", "render_type": "cutout", "textures": {"t": "ryancraft:block/tank", "particle": "ryancraft:block/tank"},
-        "elements": [{"from": [2, 0, 2], "to": [14, 16, 14], "faces": {d: face([2, 0, 14, 16] if d not in ("up", "down") else [2, 2, 14, 14], "#t") for d in ("north", "south", "east", "west", "up", "down")}}]})
+    # the pump and tank are made by tools/fluid_blocks_assets.py
     # ender terminal: an end portal frame turned on its side (eye socket facing you, no eye), with redstone fixed to it
     frame = src("end_portal_frame_top"); front = frame.copy(); fp = front.load()
     red, red_dk = (200, 30, 20, 255), (110, 10, 8, 255)
@@ -246,8 +230,8 @@ def simple_blocks():
             {"from": [6, 16, 7], "to": [10, 17, 11], "faces": {d: face([0, 0, 4, 1] if d != "up" else [0, 0, 4, 4], "#red") for d in ("north", "south", "east", "west", "up")}}]})
     w("assets/ryancraft/blockstates/ender_terminal.json", {"variants": {f"facing={f}": dict({"model": "ryancraft:block/ender_terminal"}, **({"y": r} if r else {}))
         for f, r in (("north", 0), ("east", 90), ("south", 180), ("west", 270))}})
-    for n in ("pump", "tank"): w(f"assets/ryancraft/blockstates/{n}.json", {"variants": {"": {"model": f"ryancraft:block/{n}"}}})
-    for n in ("pump", "tank", "ender_terminal"): w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{n}"}})
+    # pump and tank models now come from tools/fluid_blocks_assets.py
+    for n in ("ender_terminal",): w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{n}"}})
     # wrench icon: a classic open-jaw spanner on the diagonal, centred in the slot
     WR = [
         "................",
@@ -298,7 +282,6 @@ def data():
         "redstone_engine": (["PPP", " G ", "RXR"], {"P": "#minecraft:planks", "G": "minecraft:glass", "R": "minecraft:redstone", "X": "minecraft:piston"}, 1),
         "stirling_engine": (["CCC", " G ", "XFX"], {"C": "minecraft:cobblestone", "G": "minecraft:glass", "X": "minecraft:piston", "F": "minecraft:furnace"}, 1),
         "pump": (["IRI", "IBI", "ITI"], {"I": "minecraft:iron_ingot", "R": "minecraft:redstone", "B": "minecraft:bucket", "T": "ryancraft:tank"}, 1),
-        "tank": (["GGG", "G G", "GGG"], {"G": "minecraft:glass"}, 1),
         "ender_terminal": ([" C ", "RFR", " P "], {"C": "minecraft:comparator", "R": "minecraft:redstone", "F": "minecraft:end_portal_frame", "P": "ryancraft:ender_pipe"}, 1),
     }
     for n, (pat, key, cnt) in shaped.items():

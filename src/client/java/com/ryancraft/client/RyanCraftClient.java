@@ -28,10 +28,14 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PIPE_ENTITY, com.ryancraft.client.pipes.PipeRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.ENGINE_ENTITY, com.ryancraft.client.pipes.EngineRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.TANK_ENTITY, com.ryancraft.client.pipes.TankRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.VAT_ENTITY, com.ryancraft.client.pipes.TankRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.HAND_PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.PumpRenderer.LAYER, com.ryancraft.client.pipes.PumpRenderer::createLayer);
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.EngineRenderer.LAYER, com.ryancraft.client.pipes.EngineRenderer::createLayer);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.pipes.RyanPipes.PIPES.values().toArray(net.minecraft.world.level.block.Block[]::new));
-        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.pipes.RyanPipes.TANK);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.pipes.RyanPipes.TANK, com.ryancraft.pipes.RyanPipes.VAT, com.ryancraft.pipes.RyanPipes.PUMP, com.ryancraft.pipes.RyanPipes.HAND_PUMP);
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.ryancraft.pipes.TerminalPayloads.Contents.TYPE, (p, ctx) -> {
             if (ctx.client().player != null && ctx.client().player.containerMenu instanceof com.ryancraft.pipes.EnderTerminalMenu m) { m.shown = p.items(); m.counts = p.counts(); }
         });

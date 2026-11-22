@@ -28,6 +28,20 @@ public class TankBlockEntity extends BlockEntity {
 
     public TankBlockEntity(BlockPos pos, BlockState state) { super(RyanPipes.TANK_ENTITY, pos, state); }
 
+    /** Fluid settles: whatever the tank below can take runs down into it. */
+    public static void serverTick(net.minecraft.world.level.Level level, BlockPos pos, BlockState state, TankBlockEntity be) {
+        if (be.tank.amount <= 0 || !(level.getBlockEntity(pos.below()) instanceof TankBlockEntity below)) return;
+        if (!below.tank.isResourceBlank() && !below.tank.variant.equals(be.tank.variant)) return;
+        long move = Math.min(be.tank.amount, below.tank.getCapacity() - below.tank.amount);
+        if (move <= 0) return;
+        try (var tx = net.fabricmc.fabric.api.transfer.v1.transaction.Transaction.openOuter()) {
+            FluidVariant v = be.tank.variant;
+            long out = be.tank.extract(v, Math.min(move, FluidConstants.BUCKET), tx);
+            below.tank.insert(v, out, tx);
+            tx.commit();
+        }
+    }
+
     @Override protected void saveAdditional(ValueOutput out) { super.saveAdditional(out); out.store("Fluid", FluidVariant.CODEC, tank.variant); out.putLong("Amount", tank.amount); }
     @Override protected void loadAdditional(ValueInput in) { super.loadAdditional(in); tank.variant = in.read("Fluid", FluidVariant.CODEC).orElse(FluidVariant.blank()); tank.amount = in.getLongOr("Amount", 0L); }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider r) { return this.saveCustomOnly(r); }

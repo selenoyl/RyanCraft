@@ -70,7 +70,7 @@ public class PipeBlock extends BaseEntityBlock {
         BlockState ns = level.getBlockState(n);
         if (ns.getBlock() instanceof PipeBlock other) return other.type.fluid == type.fluid;
         if (type.fluid) {
-            if (ns.getBlock() instanceof PumpBlock || ns.getBlock() instanceof TankBlock) return true;
+            if (ns.getBlock() instanceof PumpBlock || ns.getBlock() instanceof TankBlock || ns.getBlock() instanceof VatBlock || ns.getBlock() instanceof HandPumpBlock) return true;
             return level instanceof Level l && FluidStorage.SIDED.find(l, n, dir.getOpposite()) != null;
         }
         if (ns.getBlock() instanceof EnderTerminalBlock) return true;

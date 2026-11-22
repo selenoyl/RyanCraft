@@ -273,5 +273,6 @@ lang["entity.ryancraft.swan"] = "Mute Swan"; lang["entity.ryancraft.swan.black"]
 from flora import lang_entries as flora_lang; lang.update(flora_lang())
 from autumn import lang_entries as autumn_lang; lang.update(autumn_lang())
 from pipes_assets import lang_entries as pipes_lang; lang.update(pipes_lang())
+from fluid_blocks_assets import lang_entries as fluid_lang; lang.update(fluid_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

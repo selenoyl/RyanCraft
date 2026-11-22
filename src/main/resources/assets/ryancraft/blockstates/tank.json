@@ -1,7 +1,46 @@
 {
-  "variants": {
-    "": {
-      "model": "ryancraft:block/tank"
+  "multipart": [
+    {
+      "apply": {
+        "model": "ryancraft:block/tank_posts"
+      }
+    },
+    {
+      "apply": {
+        "model": "ryancraft:block/tank_glass_sides"
+      }
+    },
+    {
+      "when": {
+        "up": "false"
+      },
+      "apply": {
+        "model": "ryancraft:block/tank_rim_top"
+      }
+    },
+    {
+      "when": {
+        "up": "false"
+      },
+      "apply": {
+        "model": "ryancraft:block/tank_glass_top"
+      }
+    },
+    {
+      "when": {
+        "down": "false"
+      },
+      "apply": {
+        "model": "ryancraft:block/tank_rim_bottom"
+      }
+    },
+    {
+      "when": {
+        "down": "false"
+      },
+      "apply": {
+        "model": "ryancraft:block/tank_glass_bottom"
+      }
     }
-  }
+  ]
 }

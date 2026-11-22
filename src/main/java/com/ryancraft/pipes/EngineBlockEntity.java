@@ -99,6 +99,7 @@ public class EngineBlockEntity extends BlockEntity implements WorldlyContainer {
                 target = target.relative(next.getBlockState().getValue(EngineBlock.FACING));
             if (level.getBlockEntity(target) instanceof PipeBlockEntity pipe) pipe.pulse(level, be.energy());
             else if (level.getBlockEntity(target) instanceof PumpBlockEntity pump) pump.pulse(level);
+            else if (level.getBlockEntity(target) instanceof HandPumpBlockEntity hp) hp.stroke(level, null, net.minecraft.world.InteractionHand.MAIN_HAND);
             level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.12f, be.kind() == EngineBlock.Kind.REDSTONE ? 1.4f : 1.7f);
         }
     }

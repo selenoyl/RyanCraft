@@ -40,36 +40,20 @@ public class PumpBlockEntity extends BlockEntity {
 
     public PumpBlockEntity(BlockPos pos, BlockState state) { super(RyanPipes.PUMP_ENTITY, pos, state); }
 
+    /** How far down the pool is (the intake tube's length), and when it last pumped (the screw spins for a while). */
+    public int tubeDepth;
+    public long lastPump = -1000;
+
     public void pulse(Level level) {
         if (tank.amount > FluidConstants.BUCKET * 3) return;
-        BlockPos p = worldPosition.below();
-        for (int i = 0; i < 64 && level.getFluidState(p).isEmpty() && level.getBlockState(p).isAir(); i++) p = p.below();
-        FluidState fs = level.getFluidState(p);
-        if (fs.isEmpty()) return;
-        boolean water = fs.is(FluidTags.WATER);
-        FluidVariant v = FluidVariant.of(water ? Fluids.WATER : Fluids.LAVA);
-        if (!tank.isResourceBlank() && !tank.variant.equals(v)) return;
-        // the connected sources, nearest first; take the farthest
-        Set<BlockPos> seen = new HashSet<>(); ArrayDeque<BlockPos> q = new ArrayDeque<>(); BlockPos far = null; int sources = 0;
-        q.add(p); seen.add(p);
-        while (!q.isEmpty() && seen.size() < 512) {
-            BlockPos c = q.poll();
-            FluidState f = level.getFluidState(c);
-            if (f.isEmpty() || f.is(FluidTags.WATER) != water) continue;
-            if (f.isSource()) { far = c; sources++; }
-            for (Direction d : Direction.values()) {
-                if (d == Direction.UP && c.getY() >= p.getY()) continue;
-                BlockPos n = c.relative(d);
-                if (n.distManhattan(p) <= 32 && seen.add(n)) q.add(n);
-            }
-        }
-        if (far == null) return;
-        if (!water || sources < 2) level.setBlock(far, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
-        try (Transaction tx = Transaction.openOuter()) {
-            tank.variant = v; tank.amount += FluidConstants.BUCKET; tx.commit();
-        }
+        FluidWell.Draw d = FluidWell.draw(level, worldPosition, 64, false);
+        if (d == null || (!tank.isResourceBlank() && !tank.variant.equals(d.fluid()))) return;
+        tank.variant = d.fluid(); tank.amount += FluidConstants.BUCKET;
+        tubeDepth = d.depth(); lastPump = level.getGameTime();
         setChanged();
-        level.playSound(null, worldPosition, water ? SoundEvents.BUCKET_FILL : SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 0.4f, 1.0f);
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_CLIENTS);
+        boolean water = d.fluid().getFluid() == Fluids.WATER;
+        level.playSound(null, worldPosition, water ? SoundEvents.BUCKET_FILL : SoundEvents.BUCKET_FILL_LAVA, SoundSource.BLOCKS, 0.35f, 1.0f);
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, PumpBlockEntity be) {
@@ -77,17 +61,13 @@ public class PumpBlockEntity extends BlockEntity {
         for (Direction d : Direction.values()) {
             if (d == Direction.DOWN || be.tank.amount <= 0) continue;
             BlockPos n = pos.relative(d);
-            long give = Math.min(be.tank.amount, FluidConstants.BUCKET / 10);
-            long took = 0;
-            if (level.getBlockEntity(n) instanceof PipeBlockEntity pipe) took = pipe.offerFluid(be.tank.variant, give, d.getOpposite());
-            else {
-                Storage<FluidVariant> s = FluidStorage.SIDED.find(level, n, d.getOpposite());
-                if (s != null) try (Transaction tx = Transaction.openOuter()) { took = s.insert(be.tank.variant, give, tx); tx.commit(); }
-            }
+            long took = FluidWell.push(level, pos, d, be.tank.variant, Math.min(be.tank.amount, FluidConstants.BUCKET / 10));
             if (took > 0) { be.tank.amount -= took; if (be.tank.amount <= 0) be.tank.variant = FluidVariant.blank(); be.setChanged(); }
         }
     }
 
-    @Override protected void saveAdditional(ValueOutput out) { super.saveAdditional(out); out.store("Fluid", FluidVariant.CODEC, tank.variant); out.putLong("Amount", tank.amount); }
-    @Override protected void loadAdditional(ValueInput in) { super.loadAdditional(in); tank.variant = in.read("Fluid", FluidVariant.CODEC).orElse(FluidVariant.blank()); tank.amount = in.getLongOr("Amount", 0L); }
+    @Override protected void saveAdditional(ValueOutput out) { super.saveAdditional(out); out.store("Fluid", FluidVariant.CODEC, tank.variant); out.putLong("Amount", tank.amount); out.putInt("Tube", tubeDepth); out.putLong("LastPump", lastPump); }
+    @Override protected void loadAdditional(ValueInput in) { super.loadAdditional(in); tank.variant = in.read("Fluid", FluidVariant.CODEC).orElse(FluidVariant.blank()); tank.amount = in.getLongOr("Amount", 0L); tubeDepth = in.getIntOr("Tube", 0); lastPump = in.getLongOr("LastPump", -1000L); }
+    @Override public net.minecraft.nbt.CompoundTag getUpdateTag(net.minecraft.core.HolderLookup.Provider r) { return this.saveCustomOnly(r); }
+    @Override public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getUpdatePacket() { return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this); }
 }

@@ -44,7 +44,9 @@ public final class RyanPipes {
             BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()
                     .lightLevel(s -> s.getValue(EngineBlock.RUNNING) ? 13 : 0));     // glows like a lit furnace
     public static final Block PUMP = block("pump", PumpBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.5f).sound(SoundType.METAL));
-    public static final Block TANK = block("tank", TankBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.NONE).strength(0.6f).sound(SoundType.GLASS).noOcclusion());
+    public static final Block TANK = block("tank", TankBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.NONE).strength(0.8f).sound(SoundType.GLASS).noOcclusion());
+    public static final Block VAT = block("vat", VatBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.5f).sound(SoundType.WOOD).noOcclusion());
+    public static final Block HAND_PUMP = block("hand_pump", HandPumpBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0f).sound(SoundType.METAL).noOcclusion());
     public static final Block ENDER_TERMINAL = block("ender_terminal", EnderTerminalBlock::new,
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).strength(3.0f, 600f).sound(SoundType.STONE).lightLevel(s -> 7));
     public static final Item WRENCH = item("wrench", WrenchItem::new, new Item.Properties().stacksTo(1));
@@ -57,6 +59,10 @@ public final class RyanPipes {
             FabricBlockEntityTypeBuilder.create(PumpBlockEntity::new, PUMP).build());
     public static final BlockEntityType<TankBlockEntity> TANK_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("tank"),
             FabricBlockEntityTypeBuilder.create(TankBlockEntity::new, TANK).build());
+    public static final BlockEntityType<VatBlockEntity> VAT_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("vat"),
+            FabricBlockEntityTypeBuilder.create(VatBlockEntity::new, VAT).build());
+    public static final BlockEntityType<HandPumpBlockEntity> HAND_PUMP_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("hand_pump"),
+            FabricBlockEntityTypeBuilder.create(HandPumpBlockEntity::new, HAND_PUMP).build());
     public static final BlockEntityType<EnderTerminalBlockEntity> TERMINAL_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("ender_terminal"),
             FabricBlockEntityTypeBuilder.create(EnderTerminalBlockEntity::new, ENDER_TERMINAL).build());
 
@@ -83,6 +89,7 @@ public final class RyanPipes {
     public static void init() {
         FluidStorage.SIDED.registerForBlockEntity((be, dir) -> be.tank, TANK_ENTITY);
         FluidStorage.SIDED.registerForBlockEntity((be, dir) -> be.tank, PUMP_ENTITY);
+        FluidStorage.SIDED.registerForBlockEntity((be, dir) -> be.tank, VAT_ENTITY);
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, RyanCraft.id("pipes"), FabricItemGroup.builder()
                 .title(Component.translatable("itemGroup.ryancraft.pipes")).icon(() -> new ItemStack(PIPES.get(PipeType.GOLD)))
                 .displayItems((params, out) -> TAB.forEach(out::accept)).build());
