@@ -58,6 +58,52 @@ def rabbit(m, big=False):
         m.box(DUST, (-13, 16.5, 0), (6, 1, 4))
         p = m.part([-6, 12, 0], (0, 0, 0.7)); m.box(WOOD, (-1, -10, -1), (2, 16, 2), part=p); m.box(WOOD, (-2, 4, -2), (4, 4, 4), part=p)
         m.box(GOLD, (-2.5, 9, -6.2), (5, 1, 5.4)); [m.box(GOLD, (x, 7.5, -6), (1, 1.5, 1)) for x in (-2.5, -0.5, 1.5)]   # a crown
+WHITE_FUR = noise((244, 244, 248), 6, 20, [((226, 226, 236), 14)])
+DARK_FUR = noise((150, 150, 166), 10, 21, [((120, 120, 138), 14)])
+MOON_GLOW = noise((160, 230, 255), 6, 22, [((220, 250, 255), 10)])
+EYE_GLOW = Image.new("RGBA", (16, 16), (120, 230, 255, 255))
+
+def great_rabbit_detailed():
+    """The boss, built like the ender dragon is: far more parts than an ordinary mob. It sits upright, as the moon
+    rabbit of legend does, its pestle raised over a great jade-rimmed mortar of glowing moon dust."""
+    m = Model(30)
+    # hind quarters and feet
+    for x in (-13, 5):
+        m.box(SILVER, (x, 30, -2), (8, 12, 14)); m.box(MOON_GLOW, (x + (8 if x > 0 else -0.2), 33, 2), (0.2, 4, 5))   # glowing crescent mark
+        m.box(SILVER, (x, 42, -10), (8, 4, 16)); m.box(WHITE_FUR, (x + 1, 45.5, -11), (6, 0.5, 4))                   # long hind feet
+    m.box(WHITE_FUR, (-4, 30, 12), (8, 8, 7))                                                                       # fluffy tail
+    # upright torso, white chest
+    m.box(SILVER, (-9, 12, -4), (18, 22, 14)); m.box(DARK_FUR, (-6, 12, 9.5), (12, 18, 1))                           # back stripe
+    m.box(WHITE_FUR, (-7, 15, -5.5), (14, 17, 2))
+    s1 = m.part([0, 16, -6], (0, 0, 0.75)); m.box(JADE, (-15, -2, -0.5), (30, 3, 1), part=s1)                       # jade sash
+    # head
+    m.box(SILVER, (-7, -2, -8), (14, 13, 12))
+    m.box(WHITE_FUR, (-4, 5, -11), (8, 6, 3)); m.box(PINK, (-1.5, 5, -11.6), (3, 2, 1))                             # muzzle and nose
+    for x in (-9, 7): m.box(WHITE_FUR, (x, 4, -6), (2, 6, 5))                                                      # cheek tufts
+    for x in (-6, 2.5):
+        m.box(EYE_GLOW, (x, 1, -8.3), (3.5, 3, 0.4)); m.box(Image.new("RGBA", (16, 16), (255, 255, 255, 255)), (x + 0.5, 1.3, -8.5), (1, 1, 0.2))
+    for y in (6, 8):                                                                                                 # whiskers
+        for x in (-10, 5): m.box(WHITE_FUR, (x, y, -10.5), (5, 0.4, 0.4))
+    # long ears, tilting outward, pink inside, dark tips
+    for sgn in (-1, 1):
+        e = m.part([sgn * 4, -2, -1], (-0.12, 0, sgn * 0.22))
+        m.box(SILVER, (-2, -22, -1.5), (4, 22, 3), part=e); m.box(PINK, (-1.2, -20, -1.8), (2.4, 17, 0.4), part=e)
+        m.box(DARK_FUR, (-2, -24, -1.5), (4, 3, 3), part=e)
+    # crown
+    m.box(GOLD, (-6, -4, -7), (12, 2, 10))
+    for x in (-6, -2, 2): m.box(GOLD, (x, -7, -7), (2, 3, 1)); m.box(JADE, (x + 0.5, -6, -7.4), (1, 1, 0.4))
+    # forearms reaching forward to grip the pestle
+    for sgn in (-1, 1):
+        a = m.part([sgn * 7, 16, -3], (-1.15, sgn * 0.45, 0))
+        m.box(SILVER, (-2, -1, -2), (4, 13, 4), part=a); m.box(WHITE_FUR, (-2.5, 11, -2.5), (5, 4, 5), part=a)
+    p = m.part([0, 6, -15], (0.15, 0, 0)); m.box(WOOD, (-1.5, -14, -1.5), (3, 32, 3), part=p); m.box(WOOD, (-3, 18, -3), (6, 6, 6), part=p)
+    # the great mortar
+    for (w, d) in ((22, 14), (14, 22)): m.box(STONE_M, (-w / 2, 26, -24 - d / 2), (w, 18, d))
+    m.box(MOON_GLOW, (-9, 25.4, -33), (18, 0.6, 18))                                                                    # glowing dust inside
+    for (x, z, w, d) in ((-11, -35, 22, 2), (-11, -15, 22, 2), (-11, -35, 2, 22), (9, -35, 2, 22)):                 # jade rim
+        m.box(JADE, (x, 24, z), (w, 2, d))
+    return m
+
 def moon_rabbit(): m = Model(1); rabbit(m); return m
 def great_rabbit(): m = Model(2); rabbit(m, True); return m
 def drifter():
@@ -170,10 +216,10 @@ def earth_scene(w=360, h=150, seed=4):
 
 def sheet(out):
     BG, INK, SUB = (243, 239, 230), (46, 42, 36), (128, 118, 104)
-    big = great_rabbit().draw(4.2)
+    big = great_rabbit_detailed().draw(2.1)
     crs = [(n, s, f().draw(sc)) for n, s, f, sc in CREATURES]
     ths = [(n, s, f().draw(sc)) for n, s, f, sc in THINGS]
-    port = portal().draw(0.8)
+    port = portal().draw(0.62)
     scene = earth_scene()
     W = scene.width + 80
     cw1 = (W - 60) // 3; ch1 = max(i.height for _, _, i in crs) + 90
