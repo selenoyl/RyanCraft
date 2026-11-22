@@ -29,6 +29,9 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       and no perfectly uniform columns (shagbark hickory). Preview 4x4 tiled before shipping.
 - [ ] **Follow the base-game template.** Planks are built on the Programmer Art / classic oak plank layout, recoloured.
       Spawn eggs are the classic two-tone base-game egg, tinted. When in doubt, start from the vanilla (Programmer Art) asset and recolour it.
+- [ ] **Items match their neighbours.** Food and items follow the Programmer Art look (no black 1.2.5 outlines, so beef
+      sits well next to rabbit and mutton). Build meat and food icons on a vanilla template cut (venison is the mutton cut),
+      draw drumsticks diagonally like vanilla items, and avoid perfectly symmetrical natural shapes (walnut kernel).
 - [ ] **A few exotic woods.** Most woods stay natural, but some species (cedar, walnut, cherry, poplar) get richer plank colours for builders.
 - [ ] **Leaves have enough transparency.** Fancy-leaf holes, see-through gaps in blossom-only leaves, a dark colour on the transparent pixels for Fast graphics.
 - [ ] **Transparent where intended.** Cracks in skulls are see-through (alpha 0), not painted.
