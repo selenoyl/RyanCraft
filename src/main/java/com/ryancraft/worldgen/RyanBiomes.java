@@ -28,9 +28,17 @@ public final class RyanBiomes {
         return ResourceKey.create(Registries.BIOME, RyanCraft.id(name));
     }
 
+    /** 1.2.5's water colour; the classic pack's water textures are stored divided by it, so the two give the old deep blue. */
+    public static final int CLASSIC_WATER = 0x4072FF;
+
     public static void init() {
         kentucky();
         bigGame();
+        if (com.ryancraft.RyanConfig.get().classicPack) {
+            net.fabricmc.fabric.api.biome.v1.BiomeModifications.create(RyanCraft.id("classic_water")).add(
+                    net.fabricmc.fabric.api.biome.v1.ModificationPhase.POST_PROCESSING, BiomeSelectors.foundInOverworld(),
+                    ctx -> ctx.getEffects().setWaterColor(CLASSIC_WATER));
+        }
         var all = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND, TUNDRA);
         var temperate = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND);
 

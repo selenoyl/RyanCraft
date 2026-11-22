@@ -25,7 +25,6 @@ public class RyanCraft implements ModInitializer {
         com.ryancraft.trees.RyanWood.init();
         com.ryancraft.bag.Cages.init();
         com.ryancraft.storage.RyanStorage.init();
-        com.ryancraft.flora.RyanFlora.init();
         LOGGER.info("RyanCraft loaded. Boars are in the woods.");
     }
 }

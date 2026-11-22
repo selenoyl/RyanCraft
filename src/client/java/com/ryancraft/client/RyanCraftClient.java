@@ -100,8 +100,6 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry.getInstance().register(com.ryancraft.trees.RyanWood.DOGWOOD_PETALS,
                 net.minecraft.client.particle.FallingLeavesParticle.CherryProvider::new);
         EntityRendererRegistry.register(RyanEntities.MOOBLOOM, com.ryancraft.client.render.MoobloomRenderer::create);
-        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
-                com.ryancraft.flora.RyanFlora.BUTTERCUP, com.ryancraft.flora.RyanFlora.POTTED_BUTTERCUP);
         EntityRendererRegistry.register(RyanEntities.REINDEER, com.ryancraft.client.render.ReindeerRenderer::new);
         EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);
         EntityRendererRegistry.register(RyanEntities.CROW, c -> new CritterRenderer<>(c, "crow", 0.3f, 1.0f, false, "crow"));

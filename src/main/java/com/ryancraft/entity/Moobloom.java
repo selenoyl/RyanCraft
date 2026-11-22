@@ -1,6 +1,5 @@
 package com.ryancraft.entity;
 
-import com.ryancraft.flora.RyanFlora;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -21,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
- * The moobloom: a buttercup-yellow cow with flowers growing on its back. It leaves buttercups behind as it
+ * The moobloom: a sunny yellow cow with dandelions growing on its back. It leaves dandelions behind as it
  * grazes; shear it for a handful and it turns back into a plain cow, like a mooshroom.
  */
 public class Moobloom extends Cow implements Shearable {
@@ -30,13 +29,13 @@ public class Moobloom extends Cow implements Shearable {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (this.level() instanceof ServerLevel level && !this.isBaby() && this.random.nextInt(2400) == 0) plantButtercup(level);
+        if (this.level() instanceof ServerLevel level && !this.isBaby() && this.random.nextInt(2400) == 0) plantDandelion(level);
     }
 
-    private void plantButtercup(ServerLevel level) {
+    private void plantDandelion(ServerLevel level) {
         BlockPos at = this.blockPosition();
         BlockState here = level.getBlockState(at);
-        BlockState flower = RyanFlora.BUTTERCUP.defaultBlockState();
+        BlockState flower = Blocks.DANDELION.defaultBlockState();
         if ((here.isAir() || here.is(Blocks.SHORT_GRASS)) && flower.canSurvive(level, at)) {
             level.setBlock(at, flower, 3);
             level.gameEvent(this, GameEvent.BLOCK_PLACE, at);
@@ -62,7 +61,7 @@ public class Moobloom extends Cow implements Shearable {
         level.playSound(null, this, SoundEvents.MOOSHROOM_SHEAR, source, 1.0f, 1.0f);
         this.convertTo(EntityType.COW, ConversionParams.single(this, false, false), cow -> {
             level.sendParticles(net.minecraft.core.particles.ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5), this.getZ(), 1, 0, 0, 0, 0);
-            for (int i = 0; i < 5; i++) this.spawnAtLocation(level, new ItemStack(RyanFlora.BUTTERCUP_ITEM), this.getBbHeight());
+            for (int i = 0; i < 5; i++) this.spawnAtLocation(level, new ItemStack(Items.DANDELION), this.getBbHeight());
         });
     }
 

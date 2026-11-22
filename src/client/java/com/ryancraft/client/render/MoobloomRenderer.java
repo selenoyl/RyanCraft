@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.ryancraft.RyanCraft;
 import com.ryancraft.entity.Moobloom;
-import com.ryancraft.flora.RyanFlora;
 import net.minecraft.client.model.animal.cow.CowModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.CowRenderer;
@@ -17,7 +16,7 @@ import net.minecraft.client.renderer.entity.state.CowRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** The vanilla cow model in buttercup yellow, with buttercups on its back and head (placed like a mooshroom's mushrooms). */
+/** The vanilla cow model in sunny yellow, with (old-school) dandelions on its back and head (placed like a mooshroom's mushrooms). */
 public class MoobloomRenderer extends CowRenderer {
     private static final Identifier TEXTURE = RyanCraft.id("textures/entity/moobloom.png");
 
@@ -37,7 +36,7 @@ public class MoobloomRenderer extends CowRenderer {
         @Override
         public void submit(PoseStack pose, SubmitNodeCollector out, int light, CowRenderState state, float yRot, float xRot) {
             if (state.isBaby || state.isInvisible) return;
-            BlockState flower = RyanFlora.BUTTERCUP.defaultBlockState();
+            BlockState flower = net.minecraft.world.level.block.Blocks.DANDELION.defaultBlockState();
             int overlay = LivingEntityRenderer.getOverlayCoords(state, 0.0f);
             float[][] back = {{0.2f, -0.35f, 0.5f, -48f}, {-0.15f, -0.35f, 0.05f, 30f}, {0.15f, -0.35f, -0.35f, 75f}};
             for (float[] b : back) {
