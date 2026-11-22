@@ -79,13 +79,21 @@ public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, En
         pose.translate(0.5, 0.5, 0.5);
         pose.mulPose(s.facing.getRotation());                 // the piston pushes toward what it powers
         pose.translate(0, -0.5, 0);
-        piston.y = s.stroke * 8f;                              // the plate slides out along the trunk
-        chamber.yScale = Math.max(0.01f, s.stroke * 8f / 8f); // the bellows stretch behind it
+        // Model parts are shared by every engine and drawn later, so never move the parts themselves (every engine
+        // would be drawn with the last one's stroke): put each engine's stroke into its own pose instead.
         var rt = RenderTypes.entityCutout(tex);
         out.submitModelPart(base, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         out.submitModelPart(trunk, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
-        if (s.stroke > 0.01f) out.submitModelPart(chamber, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+        if (s.stroke > 0.01f) {                                // the bellows stretch behind the plate
+            pose.pushPose();
+            pose.translate(0, 4 / 16f, 0); pose.scale(1, Math.max(0.01f, s.stroke), 1); pose.translate(0, -4 / 16f, 0);
+            out.submitModelPart(chamber, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+            pose.popPose();
+        }
+        pose.pushPose();
+        pose.translate(0, s.stroke * 8 / 16f, 0);              // the plate slides out along the trunk
         out.submitModelPart(piston, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+        pose.popPose();
         pose.popPose();
     }
 }

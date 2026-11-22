@@ -39,9 +39,10 @@ public final class RyanPipes {
         }
     }
     public static final Block REDSTONE_ENGINE = block("redstone_engine", p -> new EngineBlock(EngineBlock.Kind.REDSTONE, p),
-            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.5f).sound(SoundType.WOOD).noOcclusion());
+            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(1.5f).sound(SoundType.WOOD).noOcclusion()
+                    .isRedstoneConductor((s, l, p) -> false));     // power an engine and only that engine runs, not its neighbours
     public static final Block STIRLING_ENGINE = block("stirling_engine", p -> new EngineBlock(EngineBlock.Kind.STIRLING, p),
-            BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion()
+            BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.0f).sound(SoundType.STONE).noOcclusion().isRedstoneConductor((s, l, p) -> false)
                     .lightLevel(s -> s.getValue(EngineBlock.RUNNING) ? 13 : 0));     // glows like a lit furnace
     public static final Block PUMP = block("pump", PumpBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.5f).sound(SoundType.METAL));
     public static final Block TANK = block("tank", TankBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.NONE).strength(0.8f).sound(SoundType.GLASS).noOcclusion());
