@@ -181,7 +181,7 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
   this would fill the gaps (simple generators, machines that fit the vanilla look).
 - ~~**Pipes, engines and the Ender Terminal**~~ (built in 1.2.0). ~~**Tanks and pumps**~~ (glass tank, vat, screw
   pump and hand pump; built in 1.3.0).
-- **Ender Terminal GUI redesign**.
+- ~~**Ender Terminal GUI**~~: the search box is gone; a button in the corner sorts by name or by amount.
 - **Force field generator**, fuelled by nether stars.
 - **Cage upgrades**.
 
@@ -212,10 +212,11 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 - **The Frost Reach**: a frozen glacial world under an aurora, with mammoths (the elephants' woolly cousins),
   ice caves, frozen shipwrecks and a slow, pale sun. You get there through a portal of packed and blue ice, lit by
   powdered snow. Brings back mammoth wool, glacial blue ice and old frozen loot.
-- **The Drowned Deep**: an ocean dimension with no surface, just kelp forests, sunken towns, whales and air
-  pockets you have to find. You get there through a conduit set into a prismarine ring. Brings back pearls,
-  sea-glass and drowned-town relics. Breathing gear and lead-weighted boots matter.
-- **The Moon** (reached with jade):
+- **The Drowned Deep** isn't a separate dimension. It goes into the overworld's own deep oceans, once the world
+  goes deeper: the deepest ocean floors drop away into **sunken islands**, the husks of drowned villages (sunken
+  houses, a flooded bell tower, kelp-choked fields), shipwrecks wedged in canyons, whales overhead, and air pockets
+  to find. It ties in with the deep cave layer below deepslate.
+- **The Hollow Moon** (the actual moon, reached with jade):
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade.
     Build a frame of jade blocks, light it with an eye of ender under a full moon, and step through.
   - **The land:**
@@ -223,7 +224,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - pale moon-dust plains and craters
     - glassy craters where meteors hit
     - silvery moon-tree groves and chalky cliffs
-    - the Earth hanging huge in a black sky
+    - the real Earth hanging huge in a black sky, drawn Minecraft-style: blocky blue oceans, green and tan
+      continents, white cloud bands, slowly turning and lit from one side like the moon is in ours
   - **Creatures:**
     - **Moon rabbits:** long-eared, silvery, and they hop very high. They're shy, and you can tame them with moon
       herbs.
@@ -237,6 +239,10 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
     - Watch meteor showers at "night" and gather the meteorite iron they drop (a strong, rare metal).
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
+  - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust
+    from the Hollow Walkers, refined in the Moon Mortar, makes **Gravity Wells**: blocks that set a low-gravity
+    field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
+    sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
   - **The boss: the Great Moon Rabbit.** A giant rabbit that pounds a mortar and pestle in the heart of the
     jade temple, as in the old moon-rabbit legends. It leaps around the arena:
     - Ground slams that throw you up in the low gravity.

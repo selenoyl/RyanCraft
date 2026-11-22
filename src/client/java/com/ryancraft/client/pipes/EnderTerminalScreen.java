@@ -4,7 +4,7 @@ import com.ryancraft.pipes.EnderTerminalMenu;
 import com.ryancraft.pipes.TerminalPayloads;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -18,14 +18,17 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * The Ender Terminal: four rows showing everything on the pipe network (scroll with the wheel, type to search), then
+ * The Ender Terminal: four rows showing everything on the pipe network (scroll with the wheel; a button in the corner
+ * sorts by name or by amount), then
  * the two rows where your requests arrive. Left-click an item for a stack, right-click for one. Click the grid while
  * holding something to send it off into storage; shift-click items in your inventory to do the same.
  */
 public class EnderTerminalScreen extends AbstractContainerScreen<EnderTerminalMenu> {
     private static final Identifier BG = Identifier.withDefaultNamespace("textures/gui/container/generic_54.png");
     private static final int ROWS = 4, GRID_Y = 18;
-    private EditBox search;
+    /** Sort by name (A-Z) or by amount (largest first); remembered between visits. */
+    private static boolean byAmount = false;
+    private Button sort;
     private int scroll;
 
     public EnderTerminalScreen(EnderTerminalMenu menu, Inventory inv, Component title) {
@@ -36,16 +39,19 @@ public class EnderTerminalScreen extends AbstractContainerScreen<EnderTerminalMe
     @Override
     protected void init() {
         super.init();
-        search = new EditBox(font, leftPos + 82, topPos + 4, 86, 12, Component.translatable("gui.ryancraft.terminal.search"));
-        search.setBordered(true);
-        addRenderableWidget(search);
+        sort = Button.builder(sortLabel(), b -> { byAmount = !byAmount; scroll = 0; b.setMessage(sortLabel()); })
+                .bounds(leftPos + imageWidth - 7 - 26, topPos + 3, 26, 13)
+                .tooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal("Sort by name or by amount"))).build();
+        addRenderableWidget(sort);
     }
 
+    private static Component sortLabel() { return Component.literal(byAmount ? "#" : "A-Z"); }
+
     private List<Integer> visible() {
-        String q = search == null ? "" : search.getValue().trim().toLowerCase(Locale.ROOT);
         List<Integer> out = new ArrayList<>();
-        for (int i = 0; i < menu.shown.size(); i++)
-            if (q.isEmpty() || menu.shown.get(i).getHoverName().getString().toLowerCase(Locale.ROOT).contains(q)) out.add(i);
+        for (int i = 0; i < menu.shown.size(); i++) out.add(i);
+        if (byAmount) out.sort((a, b) -> Long.compare(menu.counts.get(b), menu.counts.get(a)));
+        else out.sort(java.util.Comparator.comparing(i -> menu.shown.get(i).getHoverName().getString().toLowerCase(Locale.ROOT)));
         return out;
     }
 
@@ -110,11 +116,5 @@ public class EnderTerminalScreen extends AbstractContainerScreen<EnderTerminalMe
             return true;
         }
         return super.mouseClicked(e, doubleClick);
-    }
-
-    @Override
-    public boolean keyPressed(net.minecraft.client.input.KeyEvent e) {
-        if (search != null && search.isFocused() && e.key() != 256) { search.keyPressed(e); scroll = 0; return true; }
-        return super.keyPressed(e);
     }
 }
