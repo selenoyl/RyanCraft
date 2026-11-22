@@ -231,7 +231,10 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   goes deeper: the deepest ocean floors drop away into **sunken islands**, the husks of drowned villages (sunken
   houses, a flooded bell tower, kelp-choked fields), shipwrecks wedged in canyons, whales overhead, and air pockets
   to find. It ties in with the deep cave layer below deepslate.
-- **The Hollow Moon** (the actual moon, reached with jade):
+- **The Hollow Moon** (the actual moon, reached with jade). Concept art: [docs/moon_concept.png](docs/moon_concept.png)
+
+  ![Hollow Moon concept art](docs/moon_concept.png)
+
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade.
     Build a frame of jade blocks, light it with an eye of ender under a full moon, and step through.
   - **The land:**
