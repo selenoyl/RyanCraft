@@ -241,7 +241,8 @@ def lantern_moth_texture():
 
 def sheet(out):
     BG, INK, SUB = (243, 239, 230), (46, 42, 36), (128, 118, 104)
-    big = great_rabbit_detailed().draw(2.1)
+    import moon_boss_original as MB                # the chosen boss: moon-dust fur, bigger vanilla-rabbit eyes
+    yaw = R.YAW; R.YAW = math.radians(-35); big = MB.rabbit("dust", None, None, MB.vrabbit_big).draw(2.1); R.YAW = yaw
     crs = [(n, s, f().draw(sc)) for n, s, f, sc in CREATURES]
     skin = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "lost_spaceman_skin.png")
     if os.path.exists(skin):                       # the spaceman uses its real player-layout skin (tools/spaceman_skin.py)
