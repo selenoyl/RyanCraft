@@ -267,7 +267,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
-  - **The boss: the Great Moon Rabbit.** (Style concepts in the manner of vanilla's bosses: docs/moon_boss_concepts.png)
+  - **The boss: the Great Moon Rabbit.** (Our own design in vanilla's boss style, with its eclipse phase: docs/moon_boss_original.png)
     A giant crowned rabbit in the heart of the jade temple, wielding a
     giant mortar staff (a stone mortar on a long haft) as its weapon, a nod to the old moon-rabbit legends. It leaps around the arena:
     - Ground slams that throw you up in the low gravity.

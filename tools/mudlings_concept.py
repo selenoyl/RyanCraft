@@ -34,7 +34,7 @@ class Model:
     def __init__(self, seed=1):
         self.atlas = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0)); self.x = self.y = self.rowh = 0
         self.parts = []; self.r = random.Random(seed)
-    def box(self, texture, frm, size, part=None, paint=None):
+    def box(self, texture, frm, size, part=None, paint=None, shade=False):
         w, h, d = [int(round(v)) for v in size]
         rw, rh = 2 * d + 2 * w, d + h
         if self.x + rw > 1024: self.x = 0; self.y += self.rowh; self.rowh = 0
@@ -43,6 +43,17 @@ class Model:
         for yy in range(rh):
             for xx in range(rw):
                 self.atlas.putpixel((u + xx, v + yy), texture.getpixel(((xx + ox) % 16, (yy + oy) % 16)))
+        if shade:                                  # vanilla-style hand shading: lit tops, darker toward the bottom, dark edges
+            def mul(x, y, k):
+                r, g, b, a = self.atlas.getpixel((x, y))
+                if a: self.atlas.putpixel((x, y), (min(255, int(r * k)), min(255, int(g * k)), min(255, int(b * k)), a))
+            for (fx, fy, fw, fh, kind) in ((u + d, v, w, d, "top"), (u + d + w, v, w, d, "bottom"), (u, v + d, d, h, "side"),
+                                           (u + d, v + d, w, h, "side"), (u + d + w, v + d, d, h, "side"), (u + 2 * d + w, v + d, w, h, "side")):
+                for yy in range(fh):
+                    for xx in range(fw):
+                        k = 1.12 if kind == "top" else 0.72 if kind == "bottom" else 1.10 - 0.32 * (yy / max(1, fh - 1))
+                        if xx in (0, fw - 1) or yy in (0, fh - 1): k *= 0.84
+                        mul(fx + xx, fy + yy, k)
         if paint:                                  # paint(front_region_origin) for faces, eyes...
             for (px, py), c in paint.items(): self.atlas.putpixel((u + d + px, v + d + py), c)
         b = {"uv": [u, v], "from": list(frm), "size": [w, h, d], "mirror": False}
