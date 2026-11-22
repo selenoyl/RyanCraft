@@ -166,13 +166,21 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 ## Roadmap
 See [ROADMAP.md](ROADMAP.md) for what's queued: seasons, elk, moose, grizzlies, eagles, whales, sharks, new ores and more.
 
+## New in 1.1.0
+- Reindeer; elk and black-tailed deer grow staged antler racks (with rare non-typical racks)
+- Moobloom (yellow mooshroom wearing old-school dandelions), swans (rare black swan), five frog and toad species
+- The 1.2.5 rose is back (rose bush → 2 roses); classic deep-blue water and bright lava; crisp classic title panorama
+- Planks, leaves and spawn eggs follow the base-game templates; exotic planks for cedar, walnut, cherry and poplar
+- Squirrels climb trees, jellyfish stay deep and come in six colours, spawn eggs work on cages
+- Many fixes: no more z-fighting heads, attached limbs, reshaped dogwood and tulip poplar, seamless bark
+
 ## Download
 The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` into your `mods` folder (Fabric Loader 0.20.1+, Fabric API, Minecraft 1.21.11; TerraBlender optional for the Beta biomes).
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.0.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
-3. First launch needs internet once to build the classic pack (about 25 MB, cached in `.minecraft/ryancraft/cache`).
+2. Put `ryancraft-1.1.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
+3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
 
 ## Build
 Needs Java 21: `./gradlew build` (jar in `build/libs/`), `./gradlew runClient`.
