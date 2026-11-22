@@ -252,10 +252,12 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
-    - Watch meteor showers at "night" and gather the meteorite iron they drop (a strong, rare metal).
+    - Watch meteor showers at "night": meteors streak down and leave small glowing craters. Dig out **meteor iron**,
+      a rare, dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools,
+      armour and cannon barrels, and it shimmers faintly at night.
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
   - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust
-    from the Hollow Walkers, refined in the Moon Mortar, makes **Gravity Wells**: blocks that set a low-gravity
+    from the Hollow Walkers, bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
   - **The boss: the Great Moon Rabbit.** A giant rabbit that pounds a mortar and pestle in the heart of the
@@ -264,8 +266,11 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - It summons moon-rabbit kits.
     - It throws glowing rice-cake bombs.
     - At half health it goes into a frenzy.
-    - Beat it for the **Moon Mortar** (a workstation that grinds moon herbs into potions of slow falling and
-      jump), its **jade crown**, and a **rideable moon-rabbit mount** egg.
+    - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
+      mace: the rabbit's great stone mortar on a pestle haft.
+      - **Pound:** a ground slam that throws nearby mobs up into a few seconds of moon gravity, floating and helpless.
+      - **Grind:** each hit on a floating target lands harder.
+      - **Mooncharge:** like the mace, it hits harder the farther you fall, and in low gravity you can chain slams.
 - **Dreams**: sleep in a special bed and wake up in a strange, shifting dream world (floating furniture, bright
   colours, odd gravity) for one night; wake up in your bed at dawn with whatever you carried out. A nightmare
   version for anyone who sleeps hungry or thirsty.
