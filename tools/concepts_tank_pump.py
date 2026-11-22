@@ -96,15 +96,23 @@ def vat_rim():
     return t
 
 # ---------------- tanks
+def pane():
+    """A clean glass pane: faint edge, clear middle, a small highlight in each corner (the same on every face)."""
+    t = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = t.load()
+    for i in range(16):
+        for (x, y) in ((i, 0), (i, 15), (0, i), (15, i)): px[x, y] = (190, 214, 226, 170)
+    for (x, y) in ((1, 1), (2, 1), (1, 2), (14, 14), (13, 14), (14, 13)): px[x, y] = (236, 248, 255, 200)
+    return t
+glass_pane = pane()
 def tank_frame(fluid=water, level=11, tall=False):
+    """A dark-iron frame along all twelve edges with a glass pane inset on every face: symmetrical from every side."""
     m = Model(); H = 32 if tall else 16
-    m.box((2, 1, 2), (12, level + (16 if tall else 0), 12), fluid)
-    m.box((1, 1, 1), (14, H - 2, 14), cglass)
-    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), dark)
-    for y in (0, H - 2):
-        m.box((0, y, 0), (16, 2, 16), dark if y == 0 else dark) if y == 0 else None
-    m.box((0, H - 2, 0), (16, 2, 2), dark); m.box((0, H - 2, 14), (16, 2, 2), dark); m.box((0, H - 2, 2), (2, 2, 12), dark); m.box((14, H - 2, 2), (2, 2, 12), dark)
-    m.box((6, H - 2, 6), (4, 2, 4), dark)                                               # fill hatch on top
+    m.box((2, 2, 2), (12, min(level + (16 if tall else 0), H - 4), 12), fluid)
+    m.box((1, 1, 1), (14, H - 2, 14), glass_pane)
+    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), dark)           # vertical edges
+    for y in (0, H - 2):                                                                                  # top and bottom edges
+        m.box((2, y, 0), (12, 2, 2), dark); m.box((2, y, 14), (12, 2, 2), dark)
+        m.box((0, y, 2), (2, 2, 12), dark); m.box((14, y, 2), (2, 2, 12), dark)
     return m
 def tank_vat():
     """Walls and a floor, so you look down past the plank rim at the water inside; hoops only around the sides."""
@@ -115,12 +123,23 @@ def tank_vat():
     m.box((1, 1, 3), (2, 13, 10), planks, side=vs); m.box((13, 1, 3), (2, 13, 10), planks, side=vs)
     return m
 
+def copper_side(c):
+    """Copper with a centred round porthole framed in dark iron, and a rivet near each corner."""
+    t = c.copy(); px = t.load()
+    for y in range(16):
+        for x in range(16):
+            dx, dy = x - 7.5, y - 7.5; r = (dx * dx + dy * dy) ** 0.5
+            if r < 2.6: px[x, y] = (0, 0, 0, 0)                                 # the window
+            elif r < 3.9: px[x, y] = (52, 50, 54, 255) if r > 3.2 else (84, 82, 88, 255)   # its dark-iron ring
+    for (x, y) in ((2, 3), (13, 3), (2, 12), (13, 12)): px[x, y] = shade(px[x, y], 0.55); px[x, y - 1] = shade(px[x, y - 1], 1.2)
+    return t
 def tank_copper(c=copper):
-    m = Model()
-    m.box((1, 0, 1), (14, 15, 14), copper_plate(c), side=porthole(c))
-    m.box((3, 4, 3), (10, 8, 10), water)                                                 # seen through the portholes
-    m.box((2, 15, 2), (12, 1, 12), copper_plate(c)); m.box((6, 16, 6), (4, 1, 4), dark)  # lid and hatch
-    for (x, z) in ((0, 0), (15, 0), (0, 15), (15, 15)): m.box((x, 0, z), (1, 16, 1), shade_img(c, 0.7))
+    """Symmetrical: rims top and bottom, a porthole centred on each side, a centred hatch on the lid."""
+    m = Model(); side = copper_side(c)
+    m.box((3, 3, 3), (10, 9, 10), water)
+    m.box((1, 2, 1), (14, 12, 14), c, side=side)
+    m.box((0, 0, 0), (16, 2, 16), shade_img(c, 0.8)); m.box((0, 14, 0), (16, 2, 16), shade_img(c, 0.8))   # rims
+    m.box((6, 16, 6), (4, 1, 4), dark)                                                                      # hatch
     return m
 def shade_img(t, k):
     t = t.copy(); px = t.load()
@@ -144,10 +163,10 @@ def pump_hand():
     m = Model()
     m.box((4, 0, 4), (8, 2, 8), dark)                                                    # foot
     m.box((5, 2, 5), (6, 11, 6), caul); m.box((4, 13, 4), (8, 2, 8), dark)              # column and cap
-    m.box((7, 9, 0), (2, 2, 5), dark); m.box((7, 7, 0), (2, 2, 1), dark)                # spout
-    m.box((7, 15, 7), (2, 3, 2), iron)                                                   # pivot
+    m.box((7, 9, 0.9), (2, 2, 4.1), dark); m.box((7, 7.4, 0.9), (2, 1.6, 1), dark)      # spout (clear of the column's face)
+    m.box((7.25, 15, 7.25), (1.5, 2, 1.5), iron)                                         # pivot, ending below the handle
     m.box((7, 17, 1), (2, 1, 14), dark)                                                  # handle
-    m.box((6, 17, 14), (4, 2, 2), planks)                                                # grip
+    m.box((6.5, 16.6, 13.6), (3, 1.8, 2.4), planks)                                      # grip
     return m
 
 def engine(kind, stroke):
@@ -162,7 +181,8 @@ def engine(kind, stroke):
 if __name__ == "__main__":
     exposed = T(VT.replace("vt", "vt") + "copper_block.png")
     rows = [("Tanks", [("Glass + dark iron", tank_frame()), ("...stacked, lava", tank_frame(lava, 12, True)),
-                       ("Iron-hooped vat", tank_vat()), ("Copper", tank_copper()), ("...oxidized", tank_copper(oxid))]),
+                       ("Iron-hooped vat", tank_vat()), ("Copper", tank_copper()), ("...exposed", tank_copper(T(VT + "exposed_copper.png")))]),
+            ("Copper weathering", [("...weathered", tank_copper(T(VT + "weathered_copper.png"))), ("...oxidized", tank_copper(oxid))]),
             ("Pumps", [("Archimedes screw", pump_screw()), ("...turning", pump_screw(20)), ("Cast-iron hand pump", pump_hand())]),
 ]
     imgs = [[(lbl, render(mdl, 1.0)) for lbl, mdl in items] for _, items in rows]
