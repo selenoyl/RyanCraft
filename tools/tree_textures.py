@@ -206,17 +206,25 @@ def bark_base(r, base):
             px[x, y] = jit(r, shade(b, k), 4) + (255,)
     return img
 
-def leaves(seed, leaf, bloom=None, bloom_only=False):
+def leaves(seed, leaf, bloom=None, bloom_only=False, conifer=False):
+    """Built on the base game's leaf template (Programmer Art oak, or spruce for conifers): its holes (~39% see-through, so
+    canopies don't look solid) and shading, recoloured to the species. Each species flips/rotates the template differently.
+    See-through pixels keep a dark leaf colour, which is what shows with Fast leaves."""
     r = random.Random(seed); l = hexc(leaf)
-    # see-through pixels keep a dark leaf colour, which is what shows with Fast leaves (like vanilla's textures)
-    img = Image.new("RGBA", (16, 16), shade(l, .42) + (0,)); px = img.load()
-    for x in range(16):
-        for y in range(16):
-            if r.random() < 0.12: px[x, y] = jit(r, shade(l, .42), 4) + (0,); continue                     # holes, like vanilla fancy leaves
-            c = l
-            if bloom and r.random() < 0.7: c = hexc(bloom)
-            elif bloom_only: px[x, y] = jit(r, shade(l, .5), 4) + (0,); continue                          # pure blossom: the gaps are see-through
-            px[x, y] = jit(r, shade(c, r.choice((.8, .95, 1.0, 1.1))), 6) + (255,)
+    t = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template_spruce_leaves.png" if conifer else "template_oak_leaves.png")).convert("RGBA")
+    t = t.rotate(90 * r.randrange(4))
+    if r.random() < .5: t = t.transpose(Image.FLIP_LEFT_RIGHT)
+    lum = [0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2] for p in list(t.getdata())]
+    alpha = [p[3] for p in list(t.getdata())]
+    solid = [v for v, a in zip(lum, alpha) if a >= 128]; mean = sum(solid) / len(solid)
+    img = Image.new("RGBA", (16, 16)); px = img.load()
+    for k in range(256):
+        x, y = k % 16, k // 16
+        if alpha[k] < 128: px[x, y] = shade(l, .42) + (0,); continue
+        k_ = (lum[k] / mean) ** 1.2
+        if bloom and r.random() < 0.7: px[x, y] = shade(hexc(bloom), min(1.15, 0.85 + 0.25 * k_)) + (255,)
+        elif bloom_only: px[x, y] = shade(l, .5) + (0,)                 # pure blossom: the gaps are see-through
+        else: px[x, y] = shade(l, k_) + (255,)
     return img
 
 def font(size, bold=False):
@@ -236,7 +244,7 @@ if __name__ == "__main__":
         s = 7000 + k * 10
         texs = {"log": bark_side(s, bark, pattern), "log_top": log_top(s + 1, bark, wood),
                 "STRIP_log": stripped_side(s + 2, wood), "STRIP_log_top": log_top(s + 3, bark, wood, True),
-                "planks": planks(s + 4, PLANK_COLOR.get(name, wood)), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"))}
+                "planks": planks(s + 4, PLANK_COLOR.get(name, wood)), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"), conifer=(name == "eastern_red_cedar"))}
         for suffix, im in texs.items():
             fn = f"stripped_{name}_{suffix[6:]}" if suffix.startswith("STRIP_") else f"{name}_{suffix}"
             im.save(os.path.join(OUT, fn + ".png"))
