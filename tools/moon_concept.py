@@ -107,7 +107,7 @@ def great_rabbit_detailed():
         a = m.part([sgn * 7, 16, -3], (-1.15, sgn * 0.45, 0))
         m.box(SILVER, (-2, -1, -2), (4, 13, 4), part=a); m.box(WHITE_FUR, (-2.5, 11, -2.5), (5, 4, 5), part=a)
     st = m.part([0, 20, -15], (0.35, 0, -0.55))                                                       # the giant mortar staff, raised
-    m.box(WOOD, (-2, -30, -2), (4, 52, 4), part=st); m.box(METEOR, (-2.5, 18, -2.5), (5, 4, 5), part=st)   # haft, meteor-iron butt
+    m.box(WOOD, (-2, -30, -2), (4, 50, 4), part=st); m.box(METEOR, (-2.1, 20, -2.1), (4.2, 2.5, 4.2), part=st)   # haft, a simple meteor-iron cap
     for (w, d) in ((16, 11), (11, 16)): m.box(STONE_M, (-w / 2, -44, -d / 2), (w, 14, d), part=st)          # the mortar head
     for (x, z, w, d) in ((-8, -8, 16, 2), (-8, 6, 16, 2), (-8, -8, 2, 16), (6, -8, 2, 16)): m.box(JADE, (x, -45.5, z), (w, 2, d), part=st)
     m.box(MOON_GLOW, (-6, -45, -6), (12, 0.6, 12), part=st)
@@ -183,7 +183,7 @@ def ingot(): m = Model(13); m.box(METEOR, (-5, 20, -2.5), (10, 3, 5)); m.box(MET
 CREATURES = [("Moon Rabbit", "tame it, or bundle it home for a cage", moon_rabbit, 2.4),
              ("Dust Drifter", "floats over the craters, glowing softly", drifter, 2.4),
              ("Crater Crab", "hides in moon dust and pinches", crab, 2.4),
-             ("Lantern Moth", "glows, and comes to light", moth, 2.4),
+             ("Lantern Moth", "a night butterfly with glowing wing spots", moth, 2.4),
              ("Lost Spaceman", "a dead Steve in an old spacesuit; walks the craters at night", walker, 2.0)]
 THINGS = [("Jade Ore", "rare, deep in mountains and lush caves", lambda: cube(JADE_ORE), 1.2),
           ("Block of Jade", "green lapis; the portal frame material", lambda: cube(JADE), 1.2),
@@ -225,6 +225,20 @@ def earth_scene(w=360, h=150, seed=4):
     d.rectangle((tx - 4, ty - 8, tx + 4, ty), fill=(20, 16, 40))
     return im.resize((w * 4, h * 4), Image.NEAREST)
 
+def lantern_moth_texture():
+    """A butterfly variant: the luna moth's wings (butterfly_18) recoloured dusky violet, with glowing moon-gold spots."""
+    src = os.path.join(R.ROOT, "textures", "entity", "butterfly_18.png")
+    im = Image.open(src).convert("RGBA"); px = im.load(); rnd = random.Random(31)
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if not a: continue
+            l = (r + g + b) / 3
+            px[x, y] = (int(40 + l * 0.35), int(32 + l * 0.30), int(70 + l * 0.45), a)              # dusky violet
+            if l > 150 and rnd.random() < 0.35: px[x, y] = (255, 226, 120, a)                       # glowing spots on the pale parts
+    out = os.path.join(os.environ.get("TMPDIR", "/tmp"), "lantern_moth.png"); im.save(out)
+    return out
+
 def sheet(out):
     BG, INK, SUB = (243, 239, 230), (46, 42, 36), (128, 118, 104)
     big = great_rabbit_detailed().draw(2.1)
@@ -233,6 +247,8 @@ def sheet(out):
     if os.path.exists(skin):                       # the spaceman uses its real player-layout skin (tools/spaceman_skin.py)
         R.load_model = ORIG_LOAD
         crs = [(n, s, R.render("player", skin[:-4], 2.2) if n == "Lost Spaceman" else im) for n, s, im in crs]
+    R.load_model = ORIG_LOAD
+    crs = [(n, s, R.render("butterfly", lantern_moth_texture()[:-4], 3.2) if n == "Lantern Moth" else im) for n, s, im in crs]
     ths = [(n, s, f().draw(sc)) for n, s, f, sc in THINGS]
     port = portal().draw(0.62)
     scene = earth_scene()
@@ -247,7 +263,7 @@ def sheet(out):
     # boss with the portal beside it
     c.paste(big, ((W - big.width) // 2, y), big)
     d.text((W // 2, y + big.height + 24), "The Great Moon Rabbit (boss)", font=R.font(28, True), fill=INK, anchor="mm")
-    d.text((W // 2, y + big.height + 56), "swings a giant mortar staff in the jade temple; slams, kits, rice-cake bombs, a frenzy at half health", font=R.font(18), fill=SUB, anchor="mm")
+    d.text((W // 2, y + big.height + 56), "swings a giant mortar staff in the jade temple; slams, kits, flung meteors, a frenzy at half health", font=R.font(18), fill=SUB, anchor="mm")
     y += big.height + 100
     for k, (n, s, im) in enumerate(crs):
         x = 30 + (k % 3) * cw1; base = y + (k // 3) * ch1 + ch1 - 70

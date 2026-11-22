@@ -249,7 +249,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       follows you home, or scoop it up in a bundle (4 to a bundle) and keep it in a cage like the chipmunks.
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.
-    - **Lantern moths:** they glow and come to light.
+    - **Lantern moths:** a night butterfly variant, dusky violet with glowing moon-gold wing spots. They come to
+      light, and fit in a bundle and the bird cage like the other butterflies.
     - **Lost spacemen:** dead Steves in old lavender spacesuits, their skulls grinning behind tinted glass
       visors (skin: docs/lost_spaceman_skin.png). They shamble across the craters at night, slow and floaty in the
       low gravity.
@@ -269,7 +270,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     giant mortar staff (a stone mortar on a long haft) as its weapon, a nod to the old moon-rabbit legends. It leaps around the arena:
     - Ground slams that throw you up in the low gravity.
     - It summons moon-rabbit kits.
-    - It throws glowing rice-cake bombs.
+    - It flings meteors at you: glowing rocks that crash down and leave small craters (with a little meteor iron in them).
     - At half health it goes into a frenzy.
     - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
       mace: the rabbit's own mortar staff, shrunk to fit your hands.
