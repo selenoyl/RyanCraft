@@ -237,6 +237,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade, a green cousin of the lapis block.
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
+    The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
+    a nether portal.
   - **No air.** The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
     start to suffocate. To breathe up there you need one of:
     - a **Potion of Air**, brewed from an awkward potion and a wind charge (the breeze's bottled wind, from trial
