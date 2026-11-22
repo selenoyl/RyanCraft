@@ -250,8 +250,9 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.
     - **Lantern moths:** they glow and come to light.
-    - **Lost spacemen:** zombies in old spacesuits (a Steve-shaped zombie under a glass-visored helmet) that
-      shamble across the craters at night, slow and floaty in the low gravity.
+    - **Lost spacemen:** dead Steves in old lavender spacesuits, their skulls grinning behind tinted glass
+      visors (skin: docs/lost_spaceman_skin.png). They shamble across the craters at night, slow and floaty in the
+      low gravity.
   - **Things to do:**
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.

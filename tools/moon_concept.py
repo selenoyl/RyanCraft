@@ -174,7 +174,7 @@ CREATURES = [("Moon Rabbit", "shy and high-hopping; tame with moon herbs", moon_
              ("Dust Drifter", "floats over the craters, glowing softly", drifter, 2.4),
              ("Crater Crab", "hides in moon dust and pinches", crab, 2.4),
              ("Lantern Moth", "glows, and comes to light", moth, 2.4),
-             ("Lost Spaceman", "a zombie in an old spacesuit; walks the craters at night", walker, 2.0)]
+             ("Lost Spaceman", "a dead Steve in an old spacesuit; walks the craters at night", walker, 2.0)]
 THINGS = [("Jade Ore", "rare, deep in mountains and lush caves", lambda: cube(JADE_ORE), 1.2),
           ("Block of Jade", "the portal frame material", lambda: cube(JADE), 1.2),
           ("Moonstone Bricks", "light building stone", lambda: cube(MOONSTONE), 1.2),
@@ -218,6 +218,9 @@ def sheet(out):
     BG, INK, SUB = (243, 239, 230), (46, 42, 36), (128, 118, 104)
     big = great_rabbit_detailed().draw(2.1)
     crs = [(n, s, f().draw(sc)) for n, s, f, sc in CREATURES]
+    skin = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "lost_spaceman_skin.png")
+    if os.path.exists(skin):                       # the spaceman uses its real player-layout skin (tools/spaceman_skin.py)
+        crs = [(n, s, R.render("player", skin[:-4], 2.2) if n == "Lost Spaceman" else im) for n, s, im in crs]
     ths = [(n, s, f().draw(sc)) for n, s, f, sc in THINGS]
     port = portal().draw(0.62)
     scene = earth_scene()

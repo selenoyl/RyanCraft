@@ -16,7 +16,17 @@ LIGHT = np.array([-0.35, 0.85, 0.4]); LIGHT /= np.linalg.norm(LIGHT)
 def B(uv, frm, size, mirror=False): return {"uv": uv, "from": frm, "size": size, "mirror": mirror}
 def Pt(pivot, boxes, rot=(0, 0, 0)): return {"pivot": pivot, "rot": rot, "boxes": boxes}
 
-HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel; vanilla's horse, for the zebra)
+HAND = {
+    "player": (64, 64, [
+        Pt([0, 0, 0], [B([0, 16], [-4, 12, -2], [4, 12, 4]), B([16, 48], [0, 12, -2], [4, 12, 4]),          # legs
+                       B([16, 16], [-4, 0, -2], [8, 12, 4]),                                                   # body
+                       B([40, 16], [-8, 0, -2], [4, 12, 4]), B([32, 48], [4, 0, -2], [4, 12, 4]),            # arms
+                       dict(B([0, 32], [-4.25, 11.75, -2.25], [4.5, 12.5, 4.5]), uvsize=(4, 12, 4)), dict(B([0, 48], [-0.25, 11.75, -2.25], [4.5, 12.5, 4.5]), uvsize=(4, 12, 4)),   # trouser layer
+                       dict(B([16, 32], [-4.25, -0.25, -2.25], [8.5, 12.5, 4.5]), uvsize=(8, 12, 4)),                                  # jacket layer
+                       dict(B([40, 32], [-8.25, -0.25, -2.25], [4.5, 12.5, 4.5]), uvsize=(4, 12, 4)), dict(B([48, 48], [3.75, -0.25, -2.25], [4.5, 12.5, 4.5]), uvsize=(4, 12, 4)),  # sleeve layers
+                       B([0, 0], [-4, -8, -4], [8, 8, 8]),                                                      # head
+                       dict(B([32, 0], [-4.5, -8.5, -4.5], [9, 9, 9]), uvsize=(8, 8, 8))])]),                   # hat layer
+    # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel; vanilla's horse, for the zebra)
     "horse": (64, 64, [
         Pt([-4, 14, -10], [B([48, 21], [-1, -1.01, -1.9], [4, 11, 4])]), Pt([4, 14, -10], [B([48, 21], [-3, -1.01, -1.9], [4, 11, 4], True)]),
         Pt([-4, 14, 7], [B([48, 21], [-1, -1.01, -1], [4, 11, 4])]), Pt([4, 14, 7], [B([48, 21], [-3, -1.01, -1], [4, 11, 4], True)]),
@@ -81,7 +91,7 @@ def rot_matrix(rx, ry, rz):
 def faces(box):
     """(region u,v,w,h ; P(s,t) as origin + s*E1 + t*E2) for each face, in box-local model space (y down)."""
     u, v = box["uv"]; x0, y0, z0 = box["from"]; w, h, d = box["size"]; x1, y1, z1 = x0 + w, y0 + h, z0 + d
-    W, H, D = int(w), int(h), int(d)
+    W, H, D = [int(v) for v in box.get("uvsize", (w, h, d))]          # overlay layers are drawn bigger than their texture
     F = [((u + D, v, W, D), (x0, y0, z1), (w, 0, 0), (0, 0, -d)),                 # top
          ((u + D, v + D, W, H), (x0, y0, z0), (w, 0, 0), (0, h, 0)),             # front (-z)
          ((u, v + D, D, H), (x0, y0, z1), (0, 0, -d), (0, h, 0)),                # right (x0)
@@ -143,11 +153,17 @@ def render(name, textures, scale=1.0, pose=None):
         depth = za + s * (zb - za) + t * (zc - za)
         tu = np.clip((ru + np.floor(s * rw)).astype(int), 0, tw - 1); tv = np.clip((rv + np.floor(t * rh)).astype(int), 0, th - 1)
         col = tex[tv, tu]
-        ok = inside & (col[..., 3] > 0) & (depth > zbuf[y0:y1, x0:x1])
+        front = inside & (depth > zbuf[y0:y1, x0:x1])
+        ok = front & (col[..., 3] >= 250)
+        glass = front & (col[..., 3] > 0) & (col[..., 3] < 250)          # see-through pixels (stained glass): blend over what's behind
         region = img[y0:y1, x0:x1]
         region[ok, :3] = col[ok, :3] * bright
         region[ok, 3] = 255
         zbuf[y0:y1, x0:x1][ok] = depth[ok]
+        if glass.any():
+            a = (col[..., 3] / 255.0)[glass][:, None]
+            region[glass, :3] = region[glass, :3] * (1 - a) + col[glass, :3] * bright * a
+            region[glass, 3] = np.maximum(region[glass, 3], col[..., 3][glass])
     return Image.fromarray(img.clip(0, 255).astype(np.uint8))
 
 # (label, subtitle, model, texture, scale, extra) ; extra = (texture, scale) of a second one shown alongside
