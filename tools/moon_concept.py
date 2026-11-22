@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageFilter
 sys.path.insert(0, os.path.dirname(__file__))
 import render_iso as R
 from mudlings_concept import Model, tex
+ORIG_LOAD = R.load_model          # Model.draw swaps the loader; the player model needs the real one
 
 def noise(base, amp=14, seed=1, specks=(), size=16):
     r = random.Random(seed); im = Image.new("RGBA", (size, size)); px = im.load()
@@ -220,6 +221,7 @@ def sheet(out):
     crs = [(n, s, f().draw(sc)) for n, s, f, sc in CREATURES]
     skin = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "lost_spaceman_skin.png")
     if os.path.exists(skin):                       # the spaceman uses its real player-layout skin (tools/spaceman_skin.py)
+        R.load_model = ORIG_LOAD
         crs = [(n, s, R.render("player", skin[:-4], 2.2) if n == "Lost Spaceman" else im) for n, s, im in crs]
     ths = [(n, s, f().draw(sc)) for n, s, f, sc in THINGS]
     port = portal().draw(0.62)
