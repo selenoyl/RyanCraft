@@ -2,6 +2,18 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.6.0
+- **Dust storms**: thunderstorms over deserts and badlands become dust storms, with:
+  - sandy fog (rust-red over the badlands) that closes in to about 40 blocks
+  - fine dust blowing past
+  - a howling wind
+  - faster thirst for anyone caught outside
+- The Ender Terminal makes a soft mechanical clunk when you deposit items, instead of a teleport sound. The items
+  travel the pipes.
+- Front page: new shots of the pipes and engines, a dust storm, and a clean four-season sequence.
+- Roadmap: cannon shot types (round shot, grapeshot, chain shot, canister, heated shot, explosive shell) and a
+  brainstorm of vanilla-plus engineering machines.
+
 ## 1.5.1
 - **Steel decoration blocks**: Cut Steel (with stairs and slab), Steel Plating, Chiseled Steel, a see-through Steel
   Grate, Steel Bars, and a redstone-operated Steel Door and Trapdoor. Most can also be made on the stonecutter

@@ -80,7 +80,11 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 - Crops stall in winter unless they're in a greenhouse.
 - The Season Calendar tells you the date, and `/season set` jumps to any season.
 
-![Autumn, first snow, winter, spring thaw](docs/seasons.jpg)
+![The same grove through the year: summer, autumn, winter, spring](docs/seasons.jpg)
+
+**Dust storms**: a thunderstorm over the desert or badlands brings a dust storm instead. Thick sandy fog (rust-red in the badlands), blowing dust, a howling wind, and thirst runs out faster.
+
+![A dust storm in the badlands](docs/dust_storm.jpg)
 
 **Thirst**: a row of droplets over the hunger bar. It drains slowly, so it's there without being a chore, and faster when you sprint or stand in the desert sun.
 - Sip from any water with an empty hand.
@@ -106,7 +110,9 @@ Tekkit-style transport that feels vanilla. You can watch items ride through the 
   - an iron-hooped vat that collects rain
   - an Archimedes screw pump that lowers its intake into the pool
   - a hand pump that draws groundwater into a tank beside it
-- **Ender Terminal:** an end portal frame wired with redstone. It sees every chest with an Ender Pipe on it, and pulls out whatever you click.
+- **Ender Terminal:** an end portal frame wired with redstone. It sees every chest with an Ender Pipe on it. Click an item and the Ender Pipe pulls it out, then it rides the pipes back to you.
+
+![Pipes, engines and the Ender Terminal](docs/pipes_engines.jpg)
 
 ![Tanks and pumps](docs/tanks_pumps.png)
 
