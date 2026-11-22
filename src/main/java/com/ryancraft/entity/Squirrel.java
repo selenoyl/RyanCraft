@@ -54,7 +54,8 @@ public class Squirrel extends CritterAnimal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.8));
+        this.goalSelector.addGoal(1, new ClimbTreeGoal());
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.8));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.5, 1.9,
                 e -> !e.isCrouching() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
@@ -73,4 +74,59 @@ public class Squirrel extends CritterAnimal {
     @Override protected SoundEvent getDeathSound() { return RyanSounds.SQUIRREL_CHATTER; }
     @Override public int getAmbientSoundInterval() { return 240; }
     @Override protected String variantName() { return getVariant() == FOX ? "fox" : null; }
+
+    /** Run to a nearby trunk and scurry up it into the canopy, now and then and always when spooked; sit up there a while. */
+    class ClimbTreeGoal extends Goal {
+        private net.minecraft.core.BlockPos trunk;
+        private int ticks, perch;
+
+        ClimbTreeGoal() { this.setFlags(java.util.EnumSet.of(Goal.Flag.MOVE, Goal.Flag.JUMP)); }
+
+        private boolean spooked() { return Squirrel.this.getLastHurtByMob() != null || Squirrel.this.level().getNearestPlayer(Squirrel.this, 6) instanceof Player p && !p.isCrouching() && !p.isCreative() && !p.isSpectator(); }
+
+        @Override public boolean canUse() {
+            if (Squirrel.this.isBaby() || !Squirrel.this.onGround()) return false;
+            if (!spooked() && Squirrel.this.getRandom().nextInt(300) != 0) return false;
+            trunk = findTrunk();
+            return trunk != null;
+        }
+
+        private net.minecraft.core.BlockPos findTrunk() {
+            net.minecraft.core.BlockPos me = Squirrel.this.blockPosition(), best = null;
+            double bestD = Double.MAX_VALUE;
+            for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(me.offset(-10, -2, -10), me.offset(10, 2, 10))) {
+                var st = Squirrel.this.level().getBlockState(p);
+                if (!st.is(net.minecraft.tags.BlockTags.LOGS) || !Squirrel.this.level().getBlockState(p.above()).is(net.minecraft.tags.BlockTags.LOGS)) continue;
+                if (Squirrel.this.level().getBlockState(p.below()).is(net.minecraft.tags.BlockTags.LOGS)) continue;   // the trunk's foot
+                double d = p.distSqr(me);
+                if (d < bestD) { bestD = d; best = p.immutable(); }
+            }
+            return best;
+        }
+
+        @Override public void start() { ticks = 0; perch = 0; }
+        @Override public boolean canContinueToUse() { return trunk != null && ticks < 600 && (perch == 0 || perch < 200); }
+        @Override public void stop() { trunk = null; Squirrel.this.getNavigation().stop(); }
+        @Override public boolean requiresUpdateEveryTick() { return true; }
+
+        @Override public void tick() {
+            ticks++;
+            Squirrel self = Squirrel.this;
+            double cx = trunk.getX() + 0.5, cz = trunk.getZ() + 0.5;
+            double flat = Math.hypot(self.getX() - cx, self.getZ() - cz);
+            if (perch > 0) { perch++; self.getNavigation().stop(); return; }
+            if (flat > 1.4 && self.getY() < trunk.getY() + 1) {            // run to the foot of the tree
+                if (ticks % 10 == 1) self.getNavigation().moveTo(cx, trunk.getY(), cz, spooked() ? 1.8 : 1.2);
+                return;
+            }
+            // press into the trunk: the climbing check lifts it while it's pushing against the log
+            net.minecraft.core.BlockPos level = net.minecraft.core.BlockPos.containing(cx, self.getY() + 0.5, cz);
+            if (self.level().getBlockState(level).is(net.minecraft.tags.BlockTags.LOGS)) {
+                self.getMoveControl().setWantedPosition(cx, self.getY() + 1.5, cz, 1.4);
+                self.setDeltaMovement(self.getDeltaMovement().x, Math.max(self.getDeltaMovement().y, 0.2), self.getDeltaMovement().z);
+            } else {
+                perch = 1;                                                  // out of trunk: up in the crown, sit tight
+            }
+        }
+    }
 }

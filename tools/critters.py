@@ -338,6 +338,8 @@ def turkey_texture():
                 img.putpixel((face_x + i, 47 + j), noisy(hexc(c), 8))
     for i in range(34):
         img.putpixel((i, 46), noisy(hexc("#c8a46a"), 6))
+    for j in range(12):                                  # the fan's thin edges, so they aren't see-through
+        for ex in (0, 17): img.putpixel((ex, 47 + j), noisy(hexc("#c8a46a" if j < 2 else "#1e140c" if j < 4 else "#6a4426"), 8))
     img.save(os.path.join(ROOT, "textures/entity/turkey.png"))
 
 # ---------------------------------------------------------------- item icons

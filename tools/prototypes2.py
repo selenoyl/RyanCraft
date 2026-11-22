@@ -140,7 +140,7 @@ frog = [part("body", (0, 20, 0), [box("body", (-4, -2.5, -4), (8, 5, 9), "skin")
                                   box("eye_r", (-3.5, -4.5, -7), (2, 2, 2), "eye"), box("eye_l", (1.5, -4.5, -7), (2, 2, 2), "eye", mirror=True),
                                   box("thigh_r", (-5.5, 0, 0), (2, 3, 5), "skin"), box("thigh_l", (3.5, 0, 0), (2, 3, 5), "skin", mirror=True),
                                   box("foot_r", (-6, 3, -2), (3, 1, 6), "skin"), box("foot_l", (3, 3, -2), (3, 1, 6), "skin", mirror=True),
-                                  box("arm_r", (-3.5, 2, -6), (1, 2, 1), "skin"), box("arm_l", (2.5, 2, -6), (1, 2, 1), "skin", mirror=True)], "body")]
+                                  box("arm_r", (-3.5, 1, -5), (1, 3, 1.5), "skin"), box("arm_l", (2.5, 1, -5), (1, 3, 1.5), "skin", mirror=True)], "body")]
 add("Bullfrog", "ponds; deep 'jug-o-rum' call", frog, {
     "skin": {"c": "#5a7a34", "noise": 8, "speckle": {"c": "#3a5220", "p": 0.25}, "bottom": "#e8e0a8"},
     "head": {"c": "#6a8a3a", "noise": 6, "bottom": "#f0e8a0", "front": "#5a7a30"},

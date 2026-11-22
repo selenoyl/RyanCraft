@@ -108,7 +108,7 @@ public final class RyanEntities {
     public static final EntityType<Rattlesnake> RATTLESNAKE = register("rattlesnake",
             EntityType.Builder.of(Rattlesnake::new, MobCategory.CREATURE).sized(0.6f, 0.3f).clientTrackingRange(10));
     public static final EntityType<Bullfrog> BULLFROG = register("bullfrog",
-            EntityType.Builder.of(Bullfrog::new, MobCategory.CREATURE).sized(0.5f, 0.4f).clientTrackingRange(10));
+            EntityType.Builder.of(Bullfrog::new, MobCategory.CREATURE).sized(0.4f, 0.3f).clientTrackingRange(10));
     public static final EntityType<Alligator> ALLIGATOR = register("alligator",
             EntityType.Builder.of(Alligator::new, MobCategory.CREATURE).sized(1.0f, 0.5f).clientTrackingRange(10));
     public static final EntityType<Moobloom> MOOBLOOM = register("moobloom",

@@ -69,13 +69,20 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         for (JsonElement el : spec.getAsJsonArray("parts")) {
             JsonObject p = el.getAsJsonObject();
             CubeListBuilder cubes = CubeListBuilder.create();
+            // Anti z-fighting: where boxes overlap with faces at the same height, the GPU flickers between them. Every box gets a
+            // slightly different, invisibly small inflation (attached parts a bit more than the body) so no two faces are coplanar.
+            String role = p.has("role") && !p.get("role").isJsonNull() ? p.get("role").getAsString() : "";
+            float inflate = role.equals("body") || role.equals("soar_body") || role.equals("fish_body") ? 0f : 0.03f;
+            int boxIndex = 0;
             for (JsonElement be : p.getAsJsonArray("boxes")) {
                 JsonObject b = be.getAsJsonObject();
+                float grow = inflate + 0.006f * boxIndex++;
                 JsonArray uv = b.getAsJsonArray("uv"), from = b.getAsJsonArray("from"), size = b.getAsJsonArray("size");
                 cubes.texOffs(uv.get(0).getAsInt(), uv.get(1).getAsInt())
                         .mirror(b.has("mirror") && b.get("mirror").getAsBoolean())
                         .addBox(from.get(0).getAsFloat(), from.get(1).getAsFloat(), from.get(2).getAsFloat(),
-                                size.get(0).getAsFloat(), size.get(1).getAsFloat(), size.get(2).getAsFloat());
+                                size.get(0).getAsFloat(), size.get(1).getAsFloat(), size.get(2).getAsFloat(),
+                                new net.minecraft.client.model.geom.builders.CubeDeformation(grow));
             }
             JsonArray pv = p.getAsJsonArray("pivot"), rot = p.getAsJsonArray("rot");
             root.addOrReplaceChild(p.get("name").getAsString(), cubes, PartPose.offsetAndRotation(
@@ -110,9 +117,21 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         rotX("leg_lf", -swing); rotX("leg_rb", -swing);
         // Soaring birds: wings folded when perched; spread wide (with a slow, shallow beat) and the body level in flight
         if (flying) {
-            float glide = 1.35f + Mth.sin(age * 0.18f) * 0.12f;
+            boolean rising = state instanceof CritterRenderState c && c.rising;
+            float glide = rising ? 1.05f + Mth.sin(age * 0.85f) * 0.7f     // climbing: deep, steady wingbeats
+                                 : 1.35f + Mth.sin(age * 0.18f) * 0.12f;  // level or sinking: a held glide
             rotZ("soar_wing_r", glide); rotZ("soar_wing_l", -glide);
             rotX("soar_body", 0.35f);
+        }
+        // Birds with separate flight wings: folded wings hide in the air, broad ones beat instead
+        ModelPart flyR = roles.get("fly_wing_r"), flyL = roles.get("fly_wing_l");
+        if (flyR != null && flyL != null) {
+            flyR.visible = flyL.visible = flying;
+            ModelPart wr = roles.get("wing_r"), wl = roles.get("wing_l");
+            if (wr != null) wr.visible = !flying;
+            if (wl != null) wl.visible = !flying;
+            float beat = Mth.sin(age * 0.7f) * 0.55f;
+            flyR.zRot = beat; flyL.zRot = -beat;
         }
         if (flying) {
             rotX("leg_r", 1.1f); rotX("leg_l", 1.1f);

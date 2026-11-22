@@ -42,6 +42,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
         state.antlers = entity.isBaby() ? -1 : entity.antlerStage();
         state.rack = entity.antlerRack();
         state.flying = entity.isFlyingVisual();
+        state.rising = state.flying && entity.getY() - entity.yo > 0.015;
         state.climbing = entity.isClimbingVisual();
         state.playingDead = entity.isPlayingDead();
         if (state.playingDead) {

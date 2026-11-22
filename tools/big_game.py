@@ -86,6 +86,9 @@ crow = [   # "sleek": narrow body, small head, long tail
     part("wing_l", (1.5, 16, -2.5), [box("wing", (0, 0, -2), (1, 3, 9), "wing", mirror=True)], "wing_l"),
     part("leg_r", (-1, 20, 1), [box("leg", (-0.5, 0, -0.5), (1, 4, 1), "leg")], "leg_r"),
     part("leg_l", (1, 20, 1), [box("leg", (-0.5, 0, -0.5), (1, 4, 1), "leg", mirror=True)], "leg_l"),
+    # broad wings shown only in flight (a crow's span is about 2.5x its body): arm, then fingered primaries
+    part("fly_wing_r", (-1.5, 16.5, -2), [box("arm", (-7, 0, -1.5), (7, 1, 6), "wing"), box("primaries", (-11, 0, -1), (4, 1, 4), "wing")], "fly_wing_r"),
+    part("fly_wing_l", (1.5, 16.5, -2), [box("arm", (0, 0, -1.5), (7, 1, 6), "wing", mirror=True), box("primaries", (7, 0, -1), (4, 1, 4), "wing", mirror=True)], "fly_wing_l"),
 ]
 
 def staged_antlers(parts, stages, rare=()):

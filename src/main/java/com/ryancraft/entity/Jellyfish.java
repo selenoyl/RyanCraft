@@ -14,9 +14,47 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-/** Jellyfish: drifts on the currents of warm seas, pulsing slowly up and down. Brush against one and it stings. */
+/**
+ * Jellyfish: drifts in the deeper water of warm seas, pulsing slowly up and down and never rising to the surface.
+ * Comes in several colours. Brush against one and it stings.
+ */
 public class Jellyfish extends OceanAnimal {
+    /** pink, blue, purple, amber, white, green (glows faintly in the dark sea, in spirit). */
+    public static final int COLOURS = 6;
+    /** Keeps at least this much water overhead. */
+    private static final int MIN_DEPTH = 4;
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Integer> VARIANT =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(Jellyfish.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
     private int stingCooldown;
+    private boolean shallow;
+
+    @Override
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder b) { super.defineSynchedData(b); b.define(VARIANT, 0); }
+    @Override public int getVariant() { return this.entityData.get(VARIANT); }
+    public void setVariant(int v) { this.entityData.set(VARIANT, Math.floorMod(v, COLOURS)); }
+
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor level, net.minecraft.world.DifficultyInstance d,
+                                                                    net.minecraft.world.entity.EntitySpawnReason reason, net.minecraft.world.entity.SpawnGroupData data) {
+        setVariant(this.random.nextInt(COLOURS));
+        return super.finalizeSpawn(level, d, reason, data);
+    }
+    @Override protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput out) { super.addAdditionalSaveData(out); out.putInt("Variant", getVariant()); }
+    @Override protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput in) { super.readAdditionalSaveData(in); setVariant(in.getIntOr("Variant", 0)); }
+
+    /** Water blocks overhead, up to MIN_DEPTH + 1. */
+    private int depth() {
+        net.minecraft.core.BlockPos.MutableBlockPos p = this.blockPosition().mutable();
+        int n = 0;
+        while (n <= MIN_DEPTH && this.level().getFluidState(p.move(0, 1, 0)).is(net.minecraft.tags.FluidTags.WATER)) n++;
+        return n;
+    }
+
+    /** Deep water only: no spawning near the surface. */
+    @Override
+    public boolean checkSpawnRules(net.minecraft.world.level.LevelAccessor level, net.minecraft.world.entity.EntitySpawnReason reason) {
+        return super.checkSpawnRules(level, reason) && (reason != net.minecraft.world.entity.EntitySpawnReason.NATURAL && reason != net.minecraft.world.entity.EntitySpawnReason.CHUNK_GENERATION || depth() >= MIN_DEPTH);
+    }
 
     public Jellyfish(EntityType<? extends Jellyfish> type, Level level) { super(type, level); }
 
@@ -32,7 +70,10 @@ public class Jellyfish extends OceanAnimal {
         if (!(this.level() instanceof ServerLevel level)) return;
         if (this.isInWater()) {                                   // a slow pulse: drift up, sink back
             double pulse = Math.sin(this.tickCount * 0.08) * 0.012;
-            this.setDeltaMovement(this.getDeltaMovement().add(0, pulse, 0));
+            if (this.tickCount % 5 == 0 && depth() < MIN_DEPTH) shallow = true; else if (this.tickCount % 5 == 0) shallow = false;
+            if (shallow) pulse = -0.03;                            // too near the surface: sink back down
+            Vec3 v = this.getDeltaMovement();
+            this.setDeltaMovement(v.x, shallow ? Math.min(v.y, 0) + pulse : v.y + pulse, v.z);
         }
         if (stingCooldown > 0) { stingCooldown--; return; }
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2), e -> !(e instanceof Jellyfish))) {

@@ -47,6 +47,7 @@ for p in gator:
         p["boxes"].append(box("tail_ridge", (-0.5, -2.5, 0), (1, 1, 18), "scute"))
     if p["name"] == "head":
         p["boxes"].append(box("eye_bumps", (-3, -2.5, -4), (6, 1, 2), "scute"))
+        for b in p["boxes"]: b["from"][1] += 0.5      # sink the head half a pixel below the body top so the overlap never z-fights
 P.append(("American Alligator", "swamps", gator, {
     "body": {"c": "#3a4a2c", "noise": 10, "belly": "#c8c08a", "speckle": {"c": "#26301c", "p": 0.3}},
     "head": {"c": "#3e4e30", "noise": 8, "bottom": "#c8c08a", "side_eyes": "#d8b020", "eye_row": 0},

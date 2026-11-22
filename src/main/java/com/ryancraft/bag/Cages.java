@@ -112,6 +112,23 @@ public final class Cages {
 
     /** Right-click on a cage (called from {@link MobBags}' block-use event, before sneaking skips block interaction). */
     static InteractionResult use(Player player, Level level, InteractionHand hand, ItemStack stack, BlockPos pos) {
+        // Sneak-use a spawn egg on an empty cage of the right kind: the animal hatches inside
+        if (stack.getItem() instanceof net.minecraft.world.item.SpawnEggItem egg && player.isSecondaryUseActive()) {
+            EntityType<?> type = egg.getType(stack);
+            CageBlock eggCage = (CageBlock) level.getBlockState(pos).getBlock();
+            if (kindOf(type) != eggCage.kind) return InteractionResult.PASS;
+            if (!(level instanceof ServerLevel sl) || !(player instanceof ServerPlayer sp)) return InteractionResult.SUCCESS;
+            if (!(level.getBlockEntity(pos) instanceof CageBlockEntity be)) return InteractionResult.PASS;
+            if (be.resident() != null) return tell(sp, "message.ryancraft.cage.occupied");
+            if (type.create(sl, net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE) instanceof Mob m) {
+                m.snapTo(pos.getX() + 0.5, pos.getY() + 0.1, pos.getZ() + 0.5, sl.random.nextFloat() * 360f, 0);
+                m.finalizeSpawn(sl, sl.getCurrentDifficultyAt(pos), net.minecraft.world.entity.EntitySpawnReason.SPAWN_ITEM_USE, null);
+                sl.addFreshEntity(m);
+                putInCage(sl, pos, be, m);
+                stack.consume(1, player);
+            }
+            return InteractionResult.SUCCESS;
+        }
         boolean bundle = stack.getItem() instanceof BundleItem;
         boolean emptyHand = hand == InteractionHand.MAIN_HAND && stack.isEmpty();
         if (!bundle && !emptyHand) return InteractionResult.PASS;

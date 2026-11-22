@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 public class CritterRenderState extends LivingEntityRenderState {
     public int variant;
     public boolean flying;
+    /** Gaining height this tick (soaring birds flap instead of gliding). */
+    public boolean rising;
     public boolean playingDead;
     public boolean climbing;
     public int texture;
