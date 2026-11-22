@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "ryancraft:block/black_walnut_autumn_leaves"
+  }
+}

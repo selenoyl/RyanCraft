@@ -12,7 +12,10 @@
     "PlayerCrowMixin",
     "ServerPlayerCrowMixin",
     "EndPortalFrameMiningMixin",
-    "SpawnPlacementsInvoker"
+    "SpawnPlacementsInvoker",
+    "BiomeSeasonMixin",
+    "ServerLevelSeasonMixin",
+    "CropSeasonMixin"
   ],
   "injectors": {
     "defaultRequire": 0

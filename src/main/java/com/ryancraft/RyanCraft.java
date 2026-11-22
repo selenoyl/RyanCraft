@@ -28,6 +28,7 @@ public class RyanCraft implements ModInitializer {
         com.ryancraft.flora.RyanFlora.init();
         com.ryancraft.fish.FishSize.init();
         com.ryancraft.pipes.RyanPipes.init();
+        com.ryancraft.season.Seasons.init();
         LOGGER.info("RyanCraft loaded. Boars are in the woods.");
     }
 }

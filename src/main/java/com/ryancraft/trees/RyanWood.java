@@ -73,10 +73,12 @@ public final class RyanWood {
     public static Iterable<WoodSet> sets() { return SETS.values(); }
 
     /** Autumn colours: the species whose leaves turn, and the colour of their falling leaves. */
-    public static final Map<TreeSpecies, Integer> AUTUMN_COLOURS = Map.of(
-            TreeSpecies.SUGAR_MAPLE, 0xe07a1c, TreeSpecies.RED_MAPLE, 0xc8281e, TreeSpecies.TULIP_POPLAR, 0xe0b830,
-            TreeSpecies.AMERICAN_BEECH, 0xb8862e, TreeSpecies.WHITE_OAK, 0x9a4a2a, TreeSpecies.RED_OAK, 0x8e2a1e,
-            TreeSpecies.SASSAFRAS, 0xd8582a, TreeSpecies.FLOWERING_DOGWOOD, 0xa82a3a);
+    public static final Map<TreeSpecies, Integer> AUTUMN_COLOURS = Map.ofEntries(
+            Map.entry(TreeSpecies.SUGAR_MAPLE, 0xe07a1c), Map.entry(TreeSpecies.RED_MAPLE, 0xc8281e), Map.entry(TreeSpecies.TULIP_POPLAR, 0xe0b830),
+            Map.entry(TreeSpecies.AMERICAN_BEECH, 0xb8862e), Map.entry(TreeSpecies.WHITE_OAK, 0x9a4a2a), Map.entry(TreeSpecies.RED_OAK, 0x8e2a1e),
+            Map.entry(TreeSpecies.SASSAFRAS, 0xd8582a), Map.entry(TreeSpecies.FLOWERING_DOGWOOD, 0xa82a3a),
+            Map.entry(TreeSpecies.BLACK_WALNUT, 0xd8c040), Map.entry(TreeSpecies.SHAGBARK_HICKORY, 0xc89a28), Map.entry(TreeSpecies.OHIO_BUCKEYE, 0xc06a28),
+            Map.entry(TreeSpecies.SYCAMORE, 0xa8803a), Map.entry(TreeSpecies.BLACK_CHERRY, 0xc84a28), Map.entry(TreeSpecies.EASTERN_REDBUD, 0xd8b030));
     private static final Map<TreeSpecies, Block> AUTUMN_LEAVES = new EnumMap<>(TreeSpecies.class);
     /** The species' autumn leaves, or its ordinary leaves if it doesn't turn. */
     public static Block autumnLeaves(TreeSpecies s) { return AUTUMN_LEAVES.getOrDefault(s, get(s).leaves()); }
@@ -85,10 +87,13 @@ public final class RyanWood {
         for (TreeSpecies s : TreeSpecies.values()) SETS.put(s, make(s));
         for (var e : AUTUMN_COLOURS.entrySet()) {             // autumn leaves drift down more often
             int c = e.getValue();
-            Block b = block(e.getKey().id + "_autumn_leaves", p -> new UntintedParticleLeavesBlock(0.04f,
+            Block b = block(e.getKey().id + "_autumn_leaves", p -> new SeasonalLeavesBlock(true, 0.04f,
                     ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xFF000000 | c), p),
                     Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_ORANGE));
             AUTUMN_LEAVES.put(e.getKey(), b);
+            Block green = get(e.getKey()).leaves();             // the pair swap back and forth with the seasons
+            ((SeasonalLeavesBlock) b).pair(() -> green);
+            ((SeasonalLeavesBlock) green).pair(() -> b);
             FlammableBlockRegistry.getDefaultInstance().add(b, 30, 60);
             CompostingChanceRegistry.INSTANCE.add(b, 0.3f);
         }
@@ -151,7 +156,7 @@ public final class RyanWood {
         Block sWood = block("stripped_" + n + "_wood", RotatedPillarBlock::new, Blocks.logProperties(look.wood(), look.wood(), SoundType.WOOD));
         Block planks = block(n + "_planks", Block::new, wooden(look.wood()).strength(2.0f, 3.0f));
         ParticleOptions particle = s == TreeSpecies.FLOWERING_DOGWOOD ? DOGWOOD_PETALS : s.blossoms() ? ParticleTypes.CHERRY_LEAVES : ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xFF000000 | look.leaf());
-        Block leaves = block(n + "_leaves", p -> new UntintedParticleLeavesBlock(s.blossoms() ? 0.1f : 0.01f, particle, p),
+        Block leaves = block(n + "_leaves", p -> new SeasonalLeavesBlock(false, s.blossoms() ? 0.1f : 0.01f, particle, p),
                 Blocks.leavesProperties(SoundType.GRASS).mapColor(s == TreeSpecies.FLOWERING_DOGWOOD ? MapColor.SNOW : s.blossoms() ? MapColor.COLOR_PINK : MapColor.PLANT));
         ResourceKey<ConfiguredFeature<?, ?>> tree = ResourceKey.create(Registries.CONFIGURED_FEATURE, RyanCraft.id(n));
         TreeGrower grower = new TreeGrower(RyanCraft.MOD_ID + ":" + n, Optional.empty(), Optional.of(tree), Optional.empty());

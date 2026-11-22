@@ -17,8 +17,18 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 
 public class RyanCraftClient implements ClientModInitializer {
+    private static int seasonSeen = -1;
+
     @Override
     public void onInitializeClient() {
+        // seasons: follow the year on this side too, and re-colour the world when the season moves on
+        net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(mc -> {
+            if (mc.level == null) { seasonSeen = -1; return; }
+            int sub = com.ryancraft.season.Seasons.sub(mc.level);
+            com.ryancraft.season.Seasons.current = sub;
+            if (seasonSeen != -1 && sub != seasonSeen) mc.levelRenderer.allChanged();
+            seasonSeen = sub;
+        });
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.bag.Cages.BIRD_CAGE, com.ryancraft.bag.Cages.CHIPMUNK_CAGE);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.storage.RyanStorage.POT_MENU, com.ryancraft.client.screen.PotScreen::new);

@@ -27,8 +27,7 @@ public class BetaRegion extends Region {
             builder.replaceBiome(Biomes.JUNGLE, RyanBiomes.RAINFOREST);
             builder.replaceBiome(Biomes.SPARSE_JUNGLE, RyanBiomes.RAINFOREST);
             builder.replaceBiome(Biomes.FOREST, RyanBiomes.SEASONAL_FOREST);
-            builder.replaceBiome(Biomes.BIRCH_FOREST, RyanBiomes.AUTUMN_FOREST);
-            builder.replaceBiome(Biomes.OLD_GROWTH_BIRCH_FOREST, RyanBiomes.AUTUMN_FOREST);
+            // (the Autumn Forest no longer generates: every temperate forest turns with the seasons instead)
             builder.replaceBiome(Biomes.PLAINS, RyanBiomes.SHRUBLAND);
             builder.replaceBiome(Biomes.SAVANNA, RyanBiomes.SHRUBLAND);
             builder.replaceBiome(Biomes.SNOWY_PLAINS, RyanBiomes.TUNDRA);
