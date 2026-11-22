@@ -299,7 +299,11 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       like, mine underwater at full speed (built-in Aqua Affinity), and see much farther and clearer underwater
       (not crystal clear, but far better than a Respiration helmet or a conduit). It's the key to exploring
       the sunken islands of the deep ocean, and the price is giving up a real helmet.
-    - It also drops the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
+      - When the rabbit dies, a portal home opens in the temple, and the crown sits on a pedestal beside it, the way
+        the dragon egg sits on the exit portal.
+      - It's also a block: place it on the ground or a shelf as a trophy, and pick it back up to wear it.
+      - It drops every time you beat the rabbit, so every player on a server can earn one.
+    - It also drops the **Moon Mortar**, every time, a one-of-a-kind heavy weapon in the spirit of the
       mace: the rabbit's own mortar staff, shrunk to fit your hands.
       - **Pound:** a ground slam that throws nearby mobs up into a few seconds of moon gravity, floating and helpless.
       - **Grind:** each hit on a floating target lands harder.
