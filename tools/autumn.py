@@ -45,7 +45,7 @@ if __name__ == "__main__":
         w(f"data/ryancraft/worldgen/placed_feature/{sp}_autumn_forest.json", {"feature": f"ryancraft:{sp}_autumn", "placement": [
             {"type": "minecraft:count", "count": {"type": "minecraft:weighted_list", "distribution": [{"data": n - 1, "weight": 1}, {"data": n, "weight": 2}, {"data": n + 1, "weight": 1}]}},
             {"type": "minecraft:in_square"}, {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
-            {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"}, {"type": "minecraft:biome"},
+            {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"}, {"type": "minecraft:biome"}, {"type": "ryancraft:temperate_surroundings"},
             {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:would_survive",
                 "state": {"Name": f"ryancraft:{sp}_sapling", "Properties": {"stage": "0"}}}}]})
     for kind in ("block", "item"): add_tag(f"data/minecraft/tags/{kind}/leaves.json", names)

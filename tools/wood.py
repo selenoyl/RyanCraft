@@ -177,7 +177,7 @@ def resources():
             {"type": "minecraft:in_square"},
             {"type": "minecraft:surface_water_depth_filter", "max_water_depth": 0},
             {"type": "minecraft:heightmap", "heightmap": "OCEAN_FLOOR"},
-            {"type": "minecraft:biome"},
+            {"type": "minecraft:biome"}, {"type": "ryancraft:temperate_surroundings"},
             {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:would_survive",
                 "state": {"Name": f"ryancraft:{sp}_sapling", "Properties": {"stage": "0"}}}}]})
     # fruit recipes: cherry pie like pumpkin pie; a walnut is cracked open in the crafting grid

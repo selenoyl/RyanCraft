@@ -22,6 +22,9 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "ryancraft:temperate_surroundings"
     }
   ]
 }

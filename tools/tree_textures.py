@@ -192,8 +192,18 @@ def planks(seed, wood):
     t = Image.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "template_oak_planks.png")).convert("RGB")
     lum = [0.299 * r + 0.587 * g + 0.114 * b for r, g, b in list(t.getdata())]
     mean = sum(lum) / len(lum); w = hexc(wood)
-    img = Image.new("RGBA", (16, 16))
-    img.putdata([shade(w, 0.86 * (l / mean) ** 1.35) + (255,) for l in lum])
+    # More shades than the 1.2.5 template's seven: each board gets its own tone (one a touch warmer, one a touch
+    # cooler), and the grain within a board wanders slightly, while seams and knots stay exactly where vanilla has them.
+    r = random.Random(seed)
+    tone = [r.choice((0.94, 0.97, 1.0, 1.03, 1.06)) for _ in range(4)]
+    warm = [r.choice((-6, -3, 0, 3, 6)) for _ in range(4)]
+    img = Image.new("RGBA", (16, 16)); px = img.load()
+    for i, l in enumerate(lum):
+        x, y = i % 16, i // 16; b = y // 4; seam = y % 4 == 3
+        k = 0.86 * (l / mean) ** 1.35 * (1.0 if seam else tone[b] * (1 + r.uniform(-0.025, 0.025)))
+        c = shade(w, k)
+        if not seam: c = (max(0, min(255, c[0] + warm[b])), c[1], max(0, min(255, c[2] - warm[b])))
+        px[x, y] = c + (255,)
     return img
 
 def bark_base(r, base):

@@ -50,6 +50,9 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **Preview in game.** Place each tree with `/place feature` on flat ground, three of each, before committing. Keep test `fill`s under 32,768 blocks.
 
 ## Biomes
+- [ ] **Worldgen code never reads the level far away.** A placement filter or feature can only touch nearby chunks;
+      to check the biome some distance off, ask the biome source with the climate sampler, not `level.getBiome`
+      (that crashed chunk generation).
 - [ ] **Feature order matches vanilla.** Within a biome's decoration step, features shared with vanilla biomes keep vanilla's relative order,
       and nothing is listed twice. Otherwise chunk generation crashes with "feature order cycle" (autumn forest leaf litter).
 - [ ] **New biomes get spawns.** Add them to every spawn selector their neighbours use, and to the relevant biome tags (is_forest, is_overworld).
