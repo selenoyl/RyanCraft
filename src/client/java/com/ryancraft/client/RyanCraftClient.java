@@ -97,6 +97,8 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.RATTLESNAKE, c -> new CritterRenderer<>(c, "rattlesnake", 0.3f, 1.0f, false, "rattlesnake"));
         EntityRendererRegistry.register(RyanEntities.BULLFROG, c -> new CritterRenderer<>(c, "bullfrog", 0.3f, 1.0f, false, "bullfrog"));
         EntityRendererRegistry.register(RyanEntities.ALLIGATOR, c -> new CritterRenderer<>(c, "alligator", 0.8f, 1.2f, false, "alligator"));
+        net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry.getInstance().register(com.ryancraft.trees.RyanWood.DOGWOOD_PETALS,
+                net.minecraft.client.particle.FallingLeavesParticle.CherryProvider::new);
         EntityRendererRegistry.register(RyanEntities.MOOBLOOM, com.ryancraft.client.render.MoobloomRenderer::create);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.flora.RyanFlora.BUTTERCUP, com.ryancraft.flora.RyanFlora.POTTED_BUTTERCUP);

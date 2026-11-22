@@ -49,11 +49,23 @@ def bark_side(seed, base, pattern):
             for y, x in enumerate(wander(r, c, 0.25)):
                 px[x, y] = jit(r, shade(b, .62), 5) + (255,)
                 if pattern == "stripes" and r.random() < .5: px[(x + 1) % 16, y] = jit(r, shade(b, 1.18), 5) + (255,)
-    elif pattern == "shaggy":                       # long loose strips, light edges and dark gaps
-        for c in range(0, 16, 3):
+    elif pattern == "shaggy":                       # long loose vertical strips of uneven width, a few curling loose
+        x = r.randrange(3)
+        while x < 16:
+            wdt = r.choice((2, 3, 3, 4, 5))
+            ys = wander(r, x, .18)                   # the gap wanders a little and wraps
             for y in range(16):
-                px[c, y] = jit(r, shade(b, .55), 6) + (255,)
-                if (y + c) % 5 < 3: px[min(15, c + 1), y] = jit(r, shade(b, 1.22), 6) + (255,)
+                gx = ys[y]
+                px[gx, y] = jit(r, shade(b, .5), 6) + (255,)
+                if r.random() < .75: px[(gx + 1) % 16, y] = jit(r, shade(b, 1.18), 6) + (255,)
+                for k in range(2, wdt):
+                    if r.random() < .12: px[(gx + k) % 16, y] = jit(r, shade(b, .84), 5) + (255,)
+            if r.random() < .6:                      # a curling strip end: short light lip over a shadow, partial width
+                y = r.randrange(16); k0 = 1 + r.randrange(max(1, wdt - 1)); ln = r.choice((1, 2))
+                for k in range(k0, min(wdt, k0 + ln)):
+                    px[(ys[y] + k) % 16, y] = jit(r, shade(b, 1.28), 5) + (255,)
+                    px[(ys[y] + k) % 16, (y + 1) % 16] = jit(r, shade(b, .48), 5) + (255,)
+            x += wdt
     elif pattern == "plates":                       # irregular plates: wandering vertical cracks joined by short breaks
         for c in (2, 7, 12):
             for y, x in enumerate(wander(r, c, .3)):
@@ -168,6 +180,12 @@ def stripped_side(seed, wood):
         for y in range(y0, min(16, y0 + n)): px[x, y] = jit(r, p["mdk"], 3) + (255,)
     return img
 
+# Showcase woods: species whose planks get a richer, more exotic colour than their stripped wood, as a reward for builders.
+PLANK_COLOR = {"eastern_red_cedar": "#ae4646",     # aromatic cedar: rosy red-violet heartwood
+               "black_walnut": "#5c3a2c",          # deep chocolate
+               "black_cherry": "#a8482e",          # rich cherry red
+               "tulip_poplar": "#94a266"}          # poplar's green-streaked heartwood
+
 def planks(seed, wood):
     """The base game's plank template (classic / Programmer Art oak planks) recoloured to the species' wood:
     every pixel keeps its brightness relative to the template's average, so boards, seams and grain match vanilla."""
@@ -218,7 +236,7 @@ if __name__ == "__main__":
         s = 7000 + k * 10
         texs = {"log": bark_side(s, bark, pattern), "log_top": log_top(s + 1, bark, wood),
                 "STRIP_log": stripped_side(s + 2, wood), "STRIP_log_top": log_top(s + 3, bark, wood, True),
-                "planks": planks(s + 4, wood), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"))}
+                "planks": planks(s + 4, PLANK_COLOR.get(name, wood)), "leaves": leaves(s + 5, leaf, bloom, bloom_only=(name == "flowering_dogwood"))}
         for suffix, im in texs.items():
             fn = f"stripped_{name}_{suffix[6:]}" if suffix.startswith("STRIP_") else f"{name}_{suffix}"
             im.save(os.path.join(OUT, fn + ".png"))

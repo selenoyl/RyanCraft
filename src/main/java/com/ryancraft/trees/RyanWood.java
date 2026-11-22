@@ -46,6 +46,9 @@ import static com.ryancraft.worldgen.RyanBiomes.*;
 public final class RyanWood {
     public static final SpeciesTreeFeature SPECIES_TREE = Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("species_tree"), new SpeciesTreeFeature());
     private static final Map<TreeSpecies, WoodSet> SETS = new EnumMap<>(TreeSpecies.class);
+    /** White dogwood petals (they drift like cherry petals). */
+    public static final net.minecraft.core.particles.SimpleParticleType DOGWOOD_PETALS = Registry.register(BuiltInRegistries.PARTICLE_TYPE,
+            RyanCraft.id("dogwood_petals"), net.fabricmc.fabric.api.particle.v1.FabricParticleTypes.simple());
 
     /** Bark (log side) and wood (planks, stripped) map colours, and the colour of falling leaf particles. */
     private record Look(MapColor bark, MapColor wood, int leaf) {}
@@ -128,9 +131,9 @@ public final class RyanWood {
         Block sLog = block("stripped_" + n + "_log", RotatedPillarBlock::new, Blocks.logProperties(look.wood(), look.wood(), SoundType.WOOD));
         Block sWood = block("stripped_" + n + "_wood", RotatedPillarBlock::new, Blocks.logProperties(look.wood(), look.wood(), SoundType.WOOD));
         Block planks = block(n + "_planks", Block::new, wooden(look.wood()).strength(2.0f, 3.0f));
-        ParticleOptions particle = s.blossoms() ? ParticleTypes.CHERRY_LEAVES : ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xFF000000 | look.leaf());
+        ParticleOptions particle = s == TreeSpecies.FLOWERING_DOGWOOD ? DOGWOOD_PETALS : s.blossoms() ? ParticleTypes.CHERRY_LEAVES : ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xFF000000 | look.leaf());
         Block leaves = block(n + "_leaves", p -> new UntintedParticleLeavesBlock(s.blossoms() ? 0.1f : 0.01f, particle, p),
-                Blocks.leavesProperties(SoundType.GRASS).mapColor(s.blossoms() ? MapColor.COLOR_PINK : MapColor.PLANT));
+                Blocks.leavesProperties(SoundType.GRASS).mapColor(s == TreeSpecies.FLOWERING_DOGWOOD ? MapColor.SNOW : s.blossoms() ? MapColor.COLOR_PINK : MapColor.PLANT));
         ResourceKey<ConfiguredFeature<?, ?>> tree = ResourceKey.create(Registries.CONFIGURED_FEATURE, RyanCraft.id(n));
         TreeGrower grower = new TreeGrower(RyanCraft.MOD_ID + ":" + n, Optional.empty(), Optional.of(tree), Optional.empty());
         Block sapling = block(n + "_sapling", p -> new SaplingBlock(grower, p), BlockBehaviour.Properties.of().mapColor(MapColor.PLANT)
