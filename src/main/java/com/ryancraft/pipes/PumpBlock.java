@@ -32,6 +32,6 @@ public class PumpBlock extends BaseEntityBlock {
 
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> t) {
-        return level.isClientSide() ? null : createTickerHelper(t, RyanPipes.PUMP_ENTITY, PumpBlockEntity::serverTick);
+        return createTickerHelper(t, RyanPipes.PUMP_ENTITY, level.isClientSide() ? PumpBlockEntity::clientTick : PumpBlockEntity::serverTick);
     }
 }

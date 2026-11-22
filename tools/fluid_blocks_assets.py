@@ -84,7 +84,7 @@ def models():
     w("assets/ryancraft/items/pump.json", {"model": {"type": "minecraft:model", "model": T + "pump"}})
     # ---- cast-iron hand pump (spout faces north in the model; the handle is drawn by the renderer)
     hp = [el((4, 0, 4), (12, 2, 12), "#iron"), el((5, 2, 5), (11, 13, 11), "#iron"), el((4, 13, 4), (12, 15, 12), "#iron"),
-          el((7, 9, 1), (9, 11, 5), "#iron"), el((7, 7.5, 1), (9, 9, 2), "#iron"), el((7.25, 15, 7.25), (8.75, 16.9, 8.75), "#iron")]
+          el((7, 7, 0), (9, 9, 5), "#iron"), el((6.5, 6.5, 0), (9.5, 9.5, 1), "#iron"),   # the spout, centred and out to the edge: it meets a pipe's mouth el((7.25, 15, 7.25), (8.75, 16.9, 8.75), "#iron")]
     w("assets/ryancraft/models/block/hand_pump.json", {"parent": "block/block", "textures": {"iron": T + "dark_iron", "particle": T + "dark_iron"}, "elements": hp})
     w("assets/ryancraft/blockstates/hand_pump.json", {"variants": {f"facing={f}": dict({"model": T + "hand_pump"}, **({"y": r} if r else {}))
         for f, r in (("north", 0), ("east", 90), ("south", 180), ("west", 270))}})

@@ -14,7 +14,8 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **Faces read.** Eyes are visible pixels (raptor eyes are one black pixel), there's no stray "d-pad" pixel (chipmunk), and mouths make sense (shark: underslung, teeth, gum-coloured gaps).
 - [ ] **Wings spread wide when flying.** Wingspan should look real (crow wings were too stubby).
 - [ ] **Animation matches motion.** Flyers flap while climbing or taking off, and only glide when level or sinking (eagle rose without flapping).
-      Runners run at believable speeds (deer fled comically fast).
+      Runners run at believable speeds (deer and pronghorn fled comically fast). Keep base speed x flee multiplier at
+      about 0.45 or less; a cow's panic is 0.4.
 - [ ] **No genders the game can't show.** Minecraft mobs don't show sex, so don't add female/male-only variants (pronghorn doe dropped).
 - [ ] **Patterns look organic.** No perfectly straight or tessellated stripes; vary stripe ends (zebra).
 
@@ -56,6 +57,21 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 ## Sounds
 - [ ] **Natural, not robotic.** Bird calls need pitch glides, amplitude envelopes, slight randomness per call, and some noise and harmonics; no pure steady sine beeps.
 - [ ] **The right sound for the action.** Swimming must not sound like walking (classic pack maps swim to a quiet splash).
+
+## Blocks and renderers
+- [ ] **Open or partial blocks set `noOcclusion()`.** Any block whose model isn't a full opaque cube (frames, pumps,
+      engines, pipes) must not hide its neighbours' faces, or you see straight through the world (the screw pump
+      against a wall showed the void).
+- [ ] **Never move shared model parts in a block entity renderer.** 1.21.11 draws block entities after extracting
+      them all, so setting `part.y`/`xRot`/`yScale` in `submit` makes every block draw with the last one's pose
+      (engines skipped and idle engines pumped). Put per-block motion into the PoseStack instead.
+- [ ] **See-through models need inward faces.** Faces only draw from the front; anything you can see into (pipes
+      with windows) needs inward-facing twins of its walls.
+- [ ] **Things that join line up.** A spout, arm or socket that meets a pipe sits on the pipe's centre line and
+      reaches the block edge (the hand pump spout and the Ender Terminal's back both fell short).
+- [ ] **Animations loop and stop cleanly.** No snapping back to zero when something stops (the screw pump).
+- [ ] **Very dark fog colours get brightened** to full brightness by the game: use pure black (#000000) for a black
+      sky's fog, not a near-black (the moon's sky came out lavender).
 
 ## Wiring
 - [ ] **Every new critter model is registered.** Add its name to the model-layer list in `RyanCraftClient`. A missing layer makes

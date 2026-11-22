@@ -205,6 +205,36 @@ public class PipeBlockEntity extends BlockEntity implements MenuProvider {
         return take;
     }
 
+    private long lastRouteCheck = -100; private boolean lastRoute;
+
+    /**
+     * Whether fluid put in here from {@code from} has somewhere to go: some tank, vat or other fluid store along the
+     * connected fluid pipes that would take it. Pumps only feed a pipe that leads somewhere, so they don't just fill
+     * dead-end pipes. Cached for half a second.
+     */
+    public boolean leadsSomewhere(Level level, FluidVariant v, Direction from) {
+        long now = level.getGameTime();
+        if (now - lastRouteCheck < 10) return lastRoute;
+        lastRouteCheck = now;
+        BlockPos origin = worldPosition.relative(from);
+        java.util.ArrayDeque<PipeBlockEntity> q = new java.util.ArrayDeque<>(); java.util.Set<BlockPos> seen = new java.util.HashSet<>();
+        q.add(this); seen.add(worldPosition);
+        boolean found = false;
+        while (!q.isEmpty() && !found && seen.size() < 256) {
+            PipeBlockEntity p = q.poll();
+            for (Direction d : Direction.values()) {
+                if (!p.connected(d)) continue;
+                BlockPos n = p.worldPosition.relative(d);
+                if (n.equals(origin) || !seen.add(n)) continue;
+                if (level.getBlockEntity(n) instanceof PipeBlockEntity next) { if (next.type().fluid) q.add(next); continue; }
+                Storage<FluidVariant> s = FluidStorage.SIDED.find(level, n, d.getOpposite());
+                if (s == null) continue;
+                try (Transaction tx = Transaction.openOuter()) { if (s.insert(v, FluidConstants.BUCKET / 10, tx) > 0) { found = true; break; } }   // not committed: just asking
+            }
+        }
+        return lastRoute = found;
+    }
+
     private void tickFluid(Level level) {
         if (amount <= 0) { if (!fluid.isBlank()) { fluid = FluidVariant.blank(); dirty = true; } return; }
         long before = amount;

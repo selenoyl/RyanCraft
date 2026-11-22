@@ -29,7 +29,10 @@ import net.minecraft.world.phys.Vec3;
 public class PumpRenderer<T extends BlockEntity> implements BlockEntityRenderer<T, PumpRenderer.State> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(RyanCraft.id("pump_parts"), "main");
     private static final Identifier TEX = RyanCraft.id("textures/entity/pump_parts.png");
-    public static class State extends BlockEntityRenderState { boolean hand; float angle; int tube; Direction facing = Direction.NORTH; }
+    public static class State extends BlockEntityRenderState {
+        boolean hand; float angle; int tube; Direction facing = Direction.NORTH;
+        net.minecraft.client.renderer.texture.TextureAtlasSprite fluid; int fluidColour; float fill;
+    }
     private final ModelPart screw, tube, handle;
 
     public PumpRenderer(BlockEntityRendererProvider.Context ctx) {
@@ -57,8 +60,13 @@ public class PumpRenderer<T extends BlockEntity> implements BlockEntityRenderer<
         long now = be.getLevel() == null ? 0 : be.getLevel().getGameTime();
         if (be instanceof PumpBlockEntity p) {
             s.hand = false; s.tube = p.tubeDepth;
-            float since = now - p.lastPump + partial;
-            s.angle = since < 40 ? (now + partial) * 0.25f : 0f;        // spins for two seconds after each pulse
+            s.angle = p.prevSpin + (p.spin - p.prevSpin) * partial;      // spins after each pulse, and stops where it is
+            s.fluid = null;                                               // the casing fills with what it's pumping
+            if (p.tank.amount > 0 && !p.tank.variant.isBlank()) {
+                s.fluid = net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering.getSprite(p.tank.variant);
+                s.fluidColour = net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering.getColor(p.tank.variant, be.getLevel(), be.getBlockPos());
+                s.fill = Math.min(1f, (float) p.tank.amount / (net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants.BUCKET * 4));
+            }
         } else if (be instanceof HandPumpBlockEntity h) {
             s.hand = true; s.facing = h.spout();
             float t = now - h.lastStroke + partial;
@@ -69,18 +77,28 @@ public class PumpRenderer<T extends BlockEntity> implements BlockEntityRenderer<
     @Override
     public void submit(State s, PoseStack pose, SubmitNodeCollector out, CameraRenderState camera) {
         var rt = RenderTypes.entityCutout(TEX);
+        // Model parts are shared by every pump and drawn later: never move the parts, put each pump's motion in its pose.
+        if (!s.hand && s.fluid != null) {
+            var sp = s.fluid; int col = s.fluidColour, light = s.lightCoords; float y1 = (2.01f + 11.98f * s.fill) / 16;
+            out.submitCustomGeometry(pose, RenderTypes.entityTranslucent(net.minecraft.client.renderer.texture.TextureAtlas.LOCATION_BLOCKS),
+                    (p, vc) -> FluidBoxes.box(p, vc, sp, col, light, 2.01f / 16, 2.01f / 16, 2.01f / 16, 13.99f / 16, y1, 13.99f / 16));
+        }
         pose.pushPose();
         pose.translate(0.5, 0, 0.5);
         if (s.hand) {
             pose.mulPose(Axis.YP.rotationDegrees(180 - s.facing.toYRot()));   // turn with the spout
-            handle.xRot = -s.angle;
+            pose.translate(0, 17 / 16f, 0); pose.mulPose(Axis.XP.rotation(-s.angle)); pose.translate(0, -17 / 16f, 0);
             out.submitModelPart(handle, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         } else {
-            screw.yRot = s.angle;
+            pose.pushPose();
+            pose.mulPose(Axis.YP.rotation(s.angle));
             out.submitModelPart(screw, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+            pose.popPose();
             if (s.tube > 1) {
-                tube.yScale = s.tube - 1;
+                pose.pushPose();
+                pose.scale(1, s.tube - 1, 1);
                 out.submitModelPart(tube, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+                pose.popPose();
             }
         }
         pose.popPose();

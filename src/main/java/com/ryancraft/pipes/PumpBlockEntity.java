@@ -43,6 +43,14 @@ public class PumpBlockEntity extends BlockEntity {
     /** How far down the pool is (the intake tube's length), and when it last pumped (the screw spins for a while). */
     public int tubeDepth;
     public long lastPump = -1000;
+    /** Client: the screw's turn (radians), advanced while it's working, so it stops where it is instead of snapping back. */
+    public float spin, prevSpin;
+
+    public static void clientTick(Level level, BlockPos pos, BlockState state, PumpBlockEntity be) {
+        be.prevSpin = be.spin;
+        if (level.getGameTime() - be.lastPump < 40) be.spin += 0.25f;
+        if (be.spin > 1000f) { be.spin -= (float) (Math.PI * 2 * 159); be.prevSpin -= (float) (Math.PI * 2 * 159); }
+    }
 
     public void pulse(Level level) {
         if (tank.amount > FluidConstants.BUCKET * 3) return;
@@ -64,6 +72,7 @@ public class PumpBlockEntity extends BlockEntity {
             long took = FluidWell.push(level, pos, d, be.tank.variant, Math.min(be.tank.amount, FluidConstants.BUCKET / 10));
             if (took > 0) { be.tank.amount -= took; if (be.tank.amount <= 0) be.tank.variant = FluidVariant.blank(); be.setChanged(); }
         }
+        if (level.getGameTime() % 10 == 0) level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);   // the casing's fluid level
     }
 
     @Override protected void saveAdditional(ValueOutput out) { super.saveAdditional(out); out.store("Fluid", FluidVariant.CODEC, tank.variant); out.putLong("Amount", tank.amount); out.putInt("Tube", tubeDepth); out.putLong("LastPump", lastPump); }
