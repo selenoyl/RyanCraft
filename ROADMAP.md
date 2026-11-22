@@ -30,6 +30,10 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 - **Manta rays**
 - **Schools of ocean fish** that move together.
 
+**Batch 2 prototypes** (docs/prototypes_2.png): zebra (a horse variant), American bison, cougar, river otter, groundhog,
+porcupine, eastern box turtle, timber rattlesnake, bullfrog, great horned owl, great blue heron, Canada goose,
+ruby-throated hummingbird, pileated woodpecker, northern bobwhite, jellyfish.
+
 **Small life**
 - **Butterflies**: many species like the tropical fish (wing patterns x colours); 20 eastern species prototyped in docs/butterflies.png
 - **Fireflies**: drifting over plains and through the woods on summer nights (the game only has the firefly bush).
