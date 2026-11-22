@@ -236,7 +236,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   ![Hollow Moon concept art](docs/moon_concept.png)
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade.
-    Build a frame of jade blocks, light it with an eye of ender under a full moon, and step through.
+    Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
   - **The land:**
     - low gravity (big floaty jumps, slow falls)
     - pale moon-dust plains and craters
@@ -250,7 +250,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.
     - **Lantern moths:** they glow and come to light.
-    - **Hollow walkers:** quiet stone figures from an old moon people, who wake if you take from their ruins.
+    - **Lost spacemen:** zombies in old spacesuits (a Steve-shaped zombie under a glass-visored helmet) that
+      shamble across the craters at night, slow and floaty in the low gravity.
   - **Things to do:**
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
@@ -259,8 +260,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       a rare, dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools,
       armour and cannon barrels, and it shimmers faintly at night.
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
-  - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust
-    from the Hollow Walkers, bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
+  - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust,
+    bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
   - **The boss: the Great Moon Rabbit.** A giant rabbit that pounds a mortar and pestle in the heart of the

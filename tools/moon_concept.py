@@ -76,12 +76,27 @@ def moth():
     for s in (-1, 1):
         p = m.part([0, 12, 0], (0, 0, s * 0.3)); m.box(MOTH, (0 if s > 0 else -9, -0.5, -4), (9, 1, 9), part=p)
     m.box(GLOW, (-1, 12.5, 3), (2, 1, 1)); return m
+SUIT = noise((232, 232, 236), 8, 18, [((210, 210, 218), 16)])
+ZOMBIE = noise((96, 150, 80), 10, 19, [((70, 120, 60), 14)])
+VISOR = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+for _i in range(16):                                    # clear glass: just a rim and a diagonal glint
+    VISOR.putpixel((_i, 0), (180, 210, 235, 255))
+for _i in range(1, 4): VISOR.putpixel((_i + 1, _i), (235, 245, 255, 255)); VISOR.putpixel((_i + 2, _i), (235, 245, 255, 255))
 def walker():
+    """A lost spaceman: a zombie in an old spacesuit, on Steve's proportions (head 8, body 8x12x4, limbs 4x12x4)."""
     m = Model(6)
-    m.box(MOONSTONE, (-3, 4, -2), (6, 10, 4)); m.box(MOONSTONE, (-3.5, -2, -3), (7, 6, 6), paint=face(((1, 3), (5, 3)), col=(120, 255, 190, 255)))
-    for x in (-5, 3): m.box(MOONSTONE, (x, 4, -1.5), (2, 11, 3))
-    for x in (-2.5, 0.5): m.box(MOONSTONE, (x, 14, -1.5), (2, 10, 3))
-    m.box(JADE, (-1, 6, -2.2), (2, 2, 0.4)); return m
+    for x in (-4, 0): m.box(SUIT, (x, 12, -2), (4, 12, 4))                                 # legs
+    m.box(SUIT, (-4, 0, -2), (8, 12, 4)); m.box(Image.new("RGBA", (16, 16), (200, 60, 50, 255)), (-1, 2, -2.2), (2, 2, 0.4))   # suit and its patch
+    for x in (-6, 6):                                                                       # arms reaching out, zombie-style
+        a = m.part([x, 2, 0], (-1.45, 0, 0))
+        m.box(SUIT, (-2, -2, -2), (4, 10, 4), part=a); m.box(ZOMBIE, (-2, 8, -2), (4, 2, 4), part=a)
+    m.box(Image.new("RGBA", (16, 16), (160, 160, 168, 255)), (-3, 1, 2), (6, 9, 3))         # air pack
+    m.box(ZOMBIE, (-4, -8, -4), (8, 8, 8), paint=face(((1, 3), (2, 3), (5, 3), (6, 3)), ((2, 6), (3, 6), (4, 6), (5, 6)), col=(20, 30, 20, 255)))
+    m.box(SUIT, (-5, -9, -5), (10, 1, 10)); m.box(SUIT, (-5, -9, 3), (10, 10, 2))            # helmet shell
+    m.box(SUIT, (-5, -9, -5), (1, 10, 10)); m.box(SUIT, (4, -9, -5), (1, 10, 10))
+    m.box(VISOR, (-4, -8, -5), (8, 8, 0.5))                                                 # glass visor
+    m.box(SUIT, (-5, 0, -5), (10, 1, 10))                                                   # neck ring
+    return m
 
 def cube(t): m = Model(7); m.box(t, (-8, 8, -8), (16, 16, 16)); return m
 def gravity_well():
@@ -90,10 +105,12 @@ def gravity_well():
     m.box(MOONSTONE, (-8, 8, -8), (16, 3, 16)); m.box(MOONSTONE, (-8, 21, -8), (16, 3, 16)); m.box(GLOW, (-4, 12, -4), (8, 8, 8))
     return m
 def portal():
+    """Nether-portal sized: a 4x5 frame of jade blocks around a 2x3 opening."""
     m = Model(9)
-    for x in range(0, 4): m.box(JADE, (x * 16 - 32, -56, 0), (16, 16, 16)); m.box(JADE, (x * 16 - 32, 24, 0), (16, 16, 16))
-    for y in range(0, 4): m.box(JADE, (-48, y * 16 - 40, 0), (16, 16, 16)); m.box(JADE, (32, y * 16 - 40, 0), (16, 16, 16))
-    m.box(PORTAL, (-32, -40, 6), (64, 64, 4)); return m
+    for x in range(4): m.box(JADE, (x * 16 - 32, -56, 0), (16, 16, 16)); m.box(JADE, (x * 16 - 32, 8, 0), (16, 16, 16))
+    for y in range(3): m.box(JADE, (-32, y * 16 - 40, 0), (16, 16, 16)); m.box(JADE, (16, y * 16 - 40, 0), (16, 16, 16))
+    m.box(PORTAL, (-16, -40, 6), (32, 48, 4)); return m
+
 def mortar():
     m = Model(10); p = m.part([0, 12, 0], (0, 0, 0.5))
     m.box(WOOD, (-1, -8, -1), (2, 20, 2), part=p)
@@ -111,7 +128,7 @@ CREATURES = [("Moon Rabbit", "shy and high-hopping; tame with moon herbs", moon_
              ("Dust Drifter", "floats over the craters, glowing softly", drifter, 2.4),
              ("Crater Crab", "hides in moon dust and pinches", crab, 2.4),
              ("Lantern Moth", "glows, and comes to light", moth, 2.4),
-             ("Hollow Walker", "old moon guardian; wakes if you loot", walker, 2.4)]
+             ("Lost Spaceman", "a zombie in an old spacesuit; walks the craters at night", walker, 2.0)]
 THINGS = [("Jade Ore", "rare, deep in mountains and lush caves", lambda: cube(JADE_ORE), 1.2),
           ("Block of Jade", "the portal frame material", lambda: cube(JADE), 1.2),
           ("Moonstone Bricks", "light building stone", lambda: cube(MOONSTONE), 1.2),
@@ -156,7 +173,7 @@ def sheet(out):
     big = great_rabbit().draw(4.2)
     crs = [(n, s, f().draw(sc)) for n, s, f, sc in CREATURES]
     ths = [(n, s, f().draw(sc)) for n, s, f, sc in THINGS]
-    port = portal().draw(0.55)
+    port = portal().draw(0.8)
     scene = earth_scene()
     W = scene.width + 80
     cw1 = (W - 60) // 3; ch1 = max(i.height for _, _, i in crs) + 90
@@ -170,7 +187,7 @@ def sheet(out):
     c.paste(big, (60, y), big); c.paste(port, (W - port.width - 80, y + big.height - port.height), port)
     d.text((60 + big.width // 2, y + big.height + 24), "The Great Moon Rabbit (boss)", font=R.font(28, True), fill=INK, anchor="mm")
     d.text((60 + big.width // 2, y + big.height + 56), "pounds its mortar in the jade temple; slams, kits, rice-cake bombs, a frenzy at half health", font=R.font(18), fill=SUB, anchor="mm")
-    d.text((W - port.width // 2 - 80, y + big.height + 24), "The jade portal", font=R.font(28, True), fill=INK, anchor="mm")
+    d.text((W - port.width // 2 - 80, y + big.height + 24), "The jade portal (nether-portal sized)", font=R.font(28, True), fill=INK, anchor="mm")
     y += big.height + 100
     for k, (n, s, im) in enumerate(crs):
         x = 30 + (k % 3) * cw1; base = y + (k // 3) * ch1 + ch1 - 70
