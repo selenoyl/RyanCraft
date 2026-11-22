@@ -5,6 +5,14 @@ public interface CritterVisual {
     int getVariant();
     default boolean isPlayingDead() { return false; }
     default boolean isFlyingVisual() { return false; }
+    /** Sitting down (tamed and told to stay). */
+    default boolean isSittingVisual() { return false; }
+    /** Really in the air: the client doesn't always know onGround for a still mob, so look for ground just below. */
+    default boolean airborne() {
+        if (!(this instanceof net.minecraft.world.entity.LivingEntity e)) return false;
+        if (isSittingVisual() || e.isInWater()) return false;
+        return !e.onGround() && e.level().noCollision(e, e.getBoundingBox().move(0, -0.15, 0));
+    }
     default boolean isClimbingVisual() { return false; }
     /** Which texture to draw (defaults to the variant). */
     default int textureIndex() { return getVariant(); }

@@ -88,7 +88,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal, com.ryancra
     }
 
     @Override public boolean isFlying() { return !this.onGround(); }
-    @Override public boolean isFlyingVisual() { return !this.onGround(); }
+    @Override public boolean isFlyingVisual() { return airborne(); }
 
     @Override public boolean isFood(ItemStack s) { return s.is(ItemTags.CHICKEN_FOOD) || s.is(net.minecraft.world.item.Items.SWEET_BERRIES); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return offspring(RyanEntities.SONGBIRD, l, p); }

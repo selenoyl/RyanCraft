@@ -131,13 +131,15 @@ add("Eastern Box Turtle", "", turtle, {
     "shell": {"c": "#3a2a1a", "noise": 8, "speckle": {"c": "#e0a030", "p": 0.3}}, "belly": {"c": "#5a4a2a"},
     "head": {"c": "#5a3a22", "noise": 6, "speckle": {"c": "#e08a30", "p": 0.3}, "side_eyes": "#c83a20", "eye_row": 0}, "skin": {"c": "#5a3a22", "speckle": {"c": "#e08a30", "p": 0.25}}}, 1.6)
 snake = [box(f"seg{i}", (3 * math.sin(i * 0.9) - 1.5, -1.5, -11 + i * 2.6), (3, 3, 3.2), "scales") for i in range(9)]
-snake += [box("head", (3 * math.sin(-0.9) - 2, -1.5, -14), (4, 2.5, 4), "head"),
+snake += [
           box("tail1", (3 * math.sin(9 * 0.9) - 1, -1, 12.4), (2, 2, 3), "scales"), box("rattle", (3 * math.sin(9 * 0.9) - 1, -1, 15.4), (2, 2, 2), "rattle")]
-add("Timber Rattlesnake", "warns you with its rattle", [part("body", (0, 22.5, 0), snake, "body")], {
+add("Timber Rattlesnake", "warns you with its rattle", [part("head", (3 * math.sin(-0.9), 22.5, -11), [box("head", (-2, -1.5, -3), (4, 2.5, 4), "head")], "head"),
+                                                         part("body", (0, 22.5, 0), snake, "body")], {
     "scales": {"c": "#a8946c", "noise": 8, "rings": {"c": "#2a221a", "n": 2}, "belly": "#d8ccaa"},
     "head": {"c": "#9a8660", "noise": 6, "side_eyes": "#c8a020", "eye_row": 0, "front": "#7a6a4a"}, "rattle": {"c": "#c8b48a", "rings": {"c": "#8a7a5a", "n": 2}}}, 1.3)
-frog = [part("body", (0, 20, 0), [box("body", (-4, -2.5, -4), (8, 5, 9), "skin"), box("head", (-4, -3, -8), (8, 3, 4), "head"),
-                                  box("eye_r", (-3.5, -4.5, -7), (2, 2, 2), "eye"), box("eye_l", (1.5, -4.5, -7), (2, 2, 2), "eye", mirror=True),
+frog = [part("head", (0, 18.5, -4), [box("head", (-4, -1.5, -4), (8, 3, 4), "head"),        # its own part, so it turns to look at you
+                                     box("eye_r", (-3.5, -3, -3), (2, 2, 2), "eye"), box("eye_l", (1.5, -3, -3), (2, 2, 2), "eye", mirror=True)], "head"),
+        part("body", (0, 20, 0), [box("body", (-4, -2.5, -4), (8, 5, 9), "skin"),
                                   box("thigh_r", (-5.5, 0, 0), (2, 3, 5), "skin"), box("thigh_l", (3.5, 0, 0), (2, 3, 5), "skin", mirror=True),
                                   box("foot_r", (-6, 3, -2), (3, 1, 6), "skin"), box("foot_l", (3, 3, -2), (3, 1, 6), "skin", mirror=True),
                                   box("arm_r", (-3.5, 1, -5), (1, 3, 1.5), "skin"), box("arm_l", (2.5, 1, -5), (1, 3, 1.5), "skin", mirror=True)], "body")]

@@ -30,11 +30,20 @@ import java.util.Map;
 public class CritterModel extends EntityModel<LivingEntityRenderState> {
     private static final Map<String, JsonObject> SPECS = new HashMap<>();
     private final Map<String, ModelPart> roles = new HashMap<>();
+    private final java.util.List<ModelPart> bodyParts = new java.util.ArrayList<>(), legParts = new java.util.ArrayList<>();
+    /** How far the body drops when sitting: the leg length. */
+    private float sitDrop;
 
     public CritterModel(ModelPart root, String name) {
         super(root);
         for (JsonElement el : spec(name).getAsJsonArray("parts")) {
             JsonObject p = el.getAsJsonObject();
+            String r = p.has("role") && !p.get("role").isJsonNull() ? p.get("role").getAsString() : "";
+            ModelPart mp = root.getChild(p.get("name").getAsString());
+            if (r.startsWith("leg")) {
+                legParts.add(mp);
+                for (JsonElement be : p.getAsJsonArray("boxes")) sitDrop = Math.max(sitDrop, be.getAsJsonObject().getAsJsonArray("size").get(1).getAsFloat());
+            } else bodyParts.add(mp);
             if (p.has("role") && !p.get("role").isJsonNull()) {
                 roles.put(p.get("role").getAsString(), root.getChild(p.get("name").getAsString()));
             }
@@ -144,6 +153,11 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         if (tail != null) {
             tail.yRot += Mth.sin(age * 0.12f) * 0.12f + Mth.sin(pos * 0.6662f) * 0.35f * speed;
         }
+        // Sitting (a crow told to stay, or perched on a shoulder): legs tucked under, body settled down by the leg length
+        if (state instanceof CritterRenderState cs && cs.sitting && sitDrop > 0) {
+            for (ModelPart l : legParts) l.visible = false;
+            for (ModelPart b : bodyParts) b.y += sitDrop * 0.9f;
+        } else for (ModelPart l : legParts) l.visible = true;
         ModelPart whaleTail = roles.get("whale_tail");                 // whale flukes beat up and down
         if (whaleTail != null) whaleTail.xRot = Mth.sin(age * 0.18f) * 0.28f;
         ModelPart fishTail = roles.get("fish_tail");

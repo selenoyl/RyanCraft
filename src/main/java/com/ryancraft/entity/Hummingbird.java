@@ -23,7 +23,7 @@ public class Hummingbird extends SmallFlyer implements Baggable {
 
     @Override public int bagCapacity() { return 4; }
     @Override public CageKind cageKind() { return CageKind.BIRD; }
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.tags.ItemTags.SMALL_FLOWERS); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return SoundEvents.BEE_LOOP; }
     @Override protected float getSoundVolume() { return 0.3f; }

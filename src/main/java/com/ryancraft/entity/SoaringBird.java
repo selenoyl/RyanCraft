@@ -47,6 +47,8 @@ public abstract class SoaringBird extends CritterAnimal implements FlyingAnimal 
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, true));
         this.goalSelector.addGoal(2, new SoarGoal());
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new TemptGoal(this, 1.0, this::isFood, false));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 12.0f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         addPrey();
@@ -67,7 +69,7 @@ public abstract class SoaringBird extends CritterAnimal implements FlyingAnimal 
     }
 
     @Override public boolean isFlying() { return !this.onGround(); }
-    @Override public boolean isFlyingVisual() { return !this.onGround(); }
+    @Override public boolean isFlyingVisual() { return airborne(); }
 
     private boolean playerNear() {
         return this.level().getNearestPlayer(this, 8.0) instanceof Player p && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(p) && !p.isCrouching();

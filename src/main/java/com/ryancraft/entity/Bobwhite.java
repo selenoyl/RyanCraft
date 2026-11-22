@@ -62,7 +62,7 @@ public class Bobwhite extends CritterAnimal implements Baggable {
         this.fallDistance = 0;
     }
 
-    @Override public boolean isFlyingVisual() { return !this.onGround(); }
+    @Override public boolean isFlyingVisual() { return airborne(); }
     @Override public boolean isFood(ItemStack s) { return s.is(ItemTags.CHICKEN_FOOD); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return offspring(RyanEntities.BOBWHITE, l, p); }
     @Override protected SoundEvent getAmbientSound() { return RyanSounds.BOBWHITE_CALL; }

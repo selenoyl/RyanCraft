@@ -42,6 +42,7 @@ public class Rattlesnake extends CritterAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.3, false));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomStrollGoal(this, 0.7));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 8.0f, 1.0f));
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -68,7 +69,7 @@ public class Rattlesnake extends CritterAnimal {
         return hit;
     }
 
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.RABBIT) || s.is(net.minecraft.world.item.Items.EGG); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return null; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return RyanSounds.RATTLESNAKE_RATTLE; }

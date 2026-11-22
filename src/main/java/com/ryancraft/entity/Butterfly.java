@@ -43,7 +43,7 @@ public class Butterfly extends SmallFlyer implements Baggable {
 
     @Override public int bagCapacity() { return 8; }
     @Override public CageKind cageKind() { return CageKind.BIRD; }
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.tags.ItemTags.FLOWERS); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return null; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return null; }

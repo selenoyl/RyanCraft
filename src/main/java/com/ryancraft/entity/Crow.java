@@ -59,6 +59,7 @@ public class Crow extends ShoulderRidingEntity implements FlyingAnimal, CritterV
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.25));
         this.goalSelector.addGoal(2, new SitWhenOrderedToGoal(this));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.0, 1.3,
                 e -> !this.isTame() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e) && !e.isCrouching()));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
@@ -126,9 +127,9 @@ public class Crow extends ShoulderRidingEntity implements FlyingAnimal, CritterV
     }
 
     @Override public boolean isFlying() { return !this.onGround(); }
-    @Override public boolean isFlyingVisual() { return !this.onGround(); }
+    @Override public boolean isFlyingVisual() { return airborne(); }
     @Override public int getVariant() { return 0; }
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.SWEET_BERRIES) || s.is(net.minecraft.world.item.Items.GLOW_BERRIES); }
     @Override public @Nullable AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override public boolean canMate(Animal other) { return false; }
 
@@ -137,4 +138,5 @@ public class Crow extends ShoulderRidingEntity implements FlyingAnimal, CritterV
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
     @Override public int getAmbientSoundInterval() { return 240; }
     @Override public float getVoicePitch() { return super.getVoicePitch() * 0.95f; }
+    @Override public boolean isSittingVisual() { return this.isInSittingPose(); }
 }

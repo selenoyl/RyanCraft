@@ -35,7 +35,7 @@ public class TurkeyVulture extends SoaringBird {
 
     }
 
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.ROTTEN_FLESH); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return null; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.PARROT_HURT; }

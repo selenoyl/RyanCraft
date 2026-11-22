@@ -49,6 +49,7 @@ public class GreatBlueHeron extends CritterAnimal {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.5));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, true));
+        this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Player.class, 10.0f, 1.0, 1.4,
                 e -> !e.isCrouching() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
         this.goalSelector.addGoal(5, new RandomStrollGoal(this, 0.8, 120) {
@@ -62,7 +63,7 @@ public class GreatBlueHeron extends CritterAnimal {
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, AbstractFish.class, 80, true, false, null));
     }
 
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.COD) || s.is(net.minecraft.world.item.Items.SALMON) || s.is(net.minecraft.world.item.Items.TROPICAL_FISH); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return RyanSounds.HERON_CROAK; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return RyanSounds.HERON_CROAK; }

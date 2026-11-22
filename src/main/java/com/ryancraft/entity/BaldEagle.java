@@ -38,7 +38,7 @@ public class BaldEagle extends SoaringBird {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Squirrel.class, 400, true, false, (t, l) -> !this.isBaby()));
     }
 
-    @Override public boolean isFood(ItemStack s) { return false; }
+    @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.COD) || s.is(net.minecraft.world.item.Items.SALMON); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override protected SoundEvent getAmbientSound() { return RyanSounds.HAWK; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.PARROT_HURT; }

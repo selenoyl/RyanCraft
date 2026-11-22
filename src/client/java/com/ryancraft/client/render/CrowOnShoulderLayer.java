@@ -38,6 +38,7 @@ public class CrowOnShoulderLayer extends RenderLayer<AvatarRenderState, PlayerMo
         pose.translate(left ? 0.4f : -0.4f, state.isCrouching ? -1.3f : -1.5f, 0.0f);
         CritterRenderState s = new CritterRenderState();
         s.ageInTicks = state.ageInTicks;
+        s.sitting = true;                                    // settled on the shoulder like a parrot, legs tucked
         model.setupAnim(s);
         collector.submitModel(model, s, pose, model.renderType(TEXTURE), light, OverlayTexture.NO_OVERLAY, state.outlineColor, null);
         pose.popPose();

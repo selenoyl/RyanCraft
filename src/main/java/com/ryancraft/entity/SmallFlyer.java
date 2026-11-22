@@ -30,6 +30,8 @@ public abstract class SmallFlyer extends CritterAnimal implements FlyingAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
+        this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
         this.goalSelector.addGoal(4, new WaterAvoidingRandomFlyingGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
     }
@@ -43,5 +45,5 @@ public abstract class SmallFlyer extends CritterAnimal implements FlyingAnimal {
     }
 
     @Override public boolean isFlying() { return !this.onGround(); }
-    @Override public boolean isFlyingVisual() { return !this.onGround(); }
+    @Override public boolean isFlyingVisual() { return airborne(); }
 }
