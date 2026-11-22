@@ -184,6 +184,7 @@ public final class Thirst {
             float rate = 0.0017f;                                   // about two minutes per point at rest: there, but not a chore
             if (p.isSprinting()) rate *= 2.5f;
             if (world.dimension() == Level.NETHER) rate *= 2f;
+            else if (com.ryancraft.weather.DustStorms.caughtIn(world, p.blockPosition())) rate *= 2.5f;   // parching dust storm
             else if (world.isBrightOutside() && world.canSeeSky(p.blockPosition())
                     && hot(world.getBiome(p.blockPosition()).value())) rate *= 1.5f;
             float ex = EXHAUSTION.getOrDefault(p.getUUID(), 0f) + rate;

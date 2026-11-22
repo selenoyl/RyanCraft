@@ -99,6 +99,7 @@ public final class AmbienceEngine {
             if (e.leaves > 30) wind *= 0.5f;
             wind = Math.min(wind, 0.85f);
         }
+        wind = Math.max(wind, com.ryancraft.client.DustStormClient.intensity);     // a dust storm howls
         loop(mc, e.snowy ? RyanSounds.WIND_HOWL : RyanSounds.WIND, wind * m, null);
         loop(mc, e.snowy ? RyanSounds.WIND : RyanSounds.WIND_HOWL, 0, null);
 

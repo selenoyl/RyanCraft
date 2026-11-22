@@ -9,7 +9,8 @@
     "MinecraftMixin",
     "PlayerEntryMixin",
     "AvatarRendererCrowMixin",
-    "HorseRendererZebraMixin"
+    "HorseRendererZebraMixin",
+    "DustFogMixin"
   ],
   "injectors": {
     "defaultRequire": 0
