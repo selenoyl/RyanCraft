@@ -11,7 +11,8 @@
     "ServerPlayerShoulderAccess",
     "PlayerCrowMixin",
     "ServerPlayerCrowMixin",
-    "EndPortalFrameMiningMixin"
+    "EndPortalFrameMiningMixin",
+    "SpawnPlacementsInvoker"
   ],
   "injectors": {
     "defaultRequire": 0

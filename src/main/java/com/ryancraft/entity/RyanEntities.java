@@ -136,6 +136,7 @@ public final class RyanEntities {
     }
 
     public static void init() {
+        RyanSpawning.init();
         FabricDefaultAttributeRegistry.register(BOAR, Boar.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER, Deer.createAttributes());
         FabricDefaultAttributeRegistry.register(DUCK, Duck.createAttributes());

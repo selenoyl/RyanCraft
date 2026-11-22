@@ -58,6 +58,9 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 ## Wiring
 - [ ] **Every new critter model is registered.** Add its name to the model-layer list in `RyanCraftClient`. A missing layer makes
       resource loading hang on a black screen (swan). Each new mob also needs an entity type, attributes, renderer, spawn egg, egg colour, loot, lang and spawns.
+- [ ] **Spawns in the wild, in the right places.** Every mob has biome spawn entries and a spawn placement rule
+      (RyanSpawning: ground and daylight for land animals, water for fish). Test with a creative/survival player, not
+      spectator: spectators don't trigger ongoing spawning (fish, water animals), only chunk-generation spawns.
 - [ ] **Breedable, with sensible food.** Every animal breeds on something it would really eat (swans: grain and seagrass; frogs: slimeballs, as vanilla).
 
 ## Licensing
