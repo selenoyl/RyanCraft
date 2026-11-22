@@ -24,7 +24,8 @@ def equine():
             box("ear_r", (-2.5, -17, -3), (2, 2, 1), "ear"), box("ear_l", (0.5, -17, -3), (2, 2, 1), "ear", mirror=True)]
     ps = [part("body", (0, 8, 0), body, "body"),
           part("head", (0, 5, -9), head, "head", rot=(0.52, 0, 0)),
-          part("tail", (0, 4, 10.5), [box("tail", (-1.5, 0, 0), (3, 13, 3), "tail")], "tail", rot=(0.35, 0, 0))]
+          part("tail", (0, 4, 10.5), [box("dock", (-1, 0, -0.5), (2, 7, 2), "dock"),
+                                       box("tuft", (-1.5, 7, -1), (3, 7, 3), "tuft")], "tail", rot=(0.3, 0, 0))]
     for nm, sx, sz in [("leg_rf", -1, -1), ("leg_lf", 1, -1), ("leg_rb", -1, 1), ("leg_lb", 1, 1)]:
         ps.append(part(nm, (sx * 3, 13, sz * 8), [box("leg", (-2, 0, -2), (4, 11, 4), "leg", mirror=sx > 0)], nm))
     return ps
@@ -59,13 +60,17 @@ def zebra_paint(img, parts, seed=7):
                         n = r.randint(-5, 5)
                         px[fx + i, fy + j] = tuple(max(0, min(255, x + n)) for x in c) + (255,)
 STRIPES = ["#f2f0ea", "#161616"] * 8
+MANE_BANDS = ["#2a2826", "#e8e2d4"] * 8
 add("Zebra", "a horse variant", zebra, {
     "body": {"c": "#f2f0ea", "noise": 4, "rings": {"c": "#161616", "n": 7}},
     "mane": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "front": "#f2f0ea"},
     "head": {"c": "#f2f0ea", "noise": 3, "side_rows": ["#f2f0ea", "#161616", "#f2f0ea", "#f2f0ea", "#161616"], "side_eyes": "#0a0a0a", "eye_row": 2},
     "snout": {"c": "#3a3634", "noise": 3, "top": "#5a5450", "front": "#1e1c1a"}, "ear": {"c": "#f2f0ea", "back": "#161616"},
-    "leg": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "bottom": "#161616"}, "tail": {"c": "#f2f0ea", "tip": {"c": "#161616", "frac": 0.4}},
-    "mane2": {"c": "#161616", "noise": 3, "side_rows": STRIPES}})
+    "leg": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "bottom": "#161616"},
+    # mane and tail: crisp, even bands (unlike the organic body stripes), a dark-tipped mane and a black tuft
+    "mane2": {"c": "#e8e2d4", "noise": 2, "side_rows": MANE_BANDS, "front": "#2a2826", "back": "#2a2826", "top": "#1a1816"},
+    "dock": {"c": "#e8e2d4", "noise": 2, "side_rows": MANE_BANDS, "front_map": ["cc", "dd", "cc", "dd", "cc", "dd", "cc"], "front_colors": {"c": "#e8e2d4", "d": "#2a2826"}},
+    "tuft": {"c": "#1a1816", "noise": 8, "speckle": {"c": "#3a3632", "p": 0.25}}})
 
 # ---- Bison: huge hump, shaggy front, short curved horns
 bison = quad((14, 14, 22), (4, 8), (9, 9, 7), snout=(6, 5, 3), ears=(2, 2), tail=(2, 6, 2, 0.4), head_up=-4,
