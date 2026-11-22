@@ -237,6 +237,10 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade, a green cousin of the lapis block.
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
+  - **A one-way trip.** The jade portal only goes up. You land on the moon with no portal back, so pack well:
+    the only way home is to find the jade temple and beat the Great Moon Rabbit, which opens a portal home.
+    - Dying still sends you back to your bed, as anywhere, but everything you carried stays on the moon.
+    - Once you've beaten a rabbit, its temple's portal home stays open, so later trips can be two-way.
   - **The land:**
     - low gravity (big floaty jumps, slow falls)
     - pale moon-dust plains and craters
