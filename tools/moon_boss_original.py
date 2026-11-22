@@ -23,7 +23,7 @@ PALETTES = {   # fur, streak, belly, inner ear, eye glow, mark glow
     "eclipse": ((70, 66, 112), (52, 48, 88), (120, 112, 168), (190, 90, 200), (255, 120, 220), (230, 110, 255)),
     "dust":    ((150, 146, 136), (124, 120, 112), (196, 192, 182), (200, 150, 150), (255, 210, 110), (255, 200, 120))}
 
-def rabbit(kind, eye_override=None, mark_override=None):
+def rabbit(kind, eye_override=None, mark_override=None, eye_style=None):
     furc, streak, belly, inner, eye, mark = PALETTES[kind]
     eye = eye_override or eye; mark = mark_override or mark
     F, Fs, B, I = fur(furc, streak, 1), fur(tuple(int(c * 0.82) for c in furc), streak, 2), fur(belly, tuple(int(c * 0.9) for c in belly), 3), noise(inner, 6, 4)
@@ -43,13 +43,16 @@ def rabbit(kind, eye_override=None, mark_override=None):
     m.box(JADE, (-8, 11, -5.5), (16, 2, 13), **sh)
     # head, with a face painted like vanilla's
     face = {}
-    for (ex, ey) in ((2, 4), (9, 4)):
-        for dx in range(4):
-            for dy in range(3): face[(ex + dx, ey + dy)] = SOCK                               # dark sockets
-        for dx in (1, 2):
-            for dy in (1, 2): face[(ex + dx, ey + dy)] = eye + (255,)                          # glowing irises, 2x2
-        face[(ex + 2, ey + 1)] = WHITE if kind != "eclipse" else eye + (255,)                  # a glint
-    for (bx, by) in ((2, 2), (3, 2), (4, 3), (12, 2), (11, 2), (10, 3)): face[(bx, by)] = (40, 38, 54, 255)   # angry brows
+    if eye_style:                                                                              # vanilla-style eyes: a few flat pixels
+        face = eye_style(eye)
+    else:
+        for (ex, ey) in ((2, 4), (9, 4)):
+            for dx in range(4):
+                for dy in range(3): face[(ex + dx, ey + dy)] = SOCK                               # dark sockets
+            for dx in (1, 2):
+                for dy in (1, 2): face[(ex + dx, ey + dy)] = eye + (255,)                          # glowing irises, 2x2
+            face[(ex + 2, ey + 1)] = WHITE if kind != "eclipse" else eye + (255,)                  # a glint
+        for (bx, by) in ((2, 2), (3, 2), (4, 3), (12, 2), (11, 2), (10, 3)): face[(bx, by)] = (40, 38, 54, 255)   # angry brows
     m.box(F, (-7, -2, -8), (14, 13, 12), paint=face, **sh)
     m.box(B, (-4, 5, -11), (8, 6, 3), **sh); m.box(noise(inner, 5, 9), (-1.5, 5, -11.6), (3, 2, 1))   # muzzle, nose
     m.box(Image.new("RGBA", (16, 16), WHITE), (-1.6, 10.6, -11.3), (1.4, 2.4, 0.6)); m.box(Image.new("RGBA", (16, 16), WHITE), (0.2, 10.6, -11.3), (1.4, 2.4, 0.6))   # buck teeth
@@ -94,6 +97,36 @@ def sheet(out):
 EYES = [("Jade", (70, 230, 140)), ("Icy Cyan", (110, 235, 255)), ("Moon White", (238, 244, 255)),
         ("Ember", (255, 96, 60)), ("Violet", (200, 120, 255))]
 
+W_ = (250, 250, 250, 255); K_ = (22, 20, 28, 255)
+def bright(c, k=1.25): return tuple(min(255, int(v * k)) for v in c) + (255,)
+def steve(c):        # Steve / villager: a white pixel beside a coloured iris
+    return {(3, 5): W_, (4, 5): c + (255,), (9, 5): c + (255,), (10, 5): W_}
+def vrabbit(c):      # the vanilla rabbit: a small dark eye with a white highlight, set wide
+    return {(2, 5): K_, (2, 4): W_, (11, 5): K_, (11, 4): W_, (3, 5): K_, (10, 5): K_}
+def enderman(c):     # enderman: a glowing slit with a brighter centre
+    return {**{(x, 5): c + (255,) for x in (2, 3, 4, 9, 10, 11)}, (3, 5): bright(c), (10, 5): bright(c)}
+def spider(c):       # spider: several small glowing eyes
+    return {(p): c + (255,) for p in ((3, 4), (5, 5), (8, 5), (10, 4), (2, 6), (11, 6))}
+def dragon(c):       # ender dragon: a long glowing slit under a dark brow
+    return {**{(x, 5): c + (255,) for x in (1, 2, 3, 4, 9, 10, 11, 12)}, **{(x, 4): K_ for x in (1, 2, 3, 4, 9, 10, 11, 12)}}
+STYLES = [("Steve / villager", steve), ("Vanilla rabbit", vrabbit), ("Enderman slit", enderman), ("Spider eyes", spider), ("Ender Dragon slit", dragon)]
+
+def style_sheet(out, colour=(70, 230, 140)):
+    import math as _m
+    BG, INK = (243, 239, 230), (46, 42, 36)
+    heads = []
+    for name, f in STYLES:
+        R.YAW = _m.radians(-20)
+        im = rabbit("dust", colour, colour, f).draw(3.2); bb = im.getbbox(); w = bb[2] - bb[0]
+        heads.append((name, im.crop((bb[0] + int(w * 0.30), bb[1] + int(im.height * 0.16), bb[0] + int(w * 0.92), bb[1] + int(im.height * 0.52)))))
+    cw = max(h.width for _, h in heads) + 30; ch = max(h.height for _, h in heads) + 80
+    c = Image.new("RGB", (len(heads) * cw + 40, ch + 110), BG); d = ImageDraw.Draw(c)
+    d.text((30, 26), "Moon-dust Great Moon Rabbit: Minecraft-style eyes (jade)", font=R.font(40, True), fill=INK)
+    for k, (name, h) in enumerate(heads):
+        x = 20 + k * cw; c.paste(h, (x + (cw - h.width) // 2, 100), h)
+        d.text((x + cw // 2, 100 + ch - 40), name, font=R.font(26, True), fill=INK, anchor="mm")
+    c.save(out); print("wrote", out, c.size)
+
 def eye_sheet(out):
     """The moon-dust rabbit with different eyes, cropped to the head so they're easy to compare."""
     import math as _m
@@ -113,6 +146,8 @@ def eye_sheet(out):
     c.save(out); print("wrote", out, c.size)
 
 if __name__ == "__main__":
+    if len(sys.argv) > 2 and sys.argv[2] == "styles":
+        style_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_eye_styles.png")); sys.exit()
     if len(sys.argv) > 2 and sys.argv[2] == "eyes":
         eye_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_eyes.png")); sys.exit()
     sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_original.png"))
