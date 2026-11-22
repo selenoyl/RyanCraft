@@ -215,9 +215,36 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 - **The Drowned Deep**: an ocean dimension with no surface, just kelp forests, sunken towns, whales and air
   pockets you have to find. You get there through a conduit set into a prismarine ring. Brings back pearls,
   sea-glass and drowned-town relics. Breathing gear and lead-weighted boots matter.
-- **The Hollow Moon** (an End neighbour): low gravity, pale dust, chorus groves, ruined shulker towers and slow
-  meteor showers. You get there by throwing an eye of ender into a ring of end rods at night. Brings back moon dust
-  (a light ore for gliding gear) and shulker parts.
+- **The Moon** (reached with jade):
+  - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade.
+    Build a frame of jade blocks, light it with an eye of ender under a full moon, and step through.
+  - **The land:**
+    - low gravity (big floaty jumps, slow falls)
+    - pale moon-dust plains and craters
+    - glassy craters where meteors hit
+    - silvery moon-tree groves and chalky cliffs
+    - the Earth hanging huge in a black sky
+  - **Creatures:**
+    - **Moon rabbits:** long-eared, silvery, and they hop very high. They're shy, and you can tame them with moon
+      herbs.
+    - **Dust drifters:** jellyfish-like things that float over the craters.
+    - **Crater crabs:** they hide in moon dust and pinch.
+    - **Lantern moths:** they glow and come to light.
+    - **Hollow walkers:** quiet stone figures from an old moon people, who wake if you take from their ruins.
+  - **Things to do:**
+    - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
+      boots and lanterns.
+    - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
+    - Watch meteor showers at "night" and gather the meteorite iron they drop (a strong, rare metal).
+    - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
+  - **The boss: the Great Moon Rabbit.** A giant rabbit that pounds a mortar and pestle in the heart of the
+    jade temple, as in the old moon-rabbit legends. It leaps around the arena:
+    - Ground slams that throw you up in the low gravity.
+    - It summons moon-rabbit kits.
+    - It throws glowing rice-cake bombs.
+    - At half health it goes into a frenzy.
+    - Beat it for the **Moon Mortar** (a workstation that grinds moon herbs into potions of slow falling and
+      jump), its **jade crown**, and a **rideable moon-rabbit mount** egg.
 - **Dreams**: sleep in a special bed and wake up in a strange, shifting dream world (floating furniture, bright
   colours, odd gravity) for one night; wake up in your bed at dawn with whatever you carried out. A nightmare
   version for anyone who sleeps hungry or thirsty.
