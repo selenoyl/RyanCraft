@@ -192,12 +192,12 @@ def simple_blocks():
         "front": "ryancraft:block/ender_terminal_front", "side": "minecraft:block/end_portal_frame_side", "back": "minecraft:block/end_stone",
         "red": "minecraft:block/redstone_block", "particle": "minecraft:block/end_portal_frame_side"},
         "elements": [
-            {"from": [0, 0, 3], "to": [16, 16, 16], "faces": {"north": face([0, 0, 16, 16], "#front"), "south": face([0, 0, 16, 16], "#back"),
+            {"from": [0, 0, 0], "to": [16, 16, 13], "faces": {"north": face([0, 0, 16, 16], "#front"), "south": face([0, 0, 16, 16], "#back"),
                 "east": face([0, 3, 16, 16], "#side", rot=90), "west": face([0, 3, 16, 16], "#side", rot=270),
-                "up": face([0, 3, 16, 16], "#side", rot=180), "down": face([0, 3, 16, 16], "#side")}},
-            {"from": [1, 16, 6], "to": [3, 18, 8], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
-            {"from": [13, 16, 6], "to": [15, 18, 8], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
-            {"from": [6, 16, 10], "to": [10, 17, 14], "faces": {d: face([0, 0, 4, 1] if d != "up" else [0, 0, 4, 4], "#red") for d in ("north", "south", "east", "west", "up")}}]})
+                "up": face([0, 3, 16, 16], "#side"), "down": face([0, 3, 16, 16], "#side", rot=180)}},   # the frame's top edge toward the socket on every side
+            {"from": [1, 16, 3], "to": [3, 18, 5], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
+            {"from": [13, 16, 3], "to": [15, 18, 5], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
+            {"from": [6, 16, 7], "to": [10, 17, 11], "faces": {d: face([0, 0, 4, 1] if d != "up" else [0, 0, 4, 4], "#red") for d in ("north", "south", "east", "west", "up")}}]})
     w("assets/ryancraft/blockstates/ender_terminal.json", {"variants": {f"facing={f}": dict({"model": "ryancraft:block/ender_terminal"}, **({"y": r} if r else {}))
         for f, r in (("north", 0), ("east", 90), ("south", 180), ("west", 270))}})
     for n in ("pump", "tank"): w(f"assets/ryancraft/blockstates/{n}.json", {"variants": {"": {"model": f"ryancraft:block/{n}"}}})
