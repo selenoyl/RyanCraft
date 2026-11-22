@@ -1,3 +1,4 @@
+import os
 """
 Critter models + textures from one spec.
   python3 tools/critters.py
@@ -612,26 +613,20 @@ EGGS = {"boar": ("#5a3d2b", "#c8917a"), "deer": ("#a0703f", "#efe4cf"), "duck": 
         "bluegill": ("#5b7a48", "#e2a23a"), "crappie": ("#cdd4c6", "#2a3028"), "largemouth_bass": ("#5d7f3a", "#2c3d1c"),
         "channel_catfish": ("#6a7682", "#2a3038"), "chipmunk": ("#9a6a44", "#1e1610"), "coyote": ("#9a8468", "#e6dcc8")}
 
-def egg_icon(base, spots, seed):
-    r = random.Random(seed)
-    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-    b, sp = hexc(base), hexc(spots)
-    outline = tuple(max(0, int(v * 0.55)) for v in b)
-    for y in range(16):
-        for x in range(16):
-            # egg: narrower at the top
-            cy = 8.6; ry = 6.6; rx = 4.6 + 0.9 * max(0, (y - 4) / 8)
-            if ((x - 7.5) / rx) ** 2 + ((y - cy) / ry) ** 2 <= 1.0:
-                inner = ((x - 7.5) / (rx - 1)) ** 2 + ((y - cy) / (ry - 1)) ** 2 <= 1.0
-                c = b if inner else outline
-                img.putpixel((x, y), tuple(max(0, min(255, v + r.randint(-6, 6))) for v in c) + (255,))
-    for _ in range(7):                                  # spots
-        x, y = r.randint(4, 11), r.randint(4, 13)
-        if img.getpixel((x, y))[3] and img.getpixel((x, y))[:3] != outline:
-            for dx, dy in ((0, 0), (1, 0), (0, 1)):
-                if r.random() < 0.8 and img.getpixel((x + dx, y + dy))[3]: img.putpixel((x + dx, y + dy), sp + (255,))
-    img.putpixel((6, 4), (255, 255, 255, 180)); img.putpixel((5, 5), (255, 255, 255, 140))   # shine
-    return img
+def egg_icon(base, spots, seed=None):
+    """The base game's classic spawn egg: the grey egg tinted with the base colour, the spot overlay with the spot colour."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    egg = Image.open(os.path.join(here, "classic_spawn_egg.png")).convert("RGBA")
+    over = Image.open(os.path.join(here, "classic_spawn_egg_overlay.png")).convert("RGBA")
+    out = Image.new("RGBA", egg.size, (0, 0, 0, 0))
+    for layer, col in ((egg, hexc(base)), (over, hexc(spots))):
+        tint = Image.new("RGBA", egg.size, (0, 0, 0, 0))
+        for y in range(egg.height):
+            for x in range(egg.width):
+                r, g, b_, a = layer.getpixel((x, y))
+                if a: tint.putpixel((x, y), tuple(v * c // 255 for v, c in zip((r, g, b_), col)) + (a,))
+        out = Image.alpha_composite(out, tint)
+    return out
 
 if __name__ == "__main__":
     for i, (mob, (base, spots)) in enumerate(EGGS.items()):

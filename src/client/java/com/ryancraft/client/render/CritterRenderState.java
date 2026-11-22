@@ -7,4 +7,7 @@ public class CritterRenderState extends LivingEntityRenderState {
     public boolean flying;
     public boolean playingDead;
     public boolean climbing;
+    public int texture;
+    public int antlers = -1;
+    public int rack;
 }

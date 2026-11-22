@@ -38,6 +38,9 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
     public void extractRenderState(T entity, CritterRenderState state, float partialTick) {
         super.extractRenderState(entity, state, partialTick);
         state.variant = entity.getVariant();
+        state.texture = entity.textureIndex();
+        state.antlers = entity.isBaby() ? -1 : entity.antlerStage();
+        state.rack = entity.antlerRack();
         state.flying = entity.isFlyingVisual();
         state.climbing = entity.isClimbingVisual();
         state.playingDead = entity.isPlayingDead();
@@ -50,7 +53,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
     @Override
     public Identifier getTextureLocation(CritterRenderState state) {
         if (plainBabies && state.isBaby) return textures[0];
-        return textures[Math.floorMod(state.variant, textures.length)];
+        return textures[Math.floorMod(state.texture, textures.length)];
     }
 
     @Override

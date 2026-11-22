@@ -77,7 +77,8 @@ public class DeerSkullMountItem extends Item {
         CompoundTag tag = data(ctx.getItemInHand());
         mount.setRackData(tag.getIntOr("Antlers", 4), tag.getBooleanOr("DropTine", false), tag.getIntOr("Rack", 0), tag.getIntOr("AntlerColor", 0));
         mount.hangOn(wall, face);
-        if (!level.noCollision(mount)) {      // something's in the way
+        // the mount's box overlaps its own wall, so only other mounts or creatures in the way block it
+        if (!level.getEntities(mount, mount.getBoundingBox().deflate(0.05), e -> e instanceof DeerMount || e instanceof net.minecraft.world.entity.LivingEntity).isEmpty()) {
             mount.discard();
             return InteractionResult.FAIL;
         }

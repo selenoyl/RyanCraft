@@ -33,6 +33,7 @@ public class DeerMount extends Mob {
         super(type, level);
         this.setNoAi(true);
         this.setNoGravity(true);
+        this.noPhysics = true;          // it sits partly inside its wall
         this.setPersistenceRequired();
         this.setSilent(true);
     }

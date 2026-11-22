@@ -19,6 +19,7 @@ public class BlackTailedDeer extends BigGame {
         return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 12.0).add(Attributes.MOVEMENT_SPEED, 0.27).add(Attributes.FOLLOW_RANGE, 18.0);
     }
 
+    @Override protected boolean stagedAntlers() { return true; }
     @Override protected String maleName() { return "buck"; }
     @Override protected float spookDistance() { return 14f; }
     @Override protected double fleeSpeed() { return 1.9; }

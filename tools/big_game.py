@@ -88,6 +88,23 @@ crow = [   # "sleek": narrow body, small head, long tail
     part("leg_l", (1, 20, 1), [box("leg", (-0.5, 0, -0.5), (1, 4, 1), "leg", mirror=True)], "leg_l"),
 ]
 
+def staged_antlers(parts, stages, rare=()):
+    """Pull the antler boxes out of the head into stage parts (role antler_1..antler_4, antler_rare) that share the head's
+    pivot; the game shows each stage once the animal reaches it, and turns them with the head."""
+    head = next(p for p in parts if p["role"] == "head")
+    head["boxes"] = [b for b in head["boxes"] if b["paint"] != "antler"]
+    for k, boxes in stages.items():
+        parts.append(part(f"antlers_{k}", head["pivot"], mirror(boxes, f"antler{k}", "antler"), f"antler_{k}"))
+    if rare: parts.append(part("antlers_rare", head["pivot"], mirror(list(rare), "antler_rare", "antler"), "antler_rare"))
+    return parts
+
+# Elk racks by stage (cumulative): spikes; brow tine and upper beam; bez, royal and sweep; the top tines. Non-typical extras.
+ELK_STAGES = {1: [((-3, -11, -6), (1, 7, 1))],
+              2: [((-3, -6, -9), (1, 1, 3)), ((-4, -17, -6), (1, 7, 1))],
+              3: [((-3, -9, -9), (1, 1, 3)), ((-4, -14, -9), (1, 1, 3)), ((-4, -18, -6), (1, 1, 7))],
+              4: [((-4, -21, 0), (1, 3, 1)), ((-4, -20, -3), (1, 2, 1))]}
+ELK_RARE = [((-5, -16, -4), (1, 1, 2)), ((-4, -12, -3), (1, 1, 2)), ((-3, -8, -11), (1, 3, 1)), ((-5, -19, -1), (1, 1, 1))]
+
 CLEAR = {"c": None}
 ELK = {   # Roosevelt elk: deep reddish-brown, near-black mane, cream rump
        "body": {"c": "#8a5a36", "noise": 8, "tip": {"c": "#d8c09a", "frac": 0.14}, "belly": "#2e1c10", "bottom": "#2e1c10"},
@@ -106,7 +123,9 @@ PRONG = {"body": {"c": "#c48a4c", "noise": 6, "belly": "#f2ece0", "back": "#f2ec
          "ear": {"c": "#b07a40", "back": "#2a2018"}, "leg": {"c": "#c8925a", "noise": 4}, "tail": {"c": "#f2ece0"}}
 VARIANTS = {
     "elk": {"elk": dict(ELK, antler=CLEAR),
-            "elk_bull": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}})},
+            "elk_bull": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}}),
+            "elk_bull_dark": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#8a6c4a", "noise": 12, "tip": {"c": "#d8c8a8", "frac": 0.25}}),
+            "elk_bull_chocolate": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#5e4430", "noise": 10, "tip": {"c": "#c8b48a", "frac": 0.25}})},
     "moose": {"moose": dict(MOOSE, antler=CLEAR),
               "moose_bull": dict(MOOSE, antler={"c": "#d0bc96", "noise": 12, "speckle": {"c": "#b8a27a", "p": 0.2}})},
     # one look for all adults (horned, dark-faced); fawns are hornless
@@ -130,6 +149,7 @@ VARIANTS["crow"] = {"crow": {
     "head": {"c": "#1c1c20", "noise": 5, "side_eyes": "#3a2a1a", "eye_row": 1, "speckle": {"c": "#2c3048", "p": 0.1}},
     "beak": {"c": "#0e0e10", "noise": 3}, "tail": {"c": "#18181c", "noise": 5, "speckle": {"c": "#262a40", "p": 0.2}},
     "wing": {"c": "#16161a", "noise": 6, "speckle": {"c": "#2a2e46", "p": 0.25}}, "leg": {"c": "#121212", "noise": 3}}}
+elk = staged_antlers(elk, ELK_STAGES, ELK_RARE)
 MODELS = {"elk": elk, "moose": moose, "pronghorn": pronghorn, "grizzly_bear": grizzly, "bobcat": bobcat, "crow": crow}
 EGGS = {"elk": ("#8a5a36", "#24160c"), "moose": ("#5a3a24", "#8a7660"), "pronghorn": ("#c48a4c", "#f2ece0"),
         "grizzly_bear": ("#3a2618", "#c4a882"), "crow": ("#1a1a1e", "#3a3e5a"), "zebra": ("#f2f0ea", "#161616"), "bobcat": ("#b48c62", "#3e2c1c")}

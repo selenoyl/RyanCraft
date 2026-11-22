@@ -21,6 +21,7 @@ public class Elk extends BigGame {
                 .add(Attributes.ATTACK_DAMAGE, 5.0).add(Attributes.KNOCKBACK_RESISTANCE, 0.4).add(Attributes.FOLLOW_RANGE, 20.0);
     }
 
+    @Override protected boolean stagedAntlers() { return true; }
     @Override protected String maleName() { return "bull"; }
     @Override protected float maleChance() { return 0.3f; }
     @Override protected float spookDistance() { return 14f; }

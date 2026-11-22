@@ -19,7 +19,87 @@ import net.minecraft.world.level.ServerLevelAccessor;
  * Some fight back when hurt instead of running.
  */
 public abstract class BigGame extends CritterAnimal {
+    // ---- antlers (bulls and bucks of species with staged racks): grow like the whitetail's
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Integer> ANTLERS =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BigGame.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Integer> RACK =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BigGame.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
+    private static final net.minecraft.network.syncher.EntityDataAccessor<Integer> ANTLER_COLOR =
+            net.minecraft.network.syncher.SynchedEntityData.defineId(BigGame.class, net.minecraft.network.syncher.EntityDataSerializers.INT);
+    public static final int MAX_ANTLERS = 4;
+    private static final int DAY = 24000;
+    private int antlerAge, nextStage = -1;
+
     protected BigGame(EntityType<? extends Animal> type, Level level) { super(type, level); }
+
+    /** Whether this species' males carry staged antlers (spikes -> forks -> full rack, rare non-typicals). */
+    protected boolean stagedAntlers() { return false; }
+    public int getAntlers() { return this.entityData.get(ANTLERS); }
+    public int getRack() { return this.entityData.get(RACK); }
+    public int getAntlerColor() { return this.entityData.get(ANTLER_COLOR); }
+    public void setAntlers(int stage) { this.entityData.set(ANTLERS, Math.max(0, Math.min(MAX_ANTLERS, stage))); }
+
+    @Override public int antlerStage() { return stagedAntlers() && isMale() ? getAntlers() : -1; }
+    @Override public int antlerRack() { return getRack(); }
+    /** Cows/does use texture 0; bulls/bucks 1 + antler colour (normal, dark, chocolate). */
+    @Override public int textureIndex() { return stagedAntlers() ? (isMale() ? 1 + getAntlerColor() : 0) : getVariant(); }
+
+    @Override
+    protected void defineSynchedData(net.minecraft.network.syncher.SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ANTLERS, 0);
+        builder.define(RACK, 0);
+        builder.define(ANTLER_COLOR, 0);
+    }
+
+    private int stageLength() { return 14 * DAY + this.random.nextInt(7 * DAY); }
+
+    /** On a wild spawn: most bulls are young; a few carry trophies; one in a few dozen trophies is non-typical. */
+    protected void rollAntlers() {
+        int roll = this.random.nextInt(100);
+        int stage = roll < 30 ? 1 : roll < 60 ? 2 : roll < 86 ? 3 : 4;
+        setAntlers(stage);
+        if (stage == MAX_ANTLERS && this.random.nextInt(30) == 0) this.entityData.set(RACK, 1);
+        int c = this.random.nextInt(100);
+        this.entityData.set(ANTLER_COLOR, c < 72 ? 0 : c < 92 ? 1 : 2);
+        nextStage = stageLength();
+        antlerAge = this.random.nextInt(nextStage);
+    }
+
+    @Override
+    public net.minecraft.world.entity.SpawnGroupData finalizeSpawn(net.minecraft.world.level.ServerLevelAccessor level, net.minecraft.world.DifficultyInstance d,
+                                                                   net.minecraft.world.entity.EntitySpawnReason reason, net.minecraft.world.entity.SpawnGroupData data) {
+        var result = super.finalizeSpawn(level, d, reason, data);
+        if (stagedAntlers()) rollAntlers();
+        return result;
+    }
+
+    @Override
+    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput out) {
+        super.addAdditionalSaveData(out);
+        if (!stagedAntlers()) return;
+        out.putInt("Antlers", getAntlers()); out.putInt("Rack", getRack()); out.putInt("AntlerColor", getAntlerColor());
+        out.putInt("AntlerAge", antlerAge); out.putInt("NextAntlerStage", nextStage);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput in) {
+        super.readAdditionalSaveData(in);
+        if (!stagedAntlers()) return;
+        setAntlers(in.getIntOr("Antlers", 1));
+        this.entityData.set(RACK, in.getIntOr("Rack", 0));
+        this.entityData.set(ANTLER_COLOR, in.getIntOr("AntlerColor", 0));
+        antlerAge = in.getIntOr("AntlerAge", 0);
+        nextStage = in.getIntOr("NextAntlerStage", -1);
+    }
+
+    /** Bulls named by their rack: "Trophy Bull Elk", "Non-typical Bull Elk". */
+    @Override
+    protected net.minecraft.network.chat.Component getTypeName() {
+        if (stagedAntlers() && isMale() && !this.isBaby() && getAntlers() == MAX_ANTLERS)
+            return net.minecraft.network.chat.Component.translatable(this.getType().getDescriptionId() + (getRack() > 0 ? ".nontypical" : ".trophy"));
+        return super.getTypeName();
+    }
 
     @Override protected int variantCount() { return 2; }
     protected float maleChance() { return 0.4f; }
@@ -71,6 +151,15 @@ public abstract class BigGame extends CritterAnimal {
     @Override
     public void aiStep() {
         super.aiStep();
+        // Antlers grow while the animal is loaded: a stage every 2-3 in-game weeks
+        if (stagedAntlers() && !this.level().isClientSide() && isMale() && !this.isBaby() && getAntlers() < MAX_ANTLERS) {
+            if (nextStage < 0) nextStage = stageLength();
+            if (++antlerAge >= nextStage) {
+                setAntlers(getAntlers() + 1);
+                if (getAntlers() == MAX_ANTLERS && this.random.nextInt(30) == 0) this.entityData.set(RACK, 1);
+                antlerAge = 0; nextStage = stageLength();
+            }
+        }
         // Lose interest once the fight is over and the attacker has backed off
         LivingEntity t = this.getTarget();
         if (t != null && this.level() instanceof ServerLevel && this.distanceTo(t) > 16) this.setTarget(null);

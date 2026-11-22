@@ -76,7 +76,7 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish",
-            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra",
+            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
             "orca", "blue_whale", "shark", "manta_ray", "jellyfish",
@@ -133,6 +133,7 @@ loot("grizzly_bear", [pool("minecraft:leather", 1, 3)])
 loot("bobcat", [])
 loot("crow", [pool("minecraft:feather", 0, 2)])
 loot("zebra", [pool("minecraft:leather", 0, 2)])
+loot("reindeer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("black_tailed_deer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 1)])
 loot("bison", [pool("minecraft:beef", 3, 5, True), pool("minecraft:leather", 1, 3)])
 for name in ["cougar", "river_otter", "groundhog", "porcupine"]: loot(name, [])
@@ -217,7 +218,10 @@ lang.update({
     "entity.ryancraft.elk": "Elk", "entity.ryancraft.elk.bull": "Bull Elk",
     "entity.ryancraft.moose": "Moose", "entity.ryancraft.moose.bull": "Bull Moose",
     "entity.ryancraft.pronghorn": "Pronghorn", "entity.ryancraft.pronghorn.buck": "Pronghorn Buck",
-    "entity.ryancraft.grizzly_bear": "Grizzly Bear", "entity.ryancraft.bobcat": "Bobcat", "entity.ryancraft.crow": "American Crow", "entity.ryancraft.zebra": "Zebra",
+    "entity.ryancraft.grizzly_bear": "Grizzly Bear", "entity.ryancraft.bobcat": "Bobcat", "entity.ryancraft.crow": "American Crow", "entity.ryancraft.zebra": "Zebra", "entity.ryancraft.reindeer": "Reindeer", "entity.ryancraft.reindeer.trophy": "Trophy Reindeer",
+    "entity.ryancraft.reindeer.nontypical": "Non-typical Reindeer",
+    "entity.ryancraft.elk.trophy": "Trophy Bull Elk", "entity.ryancraft.elk.nontypical": "Non-typical Bull Elk",
+    "entity.ryancraft.black_tailed_deer.trophy": "Trophy Black-tailed Buck", "entity.ryancraft.black_tailed_deer.nontypical": "Non-typical Black-tailed Buck",
     "entity.ryancraft.black_tailed_deer": "Black-tailed Deer", "entity.ryancraft.black_tailed_deer.buck": "Black-tailed Buck",
     "entity.ryancraft.bison": "American Bison", "entity.ryancraft.cougar": "Cougar", "entity.ryancraft.river_otter": "River Otter",
     "entity.ryancraft.groundhog": "Groundhog", "entity.ryancraft.porcupine": "Porcupine",
@@ -246,7 +250,7 @@ EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Tur
              "skunk": "Skunk", "mink": "Mink", "opossum": "Opossum", "beaver": "Beaver", "squirrel": "Squirrel", "songbird": "Songbird",
              "chipmunk": "Chipmunk", "coyote": "Coyote", "bluegill": "Bluegill", "crappie": "Crappie", "largemouth_bass": "Largemouth Bass",
              "channel_catfish": "Channel Catfish", "elk": "Elk", "moose": "Moose", "pronghorn": "Pronghorn",
-             "grizzly_bear": "Grizzly Bear", "bobcat": "Bobcat", "crow": "Crow", "zebra": "Zebra",
+             "grizzly_bear": "Grizzly Bear", "bobcat": "Bobcat", "crow": "Crow", "zebra": "Zebra", "reindeer": "Reindeer",
              "black_tailed_deer": "Black-tailed Deer", "bison": "Bison", "cougar": "Cougar", "river_otter": "River Otter",
              "groundhog": "Groundhog", "porcupine": "Porcupine", "bald_eagle": "Bald Eagle", "golden_eagle": "Golden Eagle",
              "red_tailed_hawk": "Red-tailed Hawk", "turkey_vulture": "Turkey Vulture", "great_horned_owl": "Great Horned Owl",

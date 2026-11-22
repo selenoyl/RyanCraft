@@ -97,6 +97,15 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
             head.xRot += state.xRot * Mth.DEG_TO_RAD;
             head.yRot += state.yRot * Mth.DEG_TO_RAD;
         }
+        // Staged antlers: each stage's part appears once the animal reaches it, and turns with the head
+        int antlers = state instanceof CritterRenderState c ? c.antlers : -1, rack = state instanceof CritterRenderState c2 ? c2.rack : 0;
+        for (var e : roles.entrySet()) {
+            String role = e.getKey();
+            if (!role.startsWith("antler_")) continue;
+            ModelPart a = e.getValue();
+            a.visible = role.equals("antler_rare") ? antlers >= 4 && rack > 0 : antlers >= (role.charAt(7) - '0');
+            if (head != null) { a.xRot = head.xRot; a.yRot = head.yRot; a.zRot = head.zRot; }
+        }
         rotX("leg_rf", swing); rotX("leg_lb", swing);
         rotX("leg_lf", -swing); rotX("leg_rb", -swing);
         // Soaring birds: wings folded when perched; spread wide (with a slow, shallow beat) and the body level in flight

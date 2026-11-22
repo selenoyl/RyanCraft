@@ -79,7 +79,7 @@ public final class RyanItems {
         egg("largemouth_bass", RyanEntities.LARGEMOUTH_BASS); egg("channel_catfish", RyanEntities.CHANNEL_CATFISH);
         egg("elk", RyanEntities.ELK); egg("moose", RyanEntities.MOOSE); egg("pronghorn", RyanEntities.PRONGHORN);
         egg("grizzly_bear", RyanEntities.GRIZZLY_BEAR); egg("bobcat", RyanEntities.BOBCAT);
-        egg("crow", RyanEntities.CROW); egg("zebra", RyanEntities.ZEBRA);
+        egg("crow", RyanEntities.CROW); egg("zebra", RyanEntities.ZEBRA); egg("reindeer", RyanEntities.REINDEER);
         egg("black_tailed_deer", RyanEntities.BLACK_TAILED_DEER); egg("bison", RyanEntities.BISON); egg("cougar", RyanEntities.COUGAR); egg("river_otter", RyanEntities.RIVER_OTTER); egg("groundhog", RyanEntities.GROUNDHOG); egg("porcupine", RyanEntities.PORCUPINE);
         egg("bald_eagle", RyanEntities.BALD_EAGLE); egg("golden_eagle", RyanEntities.GOLDEN_EAGLE); egg("red_tailed_hawk", RyanEntities.RED_TAILED_HAWK); egg("turkey_vulture", RyanEntities.TURKEY_VULTURE); egg("great_horned_owl", RyanEntities.GREAT_HORNED_OWL); egg("great_blue_heron", RyanEntities.GREAT_BLUE_HERON); egg("canada_goose", RyanEntities.CANADA_GOOSE);
         egg("orca", RyanEntities.ORCA); egg("blue_whale", RyanEntities.BLUE_WHALE); egg("shark", RyanEntities.SHARK); egg("manta_ray", RyanEntities.MANTA_RAY); egg("jellyfish", RyanEntities.JELLYFISH);

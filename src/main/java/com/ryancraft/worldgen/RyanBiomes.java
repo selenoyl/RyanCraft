@@ -178,6 +178,9 @@ public final class RyanBiomes {
                 MobCategory.CREATURE, RyanEntities.RATTLESNAKE, 2, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.RIVER, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.BULLFROG, 5, 1, 3);
         spawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.ALLIGATOR, 3, 1, 2);
+        // Reindeer: herds across the snowy north
+        spawn(BiomeSelectors.includeByKey(Biomes.SNOWY_PLAINS, Biomes.SNOWY_TAIGA, Biomes.ICE_SPIKES, Biomes.GROVE, Biomes.SNOWY_SLOPES, TUNDRA),
+                MobCategory.CREATURE, RyanEntities.REINDEER, 8, 4, 8);
         // Zebras: herds on the savanna
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups
