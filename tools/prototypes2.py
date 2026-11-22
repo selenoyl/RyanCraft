@@ -14,22 +14,25 @@ P = []
 def add(label, sub, parts, style, scale=1.0): P.append((label, sub, parts, style, scale))
 
 # ---- Zebra: a horse variant with bold stripes and an upright two-tone mane
-def equine():
-    """Horse proportions: deep body on sturdy legs, the neck angled forward, a long head with a tapered muzzle."""
-    body = [box("body", (-5, -5, -11), (10, 10, 22), "body")]
-    head = [box("neck", (-2.5, -12, -3.5), (5, 13, 7), "mane"),
-            box("head", (-3, -15, -9), (6, 5, 7), "head"),
-            box("muzzle", (-2, -14.5, -13), (4, 4, 4), "snout"),
-            box("crest", (-1, -14, 3.5), (2, 14, 2), "mane2"),
-            box("ear_r", (-2.5, -17, -3), (2, 2, 1), "ear"), box("ear_l", (0.5, -17, -3), (2, 2, 1), "ear", mirror=True)]
-    ps = [part("body", (0, 8, 0), body, "body"),
-          part("head", (0, 5, -9), head, "head", rot=(0.52, 0, 0)),
-          part("tail", (0, 4, 10.5), [box("dock", (-1, 0, -0.5), (2, 7, 2), "dock"),
-                                       box("tuft", (-1.5, 7, -1), (3, 7, 3), "tuft")], "tail", rot=(0.3, 0, 0))]
-    for nm, sx, sz in [("leg_rf", -1, -1), ("leg_lf", 1, -1), ("leg_rb", -1, 1), ("leg_lb", 1, 1)]:
-        ps.append(part(nm, (sx * 3, 13, sz * 8), [box("leg", (-2, 0, -2), (4, 11, 4), "leg", mirror=sx > 0)], nm))
+def uvbox(name, frm, size, uv, paint, mirror=False):
+    b = box(name, frm, size, paint, mirror); b["uv"] = list(uv); return b
+
+def vanilla_horse():
+    """The default horse model's geometry and 64x64 texture layout (AbstractEquineModel), so this coat can be a horse variant."""
+    R30 = 0.5235988
+    ps = [part("body", (0, 11, 5), [uvbox("body", (-5, -8, -17), (10, 10, 22), (0, 32), "body")], "body"),
+          part("head", (0, 4, -12), [uvbox("neck", (-2.05, -6, -2), (4, 12, 7), (0, 35), "mane"),
+                                     uvbox("head", (-3, -11, -2), (6, 5, 7), (0, 13), "head"),
+                                     uvbox("crest", (-1, -11, 5.01), (2, 16, 2), (56, 36), "mane2"),
+                                     uvbox("muzzle", (-2, -11, -7), (4, 5, 5), (0, 25), "snout"),
+                                     uvbox("ear_l", (0.55, -13, 4), (2, 3, 1), (19, 16), "ear"),
+                                     uvbox("ear_r", (-2.55, -13, 4), (2, 3, 1), (19, 16), "ear", True)], "head", rot=(R30, 0, 0)),
+          part("tail", (0, 6, 7), [uvbox("tail", (-1.5, 0, 0), (3, 14, 4), (42, 36), "tail")], "tail", rot=(R30, 0, 0))]
+    for nm, x, z, fx, fz, mir in [("leg_lb", 4, 7, -3, -1, True), ("leg_rb", -4, 7, -1, -1, False),
+                                  ("leg_lf", 4, -10, -3, -1.9, True), ("leg_rf", -4, -10, -1, -1.9, False)]:
+        ps.append(part(nm, (x, 14, z), [uvbox("leg", (fx, -1.01, fz), (4, 11, 4), (48, 21), "leg", mir)], nm))
     return ps
-zebra = equine()
+zebra = vanilla_horse()   # 64x64, the horse's own texture layout
 
 def zebra_paint(img, parts, seed=7):
     """Repaint the zebra's coat with organic stripes: each one wobbles, and they vary in width."""
@@ -61,7 +64,7 @@ def zebra_paint(img, parts, seed=7):
                         px[fx + i, fy + j] = tuple(max(0, min(255, x + n)) for x in c) + (255,)
 STRIPES = ["#f2f0ea", "#161616"] * 8
 MANE_BANDS = ["#2a2826", "#e8e2d4"] * 8
-add("Zebra", "a horse variant", zebra, {
+add("Zebra", "a horse variant (default horse model)", zebra, {
     "body": {"c": "#f2f0ea", "noise": 4, "rings": {"c": "#161616", "n": 7}},
     "mane": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "front": "#f2f0ea"},
     "head": {"c": "#f2f0ea", "noise": 3, "side_rows": ["#f2f0ea", "#161616", "#f2f0ea", "#f2f0ea", "#161616"], "side_eyes": "#0a0a0a", "eye_row": 2},
@@ -69,6 +72,8 @@ add("Zebra", "a horse variant", zebra, {
     "leg": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "bottom": "#161616"},
     # mane and tail: crisp, even bands (unlike the organic body stripes), a dark-tipped mane and a black tuft
     "mane2": {"c": "#e8e2d4", "noise": 2, "side_rows": MANE_BANDS, "front": "#2a2826", "back": "#2a2826", "top": "#1a1816"},
+    "tail": {"c": "#1a1816", "noise": 6, "side_rows": ["#e8e2d4", "#2a2826"] * 3 + ["#1a1816"] * 8, "front_map": ["cc", "dd", "cc", "dd", "cc", "dd"],
+             "front_colors": {"c": "#e8e2d4", "d": "#2a2826"}, "top": "#e8e2d4"},
     "dock": {"c": "#e8e2d4", "noise": 2, "side_rows": MANE_BANDS, "front_map": ["cc", "dd", "cc", "dd", "cc", "dd", "cc"], "front_colors": {"c": "#e8e2d4", "d": "#2a2826"}},
     "tuft": {"c": "#1a1816", "noise": 8, "speckle": {"c": "#3a3632", "p": 0.25}}})
 
@@ -204,7 +209,8 @@ if __name__ == "__main__":
     made, renders = [], []
     for i, (label, sub, parts, style, scale) in enumerate(P):
         parts = copy.deepcopy(parts); name = f"proto2_{i}"
-        size = pack(parts); emit_model(name, parts, size); emit_textures(parts, size, {name: style})
+        size = (64, 64) if label == "Zebra" else pack(parts)
+        emit_model(name, parts, size); emit_textures(parts, size, {name: style})
         if label == "Zebra":
             t = os.path.join(ROOT, "textures/entity", name + ".png"); im = Image.open(t).convert("RGBA"); zebra_paint(im, parts); im.save(t)
         made += [f"{ROOT}/critter_models/{name}.json", f"{ROOT}/textures/entity/{name}.png"]
