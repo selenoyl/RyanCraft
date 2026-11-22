@@ -52,10 +52,18 @@ public enum TreeSpecies {
             t.blob(t.j(.6), h + 2, t.j(.6), t.v(3.4, .15), t.v(5.5, .12), t.v(3.4, .15), .93);
         }
     }),
-    TULIP_POPLAR("tulip_poplar", t -> {           // very tall, straight, narrow crown high up
-        int h = t.vi(19, 6); t.trunk(h, 1, 0);
-        for (int y = h - 9; y < h - 1; y += 2) t.limb(new double[]{0, y, 0}, t.r.nextDouble() * Math.PI * 2, 1.5, 2.5, TreeShape.Part.LOG);
-        t.blob(t.j(.8), h - 2, t.j(.8), t.v(4, .15), t.v(7, .12), t.v(4, .15), .94);
+    TULIP_POPLAR("tulip_poplar", t -> {           // very tall and straight; an oval crown over the upper half, branches inside it
+        int h = t.vi(18, 6); t.trunk(h, 1, 0);
+        int base = (int) (h * 0.48);
+        for (int y = base + 2; y < h - 3; y += 2)
+            t.limb(new double[]{0, y, 0}, t.r.nextDouble() * Math.PI * 2, t.v(1.0, .3), t.v(1.5, .2), TreeShape.Part.LOG);
+        int n = 0;
+        for (double y = base + 1; y <= h; y += 2.2, n++) {
+            double f = (y - base) / (h - base);                      // 0 at the crown's foot, 1 at the top
+            double rad = 1.6 + 2.1 * Math.sin(Math.PI * Math.min(1, 0.25 + f * 0.85));
+            t.blob(t.j(.9), y, t.j(.9), t.v(rad, .12), 2.0, t.v(rad, .12), .86);
+        }
+        t.blob(t.j(.5), h + 1.2, t.j(.5), 1.7, 1.6, 1.7, .8);
     }),
     SHAGBARK_HICKORY("shagbark_hickory", t -> {   // tall, narrow, irregular clumps
         int h = t.vi(13, 4); t.trunk(h, 1, 0);
@@ -99,17 +107,16 @@ public enum TreeSpecies {
         }
         t.blob(0, tb + 4.5, 0, 3, 1.4, 3, .8);
     }),
-    FLOWERING_DOGWOOD("flowering_dogwood", t -> { // small, flat tiers of white blossom with air between
-        int tiers = t.r.nextFloat() < 0.25 ? 2 : 3;
-        int top = 3 + 4 * (tiers - 1);
-        t.trunk(top, 1, 0);
-        for (int i = 0; i < tiers; i++) {
-            double y = 3 + 4 * i + (i > 0 ? t.j(.6) : 0);
-            double rr = t.v(4.8 - 1.1 * i, .12);
-            int limbs = t.vi(4, 2);
-            for (int k = 0; k < limbs; k++) t.limb(new double[]{0, y, 0}, k * Math.PI * 2 / limbs + t.j(.4), 0, rr - 1.4, TreeShape.Part.LOG);
-            t.blob(0, y + 1, 0, rr, 0.55, rr, .9);
+    FLOWERING_DOGWOOD("flowering_dogwood", t -> { // small and spreading: a short trunk forking into rising limbs, each under a rounded pad of blossom
+        int fork = t.vi(2, 1); t.trunk(fork + 1, 1, 0);
+        int limbs = t.vi(3, 2);
+        double a0 = t.r.nextDouble() * Math.PI * 2;
+        for (int k = 0; k < limbs; k++) {
+            double ang = a0 + k * Math.PI * 2 / limbs + t.j(.35);
+            double[] end = t.limb(new double[]{0, fork, 0}, ang, t.v(2.2, .3), t.v(2.8, .2), TreeShape.Part.LOG);
+            t.blob(end[0], end[1] + 0.1, end[2], t.v(2.5, .12), t.v(1.7, .15), t.v(2.5, .12), .82);
         }
+        t.blob(t.j(.6), fork + 3.4, t.j(.6), t.v(2.3, .12), 1.4, t.v(2.3, .12), .8);
     }),
     EASTERN_RED_CEDAR("eastern_red_cedar", t -> { // dense dark column, a little irregular
         int h = t.vi(12, 5); t.trunk(h - 2, 1, 0);
