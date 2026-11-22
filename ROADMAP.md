@@ -169,6 +169,21 @@ Technology tops out around the early age of gunpowder: nothing past a muzzle-loa
   range. They fire lead balls.
 - **Lead finally gets a use**: cast lead into musket balls and cannonballs.
 
+## Rotational power (Vintage Story style, vanilla look)
+Turning power from wind, water, muscle or engines, carried by axles and cogs to machines like the millstone.
+
+![Rotational power concept art](docs/rotation_concept.png)
+
+- **Sources:**
+  - **Hand crank:** early and slow.
+  - **Waterwheel:** on a flowing river; stops when the river freezes in winter.
+  - **Windmill sails:** on a tall tower; faster up high and in storms.
+  - **Engine crank:** turns our engines' pulse into steady rotation.
+- **Carrying it:** wooden axles in straight lines, wooden or copper cogs to turn corners, and an open-frame gearbox
+  to split a shaft.
+- **Machines:** the **millstone** first. It grinds grain into flour (for the cooking update), cobble into sand and
+  bones into bone meal. Later: saw, trip hammer, bellows.
+
 ## Engineering ideas
 A brainstorm of vanilla-plus machines (waterwheels, windmills, gearboxes, bellows, millstones, a shulker conveyor and
 more) that run on the same engine pulse as everything else: see [docs/engineering_ideas.md](docs/engineering_ideas.md).

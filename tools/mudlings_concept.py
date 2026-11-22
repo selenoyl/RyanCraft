@@ -32,12 +32,12 @@ GREEN = (110, 170, 70); VINE = (90, 150, 60)
 class Model:
     """A box model on its own texture atlas: every box gets a region tiled with one block texture."""
     def __init__(self, seed=1):
-        self.atlas = Image.new("RGBA", (256, 256), (0, 0, 0, 0)); self.x = self.y = self.rowh = 0
+        self.atlas = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0)); self.x = self.y = self.rowh = 0
         self.parts = []; self.r = random.Random(seed)
     def box(self, texture, frm, size, part=None, paint=None):
         w, h, d = [int(round(v)) for v in size]
         rw, rh = 2 * d + 2 * w, d + h
-        if self.x + rw > 256: self.x = 0; self.y += self.rowh; self.rowh = 0
+        if self.x + rw > 1024: self.x = 0; self.y += self.rowh; self.rowh = 0
         u, v = self.x, self.y; self.x += rw; self.rowh = max(self.rowh, rh)
         ox, oy = self.r.randrange(16), self.r.randrange(16)
         for yy in range(rh):
@@ -56,7 +56,7 @@ class Model:
     def draw(self, scale=2.2):
         path = os.path.join(TMP, "atlas_%d" % id(self))
         self.atlas.save(path + ".png")
-        R.load_model = lambda name, m=self: ((256, 256), m.parts)
+        R.load_model = lambda name, m=self: ((1024, 1024), m.parts)
         return R.render("mud", path, scale)
 
 EYE, MOUTH = (20, 18, 16, 255), (40, 26, 20, 255)
