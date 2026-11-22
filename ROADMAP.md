@@ -197,7 +197,7 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 - ~~**Pipes, engines and the Ender Terminal**~~ (built in 1.2.0). ~~**Tanks and pumps**~~ (glass tank, vat, screw
   pump and hand pump; built in 1.3.0).
 - ~~**Ender Terminal GUI**~~: the search box is gone; a button in the corner sorts by name or by amount.
-- **Force field generator**, fuelled by nether stars.
+- **Force field generator**, fuelled by nether stars. On the moon it keeps the falling meteors off your base.
 - **Cage upgrades**.
 
 ## Vehicles (primitive, Flan's-style)
@@ -240,7 +240,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   - **The land:**
     - low gravity (big floaty jumps, slow falls)
     - pale moon-dust plains and craters
-    - glassy craters where meteors hit
+    - old craters, some still holding meteor iron
     - silvery moon-tree groves and chalky cliffs
     - the real Earth hanging huge in a black sky, drawn Minecraft-style: blocky blue oceans, green and tan
       continents, white cloud bands, slowly turning and lit from one side like the moon is in ours
@@ -259,9 +259,17 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
-    - Watch meteor showers at "night": meteors streak down and leave small glowing craters. Dig out **meteor iron**,
-      a rare, dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools,
-      armour and cannon barrels, and it shimmers faintly at night.
+    - **Meteors fall all the time.** Glowing rocks streak down out of the black sky at random, more often at
+      "night" and in showers. They never break blocks, so your builds and the landscape are safe, but they're
+      dangerous to you:
+      - A meteor that lands near you bursts with a small blast, like a creeper's but weaker. One that hits you
+        directly blows up right on you.
+      - Out in the open you have to keep an eye on the sky, and a roof or a cave keeps you safe.
+    - **Build a moon base.** A **force field generator** around your base catches meteors before they reach you,
+      so you can live up there. Switch it off, or run out of fuel, and the meteors come through again.
+    - **Dig out meteor iron** from the old craters (the moon's surface is pocked with them, made long ago): a rare,
+      dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools, armour
+      and cannon barrels, and it shimmers faintly at night.
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
   - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust,
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
