@@ -196,7 +196,7 @@ The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` 
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.2.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
+2. Put `ryancraft-1.2.1.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
 3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
 
 ## Build
