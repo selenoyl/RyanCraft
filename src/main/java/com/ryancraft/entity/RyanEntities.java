@@ -59,6 +59,18 @@ public final class RyanEntities {
             EntityType.Builder.of(Crow::new, MobCategory.CREATURE).sized(0.4f, 0.6f).clientTrackingRange(10));
     public static final EntityType<Zebra> ZEBRA = register("zebra",
             EntityType.Builder.of(Zebra::new, MobCategory.CREATURE).sized(1.3964844f, 1.6f).eyeHeight(1.52f).passengerAttachments(1.44375f).clientTrackingRange(10));
+    public static final EntityType<BlackTailedDeer> BLACK_TAILED_DEER = register("black_tailed_deer",
+            EntityType.Builder.of(BlackTailedDeer::new, MobCategory.CREATURE).sized(0.8f, 1.5f).clientTrackingRange(10));
+    public static final EntityType<Bison> BISON = register("bison",
+            EntityType.Builder.of(Bison::new, MobCategory.CREATURE).sized(1.4f, 1.9f).clientTrackingRange(10));
+    public static final EntityType<Cougar> COUGAR = register("cougar",
+            EntityType.Builder.of(Cougar::new, MobCategory.CREATURE).sized(0.8f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<RiverOtter> RIVER_OTTER = register("river_otter",
+            EntityType.Builder.of(RiverOtter::new, MobCategory.CREATURE).sized(0.5f, 0.4f).clientTrackingRange(10));
+    public static final EntityType<Groundhog> GROUNDHOG = register("groundhog",
+            EntityType.Builder.of(Groundhog::new, MobCategory.CREATURE).sized(0.6f, 0.55f).clientTrackingRange(10));
+    public static final EntityType<Porcupine> PORCUPINE = register("porcupine",
+            EntityType.Builder.of(Porcupine::new, MobCategory.CREATURE).sized(0.6f, 0.6f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -93,6 +105,12 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(BOBCAT, Bobcat.createAttributes());
         FabricDefaultAttributeRegistry.register(CROW, Crow.createAttributes());
         FabricDefaultAttributeRegistry.register(ZEBRA, net.minecraft.world.entity.animal.equine.AbstractHorse.createBaseHorseAttributes());
+        FabricDefaultAttributeRegistry.register(BLACK_TAILED_DEER, BlackTailedDeer.createAttributes());
+        FabricDefaultAttributeRegistry.register(BISON, Bison.createAttributes());
+        FabricDefaultAttributeRegistry.register(COUGAR, Cougar.createAttributes());
+        FabricDefaultAttributeRegistry.register(RIVER_OTTER, RiverOtter.createAttributes());
+        FabricDefaultAttributeRegistry.register(GROUNDHOG, Groundhog.createAttributes());
+        FabricDefaultAttributeRegistry.register(PORCUPINE, Porcupine.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());

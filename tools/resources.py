@@ -68,7 +68,8 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish",
-            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra"]
+            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra",
+            "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine"]
 ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap", "cherries", "cherry_pie", "black_walnut", "shelled_walnut"] \
         + [m + "_spawn_egg" for m in EGG_MOBS]
 for it in ITEMS:
@@ -121,6 +122,9 @@ loot("grizzly_bear", [pool("minecraft:leather", 1, 3)])
 loot("bobcat", [])
 loot("crow", [pool("minecraft:feather", 0, 2)])
 loot("zebra", [pool("minecraft:leather", 0, 2)])
+loot("black_tailed_deer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 1)])
+loot("bison", [pool("minecraft:beef", 3, 5, True), pool("minecraft:leather", 1, 3)])
+for name in ["cougar", "river_otter", "groundhog", "porcupine"]: loot(name, [])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
@@ -194,7 +198,10 @@ lang.update({
     "entity.ryancraft.elk": "Elk", "entity.ryancraft.elk.bull": "Bull Elk",
     "entity.ryancraft.moose": "Moose", "entity.ryancraft.moose.bull": "Bull Moose",
     "entity.ryancraft.pronghorn": "Pronghorn", "entity.ryancraft.pronghorn.buck": "Pronghorn Buck",
-    "entity.ryancraft.grizzly_bear": "Grizzly Bear", "entity.ryancraft.bobcat": "Bobcat", "entity.ryancraft.crow": "American Crow", "entity.ryancraft.zebra": "Zebra", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
+    "entity.ryancraft.grizzly_bear": "Grizzly Bear", "entity.ryancraft.bobcat": "Bobcat", "entity.ryancraft.crow": "American Crow", "entity.ryancraft.zebra": "Zebra",
+    "entity.ryancraft.black_tailed_deer": "Black-tailed Deer", "entity.ryancraft.black_tailed_deer.buck": "Black-tailed Buck",
+    "entity.ryancraft.bison": "American Bison", "entity.ryancraft.cougar": "Cougar", "entity.ryancraft.river_otter": "River Otter",
+    "entity.ryancraft.groundhog": "Groundhog", "entity.ryancraft.porcupine": "Porcupine", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
     "entity.ryancraft.songbird.mourning_dove": "Mourning Dove",
     "item.ryancraft.deer_skull_mount": "Deer Skull Mount",
     "item.ryancraft.deer_skull_mount.s1": "Spike Buck Skull Mount", "item.ryancraft.deer_skull_mount.s2": "Fork Buck Skull Mount",
@@ -213,7 +220,9 @@ EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Tur
              "skunk": "Skunk", "mink": "Mink", "opossum": "Opossum", "beaver": "Beaver", "squirrel": "Squirrel", "songbird": "Songbird",
              "chipmunk": "Chipmunk", "coyote": "Coyote", "bluegill": "Bluegill", "crappie": "Crappie", "largemouth_bass": "Largemouth Bass",
              "channel_catfish": "Channel Catfish", "elk": "Elk", "moose": "Moose", "pronghorn": "Pronghorn",
-             "grizzly_bear": "Grizzly Bear", "bobcat": "Bobcat", "crow": "Crow", "zebra": "Zebra"}
+             "grizzly_bear": "Grizzly Bear", "bobcat": "Bobcat", "crow": "Crow", "zebra": "Zebra",
+             "black_tailed_deer": "Black-tailed Deer", "bison": "Bison", "cougar": "Cougar", "river_otter": "River Otter",
+             "groundhog": "Groundhog", "porcupine": "Porcupine"}
 for m, n in EGG_NAMES.items(): lang[f"item.ryancraft.{m}_spawn_egg"] = f"{n} Spawn Egg"
 sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; lang.update(lang_entries())
 from cages import lang_entries as cage_lang; lang.update(cage_lang())

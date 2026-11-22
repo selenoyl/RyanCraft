@@ -126,6 +126,22 @@ public final class RyanBiomes {
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
                 Biomes.SWAMP, Biomes.SAVANNA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.WINDSWEPT_FOREST, SEASONAL_FOREST, SHRUBLAND}),
                 MobCategory.CREATURE, RyanEntities.BOBCAT, 2, 1, 1);
+        // Black-tailed deer: the big conifer forests
+        spawn(BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.TAIGA, Biomes.WINDSWEPT_FOREST),
+                MobCategory.CREATURE, RyanEntities.BLACK_TAILED_DEER, 6, 2, 4);
+        // Bison: big herds on the plains
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, SHRUBLAND), MobCategory.CREATURE, RyanEntities.BISON, 4, 4, 8);
+        // Cougars: mountains and deep woods, rarely
+        spawn(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.GROVE, Biomes.OLD_GROWTH_PINE_TAIGA,
+                Biomes.TAIGA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS), MobCategory.CREATURE, RyanEntities.COUGAR, 1, 1, 1);
+        // River otters: rivers and swamps
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP), MobCategory.CREATURE, RyanEntities.RIVER_OTTER, 4, 2, 3);
+        // Groundhogs: fields and woodland edges
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.FLOWER_FOREST, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.GROUNDHOG, 5, 1, 2);
+        // Porcupines: forests north and south
+        spawn(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_SPRUCE_TAIGA, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.PORCUPINE, 3, 1, 1);
         // Zebras: herds on the savanna
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups

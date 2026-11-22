@@ -53,7 +53,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
         for (String m : new String[]{"black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel", "songbird",
                 "bluegill", "crappie", "largemouth_bass", "channel_catfish", "chipmunk", "coyote",
-                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow"}) {
+                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine"}) {
             EntityModelLayerRegistry.registerModelLayer(CritterModel.layer(m), () -> CritterModel.createLayer(m));
         }
         EntityRendererRegistry.register(RyanEntities.BLACK_BEAR, c -> new CritterRenderer<>(c, "black_bear", 0.9f, 1.0f, false, "black", "cinnamon"));
@@ -71,6 +71,12 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.PRONGHORN, c -> new CritterRenderer<>(c, "pronghorn", 0.6f, 1.0f, false, "pronghorn", "pronghorn_buck").plainBabies());
         EntityRendererRegistry.register(RyanEntities.GRIZZLY_BEAR, c -> new CritterRenderer<>(c, "grizzly_bear", 1.1f, 1.0f, false, "grizzly_bear"));
         EntityRendererRegistry.register(RyanEntities.BOBCAT, c -> new CritterRenderer<>(c, "bobcat", 0.4f, 1.0f, false, "bobcat"));
+        EntityRendererRegistry.register(RyanEntities.BLACK_TAILED_DEER, c -> new CritterRenderer<>(c, "black_tailed_deer", 0.6f, 1.0f, false, "black_tailed_deer", "black_tailed_deer_buck").plainBabies());
+        EntityRendererRegistry.register(RyanEntities.BISON, c -> new CritterRenderer<>(c, "bison", 1.1f, 1.0f, false, "bison"));
+        EntityRendererRegistry.register(RyanEntities.COUGAR, c -> new CritterRenderer<>(c, "cougar", 0.6f, 1.0f, false, "cougar"));
+        EntityRendererRegistry.register(RyanEntities.RIVER_OTTER, c -> new CritterRenderer<>(c, "river_otter", 0.35f, 1.0f, false, "river_otter"));
+        EntityRendererRegistry.register(RyanEntities.GROUNDHOG, c -> new CritterRenderer<>(c, "groundhog", 0.4f, 1.0f, false, "groundhog"));
+        EntityRendererRegistry.register(RyanEntities.PORCUPINE, c -> new CritterRenderer<>(c, "porcupine", 0.4f, 1.0f, false, "porcupine"));
         EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);
         EntityRendererRegistry.register(RyanEntities.CROW, c -> new CritterRenderer<>(c, "crow", 0.3f, 1.0f, false, "crow"));
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) -> {

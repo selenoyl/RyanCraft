@@ -53,6 +53,12 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Bobcat** | Forests, swamps, savanna, badlands, Shrubland (always scarce) | A shy wildcat: slips away from people, climbs trees, hunts rabbits, chickens, squirrels and chipmunks, and screams at night |
 | **Zebra** | Savanna (herds) | A horse variant: tame, saddle, armour and ride it like any horse; striped coat; zebras breed with zebras |
 | **American Crow** | Plains, forests, taiga, swamps | Wary of strangers; tame with seeds; follows you, sits, settles on your shoulder when you stand still |
+| **Black-tailed Deer** | Old-growth and windswept conifer forests | Smaller, greyer deer with big ears; bucks carry forked antlers; skittish |
+| **American Bison** | Plains, Shrubland (big herds) | Slow to spook, but hurt one and the adults charge; drops beef and leather |
+| **Cougar** | Mountains, deep woods, badlands (rare) | Keeps away from people, stalks deer, sheep, goats and rabbits; climbs; fights hard when cornered |
+| **River Otter** | Rivers, swamps | Playful swimmer that mostly stays in the water and catches fish |
+| **Groundhog** | Fields, meadows, woodland edges | Shy; win it over with carrots, beetroot or apples |
+| **Porcupine** | Forests | Doesn't run; hit it up close and you get quilled |
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
