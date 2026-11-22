@@ -23,8 +23,9 @@ PALETTES = {   # fur, streak, belly, inner ear, eye glow, mark glow
     "eclipse": ((70, 66, 112), (52, 48, 88), (120, 112, 168), (190, 90, 200), (255, 120, 220), (230, 110, 255)),
     "dust":    ((150, 146, 136), (124, 120, 112), (196, 192, 182), (200, 150, 150), (255, 210, 110), (255, 200, 120))}
 
-def rabbit(kind):
+def rabbit(kind, eye_override=None, mark_override=None):
     furc, streak, belly, inner, eye, mark = PALETTES[kind]
+    eye = eye_override or eye; mark = mark_override or mark
     F, Fs, B, I = fur(furc, streak, 1), fur(tuple(int(c * 0.82) for c in furc), streak, 2), fur(belly, tuple(int(c * 0.9) for c in belly), 3), noise(inner, 6, 4)
     EYE, MARK = Image.new("RGBA", (16, 16), eye + (255,)), Image.new("RGBA", (16, 16), mark + (255,))
     SOCK, WHITE = (24, 22, 34, 255), (250, 250, 250, 255)
@@ -45,7 +46,8 @@ def rabbit(kind):
     for (ex, ey) in ((2, 4), (9, 4)):
         for dx in range(4):
             for dy in range(3): face[(ex + dx, ey + dy)] = SOCK                               # dark sockets
-        face[(ex + 1, ey + 1)] = eye + (255,); face[(ex + 2, ey + 1)] = eye + (255,)            # glowing irises
+        for dx in (1, 2):
+            for dy in (1, 2): face[(ex + dx, ey + dy)] = eye + (255,)                          # glowing irises, 2x2
         face[(ex + 2, ey + 1)] = WHITE if kind != "eclipse" else eye + (255,)                  # a glint
     for (bx, by) in ((2, 2), (3, 2), (4, 3), (12, 2), (11, 2), (10, 3)): face[(bx, by)] = (40, 38, 54, 255)   # angry brows
     m.box(F, (-7, -2, -8), (14, 13, 12), paint=face, **sh)
@@ -89,5 +91,28 @@ def sheet(out):
         d.text((x + cw // 2, base + 60), s, font=R.font(16), fill=SUB, anchor="mm")
     c = c.resize((c.width * 3 // 4, c.height * 3 // 4), Image.LANCZOS); c.save(out); print("wrote", out, c.size)
 
+EYES = [("Jade", (70, 230, 140)), ("Icy Cyan", (110, 235, 255)), ("Moon White", (238, 244, 255)),
+        ("Ember", (255, 96, 60)), ("Violet", (200, 120, 255))]
+
+def eye_sheet(out):
+    """The moon-dust rabbit with different eyes, cropped to the head so they're easy to compare."""
+    import math as _m
+    BG, INK = (243, 239, 230), (46, 42, 36)
+    heads = []
+    for name, col in EYES:
+        R.YAW = _m.radians(-20)
+        im = rabbit("dust", col, col).draw(3.2)
+        bb = im.getbbox(); w = bb[2] - bb[0]
+        heads.append((name, im.crop((bb[0] + int(w * 0.30), bb[1] + int(im.height * 0.16), bb[0] + int(w * 0.92), bb[1] + int(im.height * 0.52)))))
+    cw = max(h.width for _, h in heads) + 30; ch = max(h.height for _, h in heads) + 80
+    c = Image.new("RGB", (len(heads) * cw + 40, ch + 110), BG); d = ImageDraw.Draw(c)
+    d.text((30, 26), "Moon-dust Great Moon Rabbit: eye options", font=R.font(40, True), fill=INK)
+    for k, (name, h) in enumerate(heads):
+        x = 20 + k * cw; c.paste(h, (x + (cw - h.width) // 2, 100), h)
+        d.text((x + cw // 2, 100 + ch - 40), name, font=R.font(26, True), fill=INK, anchor="mm")
+    c.save(out); print("wrote", out, c.size)
+
 if __name__ == "__main__":
+    if len(sys.argv) > 2 and sys.argv[2] == "eyes":
+        eye_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_eyes.png")); sys.exit()
     sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_original.png"))
