@@ -271,6 +271,12 @@ def simple_blocks():
     for y, row in enumerate(WR):
         for x, ch in enumerate(row):
             if ch in pal: wr.putpixel((x, y), pal[ch])
+    wr = wr.transpose(Image.Transpose.TRANSVERSE)          # mirror across the handle's diagonal so the jaw opens the other way
+    swap = {pal["H"]: pal["D"], pal["D"]: pal["H"]}       # keep the light coming from the top-left like vanilla items
+    for y in range(16):
+        for x in range(16):
+            c = wr.getpixel((x, y))
+            if c in swap: wr.putpixel((x, y), swap[c])
     wr.save(os.path.join(A, "textures", "item", "wrench.png"))
     w("assets/ryancraft/models/item/wrench.json", {"parent": "minecraft:item/handheld", "textures": {"layer0": "ryancraft:item/wrench"}})
     w("assets/ryancraft/items/wrench.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/wrench"}})
