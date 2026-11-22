@@ -65,6 +65,12 @@ public class RyanCraftClient implements ClientModInitializer {
                 lines.add(2 + i, net.minecraft.network.chat.Component.literal("  ").append(bag.names().get(i)).withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
             }
         });
+        // Water bottles go down in sips
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, ctx, type, lines) -> {
+            if (com.ryancraft.thirst.Thirst.enabled() && com.ryancraft.thirst.Thirst.isWater(stack))
+                lines.add(1, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.sips_left", com.ryancraft.thirst.Thirst.sipsLeft(stack))
+                        .withStyle(net.minecraft.ChatFormatting.BLUE));
+        });
         // Caught fish show their length; the biggest of their kind are trophies
         net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, ctx, type, lines) -> {
             Float len = stack.get(com.ryancraft.fish.FishSize.LENGTH);

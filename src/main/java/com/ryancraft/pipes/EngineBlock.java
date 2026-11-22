@@ -50,7 +50,7 @@ public class EngineBlock extends BaseEntityBlock {
 
     static boolean powerable(Level level, BlockPos pos) {
         BlockState s = level.getBlockState(pos);
-        return (s.getBlock() instanceof PipeBlock p && p.type == PipeType.WOODEN) || s.getBlock() instanceof PumpBlock || s.getBlock() instanceof HandPumpBlock || s.getBlock() instanceof EngineBlock;
+        return (s.getBlock() instanceof PipeBlock p && p.type == PipeType.WOODEN) || s.getBlock() instanceof PumpBlock || s.getBlock() instanceof HandPumpBlock || s.getBlock() instanceof EngineBlock || s.is(net.minecraft.world.level.block.Blocks.BLAST_FURNACE);
     }
 
     @Override

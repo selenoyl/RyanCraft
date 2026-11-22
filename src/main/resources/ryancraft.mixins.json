@@ -17,7 +17,8 @@
     "ServerLevelSeasonMixin",
     "CropSeasonMixin",
     "ItemStackThirstMixin",
-    "FoodDataThirstMixin"
+    "FoodDataThirstMixin",
+    "FurnaceSteelMixin"
   ],
   "injectors": {
     "defaultRequire": 0

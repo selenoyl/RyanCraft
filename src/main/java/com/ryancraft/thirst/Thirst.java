@@ -85,12 +85,32 @@ public final class Thirst {
         p.setAttached(DATA, new Data(level, Math.min(level, d.hydration() + hydration), d.exhaustion()));
     }
 
+    /** Sips in a full water bottle; each use takes one, so you needn't drain a whole bottle at once. */
+    public static final int SIPS = 3;
+    private static final int[] SIP_POINTS = {0, 2, 2, 3};          // the first sip is the biggest; 7 points a bottle
+
+    public static boolean isWater(ItemStack stack) {
+        return stack.is(Items.POTION) && stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.WATER);
+    }
+    /** Sips left in a water bottle (kept in custom model data, which also picks the bottle's fill texture). */
+    public static int sipsLeft(ItemStack stack) {
+        net.minecraft.world.item.component.CustomModelData cmd = stack.get(DataComponents.CUSTOM_MODEL_DATA);
+        return cmd == null || cmd.floats().isEmpty() ? SIPS : Math.max(1, Math.min(SIPS, Math.round(cmd.floats().get(0))));
+    }
+    public static void setSipsLeft(ItemStack stack, int sips) {
+        stack.set(DataComponents.CUSTOM_MODEL_DATA, new net.minecraft.world.item.component.CustomModelData(java.util.List.of((float) sips), java.util.List.of(), java.util.List.of(), java.util.List.of()));
+    }
+
+    /** One sip from a water bottle (called on both sides; only the server quenches). */
+    public static void sip(Level level, net.minecraft.world.entity.player.Player player, int sipsBefore) {
+        if (player instanceof ServerPlayer sp && enabled()) quench(sp, SIP_POINTS[Math.max(1, Math.min(SIPS, sipsBefore))], 1.5f);
+    }
+
     /** Server: something was just eaten or drunk (called before the stack is used up). */
     public static void consumed(ServerPlayer p, ItemStack stack) {
         if (!enabled()) return;
         if (stack.is(Items.POTION)) {
-            PotionContents pc = stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
-            if (pc.is(Potions.WATER)) quench(p, 7, 3f); else quench(p, 3, 1f);
+            if (isWater(stack)) quench(p, SIP_POINTS[sipsLeft(stack)], 1.5f); else quench(p, 3, 1f);
             return;
         }
         Quench q = FOODS.get(stack.getItem());
@@ -98,12 +118,16 @@ public final class Thirst {
     }
 
     public static void init() {
-        FOODS.put(Items.MILK_BUCKET, new Quench(5, 2f));
-        FOODS.put(Items.HONEY_BOTTLE, new Quench(3, 1f));
-        for (Item stew : new Item[]{Items.MUSHROOM_STEW, Items.RABBIT_STEW, Items.BEETROOT_SOUP, Items.SUSPICIOUS_STEW}) FOODS.put(stew, new Quench(4, 1.5f));
-        FOODS.put(Items.MELON_SLICE, new Quench(2, 0.5f));
-        FOODS.put(Items.GLISTERING_MELON_SLICE, new Quench(2, 0.5f));
-        FOODS.put(Items.APPLE, new Quench(1, 0.5f));
+        // drinks and juicy foods: thirst points, plus hydration (like hunger's saturation: it's used up before the bar drops)
+        FOODS.put(Items.MILK_BUCKET, new Quench(6, 4f));
+        FOODS.put(Items.HONEY_BOTTLE, new Quench(3, 1.5f));
+        for (Item stew : new Item[]{Items.MUSHROOM_STEW, Items.RABBIT_STEW, Items.BEETROOT_SOUP, Items.SUSPICIOUS_STEW}) FOODS.put(stew, new Quench(5, 3f));
+        FOODS.put(Items.MELON_SLICE, new Quench(2, 1.5f));
+        FOODS.put(Items.GLISTERING_MELON_SLICE, new Quench(2, 1.5f));
+        FOODS.put(Items.APPLE, new Quench(1, 1f));
+        FOODS.put(Items.BEETROOT, new Quench(1, 0.5f));
+        FOODS.put(Items.PUMPKIN_PIE, new Quench(1, 0.5f));
+        FOODS.put(RyanItems.CHERRY_PIE, new Quench(1, 1f));
         FOODS.put(Items.GOLDEN_APPLE, new Quench(2, 1f));
         FOODS.put(Items.ENCHANTED_GOLDEN_APPLE, new Quench(6, 4f));
         FOODS.put(Items.SWEET_BERRIES, new Quench(1, 0f));
@@ -157,11 +181,11 @@ public final class Thirst {
                 if (level < MAX && world.getGameTime() % 20 == 0) p.setAttached(DATA, new Data(level + 1, hyd, 0f));
                 continue;
             }
-            float rate = 0.0035f;                                   // about a minute per point at rest
-            if (p.isSprinting()) rate *= 3f;
+            float rate = 0.0017f;                                   // about two minutes per point at rest: there, but not a chore
+            if (p.isSprinting()) rate *= 2.5f;
             if (world.dimension() == Level.NETHER) rate *= 2f;
             else if (world.isBrightOutside() && world.canSeeSky(p.blockPosition())
-                    && hot(world.getBiome(p.blockPosition()).value())) rate *= 1.6f;
+                    && hot(world.getBiome(p.blockPosition()).value())) rate *= 1.5f;
             float ex = EXHAUSTION.getOrDefault(p.getUUID(), 0f) + rate;
             if (ex >= 4f) {
                 ex -= 4f;

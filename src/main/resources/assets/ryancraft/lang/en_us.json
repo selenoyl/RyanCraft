@@ -191,6 +191,7 @@
   "block.ryancraft.shagbark_hickory_stairs": "Shagbark Hickory Stairs",
   "block.ryancraft.shagbark_hickory_trapdoor": "Shagbark Hickory Trapdoor",
   "block.ryancraft.shagbark_hickory_wood": "Shagbark Hickory Wood",
+  "block.ryancraft.steel_block": "Block of Steel",
   "block.ryancraft.stirling_engine": "Stirling Engine",
   "block.ryancraft.stone_pipe": "Stone Pipe",
   "block.ryancraft.stripped_american_beech_log": "Stripped American Beech Log",
@@ -495,6 +496,7 @@
   "item.ryancraft.smallmouth_bass_spawn_egg": "Smallmouth Bass Spawn Egg",
   "item.ryancraft.songbird_spawn_egg": "Songbird Spawn Egg",
   "item.ryancraft.squirrel_spawn_egg": "Squirrel Spawn Egg",
+  "item.ryancraft.steel_ingot": "Steel Ingot",
   "item.ryancraft.swan_spawn_egg": "Swan Spawn Egg",
   "item.ryancraft.turkey_spawn_egg": "Wild Turkey Spawn Egg",
   "item.ryancraft.turkey_vulture_spawn_egg": "Turkey Vulture Spawn Egg",
@@ -581,5 +583,6 @@
   "tooltip.ryancraft.fish_length": "%s in",
   "tooltip.ryancraft.legendary_fish": "Legendary",
   "tooltip.ryancraft.mob_bag": "Critters: %s / %s",
+  "tooltip.ryancraft.sips_left": "%s of 3 sips left",
   "tooltip.ryancraft.trophy_fish": "Trophy"
 }
