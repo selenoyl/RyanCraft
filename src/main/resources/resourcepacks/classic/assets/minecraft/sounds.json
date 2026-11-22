@@ -1,1 +1,1851 @@
-{"entity.player.hurt":{"replace":true,"sounds":["damage/hurtflesh1","damage/hurtflesh2","damage/hurtflesh3"]},"entity.player.hurt_drown":{"replace":true,"sounds":["damage/hurtflesh1","damage/hurtflesh2","damage/hurtflesh3"]},"entity.player.hurt_on_fire":{"replace":true,"sounds":["damage/hurtflesh1","damage/hurtflesh2","damage/hurtflesh3"]},"entity.player.big_fall":{"replace":true,"sounds":["damage/fallbig1","damage/fallbig2"]},"entity.generic.big_fall":{"replace":true,"sounds":["damage/fallbig1","damage/fallbig2"]},"entity.hostile.big_fall":{"replace":true,"sounds":["damage/fallbig1","damage/fallbig2"]},"entity.chicken.ambient":{"replace":true,"sounds":["mob/chicken1","mob/chicken2","mob/chicken3"]},"entity.chicken.hurt":{"replace":true,"sounds":["mob/chickenhurt1","mob/chickenhurt2"]},"entity.chicken.death":{"replace":true,"sounds":["mob/chickenhurt1","mob/chickenhurt2"]},"entity.chicken.egg":{"replace":true,"sounds":["mob/chickenplop"]},"entity.cow.ambient":{"replace":true,"sounds":["mob/cow1","mob/cow2","mob/cow3","mob/cow4"]},"entity.cow.hurt":{"replace":true,"sounds":["mob/cowhurt1","mob/cowhurt2","mob/cowhurt3"]},"entity.cow.death":{"replace":true,"sounds":["mob/cowhurt1","mob/cowhurt2","mob/cowhurt3"]},"entity.pig.ambient":{"replace":true,"sounds":["mob/pig1","mob/pig2","mob/pig3"]},"entity.pig.hurt":{"replace":true,"sounds":["mob/pig1","mob/pig2","mob/pig3"]},"entity.pig.death":{"replace":true,"sounds":["mob/pigdeath"]},"entity.sheep.ambient":{"replace":true,"sounds":["mob/sheep1","mob/sheep2","mob/sheep3"]},"entity.sheep.hurt":{"replace":true,"sounds":["mob/sheep1","mob/sheep2","mob/sheep3"]},"entity.sheep.death":{"replace":true,"sounds":["mob/sheep1","mob/sheep2","mob/sheep3"]},"entity.creeper.hurt":{"replace":true,"sounds":["mob/creeper1","mob/creeper2","mob/creeper3","mob/creeper4"]},"entity.creeper.death":{"replace":true,"sounds":["mob/creeperdeath"]},"entity.skeleton.ambient":{"replace":true,"sounds":["mob/skeleton1","mob/skeleton2","mob/skeleton3"]},"entity.skeleton.hurt":{"replace":true,"sounds":["mob/skeletonhurt1","mob/skeletonhurt2","mob/skeletonhurt3","mob/skeletonhurt4"]},"entity.skeleton.death":{"replace":true,"sounds":["mob/skeletondeath"]},"entity.spider.ambient":{"replace":true,"sounds":["mob/spider1","mob/spider2","mob/spider3","mob/spider4"]},"entity.spider.hurt":{"replace":true,"sounds":["mob/spider1","mob/spider2","mob/spider3","mob/spider4"]},"entity.spider.death":{"replace":true,"sounds":["mob/spiderdeath"]},"entity.slime.jump":{"replace":true,"sounds":["mob/slime1","mob/slime2","mob/slime3","mob/slime4","mob/slime5"]},"entity.slime.squish":{"replace":true,"sounds":["mob/slime1","mob/slime2","mob/slime3","mob/slime4","mob/slime5"]},"entity.slime.hurt":{"replace":true,"sounds":["mob/slime1","mob/slime2","mob/slime3","mob/slime4","mob/slime5"]},"entity.slime.death":{"replace":true,"sounds":["mob/slime1","mob/slime2","mob/slime3","mob/slime4","mob/slime5"]},"entity.slime.attack":{"replace":true,"sounds":["mob/slimeattack1","mob/slimeattack2"]},"entity.wolf.ambient":{"replace":true,"sounds":["mob/wolf/bark1","mob/wolf/bark2","mob/wolf/bark3"]},"entity.wolf.growl":{"replace":true,"sounds":["mob/wolf/growl1","mob/wolf/growl2","mob/wolf/growl3"]},"entity.wolf.hurt":{"replace":true,"sounds":["mob/wolf/hurt1","mob/wolf/hurt2","mob/wolf/hurt3"]},"entity.wolf.death":{"replace":true,"sounds":["mob/wolf/death"]},"entity.wolf.pant":{"replace":true,"sounds":["mob/wolf/panting"]},"entity.wolf.whine":{"replace":true,"sounds":["mob/wolf/whine"]},"entity.zombie.ambient":{"replace":true,"sounds":["mob/zombie1","mob/zombie2","mob/zombie3"]},"entity.zombie.hurt":{"replace":true,"sounds":["mob/zombiehurt1","mob/zombiehurt2"]},"entity.zombie.death":{"replace":true,"sounds":["mob/zombiedeath"]},"entity.zombified_piglin.ambient":{"replace":true,"sounds":["mob/zombiepig/zpig1","mob/zombiepig/zpig2","mob/zombiepig/zpig3","mob/zombiepig/zpig4"]},"entity.zombified_piglin.angry":{"replace":true,"sounds":["mob/zombiepig/zpigangry1","mob/zombiepig/zpigangry2","mob/zombiepig/zpigangry3","mob/zombiepig/zpigangry4"]},"entity.zombified_piglin.hurt":{"replace":true,"sounds":["mob/zombiepig/zpighurt1","mob/zombiepig/zpighurt2"]},"entity.zombified_piglin.death":{"replace":true,"sounds":["mob/zombiepig/zpigdeath"]},"music.game":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.creative":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.menu":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.under_water":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.badlands":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.bamboo_jungle":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.cherry_grove":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.deep_dark":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.desert":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.dripstone_caves":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.flower_forest":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.forest":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.frozen_peaks":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.grove":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.jagged_peaks":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.jungle":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.lush_caves":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.meadow":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.old_growth_taiga":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.snowy_slopes":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.sparse_jungle":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.stony_peaks":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.overworld.swamp":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.nether.basalt_deltas":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.nether.crimson_forest":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.nether.nether_wastes":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.nether.soul_sand_valley":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]},"music.nether.warped_forest":{"replace":true,"sounds":[{"name":"classic/music/calm1","stream":true},{"name":"classic/music/calm2","stream":true},{"name":"classic/music/calm3","stream":true},{"name":"classic/music/hal1","stream":true},{"name":"classic/music/hal2","stream":true},{"name":"classic/music/hal3","stream":true},{"name":"classic/music/hal4","stream":true},{"name":"classic/music/nuance1","stream":true},{"name":"classic/music/nuance2","stream":true},{"name":"classic/music/piano1","stream":true},{"name":"classic/music/piano2","stream":true},{"name":"classic/music/piano3","stream":true}]}}
+{
+  "entity.player.hurt": {
+    "replace": true,
+    "sounds": [
+      "damage/hurtflesh1",
+      "damage/hurtflesh2",
+      "damage/hurtflesh3"
+    ]
+  },
+  "entity.player.hurt_drown": {
+    "replace": true,
+    "sounds": [
+      "damage/hurtflesh1",
+      "damage/hurtflesh2",
+      "damage/hurtflesh3"
+    ]
+  },
+  "entity.player.hurt_on_fire": {
+    "replace": true,
+    "sounds": [
+      "damage/hurtflesh1",
+      "damage/hurtflesh2",
+      "damage/hurtflesh3"
+    ]
+  },
+  "entity.player.big_fall": {
+    "replace": true,
+    "sounds": [
+      "damage/fallbig1",
+      "damage/fallbig2"
+    ]
+  },
+  "entity.generic.big_fall": {
+    "replace": true,
+    "sounds": [
+      "damage/fallbig1",
+      "damage/fallbig2"
+    ]
+  },
+  "entity.hostile.big_fall": {
+    "replace": true,
+    "sounds": [
+      "damage/fallbig1",
+      "damage/fallbig2"
+    ]
+  },
+  "entity.chicken.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/chicken1",
+      "mob/chicken2",
+      "mob/chicken3"
+    ]
+  },
+  "entity.chicken.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/chickenhurt1",
+      "mob/chickenhurt2"
+    ]
+  },
+  "entity.chicken.death": {
+    "replace": true,
+    "sounds": [
+      "mob/chickenhurt1",
+      "mob/chickenhurt2"
+    ]
+  },
+  "entity.chicken.egg": {
+    "replace": true,
+    "sounds": [
+      "mob/chickenplop"
+    ]
+  },
+  "entity.cow.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/cow1",
+      "mob/cow2",
+      "mob/cow3",
+      "mob/cow4"
+    ]
+  },
+  "entity.cow.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/cowhurt1",
+      "mob/cowhurt2",
+      "mob/cowhurt3"
+    ]
+  },
+  "entity.cow.death": {
+    "replace": true,
+    "sounds": [
+      "mob/cowhurt1",
+      "mob/cowhurt2",
+      "mob/cowhurt3"
+    ]
+  },
+  "entity.pig.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/pig1",
+      "mob/pig2",
+      "mob/pig3"
+    ]
+  },
+  "entity.pig.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/pig1",
+      "mob/pig2",
+      "mob/pig3"
+    ]
+  },
+  "entity.pig.death": {
+    "replace": true,
+    "sounds": [
+      "mob/pigdeath"
+    ]
+  },
+  "entity.sheep.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/sheep1",
+      "mob/sheep2",
+      "mob/sheep3"
+    ]
+  },
+  "entity.sheep.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/sheep1",
+      "mob/sheep2",
+      "mob/sheep3"
+    ]
+  },
+  "entity.sheep.death": {
+    "replace": true,
+    "sounds": [
+      "mob/sheep1",
+      "mob/sheep2",
+      "mob/sheep3"
+    ]
+  },
+  "entity.creeper.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/creeper1",
+      "mob/creeper2",
+      "mob/creeper3",
+      "mob/creeper4"
+    ]
+  },
+  "entity.creeper.death": {
+    "replace": true,
+    "sounds": [
+      "mob/creeperdeath"
+    ]
+  },
+  "entity.skeleton.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/skeleton1",
+      "mob/skeleton2",
+      "mob/skeleton3"
+    ]
+  },
+  "entity.skeleton.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/skeletonhurt1",
+      "mob/skeletonhurt2",
+      "mob/skeletonhurt3",
+      "mob/skeletonhurt4"
+    ]
+  },
+  "entity.skeleton.death": {
+    "replace": true,
+    "sounds": [
+      "mob/skeletondeath"
+    ]
+  },
+  "entity.spider.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/spider1",
+      "mob/spider2",
+      "mob/spider3",
+      "mob/spider4"
+    ]
+  },
+  "entity.spider.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/spider1",
+      "mob/spider2",
+      "mob/spider3",
+      "mob/spider4"
+    ]
+  },
+  "entity.spider.death": {
+    "replace": true,
+    "sounds": [
+      "mob/spiderdeath"
+    ]
+  },
+  "entity.slime.jump": {
+    "replace": true,
+    "sounds": [
+      "mob/slime1",
+      "mob/slime2",
+      "mob/slime3",
+      "mob/slime4",
+      "mob/slime5"
+    ]
+  },
+  "entity.slime.squish": {
+    "replace": true,
+    "sounds": [
+      "mob/slime1",
+      "mob/slime2",
+      "mob/slime3",
+      "mob/slime4",
+      "mob/slime5"
+    ]
+  },
+  "entity.slime.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/slime1",
+      "mob/slime2",
+      "mob/slime3",
+      "mob/slime4",
+      "mob/slime5"
+    ]
+  },
+  "entity.slime.death": {
+    "replace": true,
+    "sounds": [
+      "mob/slime1",
+      "mob/slime2",
+      "mob/slime3",
+      "mob/slime4",
+      "mob/slime5"
+    ]
+  },
+  "entity.slime.attack": {
+    "replace": true,
+    "sounds": [
+      "mob/slimeattack1",
+      "mob/slimeattack2"
+    ]
+  },
+  "entity.wolf.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/bark1",
+      "mob/wolf/bark2",
+      "mob/wolf/bark3"
+    ]
+  },
+  "entity.wolf.growl": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/growl1",
+      "mob/wolf/growl2",
+      "mob/wolf/growl3"
+    ]
+  },
+  "entity.wolf.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/hurt1",
+      "mob/wolf/hurt2",
+      "mob/wolf/hurt3"
+    ]
+  },
+  "entity.wolf.death": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/death"
+    ]
+  },
+  "entity.wolf.pant": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/panting"
+    ]
+  },
+  "entity.wolf.whine": {
+    "replace": true,
+    "sounds": [
+      "mob/wolf/whine"
+    ]
+  },
+  "entity.zombie.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/zombie1",
+      "mob/zombie2",
+      "mob/zombie3"
+    ]
+  },
+  "entity.zombie.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiehurt1",
+      "mob/zombiehurt2"
+    ]
+  },
+  "entity.zombie.death": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiedeath"
+    ]
+  },
+  "entity.zombified_piglin.ambient": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiepig/zpig1",
+      "mob/zombiepig/zpig2",
+      "mob/zombiepig/zpig3",
+      "mob/zombiepig/zpig4"
+    ]
+  },
+  "entity.zombified_piglin.angry": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiepig/zpigangry1",
+      "mob/zombiepig/zpigangry2",
+      "mob/zombiepig/zpigangry3",
+      "mob/zombiepig/zpigangry4"
+    ]
+  },
+  "entity.zombified_piglin.hurt": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiepig/zpighurt1",
+      "mob/zombiepig/zpighurt2"
+    ]
+  },
+  "entity.zombified_piglin.death": {
+    "replace": true,
+    "sounds": [
+      "mob/zombiepig/zpigdeath"
+    ]
+  },
+  "music.game": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.creative": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.menu": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.under_water": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.badlands": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.bamboo_jungle": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.cherry_grove": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.deep_dark": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.desert": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.dripstone_caves": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.flower_forest": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.forest": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.frozen_peaks": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.grove": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.jagged_peaks": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.jungle": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.lush_caves": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.meadow": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.old_growth_taiga": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.snowy_slopes": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.sparse_jungle": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.stony_peaks": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.overworld.swamp": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.basalt_deltas": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.crimson_forest": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.nether_wastes": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.soul_sand_valley": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.warped_forest": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "classic/music/calm1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/calm3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal3",
+        "stream": true
+      },
+      {
+        "name": "classic/music/hal4",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/nuance2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano1",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano2",
+        "stream": true
+      },
+      {
+        "name": "classic/music/piano3",
+        "stream": true
+      }
+    ]
+  },
+  "entity.player.swim": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "random/splash",
+        "volume": 0.35
+      }
+    ]
+  },
+  "entity.generic.swim": {
+    "replace": true,
+    "sounds": [
+      {
+        "name": "random/splash",
+        "volume": 0.35
+      }
+    ]
+  }
+}
