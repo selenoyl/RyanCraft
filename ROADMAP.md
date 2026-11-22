@@ -280,7 +280,12 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - **Meteor swing**: it swings the staff at you from range and bats a baby meteor your way. A glowing rock flies
       in a straight line like a ghast fireball and blows up on impact like weak TNT, leaving a small crater (with
       a little meteor iron in it). You can hit it back, like a ghast fireball.
-    - It summons moon-rabbit kits.
+    - **Summons angry moon rabbits**: a handful of minions that pop out around it and rush you, red-eyed like an
+      angry wolf. They're small and go down in a couple of hits (about 4 hearts each).
+      - Most are a nuisance and nip for 1 to 1.5 hearts.
+      - About 1 in 4 is a **brute**, a little bigger and darker, that hits as hard as an enderman or a bit harder
+        (about 4 hearts on Normal). Kill the brutes first.
+      - They vanish when the boss dies.
     - At half health it goes into a frenzy: faster hops, and meteors come two or three at a time.
     - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
       mace: the rabbit's own mortar staff, shrunk to fit your hands.
