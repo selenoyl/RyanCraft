@@ -135,7 +135,7 @@ public class EnderTerminalBlockEntity extends BlockEntity implements MenuProvide
             first.launch(send, e.firstPipeFromTerminal(), e.fromTerminal(), true);
             if (stack.isEmpty()) break;
         }
-        level.playSound(null, worldPosition, SoundEvents.ENDERMAN_TELEPORT, SoundSource.BLOCKS, 0.15f, 1.8f);
+        level.playSound(null, worldPosition, SoundEvents.DISPENSER_DISPENSE, SoundSource.BLOCKS, 0.2f, 1.4f);   // a soft mechanical clunk as items head into the pipes
         return stack;
     }
 
