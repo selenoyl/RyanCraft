@@ -72,8 +72,26 @@ public final class RyanWood {
     public static WoodSet get(TreeSpecies s) { return SETS.get(s); }
     public static Iterable<WoodSet> sets() { return SETS.values(); }
 
+    /** Autumn colours: the species whose leaves turn, and the colour of their falling leaves. */
+    public static final Map<TreeSpecies, Integer> AUTUMN_COLOURS = Map.of(
+            TreeSpecies.SUGAR_MAPLE, 0xe07a1c, TreeSpecies.RED_MAPLE, 0xc8281e, TreeSpecies.TULIP_POPLAR, 0xe0b830,
+            TreeSpecies.AMERICAN_BEECH, 0xb8862e, TreeSpecies.WHITE_OAK, 0x9a4a2a, TreeSpecies.RED_OAK, 0x8e2a1e,
+            TreeSpecies.SASSAFRAS, 0xd8582a, TreeSpecies.FLOWERING_DOGWOOD, 0xa82a3a);
+    private static final Map<TreeSpecies, Block> AUTUMN_LEAVES = new EnumMap<>(TreeSpecies.class);
+    /** The species' autumn leaves, or its ordinary leaves if it doesn't turn. */
+    public static Block autumnLeaves(TreeSpecies s) { return AUTUMN_LEAVES.getOrDefault(s, get(s).leaves()); }
+
     public static void init() {
         for (TreeSpecies s : TreeSpecies.values()) SETS.put(s, make(s));
+        for (var e : AUTUMN_COLOURS.entrySet()) {             // autumn leaves drift down more often
+            int c = e.getValue();
+            Block b = block(e.getKey().id + "_autumn_leaves", p -> new UntintedParticleLeavesBlock(0.04f,
+                    ColorParticleOption.create(ParticleTypes.TINTED_LEAVES, 0xFF000000 | c), p),
+                    Blocks.leavesProperties(SoundType.GRASS).mapColor(MapColor.COLOR_ORANGE));
+            AUTUMN_LEAVES.put(e.getKey(), b);
+            FlammableBlockRegistry.getDefaultInstance().add(b, 30, 60);
+            CompostingChanceRegistry.INSTANCE.add(b, 0.3f);
+        }
 
         for (WoodSet w : SETS.values()) {
             StrippableBlockRegistry.register(w.log(), w.strippedLog());
@@ -94,6 +112,7 @@ public final class RyanWood {
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> {
             for (WoodSet w : SETS.values()) { e.accept(w.log()); e.accept(w.leaves()); e.accept(w.sapling()); }
+            for (Block b : AUTUMN_LEAVES.values()) e.accept(b);
         });
 
         addTrees();

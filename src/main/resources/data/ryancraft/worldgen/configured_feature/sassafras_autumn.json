@@ -1,0 +1,7 @@
+{
+  "type": "ryancraft:species_tree",
+  "config": {
+    "species": "sassafras",
+    "autumn": true
+  }
+}

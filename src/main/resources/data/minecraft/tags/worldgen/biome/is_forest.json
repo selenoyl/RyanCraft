@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:seasonal_forest"
+    "ryancraft:seasonal_forest",
+    "ryancraft:autumn_forest"
   ]
 }

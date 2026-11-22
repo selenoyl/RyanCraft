@@ -206,7 +206,7 @@ def bark_base(r, base):
             px[x, y] = jit(r, shade(b, k), 4) + (255,)
     return img
 
-def leaves(seed, leaf, bloom=None, bloom_only=False, conifer=False):
+def leaves(seed, leaf, bloom=None, bloom_only=False, conifer=False, mix=0.7):
     """Built on the base game's leaf template (Programmer Art oak, or spruce for conifers): its holes (~39% see-through, so
     canopies don't look solid) and shading, recoloured to the species. Each species flips/rotates the template differently.
     See-through pixels keep a dark leaf colour, which is what shows with Fast leaves."""
@@ -222,7 +222,7 @@ def leaves(seed, leaf, bloom=None, bloom_only=False, conifer=False):
         x, y = k % 16, k // 16
         if alpha[k] < 128: px[x, y] = shade(l, .42) + (0,); continue
         k_ = (lum[k] / mean) ** 1.2
-        if bloom and r.random() < 0.7: px[x, y] = shade(hexc(bloom), min(1.15, 0.85 + 0.25 * k_)) + (255,)
+        if bloom and r.random() < mix: px[x, y] = shade(hexc(bloom), min(1.15, 0.85 + 0.25 * k_)) + (255,)
         elif bloom_only: px[x, y] = shade(l, .5) + (0,)                 # pure blossom: the gaps are see-through
         else: px[x, y] = shade(l, k_) + (255,)
     return img

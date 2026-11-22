@@ -41,6 +41,11 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       Look at a photo and compare.
 - [ ] **Preview in game.** Place each tree with `/place feature` on flat ground, three of each, before committing. Keep test `fill`s under 32,768 blocks.
 
+## Biomes
+- [ ] **Feature order matches vanilla.** Within a biome's decoration step, features shared with vanilla biomes keep vanilla's relative order,
+      and nothing is listed twice. Otherwise chunk generation crashes with "feature order cycle" (autumn forest leaf litter).
+- [ ] **New biomes get spawns.** Add them to every spawn selector their neighbours use, and to the relevant biome tags (is_forest, is_overworld).
+
 ## Sounds
 - [ ] **Natural, not robotic.** Bird calls need pitch glides, amplitude envelopes, slight randomness per call, and some noise and harmonics; no pure steady sine beeps.
 - [ ] **The right sound for the action.** Swimming must not sound like walking (classic pack maps swim to a quiet splash).

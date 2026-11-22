@@ -265,5 +265,6 @@ from storage_assets import lang_entries as storage_lang; lang.update(storage_lan
 lang["entity.ryancraft.moobloom"] = "Moobloom"; lang["item.ryancraft.moobloom_spawn_egg"] = "Moobloom Spawn Egg"
 lang["entity.ryancraft.swan"] = "Mute Swan"; lang["entity.ryancraft.swan.black"] = "Black Swan"; lang["item.ryancraft.swan_spawn_egg"] = "Swan Spawn Egg"
 from flora import lang_entries as flora_lang; lang.update(flora_lang())
+from autumn import lang_entries as autumn_lang; lang.update(autumn_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

@@ -27,6 +27,7 @@ public class SpeciesTreeFeature extends Feature<SpeciesTreeConfig> {
         if (!level.getBlockState(origin.below()).is(BlockTags.DIRT)) return false;
         TreeSpecies species = TreeSpecies.byId(ctx.config().species());
         WoodSet wood = RyanWood.get(species);
+        net.minecraft.world.level.block.Block leafBlock = ctx.config().autumn() ? RyanWood.autumnLeaves(species) : wood.leaves();
         TreeShape shape = new TreeShape(ctx.random());
         species.build(shape);
 
@@ -70,7 +71,7 @@ public class SpeciesTreeFeature extends Feature<SpeciesTreeConfig> {
             if (d == null || d < 1 || d > 6) continue;
             BlockPos pos = origin.offset(e.getKey());
             if (!TreeFeature.validTreePos(level, pos)) continue;
-            this.setBlock(level, pos, wood.leaves().defaultBlockState().setValue(LeavesBlock.DISTANCE, d).setValue(LeavesBlock.PERSISTENT, false));
+            this.setBlock(level, pos, leafBlock.defaultBlockState().setValue(LeavesBlock.DISTANCE, d).setValue(LeavesBlock.PERSISTENT, false));
         }
 
         if (level.getBlockState(origin.below()).is(Blocks.GRASS_BLOCK)) this.setBlock(level, origin.below(), Blocks.DIRT.defaultBlockState());

@@ -23,6 +23,8 @@ public final class RyanBiomes {
     public static final ResourceKey<Biome> SEASONAL_FOREST = key("seasonal_forest");
     public static final ResourceKey<Biome> SHRUBLAND = key("shrubland");
     public static final ResourceKey<Biome> TUNDRA = key("tundra");
+    /** Maples, oaks, poplars and beeches in full autumn colour over golden grass and leaf litter. */
+    public static final ResourceKey<Biome> AUTUMN_FOREST = key("autumn_forest");
 
     private static ResourceKey<Biome> key(String name) {
         return ResourceKey.create(Registries.BIOME, RyanCraft.id(name));
@@ -39,8 +41,8 @@ public final class RyanBiomes {
                     net.fabricmc.fabric.api.biome.v1.ModificationPhase.POST_PROCESSING, BiomeSelectors.foundInOverworld(),
                     ctx -> ctx.getEffects().setWaterColor(CLASSIC_WATER));
         }
-        var all = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND, TUNDRA);
-        var temperate = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, SHRUBLAND);
+        var all = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND, TUNDRA);
+        var temperate = BiomeSelectors.includeByKey(RAINFOREST, SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND);
 
         // Standard overworld night-time monsters and cave life
         spawn(all, MobCategory.AMBIENT, EntityType.BAT, 10, 8, 8);
@@ -72,10 +74,10 @@ public final class RyanBiomes {
         spawn(tundra, MobCategory.MONSTER, EntityType.STRAY, 80, 4, 4);
 
         // New animals: in the new biomes and in fitting vanilla ones
-        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, RAINFOREST,
+        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, AUTUMN_FOREST, RAINFOREST,
                         Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA),
                 MobCategory.CREATURE, RyanEntities.BOAR, 8, 2, 4);
-        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, SHRUBLAND, TUNDRA,
+        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND, TUNDRA,
                         Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.SNOWY_TAIGA, Biomes.MEADOW),
                 MobCategory.CREATURE, RyanEntities.DEER, 8, 2, 4);
         spawn(BiomeSelectors.includeByKey(RAINFOREST, SHRUBLAND,
@@ -83,7 +85,7 @@ public final class RyanBiomes {
                 MobCategory.CREATURE, RyanEntities.DUCK, 10, 2, 4);
 
         // Wild turkeys: hardwood forests, forest edges and meadows, like back home in Kentucky
-        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, SHRUBLAND,
+        spawn(BiomeSelectors.includeByKey(SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND,
                         Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST,
                         Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.WINDSWEPT_FOREST),
                 MobCategory.CREATURE, RyanEntities.TURKEY, 9, 4, 7);
@@ -91,12 +93,12 @@ public final class RyanBiomes {
 
     /** Native Kentucky wildlife. */
     public static void kentucky() {
-        var hardwoods = new net.minecraft.resources.ResourceKey[]{SEASONAL_FOREST, Biomes.FOREST, Biomes.BIRCH_FOREST,
+        var hardwoods = new net.minecraft.resources.ResourceKey[]{SEASONAL_FOREST, AUTUMN_FOREST, Biomes.FOREST, Biomes.BIRCH_FOREST,
                 Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.WINDSWEPT_FOREST};
         spawn(sel(hardwoods, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA),
                 MobCategory.CREATURE, RyanEntities.BLACK_BEAR, 3, 1, 1);
         spawn(sel(hardwoods, Biomes.SWAMP, RAINFOREST), MobCategory.CREATURE, RyanEntities.RACCOON, 6, 1, 3);
-        spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.MEADOW, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.FOREST, SHRUBLAND, SEASONAL_FOREST}),
+        spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.MEADOW, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.FOREST, SHRUBLAND, SEASONAL_FOREST, AUTUMN_FOREST}),
                 MobCategory.CREATURE, RyanEntities.SKUNK, 4, 1, 2);
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.MINK, 6, 1, 2);
         spawn(sel(hardwoods, Biomes.SWAMP, Biomes.PLAINS, RAINFOREST), MobCategory.CREATURE, RyanEntities.OPOSSUM, 5, 1, 3);
@@ -106,7 +108,7 @@ public final class RyanBiomes {
                 MobCategory.CREATURE, RyanEntities.SONGBIRD, 10, 2, 3);
         // Coyotes: open country and woodland edges, in loose packs
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SAVANNA,
-                        Biomes.BADLANDS, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST}),
+                        Biomes.BADLANDS, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST, AUTUMN_FOREST}),
                 MobCategory.CREATURE, RyanEntities.COYOTE, 5, 3, 5);
         spawn(sel(hardwoods, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.CHIPMUNK, 8, 2, 3);
         var creeks = BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP);
@@ -132,7 +134,7 @@ public final class RyanBiomes {
                 Biomes.WINDSWEPT_FOREST, Biomes.MEADOW, Biomes.GROVE, Biomes.TAIGA), MobCategory.CREATURE, RyanEntities.GRIZZLY_BEAR, 2, 1, 1);
         // Bobcats: almost anywhere with cover, but always scarce
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.TAIGA,
-                Biomes.SWAMP, Biomes.SAVANNA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.WINDSWEPT_FOREST, SEASONAL_FOREST, SHRUBLAND}),
+                Biomes.SWAMP, Biomes.SAVANNA, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.WINDSWEPT_FOREST, SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND}),
                 MobCategory.CREATURE, RyanEntities.BOBCAT, 2, 1, 1);
         // Black-tailed deer: the big conifer forests
         spawn(BiomeSelectors.includeByKey(Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.TAIGA, Biomes.WINDSWEPT_FOREST),
@@ -145,21 +147,21 @@ public final class RyanBiomes {
         // River otters: rivers and swamps
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP), MobCategory.CREATURE, RyanEntities.RIVER_OTTER, 4, 2, 3);
         // Groundhogs: fields and woodland edges
-        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.FLOWER_FOREST, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.FLOWER_FOREST, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.GROUNDHOG, 5, 1, 2);
         // Porcupines: forests north and south
-        spawn(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_SPRUCE_TAIGA, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_SPRUCE_TAIGA, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.PORCUPINE, 3, 1, 1);
         // Big birds
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.FOREST),
                 MobCategory.CREATURE, RyanEntities.BALD_EAGLE, 2, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.MEADOW, Biomes.GROVE, Biomes.BADLANDS,
                 Biomes.WOODED_BADLANDS), MobCategory.CREATURE, RyanEntities.GOLDEN_EAGLE, 2, 1, 1);
-        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.RED_TAILED_HAWK, 3, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, SHRUBLAND),
                 MobCategory.CREATURE, RyanEntities.TURKEY_VULTURE, 3, 2, 4);
-        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.GREAT_HORNED_OWL, 2, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.GREAT_BLUE_HERON, 3, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.RIVER, Biomes.SWAMP, Biomes.MEADOW),
@@ -173,14 +175,14 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.OCEAN), MobCategory.WATER_CREATURE, RyanEntities.JELLYFISH, 4, 2, 5);
         // Small things
         spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST, Biomes.CHERRY_GROVE,
-                SEASONAL_FOREST, SHRUBLAND, RAINFOREST), MobCategory.CREATURE, RyanEntities.BUTTERFLY, 8, 2, 4);
-        spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, SEASONAL_FOREST),
+                SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND, RAINFOREST), MobCategory.CREATURE, RyanEntities.BUTTERFLY, 8, 2, 4);
+        spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.HUMMINGBIRD, 4, 1, 2);
-        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.TAIGA, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.TAIGA, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.PILEATED_WOODPECKER, 3, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SAVANNA, SHRUBLAND),
                 MobCategory.CREATURE, RyanEntities.BOBWHITE, 5, 3, 6);
-        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.FLOWER_FOREST, Biomes.SWAMP, SEASONAL_FOREST),
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.FLOWER_FOREST, Biomes.SWAMP, SEASONAL_FOREST, AUTUMN_FOREST),
                 MobCategory.CREATURE, RyanEntities.BOX_TURTLE, 3, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_HILLS, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.SAVANNA_PLATEAU, Biomes.FOREST, SHRUBLAND),
                 MobCategory.CREATURE, RyanEntities.RATTLESNAKE, 2, 1, 1);
@@ -191,7 +193,7 @@ public final class RyanBiomes {
                 MobCategory.CREATURE, RyanEntities.REINDEER, 8, 4, 8);
         // Frogs and toads beyond the swamp (their species skin comes from the biome: data/ryancraft/frog_variant)
         spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST,
-                Biomes.TAIGA, Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, SEASONAL_FOREST, RAINFOREST), MobCategory.CREATURE, EntityType.FROG, 4, 1, 3);
+                Biomes.TAIGA, Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, SEASONAL_FOREST, AUTUMN_FOREST, RAINFOREST), MobCategory.CREATURE, EntityType.FROG, 4, 1, 3);
         // Swans: pairs on rivers and the ponds of open country
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, Biomes.SWAMP, Biomes.FLOWER_FOREST), MobCategory.CREATURE, RyanEntities.SWAN, 3, 2, 2);
         // Mooblooms: a rare few among the flowers
@@ -200,7 +202,7 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups
         spawn(sel(new net.minecraft.resources.ResourceKey[]{Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST,
-                Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.SAVANNA, Biomes.SWAMP, SEASONAL_FOREST, SHRUBLAND}),
+                Biomes.BIRCH_FOREST, Biomes.TAIGA, Biomes.SAVANNA, Biomes.SWAMP, SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND}),
                 MobCategory.CREATURE, RyanEntities.CROW, 4, 2, 4);
     }
 
