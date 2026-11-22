@@ -112,7 +112,7 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 
 **More trees (ideas)**
 - **Redwood**: a 2x2-trunk giant like the jungle tree, but taller.
-- **Olive**, **sakura** (cherry blossom, our own take) and **cypress**.
+- **Olive** and **cypress**. (Sakura is covered by vanilla's cherry tree.)
 
 **Berry bushes** out in the world (blackberry, raspberry, blueberry, elderberry, pawpaw...).
 

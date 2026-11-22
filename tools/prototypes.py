@@ -114,11 +114,18 @@ for p in shark:
     if p["name"] == "body":
         p["boxes"] += [box("dorsal1", (-0.5, -5.5, -3), (1, 2, 7), "fin"), box("dorsal2", (-0.5, -7.5, -1), (1, 2, 5), "fin"),
                        box("dorsal3", (-0.5, -9.5, 1), (1, 2, 3), "fin"), box("dorsal4", (-0.5, -10.5, 3), (1, 1, 1), "fin"),
-                       box("jaw", (-2, 1.5, -14.5), (4, 1, 3.5), "mouth"), box("teeth", (-1.75, 0.5, -14.6), (3.5, 1, 0.5), "teeth"),
-                       box("nose", (-2, -2.5, -15), (4, 3, 4), "body"),
+                       box("nose", (-2.5, -2.5, -15), (5, 3, 4), "snout"),
+                       box("nose_tip", (-1.5, -2.5, -17), (3, 2, 2), "snout_tip"),
+                       # the mouth is underslung, behind the snout tip: a wide dark gape lined with teeth, then the lower jaw
+                       box("gape", (-2.5, 0.5, -14), (5, 1, 4), "mouth"),
+                       box("jaw", (-2.5, 1.5, -14), (5, 1, 4), "jaw"),
                        box("pec_r", (-9, 2, -6), (6, 1, 5), "fin"), box("pec_l", (3, 2, -6), (6, 1, 5), "fin", mirror=True)]
-P.append(("Shark", "", shark, {"body": {"c": "#6a7480", "noise": 6, "belly": "#eceeee", "side_eyes": "#0a0a0c", "eye_row": 1},
-                                "fin": {"c": "#5e6874", "noise": 5}, "mouth": {"c": "#3a1e22"}, "teeth": {"c": "#f4f2ea"}}, 0.8))
+P.append(("Shark", "", shark, {"body": {"c": "#6a7480", "noise": 6, "belly": "#eceeee"},
+                                "snout": {"c": "#6a7480", "noise": 6, "bottom": "#eceeee", "side_eyes": "#0a0a0c", "eye_row": 0},
+                                "snout_tip": {"c": "#6a7480", "noise": 6, "bottom": "#d8dcdc"},
+                                "fin": {"c": "#5e6874", "noise": 5}, "mouth": {"c": "#2e1418", "noise": 2, "bars": {"c": "#f4f2ea", "n": 2},
+                                          "front_map": ["wdwdw"], "front_colors": {"w": "#f4f2ea", "d": "#2e1418"}},
+                                "jaw": {"c": "#e6e8e8", "noise": 4, "top": "#2e1418", "front_map": ["wcwcw"], "front_colors": {"w": "#f4f2ea", "c": "#d8dada"}}}, 0.8))
 manta = [part("body", (0, 21, 0), [box("disc", (-6, -1, -6), (12, 2, 12), "body"),
                                     box("wing_r", (-14, -0.5, -4), (8, 1, 8), "wing"), box("wing_l", (6, -0.5, -4), (8, 1, 8), "wing", mirror=True),
                                     box("horn_r", (-4, -0.5, -9), (2, 1, 3), "body"), box("horn_l", (2, -0.5, -9), (2, 1, 3), "body", mirror=True)], "fish_body"),
