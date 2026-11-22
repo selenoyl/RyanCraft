@@ -30,6 +30,24 @@
           }
         }
       ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:ender_eye"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:block_state_property",
+          "block": "minecraft:end_portal_frame",
+          "properties": {
+            "eye": "true"
+          }
+        }
+      ]
     }
   ]
 }

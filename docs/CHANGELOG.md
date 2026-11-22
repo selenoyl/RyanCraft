@@ -2,6 +2,22 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.7.0
+- **The price of an Ender Terminal**: end portal frames come from a stronghold, and taking one costs that stronghold.
+  - Mine a frame with a Silk Touch diamond (or netherite) pickaxe and it drops itself. If it had an Eye of Ender
+    in it, the eye drops too, separately.
+  - Breaking any frame clears the portal it was part of.
+  - That stronghold is spent: Eyes of Ender skip it and lead to the next nearest one.
+  - `/stronghold` shows operators where the eyes lead.
+  - (Frames never dropped before: vanilla gives them no loot table, so their drops are now handled in code.)
+- **Dust storms are their own weather**: no longer tied to thunderstorms. They have their own clock, usually 5-10
+  days clear and then 5-12 minutes of storm, and they only happen over deserts and badlands.
+  `/duststorm [start|stop]` for operators.
+- **Drab winter leaves**: our trees can't drop their leaves, so in late autumn and winter they take on a dull
+  grey-brown tint. The cedar stays evergreen.
+- No bundle holds more than 4 creatures: butterflies now fill a bundle at 4, like the other critters.
+- The zebra is in the land field guide, and the Ender Terminal (block and screen) is on the front page.
+
 ## 1.6.0
 - **Dust storms**: thunderstorms over deserts and badlands become dust storms, with:
   - sandy fog (rust-red over the badlands) that closes in to about 40 blocks

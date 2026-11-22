@@ -32,6 +32,7 @@ public class RyanCraft implements ModInitializer {
         com.ryancraft.thirst.Thirst.init();
         com.ryancraft.metal.Steel.init();
         com.ryancraft.weather.DustStorms.init();
+        com.ryancraft.pipes.Strongholds.init();
         LOGGER.info("RyanCraft loaded. Boars are in the woods.");
     }
 }

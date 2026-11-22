@@ -290,7 +290,10 @@ def data():
     w("data/minecraft/loot_table/blocks/end_portal_frame.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [
         {"type": "minecraft:item", "name": "minecraft:end_portal_frame"}], "conditions": [{"condition": "minecraft:match_tool", "predicate": {
         "items": ["minecraft:diamond_pickaxe", "minecraft:netherite_pickaxe"],
-        "predicates": {"minecraft:enchantments": [{"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]}]})
+        "predicates": {"minecraft:enchantments": [{"enchantments": "minecraft:silk_touch", "levels": {"min": 1}}]}}}]},
+        # a frame with an eye in it gives the eye back too, whatever broke it
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:ender_eye"}], "conditions": [{"condition": "minecraft:block_state_property",
+            "block": "minecraft:end_portal_frame", "properties": {"eye": "true"}}]}]})
     for tag, vals in (("needs_diamond_tool", ["minecraft:end_portal_frame"]),):
         p = os.path.join(D, "minecraft", "tags", "block", tag + ".json")
         t = json.load(open(p)) if os.path.exists(p) else {"replace": False, "values": []}

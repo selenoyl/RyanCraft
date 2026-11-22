@@ -18,7 +18,8 @@
     "CropSeasonMixin",
     "ItemStackThirstMixin",
     "FoodDataThirstMixin",
-    "FurnaceSteelMixin"
+    "FurnaceSteelMixin",
+    "EnderEyeMixin"
   ],
   "injectors": {
     "defaultRequire": 0

@@ -74,7 +74,7 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 ![The same grove in summer and late autumn](docs/trees_grove.jpg)
 
 **The year runs Serene Seasons-style**: early, mid and late spring, summer, autumn and winter, 8 days each.
-- Leaves turn gold, red and orange through autumn.
+- Leaves turn gold, red and orange through autumn, then go dull and drab in winter.
 - Winter brings snow and frozen ponds to temperate biomes.
 - In spring the snow melts and the trees leaf out again, redbud and dogwood back to blossom.
 - Crops stall in winter unless they're in a greenhouse.
@@ -82,7 +82,7 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 
 ![The same grove through the year: summer, autumn, winter, spring](docs/seasons.jpg)
 
-**Dust storms**: a thunderstorm over the desert or badlands brings a dust storm instead. Thick sandy fog (rust-red in the badlands), blowing dust, a howling wind, and thirst runs out faster.
+**Dust storms**: a rare weather of their own over deserts and badlands. Thick sandy fog (rust-red in the badlands), blowing dust, a howling wind, and thirst runs out faster.
 
 ![A dust storm in the badlands](docs/dust_storm.jpg)
 
@@ -110,7 +110,7 @@ Tekkit-style transport that feels vanilla. You can watch items ride through the 
   - an iron-hooped vat that collects rain
   - an Archimedes screw pump that lowers its intake into the pool
   - a hand pump that draws groundwater into a tank beside it
-- **Ender Terminal:** an end portal frame wired with redstone. It sees every chest with an Ender Pipe on it. Click an item and the Ender Pipe pulls it out, then it rides the pipes back to you.
+- **Ender Terminal:** an end portal frame wired with redstone. It sees every chest with an Ender Pipe on it. Click an item and the Ender Pipe pulls it out, then it rides the pipes back to you. Building one costs you a stronghold: mining an end portal frame (Silk Touch diamond pickaxe) breaks that portal, and Eyes of Ender move on to the next stronghold.
 
 ![Pipes, engines and the Ender Terminal](docs/pipes_engines.jpg)
 
