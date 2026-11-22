@@ -79,5 +79,53 @@ public final class TreeShape {
         if (ry > 3.2) line(new double[]{cx, cy - ry * 0.5, cz}, new double[]{cx, cy + ry * 0.5, cz}, Part.LOG);
     }
 
+
+    // ---- crowns built like vanilla's fancy oak: limbs reaching out from the trunk, each ending in a flat-bottomed cluster
+
+    /** A leaf cluster: stacked discs (radii 2,3,3,2 scaled), the limb ending in the second disc, with a ragged rim. */
+    void cluster(double cx, double cy, double cz, double size, int[] layers, double density) {
+        int bx = (int) Math.round(cx), by = (int) Math.round(cy), bz = (int) Math.round(cz);
+        for (int i = 0; i < layers.length; i++) {
+            double rr = layers[i] * size;
+            for (int dx = -4; dx <= 4; dx++)
+                for (int dz = -4; dz <= 4; dz++) {
+                    double d = Math.sqrt(dx * dx + dz * dz);
+                    if (d > rr + 0.4 || (d > rr - 0.6 && r.nextDouble() > density)) continue;
+                    put(bx + dx, by + i - 1, bz + dz, Part.LEAF, Direction.Axis.Y, false);
+                }
+        }
+        put(bx, by, bz, Part.LOG, Direction.Axis.Y, false);
+    }
+
+    static final int[] CLUSTER = {2, 3, 3, 2}, SMALL_CLUSTER = {2, 3, 2};
+
+    interface Envelope { double at(double f); }
+    static final Envelope ROUND = f -> Math.sqrt(Math.max(0, 1 - sq(2 * f - 1)));
+    static Envelope egg(double p) {
+        return f -> f < p ? Math.sqrt(Math.max(0, 1 - sq((p - f) / p))) : Math.sqrt(Math.max(0, 1 - sq((f - p) / (1 - p))));
+    }
+    static final Envelope VASE = f -> f < 0.8 ? Math.min(1.0, 0.35 + 0.9 * f) : Math.max(0.3, 1 - (f - 0.8) * 3.5);
+
+    /**
+     * A whole crown: trunk of trunkH (w wide), then {@code tips} limbs ending in clusters, spread up the crown from
+     * h*baseF to h-2 and out to envelope(f)*width. Limbs rise {@code slope} blocks per block of reach.
+     */
+    void crown(int h, int trunkH, double baseF, Envelope env, double width, int tips, double slope, double size, int w,
+               Part limb, double density, int[] layers, boolean top) {
+        trunk(trunkH, w, 0);
+        double y0 = h * baseF, y1 = h - 2, ga = r.nextDouble() * Math.PI * 2;
+        for (int k = 0; k < tips; k++) {
+            double f = (k + r.nextDouble()) / tips;
+            double y = y0 + f * (y1 - y0);
+            double dist = env.at(f) * width * (0.5 + 0.5 * r.nextDouble());
+            ga += 2.39996 + j(0.3);                                  // golden angle, so limbs don't line up
+            double[] tip = {Math.cos(ga) * dist, y, Math.sin(ga) * dist};
+            double start = Math.min(trunkH - 1, Math.max(2, y - dist * slope));
+            line(new double[]{0, start, 0}, tip, start > trunkH * 0.6 ? limb : Part.LOG);
+            cluster(tip[0], tip[1], tip[2], size * (0.85 + 0.3 * r.nextDouble()), layers, density);
+        }
+        if (top) cluster(0, trunkH, 0, size, layers, density);
+    }
+
     private static double sq(double v) { return v * v; }
 }

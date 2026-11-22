@@ -44,6 +44,8 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **No logs poking out of leaves.** Limbs end inside the canopy. Internal support logs only go in blobs tall enough to hide them.
 - [ ] **Silhouette matches the species.** Tall trees aren't bare poles with a cotton-swab crown (tulip poplar), and small flowering trees aren't stacked flat discs (dogwood).
       Look at a photo and compare.
+- [ ] **Crowns are limbs plus clusters, not balls.** Build crowns like vanilla's fancy oak: limbs reaching out from the trunk, each ending in a
+      flat-bottomed leaf cluster, inside a species outline. A smooth ellipsoid on a bare pole reads as a lollipop.
 - [ ] **Preview in game.** Place each tree with `/place feature` on flat ground, three of each, before committing. Keep test `fill`s under 32,768 blocks.
 
 ## Biomes
