@@ -272,10 +272,16 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
     A giant crowned rabbit in the heart of the jade temple, wielding a
     giant mortar staff (a stone mortar on a long haft) as its weapon, a nod to the old moon-rabbit legends. It leaps around the arena:
-    - Ground slams that throw you up in the low gravity.
+    - **Hops around the arena**: big, floaty rabbit leaps between attacks, so it's always on the move and you can't
+      just stand and trade hits.
+    - **Staff swing**: a wide melee sweep with the mortar staff when you're close, with heavy knockback.
+    - **Ground slam**: it brings the staff down on the floor, and a ring of dust and rock particles bursts out
+      across the ground. Anyone caught in the ring takes damage and gets thrown up in the low gravity.
+    - **Meteor swing**: it swings the staff at you from range and bats a baby meteor your way. A glowing rock flies
+      in a straight line like a ghast fireball and blows up on impact like weak TNT, leaving a small crater (with
+      a little meteor iron in it). You can hit it back, like a ghast fireball.
     - It summons moon-rabbit kits.
-    - It flings meteors at you: glowing rocks that crash down and leave small craters (with a little meteor iron in them).
-    - At half health it goes into a frenzy.
+    - At half health it goes into a frenzy: faster hops, and meteors come two or three at a time.
     - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
       mace: the rabbit's own mortar staff, shrunk to fit your hands.
       - **Pound:** a ground slam that throws nearby mobs up into a few seconds of moon gravity, floating and helpless.
