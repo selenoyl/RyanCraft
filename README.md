@@ -144,7 +144,9 @@ Fifteen eastern US trees grow in the world: white and red oak, sugar and red map
 black walnut, American beech, sycamore, eastern redbud, flowering dogwood, eastern red cedar, black cherry, sassafras
 and Ohio buckeye. The hardwoods mix into forests, redbud and dogwood fill the understory, sycamores line rivers and
 swamps, and red cedars dot plains, hills and savannas. No two trees are the same: each one varies in height, limbs,
-crown and lean, and some fork into twin trunks. Every species has a full wood set (logs, stripped logs, planks,
+crown and lean, and some fork into twin trunks. Crowns grow like vanilla's fancy oak: limbs reach out from the
+trunk and end in flat-bottomed leaf clusters, inside an outline that fits the species (wide white oak, egg-shaped
+sugar maple, tall tulip poplar, vase-shaped redbud). Every species has a full wood set (logs, stripped logs, planks,
 slabs, stairs, fences, gates, doors, trapdoors, buttons, pressure plates, leaves and saplings), and its door and
 trapdoor have their own design. Saplings are hand-drawn in each tree's own leaf shape, and they go in flower pots.
 
@@ -153,6 +155,18 @@ trapdoor have their own design. Saplings are hand-drawn in each tree's own leaf 
 for a **shelled walnut**.
 
 ![Tree variation](docs/trees_variation_small.png)
+
+## Seasons
+A Serene Seasons-style year, run from world time: early, mid and late spring, summer, autumn and winter, 8 days each
+(96 days a year), starting in early spring.
+- **Winter**: temperate biomes get snow, and ponds freeze over. In spring the snow melts a layer at a time.
+- **Colours**: grass and foliage shift through the year. All 14 broadleaf species turn to autumn colours and go back
+  to green in spring (redbud and dogwood back to blossom).
+- **Farming**: crops stall in winter unless they're under a roof, so build a greenhouse.
+- **Season Calendar** (3 paper + a clock): shows the season and the day.
+- `/season` tells you where in the year you are; `/season set <season> [early|mid|late]` jumps to it (operators).
+
+The Autumn Forest biome no longer generates; every temperate forest now turns in autumn instead.
 
 ## Biomes
 Rainforest, Seasonal Forest, Shrubland and Tundra (the Beta 1.7 set), placed by **[TerraBlender](https://modrinth.com/mod/terrablender)**. Without TerraBlender everything else still works.
@@ -164,7 +178,8 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 - No "Java Edition" badge, and Alpha/Beta-style splash text.
 
 ## Roadmap
-See [ROADMAP.md](ROADMAP.md) for what's queued: seasons, elk, moose, grizzlies, eagles, whales, sharks, new ores and more.
+See [ROADMAP.md](ROADMAP.md) for what's queued: a thirst bar, a deep cave layer below deepslate, elephants, cooking,
+cannons, new ores and more. What changed in each release is in [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Pipes, engines and the Ender Terminal
 Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes.
@@ -176,12 +191,22 @@ Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes
 | Fluid Pipe | stone pipe + green dye | Carries water and lava |
 | Redstone Engine | planks, glass, redstone, piston | Runs while powered; warms up slowly; 1 item per pulse. Stack engines in a line (each facing the next) to add their pulses together |
 | Stirling Engine | cobblestone, glass, pistons, furnace | Burns coal or any furnace fuel, no redstone needed; glows while lit; warms up to fast pulses of 8 items; hoppers can feed it |
-| Pump | iron, redstone, bucket, tank | Over a pool, each engine pulse draws a bucket and pushes it into fluid pipes; leaves infinite water sources intact, drains lava |
-| Tank | glass ring | Holds 16 buckets, shows its level; fill/empty with buckets or pipes |
+| Glass Tank | iron and glass | Holds 16 buckets and shows its level. Stacked tanks join seamlessly and fluid falls into the tank below; fill/empty with buckets or pipes |
+| Iron-Hooped Vat | planks and an iron ingot | An open wooden tub for 8 buckets: collects rain, fills bottles and buckets, takes fluid from pipes and pumps |
+| Screw Pump | iron, redstone, bucket, tank | An Archimedes screw run by an engine: it spins, lowers an intake tube to the pool and pushes a bucket per pulse into fluid pipes. Infinite water sources stay infinite; lava drains |
+| Hand Pump | iron ingots and a bucket | Draws groundwater from up to 16 blocks down, through the ground, and pours it from the spout into an adjacent tank or pipe. Work it by hand or with an engine; hold a bucket to fill it |
 | Ender Terminal | comparator, redstone, an end portal frame, ender pipe | A sideways end portal frame wired with redstone. Hook it to a pipe network and it sees every chest that has an Ender Pipe on it; click an item and the Ender Pipe pulls it out and sends it down the pipes to you; shift-click your items to send them into storage |
 | Wrench | iron ingots | Turns iron pipes and engines |
 
 End portal frames can be mined with a diamond pickaxe (as hard as obsidian) and drop themselves with Silk Touch.
+
+## New in 1.3.0
+- Seasons: a 12-part year with snowy winters, frozen ponds, spring thaw, autumn leaves on every broadleaf tree, and crops that need a greenhouse in winter
+- Trees rebuilt with fancy-oak style crowns of limbs and leaf clusters
+- Stacking glass tanks, the iron-hooped vat, the Archimedes screw pump and the hand pump
+- Fish spawn at vanilla-like levels; every craftable item has a recipe
+
+See [docs/CHANGELOG.md](docs/CHANGELOG.md) for earlier releases.
 
 ## New in 1.1.0
 - Reindeer; elk and black-tailed deer grow staged antler racks (with rare non-typical racks)

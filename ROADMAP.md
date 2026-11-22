@@ -1,50 +1,54 @@
 # RyanCraft roadmap
 
-Ideas queued for later, roughly grouped. Nothing here is built yet.
+Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
-- **Seasons**: the next big one. Antler shedding in late winter would tie in here.
+- ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
+- **Thirst bar**: drink from water sources or bottles; some foods give water too.
+- **Deep layer below deepslate** (Alex's Caves style): regular, toxic, frozen, underground-overworld and deep-dark caverns.
+- **Fishing loop**: catch-and-measure fish and trophies (being fixed now).
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
-- **Old-school spawn eggs**: redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
+- ~~**Old-school spawn eggs**~~ (built): redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
 - **Chipmunk eyes**: they're tiny, so the eyes may need to move to the sides of the head; check in game.
 
 ## Wildlife
 **Deer family**
 - ~~**Elk** and **moose**~~ (built)
-- **Black-tailed deer** (western coastal forests).
+- ~~**Black-tailed deer** (western coastal forests).~~ (built)
 - ~~**Pronghorn**~~ (built)
 
 **Predators and big game**
 - ~~**Grizzly bear**~~ (built)
+- **Elephants**, including big **war elephants** you can saddle and armour.
 - ~~**Bobcat**~~ (built)
-- **Alligator** (swamps)
+- ~~**Alligator** (swamps)~~ (built)
 
 **Birds**
-- **Bald eagle** and **golden eagle**
-- **Hawks** (the ambience already has hawk calls to hook into)
-- **Vultures** circling high over open country
+- ~~**Bald eagle** and **golden eagle**~~ (built)
+- ~~**Hawks** (the ambience already has hawk calls to hook into)~~ (built)
+- ~~**Vultures** circling high over open country~~ (built)
 
 **Ocean**
-- **Whales**, each with its own behaviour: **orcas** (hunt in pods), **blue whales** (huge, slow, surface to breathe and spout).
-- **Sharks**
-- **Manta rays**
+- ~~**Whales**~~ (built), each with its own behaviour: **orcas** (hunt in pods), **blue whales** (huge, slow, surface to breathe and spout).
+- ~~**Sharks**~~ (built)
+- ~~**Manta rays**~~ (built)
 - **Schools of ocean fish** that move together.
 
-**Batch 2 prototypes** (docs/prototypes_2.png): zebra (a horse variant), American bison, cougar, river otter, groundhog,
+~~**Batch 2 prototypes**~~ (all built; docs/prototypes_2.png): zebra (a horse variant), American bison, cougar, river otter, groundhog,
 porcupine, eastern box turtle, timber rattlesnake, bullfrog, great horned owl, great blue heron, Canada goose,
 ruby-throated hummingbird, pileated woodpecker, northern bobwhite, jellyfish.
 
 **Small life**
-- **Butterflies**: many species like the tropical fish (wing patterns x colours); 20 eastern species prototyped in docs/butterflies.png
-- **Fireflies**: drifting over plains and through the woods on summer nights (the game only has the firefly bush).
-- **Chipmunks**
+- ~~**Butterflies**~~ (built): many species like the tropical fish (wing patterns x colours); 20 eastern species prototyped in docs/butterflies.png
+- ~~**Fireflies**~~ (built): drifting over plains and through the woods on summer nights (the game only has the firefly bush).
+- ~~**Chipmunks**~~ (built)
 
 **Canines**
-- **Coyotes**: a smaller, untameable wolf. Like the black bear, mostly leaves you alone unless you get close;
+- ~~**Coyotes**~~ (built): a smaller, untameable wolf. Like the black bear, mostly leaves you alone unless you get close;
   travels in loose packs the way vanilla wolves do.
 
 **Songbirds**
-- **Mourning doves**, with their iconic soft cooing call (in the songbird family and the ambience).
+- ~~**Mourning doves**~~ (built), with their iconic soft cooing call (in the songbird family and the ambience).
 
 ## Hunting
 - **Hunting gear**: game calls (turkey and deer calls that draw animals in), a tree stand, and the like.
@@ -109,9 +113,11 @@ through visible stages. The sparring side is covered by mudlings.
 ## Trees
 **Built:** all 15 species, generating in the world and growing from saplings, each with log, wood, stripped log and
 wood, planks, slab, stairs, fence, gate, door, trapdoor, button, pressure plate, leaves and sapling. Every tree rolls
-its own height, limbs, crown size and occasional forks, so no two match. Still to do:
+its own height, limbs, crown size and occasional forks, so no two match, and crowns are built from limbs and leaf
+clusters like vanilla's fancy oak. Still to do:
 - **Signs, hanging signs and boats** for each species (these need their own wood type, entity and textures).
-- **Fall colours** (sugar maple orange-red, red maple scarlet, and so on) once seasons arrive.
+- ~~**Fall colours**~~ (built with seasons; all 14 broadleaf species).
+- **Bare winter branches** (optional): leaves drop in winter and come back in spring.
 - A rougher pass on the plate-style bark (sugar maple, redbud, buckeye).
 
 **More trees (ideas)**
@@ -126,6 +132,7 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 - **Bowls**: a little smaller, and up to 4 per block (Vintage Story style).
 - **Buckets**: can be placed diagonally (rotated 45 degrees).
 - **Wooden bucket**: crafted from 3 planks and 1 iron ingot; holds water/milk and looks good set down in a house.
+- **Special chests**: diamond, obsidian and lead glass.
 
 ## Blocks and backports
 - **Concrete slabs and stairs**, backported from newer versions.
@@ -136,12 +143,27 @@ its own height, limbs, crown size and occasional forks, so no two match. Still t
 - **Trade rework around emeralds, rubies and sapphires**: give the new gems a real use as currency tiers, each
   with a storage block.
 
+## Food
+- **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals.
+
+## Weather
+- **Dust storms**: rare, in deserts and badlands.
+
+## Combat
+- **Old combat**: no attack cooldown, as in 1.8 and before.
+- **Cannons**.
+
 ## Mobs: vanilla variants
 - **Creeper variants**: biome-specific creepers, with the original still by far the most common.
 
 ## Power and automation (vanilla-friendly)
 - Light-touch power generation and automation, not a full industrial tech tree. Redstone already covers a lot, so
   this would fill the gaps (simple generators, machines that fit the vanilla look).
+- ~~**Pipes, engines and the Ender Terminal**~~ (built in 1.2.0). ~~**Tanks and pumps**~~ (glass tank, vat, screw
+  pump and hand pump; built in 1.3.0).
+- **Ender Terminal GUI redesign**.
+- **Force field generator**, fuelled by nether stars.
+- **Cage upgrades**.
 
 ## Vehicles (primitive, Flan's-style)
 - **A little biplane**: basically a boat with wings, fuelled with coal, with that primitive early-mod look.
@@ -162,6 +184,7 @@ creatures and way in (no glowstone portal, holystone, skyroot, moas or aerwhales
 ## Ores and the world underground (very Tekkit)
 - **Salt**, found in **salt caves**
 - **Aluminum, tin, zinc, lead, silver, uranium**
+- **Silver and lead ages**: tool and gear tiers built on the new metals.
 - **Ruby and sapphire**
 
 ## NPCs beyond villagers
