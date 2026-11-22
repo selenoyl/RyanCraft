@@ -68,7 +68,7 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.COYOTE, c -> new CritterRenderer<>(c, "coyote", 0.5f, 1.0f, false, "coyote"));
         EntityRendererRegistry.register(RyanEntities.ELK, c -> new CritterRenderer<>(c, "elk", 1.0f, 1.0f, false, "elk", "elk_bull").plainBabies());
         EntityRendererRegistry.register(RyanEntities.MOOSE, c -> new CritterRenderer<>(c, "moose", 1.1f, 1.0f, false, "moose", "moose_bull").plainBabies());
-        EntityRendererRegistry.register(RyanEntities.PRONGHORN, c -> new CritterRenderer<>(c, "pronghorn", 0.6f, 1.0f, false, "pronghorn", "pronghorn_buck").plainBabies());
+        EntityRendererRegistry.register(RyanEntities.PRONGHORN, c -> new CritterRenderer<>(c, "pronghorn", 0.6f, 1.0f, false, "pronghorn_fawn", "pronghorn").plainBabies());
         EntityRendererRegistry.register(RyanEntities.GRIZZLY_BEAR, c -> new CritterRenderer<>(c, "grizzly_bear", 1.1f, 1.0f, false, "grizzly_bear"));
         EntityRendererRegistry.register(RyanEntities.BOBCAT, c -> new CritterRenderer<>(c, "bobcat", 0.4f, 1.0f, false, "bobcat"));
         EntityRendererRegistry.register(RyanEntities.BLACK_TAILED_DEER, c -> new CritterRenderer<>(c, "black_tailed_deer", 0.6f, 1.0f, false, "black_tailed_deer", "black_tailed_deer_buck").plainBabies());

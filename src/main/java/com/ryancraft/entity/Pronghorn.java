@@ -21,7 +21,15 @@ public class Pronghorn extends BigGame {
                 .add(Attributes.FOLLOW_RANGE, 24.0);
     }
 
-    @Override protected String maleName() { return "buck"; }
+    @Override protected String maleName() { return null; }
+    @Override protected String variantName() { return null; }
+    /** Every adult looks the same (horned); variant 0 is only used for the hornless fawn texture. */
+    @Override protected int chooseVariant(net.minecraft.world.level.ServerLevelAccessor level, net.minecraft.core.BlockPos pos) { return 1; }
+    @Override protected <T extends CritterAnimal> T offspring(EntityType<T> type, ServerLevel level, AgeableMob partner) {
+        T child = super.offspring(type, level, partner);
+        if (child != null) child.setVariant(1);
+        return child;
+    }
     @Override protected float maleChance() { return 0.35f; }
     @Override protected float spookDistance() { return 22f; }
     @Override protected double fleeSpeed() { return 2.3; }

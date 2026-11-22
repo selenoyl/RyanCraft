@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFilter
 BG=(243,239,230); INK=(46,42,36); SUB=(128,118,104)
 ROWS=[("Elk","meadows, windswept hills, taiga",[("Bull","elk","elk_bull",1),("Cow","elk","elk",1),("Calf","elk","elk",.5)]),
       ("Moose","taiga, swamps, tundra",[("Bull","moose","moose_bull",1),("Cow","moose","moose",1),("Calf","moose","moose",.5)]),
-      ("Pronghorn","plains, savanna, badlands",[("Buck","pronghorn","pronghorn_buck",1),("Doe","pronghorn","pronghorn",1),("Fawn","pronghorn","pronghorn",.5)]),
+      ("Pronghorn","plains, savanna, badlands",[("Adult","pronghorn","pronghorn",1),("Fawn","pronghorn","pronghorn_fawn",.5)]),
       ("Grizzly Bear","old-growth taiga, high country",[("Adult","grizzly_bear","grizzly_bear",1),("Cub","grizzly_bear","grizzly_bear",.5)]),
       ("Bobcat","forests, swamps, scrub (scarce)",[("Adult","bobcat","bobcat",1),("Kitten","bobcat","bobcat",.5)])]
 ANGLES=[("front", math.radians(-35)), ("back", math.radians(145))]

@@ -74,7 +74,7 @@ grizzly = quad((14, 13, 24), (5, 10), (10, 9, 8), snout=(5, 5, 5), ears=(3, 3), 
 grizzly[0]["boxes"].append(box("hump", (-5, -9.5, -10), (10, 3, 8), "body"))
 
 # ---- bobcat: a long-legged, lynx-faced wildcat with a stubby tail
-bobcat = quad((5, 5, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0)   # "lanky"
+bobcat = quad((4, 4, 13), (2, 8), (5, 4, 4), snout=(3, 2, 2), ears=(2, 3), tail=(2, 2, 3, -0.7), leg_inset=0)   # "lanky"
 
 # ---- crow: a big, all-black bird with a heavy beak and a long tail
 crow = [   # "sleek": narrow body, small head, long tail
@@ -109,8 +109,9 @@ VARIANTS = {
             "elk_bull": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}})},
     "moose": {"moose": dict(MOOSE, antler=CLEAR),
               "moose_bull": dict(MOOSE, antler={"c": "#d0bc96", "noise": 12, "speckle": {"c": "#b8a27a", "p": 0.2}})},
-    "pronghorn": {"pronghorn": dict(PRONG, snout={"c": "#c48a4c", "front": "#3a2c20"}, horn=CLEAR),
-                  "pronghorn_buck": dict(PRONG, snout={"c": "#2a2018", "noise": 4}, horn={"c": "#1a1816", "noise": 4})},
+    # one look for all adults (horned, dark-faced); fawns are hornless
+    "pronghorn": {"pronghorn_fawn": dict(PRONG, snout={"c": "#c48a4c", "front": "#3a2c20"}, horn=CLEAR),
+                  "pronghorn": dict(PRONG, snout={"c": "#2a2018", "noise": 4}, horn={"c": "#1a1816", "noise": 4})},
     "grizzly_bear": {"grizzly_bear": {   # dark chocolate, pale muzzle and chest collar
         "body": {"c": "#3a2618", "noise": 8, "grizzle": {"c": ["#5a3e28", "#24180e"], "p": [0.2, 0.15]}, "front": "#8a6a48"},
         "head": {"c": "#4a3220", "noise": 6, "eyes": "#080504", "eye_white": "#ece8de", "eye_row": 3},

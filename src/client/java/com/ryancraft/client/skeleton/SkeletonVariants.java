@@ -74,7 +74,7 @@ public final class SkeletonVariants {
     }
 
     private static void crack(NativeImage img) {
-        int dark = 0xFF2E2B28;
+        int dark = 0x00000000;   // the crack is a see-through gap in the skull
         // down the front of the skull, over the top, and onto the right side
         int[][] front = {{5, 0}, {5, 1}, {4, 1}, {4, 2}, {3, 2}, {3, 3}};
         int[][] top = {{5, 7}, {5, 6}, {6, 5}, {6, 4}, {7, 3}};
