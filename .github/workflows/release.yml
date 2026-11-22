@@ -1,0 +1,41 @@
+# Builds the mod and publishes a GitHub Release whenever mod_version in gradle.properties is bumped
+# (tag v<version>, the jar attached, notes taken from that version's section of docs/CHANGELOG.md).
+name: Release
+on:
+  push:
+    paths: ["gradle.properties", ".github/workflows/release.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read version
+        id: v
+        run: echo "version=$(grep '^mod_version=' gradle.properties | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+      - name: Skip if already released
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "v${{ steps.v.outputs.version }}" >/dev/null 2>&1; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-java@v4
+        if: steps.check.outputs.exists == 'false'
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Build
+        if: steps.check.outputs.exists == 'false'
+        run: chmod +x gradlew && ./gradlew build -x test --no-daemon
+      - name: Publish release
+        if: steps.check.outputs.exists == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v="${{ steps.v.outputs.version }}"
+          awk -v ver="## $v" '$0==ver{on=1;next} /^## /{on=0} on' docs/CHANGELOG.md > notes.md
+          [ -s notes.md ] || echo "RyanCraft $v" > notes.md
+          printf '\nNeeds Fabric Loader 0.20.1+ and Fabric API for Minecraft 1.21.11 (TerraBlender optional, for the Beta biomes).\n' >> notes.md
+          gh release create "v$v" "build/libs/ryancraft-$v.jar" --title "RyanCraft $v" --notes-file notes.md --target "$GITHUB_SHA"

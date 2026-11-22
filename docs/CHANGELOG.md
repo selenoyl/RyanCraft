@@ -1,11 +1,12 @@
 # RyanCraft changelog
 
-Release jars live in [`releases/`](../releases/). Plans for later are in [ROADMAP.md](../ROADMAP.md).
+Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
 ## 1.3.2
 - **True-to-life fish sizes**: most catches fall in each species' typical range (a bluegill is 4-9 in, a
   largemouth bass 10-20 in, a muskie 28-44 in). About 1 in 50 is a trophy, up to the real-world record.
   About 1 in 1000 is a **Legendary** fish, up to 15% past the record.
+- Releases are published on GitHub (built automatically for each version); the `releases/` folder is gone.
 
 ## 1.3.1
 - **Fishing loop**: every rod catch is called out with its length ("Largemouth Bass - 18.5 in"), with a fanfare

@@ -224,7 +224,7 @@ See [docs/CHANGELOG.md](docs/CHANGELOG.md) for earlier releases.
 - Many fixes: no more z-fighting heads, attached limbs, reshaped dogwood and tulip poplar, seamless bark
 
 ## Download
-The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` into your `mods` folder (Fabric Loader 0.20.1+, Fabric API, Minecraft 1.21.11; TerraBlender optional for the Beta biomes).
+Download the latest jar from [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases/latest) and drop `ryancraft-<version>.jar` into your `mods` folder (Fabric Loader 0.20.1+, Fabric API, Minecraft 1.21.11; TerraBlender optional for the Beta biomes).
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.

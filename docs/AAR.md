@@ -71,4 +71,5 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       or CC-BY with credits in docs/CREDITS.md; otherwise make our own.
 
 ## Release
-- [ ] **Rebuild the release jar** in `releases/` after a round of changes, so the downloadable jar matches the code.
+- [ ] **Bump `mod_version` and add a changelog section** after a round of changes. The Release workflow builds the jar and
+      publishes a GitHub Release (tag v<version>) with that section as notes. Never commit jars to the repo.
