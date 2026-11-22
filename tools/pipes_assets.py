@@ -54,6 +54,24 @@ def face(uv, tex, cull=None, rot=0):
     if cull: f["cullface"] = cull
     return f
 
+OPP = {"north": "south", "south": "north", "east": "west", "west": "east", "up": "down", "down": "up"}
+
+def inner_face(d, uv, tex, z=(4, 12)):
+    """The inside of a pipe wall: a flat element on the same plane, facing in. Minecraft only draws a face from the
+    front, so without these you'd see straight through a pipe's far wall (and its creeper plate) through the windows."""
+    lo, hi = 4, 12; z0, z1 = z
+    plane = {"north": ([lo, lo, z0], [hi, hi, z0]), "south": ([lo, lo, z1], [hi, hi, z1]), "west": ([lo, lo, lo], [lo, hi, hi]),
+             "east": ([hi, lo, lo], [hi, hi, hi]), "down": ([lo, lo, lo], [hi, lo, hi]), "up": ([lo, hi, lo], [hi, hi, hi])}[d]
+    return {"from": plane[0], "to": plane[1], "shade": False, "faces": {OPP[d]: face(uv, tex)}}
+
+def inner_walls(z0, z1, tex):
+    """Inward faces for the four walls of a run of pipe along z (an arm, or the item's straight pipe)."""
+    n = z1 - z0
+    return [{"from": [12, 4, z0], "to": [12, 12, z1], "shade": False, "faces": {"west": face([4, 0, 12, n], tex, rot=90)}},
+            {"from": [4, 4, z0], "to": [4, 12, z1], "shade": False, "faces": {"east": face([4, 0, 12, n], tex, rot=90)}},
+            {"from": [4, 12, z0], "to": [12, 12, z1], "shade": False, "faces": {"down": face([4, 0, 12, n], tex)}},
+            {"from": [4, 4, z0], "to": [12, 4, z1], "shade": False, "faces": {"up": face([4, 0, 12, n], tex)}}]
+
 def pipe_models(kind):
     t = f"ryancraft:block/{kind}_pipe"; e = f"ryancraft:block/{kind}_pipe_end"
     s = [4, 0, 12, 16]                                                       # a full pipe-wall strip
@@ -62,11 +80,12 @@ def pipe_models(kind):
     for d in ("north", "south", "east", "west", "up", "down"):
         for name, tex in (("core_" + d, e), ("creeper_" + d, cr)):
             w(f"assets/ryancraft/models/block/{kind}_pipe_{name}.json", {"parent": "block/block", "render_type": "cutout", "ambientocclusion": False,
-                "textures": {"t": tex, "particle": t}, "elements": [{"from": [4, 4, 4], "to": [12, 12, 12], "faces": {d: face([4, 4, 12, 12], "#t")}}]})
+                "textures": {"t": tex, "particle": t}, "elements": [{"from": [4, 4, 4], "to": [12, 12, 12], "faces": {d: face([4, 4, 12, 12], "#t")}},
+                                                                   inner_face(d, [4, 4, 12, 12], "#t")]})
     arm = {"from": [4, 4, 0], "to": [12, 12, 4], "faces": {"east": face([4, 0, 12, 4], "#pipe", rot=90), "west": face([4, 0, 12, 4], "#pipe", rot=90),
            "up": face([4, 0, 12, 4], "#pipe"), "down": face([4, 0, 12, 4], "#pipe"), "north": face([4, 4, 12, 12], "#end", "north")}}
     w(f"assets/ryancraft/models/block/{kind}_pipe_arm.json", {"parent": "block/block", "render_type": "cutout", "ambientocclusion": False,
-        "textures": {"pipe": t, "end": e, "particle": t}, "elements": [arm]})
+        "textures": {"pipe": t, "end": e, "particle": t}, "elements": [arm] + inner_walls(0, 4, "#pipe")})
     rot = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}, "up": {"x": 270}, "down": {"x": 90}}
     perp = {"north": ("east", "west", "up", "down"), "south": ("east", "west", "up", "down"), "east": ("north", "south", "up", "down"),
             "west": ("north", "south", "up", "down"), "up": ("north", "south", "east", "west"), "down": ("north", "south", "east", "west")}
@@ -78,10 +97,11 @@ def pipe_models(kind):
     for d, r in rot.items(): parts.append({"when": {d: "true"}, "apply": dict({"model": f"ryancraft:block/{kind}_pipe_arm"}, **r)})
     w(f"assets/ryancraft/blockstates/{kind}_pipe.json", {"multipart": parts})
     # item: a straight run of pipe
-    w(f"assets/ryancraft/models/item/{kind}_pipe.json", {"parent": "block/block", "textures": {"pipe": t, "particle": t}, "display": {
+    w(f"assets/ryancraft/models/item/{kind}_pipe.json", {"parent": "block/block", "textures": {"pipe": t, "end": e, "particle": t}, "display": {
         "gui": {"rotation": [30, 225, 0], "scale": [0.9, 0.9, 0.9]}},
         "elements": [{"from": [4, 4, 0], "to": [12, 12, 16], "faces": {"east": face([4, 0, 12, 16], "#pipe", rot=90), "west": face([4, 0, 12, 16], "#pipe", rot=90),
-                      "up": face([4, 0, 12, 16], "#pipe"), "down": face([4, 0, 12, 16], "#pipe"), "north": face([4, 4, 12, 12], "#pipe"), "south": face([4, 4, 12, 12], "#pipe")}}]})
+                      "up": face([4, 0, 12, 16], "#pipe"), "down": face([4, 0, 12, 16], "#pipe"), "north": face([4, 4, 12, 12], "#end"), "south": face([4, 4, 12, 12], "#end")}}]
+                    + inner_walls(0, 16, "#pipe") + [inner_face("north", [4, 4, 12, 12], "#end", z=(0, 16)), inner_face("south", [4, 4, 12, 12], "#end", z=(0, 16))]})
     w(f"assets/ryancraft/items/{kind}_pipe.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{kind}_pipe"}})
 
 def tile(img, tex, box):
@@ -225,6 +245,9 @@ def simple_blocks():
             {"from": [0, 0, 0], "to": [16, 16, 13], "faces": {"north": face([0, 0, 16, 16], "#front"), "south": face([0, 0, 16, 16], "#back"),
                 "east": face([0, 3, 16, 16], "#side", rot=90), "west": face([0, 3, 16, 16], "#side", rot=270),
                 "up": face([0, 3, 16, 16], "#side"), "down": face([0, 3, 16, 16], "#side", rot=180)}},   # the frame's top edge toward the socket on every side
+            # an end stone backing plate fills the frame out to a full block, so pipes meet it at the back
+            {"from": [0, 0, 13], "to": [16, 16, 16], "faces": {"south": face([0, 0, 16, 16], "#back", "south"), "east": face([0, 0, 3, 16], "#back", "east"),
+                "west": face([13, 0, 16, 16], "#back", "west"), "up": face([0, 13, 16, 16], "#back", "up"), "down": face([0, 0, 16, 3], "#back", "down")}},
             {"from": [1, 16, 3], "to": [3, 18, 5], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
             {"from": [13, 16, 3], "to": [15, 18, 5], "faces": {d: face([0, 0, 2, 2], "#red") for d in ("north", "south", "east", "west", "up")}},
             {"from": [6, 16, 7], "to": [10, 17, 11], "faces": {d: face([0, 0, 4, 1] if d != "up" else [0, 0, 4, 4], "#red") for d in ("north", "south", "east", "west", "up")}}]})
