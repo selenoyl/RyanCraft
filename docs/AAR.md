@@ -35,6 +35,8 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **A few exotic woods.** Most woods stay natural, but some species (cedar, walnut, cherry, poplar) get richer plank colours for builders.
 - [ ] **Leaves have enough transparency.** Fancy-leaf holes, see-through gaps in blossom-only leaves, a dark colour on the transparent pixels for Fast graphics.
 - [ ] **Transparent where intended.** Cracks in skulls are see-through (alpha 0), not painted.
+- [ ] **Animated textures loop without a seam.** Recorded animations (classic water/lava) must not jump when they
+      restart: ping-pong still textures, make flowing ones scroll whole tiles per loop and interpolate.
 - [ ] **Particles match the plant.** Dogwood drops white petals, not cherry pink.
 - [ ] **UI art is crisp.** Upscale low-res classic art with nearest-neighbour to the size vanilla expects (panorama 256 → 1024) so linear filtering doesn't blur it.
 

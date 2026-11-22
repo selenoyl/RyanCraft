@@ -68,7 +68,9 @@ def lava_frames(seed, flow=False):
             out.append(img)
     return out
 
-def save(name, frames, size, frametime):
+def save(name, frames, size, frametime, pingpong=False):
+    """Write the frames as an animated strip. Still fluids play forward then back, so the loop has no seam; flowing
+    fluids scroll exactly one tile per loop and blend between frames so the restart is soft."""
     sheet = Image.new("RGBA", (size, size * len(frames)))
     for i, fr in enumerate(frames):
         tile = Image.new("RGBA", (size, size))
@@ -76,12 +78,15 @@ def save(name, frames, size, frametime):
             for oy in range(0, size, 16): tile.paste(fr, (ox, oy))
         sheet.paste(tile, (0, i * size))
     sheet.save(os.path.join(OUT, name + ".png"))
-    with open(os.path.join(OUT, name + ".png.mcmeta"), "w") as f: json.dump({"animation": {"frametime": frametime}}, f)
+    anim = {"frametime": frametime}
+    if pingpong: anim["frames"] = list(range(len(frames))) + list(range(len(frames) - 2, 0, -1))
+    else: anim["interpolate"] = True
+    with open(os.path.join(OUT, name + ".png.mcmeta"), "w") as f: json.dump({"animation": anim}, f)
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    save("water_still", water_frames(1), 16, 2)
+    save("water_still", water_frames(1), 16, 2, pingpong=True)
     save("water_flow", water_frames(2, True), 32, 2)
-    save("lava_still", lava_frames(3), 16, 3)
+    save("lava_still", lava_frames(3), 16, 3, pingpong=True)
     save("lava_flow", lava_frames(4, True), 32, 3)
     print("ok")
