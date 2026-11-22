@@ -21,6 +21,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        ThirstHud.init();
         // seasons: follow the year on this side too, and re-colour the world when the season moves on
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             if (mc.level == null) { seasonSeen = -1; return; }

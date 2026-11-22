@@ -43,6 +43,10 @@ public final class RyanConfig {
     /** Extra volume multiplier on top of the game's Ambient/Environment slider. */
     public float ambienceVolume = 1.0f;
 
+    // ---- Survival ----
+    /** A thirst bar: drink from water (sneak-free, empty hand) or bottles; some foods give a little water. */
+    public boolean thirst = true;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static RyanConfig instance;
 

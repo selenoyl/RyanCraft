@@ -65,6 +65,11 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       spectator: spectators don't trigger ongoing spawning (fish, water animals), only chunk-generation spawns.
 - [ ] **Breedable, with sensible food.** Every animal breeds on something it would really eat (swans: grain and seagrass; frogs: slimeballs, as vanilla).
 
+## Testing
+- [ ] **Test scenes are safe.** Keep the test player on solid ground, with no deep water or drops beside them. A player
+      that drifts into deep water drowns, and drowning damage looks like a bug in whatever you're testing (thirst).
+- [ ] **Time server logic by the world clock** (`level.getGameTime()`), not an entity's tick counter.
+
 ## Licensing
 - [ ] **Check every borrowed asset's source, file by file.** A permissive code license doesn't cover bundled media. The
       MAtmos sound pack turned out to be Half-Life 2 audio (Valve's), so it can't be used. Only ship CC0/public domain,

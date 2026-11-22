@@ -11,7 +11,7 @@ wildlife, a real year of seasons, and vanilla-style pipes and engines.
 - **60+ animals** (deer with antlers that grow over time, bears with cubs, turkey flocks, eagles, whales and more), each with its own behaviour, sounds and spawn egg
 - **Hunting and fishing**: trophy bucks and skull mounts, fish with real-world lengths, trophy fish for the wall
 - **Fifteen eastern US trees**, each with a full wood set
-- **Seasons**: autumn colours, snowy winters, spring thaw
+- **Seasons and thirst**: autumn colours, snowy winters, spring thaw, and a thirst bar beside hunger
 - **Pipes, engines, tanks and pumps**, plus an Ender Terminal for storage
 - **The classic 1.2.5 look and sound** built in, with MAtmos-style ambience
 
@@ -73,6 +73,11 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 - The Season Calendar tells you the date, and `/season set` jumps to any season.
 
 ![Autumn, first snow, winter, spring thaw](docs/seasons.jpg)
+
+**Thirst**: a row of droplets over the hunger bar. It drains faster when you sprint and in the desert sun.
+- Sip from any water with an empty hand, or carry water bottles.
+- Milk, stews, melon and berries help a little.
+- Run dry and you stop healing and start to suffer, like starving.
 
 ## Pipes, engines and the Ender Terminal
 Tekkit-style transport that feels vanilla. You can watch items ride through the pipes.

@@ -4,7 +4,7 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
 
 ## Next up
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
-- **Thirst bar**: drink from water sources or bottles; some foods give water too.
+- ~~**Thirst bar**~~ (built in 1.4.0): drink from water or bottles; some foods give a little water.
 - **Deep layer below deepslate** (Alex's Caves style): regular, toxic, frozen, underground-overworld and deep-dark caverns.
 - ~~**Fishing loop**~~ (built): catch-and-measure fish, trophies, personal bests in the Angler's Logbook, fish plaques.
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.

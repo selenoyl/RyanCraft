@@ -283,6 +283,8 @@
   "block.ryancraft.white_oak_wood": "White Oak Wood",
   "block.ryancraft.wooden_pipe": "Wooden Pipe",
   "container.ryancraft.clay_pot": "Clay Pot",
+  "death.attack.ryancraft.dehydration": "%1$s died of thirst",
+  "death.attack.ryancraft.dehydration.player": "%1$s died of thirst while fighting %2$s",
   "entity.ryancraft.alligator": "American Alligator",
   "entity.ryancraft.bald_eagle": "Bald Eagle",
   "entity.ryancraft.beaver": "Beaver",

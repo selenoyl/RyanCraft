@@ -2,6 +2,16 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.4.0
+- **Thirst**: a row of water droplets over the hunger bar. It drains a little faster than hunger, faster when you
+  sprint, under the sun in hot biomes (deserts, badlands, savanna) and in the Nether.
+  - **Drinking**: use water with an empty hand to sip (+1 droplet), or drink a water bottle (+3.5 droplets). Milk,
+    stews, honey, melon, berries, apples, carrots and cherries quench a little too.
+  - **Running low**: at 3 droplets or fewer you can't sprint. With none left you stop healing naturally and take
+    damage, like starving (Easy stops at 5 hearts, Normal at half a heart, Hard can kill).
+  - **Settings**: it refills by itself on Peaceful and doesn't drain in Creative. `/thirst` shows yours,
+    `/thirst set <0-20>` sets it (operators), and `thirst` in `config/ryancraft.json` turns it off.
+
 ## 1.3.2
 - **True-to-life fish sizes**: most catches fall in each species' typical range (a bluegill is 4-9 in, a
   largemouth bass 10-20 in, a muskie 28-44 in). About 1 in 50 is a trophy, up to the real-world record.

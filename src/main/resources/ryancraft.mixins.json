@@ -15,7 +15,9 @@
     "SpawnPlacementsInvoker",
     "BiomeSeasonMixin",
     "ServerLevelSeasonMixin",
-    "CropSeasonMixin"
+    "CropSeasonMixin",
+    "ItemStackThirstMixin",
+    "FoodDataThirstMixin"
   ],
   "injectors": {
     "defaultRequire": 0
