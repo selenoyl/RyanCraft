@@ -19,7 +19,8 @@
     "ItemStackThirstMixin",
     "FoodDataThirstMixin",
     "FurnaceSteelMixin",
-    "EnderEyeMixin"
+    "EnderEyeMixin",
+    "WeatherClearMixin"
   ],
   "injectors": {
     "defaultRequire": 0

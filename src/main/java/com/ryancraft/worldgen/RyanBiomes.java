@@ -181,7 +181,7 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(Biomes.DEEP_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.BLUE_WHALE, 1, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.SHARK, 2, 1, 2);
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.MANTA_RAY, 2, 1, 1);
-        spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.OCEAN), MobCategory.WATER_CREATURE, RyanEntities.JELLYFISH, 4, 2, 5);
+        spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.JELLYFISH, 4, 2, 5);
         // Small things
         spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST, Biomes.CHERRY_GROVE,
                 SEASONAL_FOREST, AUTUMN_FOREST, SHRUBLAND, RAINFOREST), MobCategory.CREATURE, RyanEntities.BUTTERFLY, 8, 2, 4);

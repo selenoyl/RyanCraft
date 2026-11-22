@@ -44,7 +44,8 @@ public final class RyanStorage {
     public static final Block PLACED_BOWL = block("placed_bowl", PlacedBlocks.PlacedBowl::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.WOOD).instabreak().sound(SoundType.WOOD).noOcclusion().pushReaction(PushReaction.DESTROY));
     public static final Block PLACED_BUCKET = block("placed_bucket", PlacedBlocks.PlacedBucket::new, BlockBehaviour.Properties.of()
-            .mapColor(MapColor.METAL).strength(0.3f).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY));
+            .mapColor(MapColor.METAL).strength(0.3f).sound(SoundType.METAL).noOcclusion().pushReaction(PushReaction.DESTROY)
+            .lightLevel(s -> s.getValue(PlacedBlocks.PlacedBucket.CONTENTS) == PlacedBlocks.BucketContents.LAVA ? 13 : 0));
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {
         ResourceKey<Block> key = ResourceKey.create(Registries.BLOCK, RyanCraft.id(name));

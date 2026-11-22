@@ -22,7 +22,7 @@ public class BlackTailedDeer extends BigGame {
     @Override protected boolean stagedAntlers() { return true; }
     @Override protected String maleName() { return "buck"; }
     @Override protected float spookDistance() { return 14f; }
-    @Override protected double fleeSpeed() { return 1.9; }
+    @Override protected double fleeSpeed() { return 1.55; }
     @Override protected boolean fightsBack() { return false; }
     @Override protected int herdSize() { return 4; }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return offspring(RyanEntities.BLACK_TAILED_DEER, l, p); }

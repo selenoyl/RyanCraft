@@ -46,7 +46,7 @@ public class Turkey extends RyanAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         // Poults run; grown birds stand and fight, and the flock piles in
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.9) {
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.6) {
             @Override public boolean canUse() { return Turkey.this.isBaby() && super.canUse(); }
         });
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.4, true));

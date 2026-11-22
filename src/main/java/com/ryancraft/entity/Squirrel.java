@@ -55,8 +55,8 @@ public class Squirrel extends CritterAnimal {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new ClimbTreeGoal());
-        this.goalSelector.addGoal(2, new PanicGoal(this, 1.8));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.5, 1.9,
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.35));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.15, 1.35,
                 e -> !e.isCrouching() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0, this::isFood, true));

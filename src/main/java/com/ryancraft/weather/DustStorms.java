@@ -66,6 +66,13 @@ public final class DustStorms {
                 .executes(c -> { c.getSource().sendSuccess(() -> Component.literal(active(c.getSource().getServer()) ? "A dust storm is blowing" : "No dust storm"), false); return 1; })
                 .then(Commands.literal("start").executes(c -> { set(c.getSource().getServer(), true, 9000); return 1; }))
                 .then(Commands.literal("stop").executes(c -> { set(c.getSource().getServer(), false, 0); return 1; }))));
+        // /weather duststorm [duration]: joins vanilla's /weather (and /weather clear ends a storm: WeatherClearMixin)
+        CommandRegistrationCallback.EVENT.register((d, ctx, env) -> d.register(Commands.literal("weather")
+                .requires(Commands.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(Commands.literal("duststorm")
+                        .executes(c -> startCommand(c.getSource(), 9000))
+                        .then(Commands.argument("duration", net.minecraft.commands.arguments.TimeArgument.time(1))
+                                .executes(c -> startCommand(c.getSource(), com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "duration")))))));
     }
 
     private static void tick(MinecraftServer server) {
@@ -79,6 +86,15 @@ public final class DustStorms {
         }
         if (o.getGameTime() % 20 == 0) o.setAttached(STATE, new State(s.active(), t - 20));
     }
+
+    private static int startCommand(net.minecraft.commands.CommandSourceStack src, int ticks) {
+        set(src.getServer(), true, ticks);
+        src.sendSuccess(() -> Component.literal("Set the weather to a dust storm (deserts and badlands)"), true);
+        return ticks;
+    }
+
+    /** /weather clear also ends a dust storm. */
+    public static void clearCommand(MinecraftServer server) { if (active(server)) set(server, false, 0); }
 
     private static void set(MinecraftServer server, boolean active, int timer) {
         ServerLevel o = server.overworld();

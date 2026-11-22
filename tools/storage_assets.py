@@ -87,7 +87,7 @@ def bucket_model(contents):
     els = [el([5, 0, 5], [11, 1, 11], six()),
            el([5, 1, 5], [11, 7, 6], six()), el([5, 1, 10], [11, 7, 11], six()),
            el([5, 1, 6], [6, 7, 10], six()), el([10, 1, 6], [11, 7, 10], six()),
-           el([4.5, 7, 7.5], [5, 9.5, 8.5], six()), el([11, 7, 7.5], [11.5, 9.5, 8.5], six()),
+           el([4.5, 6, 7.5], [5, 9.5, 8.5], six()), el([11, 6, 7.5], [11.5, 9.5, 8.5], six()),
            el([4.5, 9.5, 7.5], [11.5, 10, 8.5], six())]
     tex = {"particle": "ryancraft:block/bucket_metal", "metal": "ryancraft:block/bucket_metal"}
     fluid = {"water": "minecraft:block/water_still", "lava": "minecraft:block/lava_still", "milk": "ryancraft:block/bucket_milk",

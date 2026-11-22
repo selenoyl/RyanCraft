@@ -32,7 +32,7 @@ public class Pronghorn extends BigGame {
     }
     @Override protected float maleChance() { return 0.35f; }
     @Override protected float spookDistance() { return 22f; }
-    @Override protected double fleeSpeed() { return 2.3; }
+    @Override protected double fleeSpeed() { return 1.5; }
     @Override protected boolean fightsBack() { return false; }
     @Override protected int herdSize() { return 7; }
 

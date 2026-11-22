@@ -35,14 +35,14 @@ public class Chipmunk extends CritterAnimal implements com.ryancraft.bag.Baggabl
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.9));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Coyote.class, 10.0f, 1.5, 1.9));
-        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Bobcat.class, 10.0f, 1.5, 1.9));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.3));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Coyote.class, 10.0f, 1.1, 1.3));
+        this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Bobcat.class, 10.0f, 1.1, 1.3));
         // Bait: hold out food and stay still; move and it scampers off
         this.goalSelector.addGoal(3, new TemptGoal(this, 0.8, this::isFood, true) {
             @Override public boolean canUse() { return !Chipmunk.this.isTrusting() && super.canUse(); }
         });
-        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.5, 1.9,
+        this.goalSelector.addGoal(4, new AvoidEntityGoal<>(this, Player.class, 8.0f, 1.1, 1.3,
                 e -> !this.isTrusting() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
         this.goalSelector.addGoal(5, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(6, new TemptGoal(this, 1.0, this::isFood, false));
