@@ -63,7 +63,7 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 - **Wood:** every species has a full wood set, with its own door and trapdoor design.
 - **Fruit:** cherries and black walnuts fall from the leaves.
 
-![Tree variation](docs/trees_variation_small.png)
+![The same grove in summer and late autumn](docs/trees_grove.jpg)
 
 **The year runs Serene Seasons-style**: early, mid and late spring, summer, autumn and winter, 8 days each.
 - Leaves turn gold, red and orange through autumn.
