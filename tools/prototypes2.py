@@ -39,9 +39,18 @@ def zebra_paint(img, parts, seed=7):
     import random
     r = random.Random(seed); px = img.load()
     WHITE, BLACK = (242, 240, 234), (22, 22, 22)
-    def striped(coord, other, period, phase, amp, thin=0.0):
+    def stripe_end(idx, salt):
+        """Each flank stripe stops at its own height (as a fraction of the flank), some short, some reaching the belly."""
+        h = ((idx * 2654435761 + salt * 97 + seed) & 0xffff) / 0xffff
+        return 0.5 + 0.5 * h
+
+    def striped(coord, other, period, phase, amp, thin=0.0, ends=None):
         k = (coord + amp * math.sin(other * 0.28 + phase)) / period    # a slow, gentle curve along each stripe
         idx = math.floor(k)
+        if ends is not None:                                          # ends = (row fraction, salt)
+            frac, salt = ends; end = stripe_end(idx, salt)
+            if frac > end: return False
+            thin = max(thin, 0.42 * max(0.0, (frac - (end - 0.15)) / 0.15))   # taper over the last stretch
         duty = 0.36 + 0.12 * ((idx * 7919 + seed) % 3) / 2          # each stripe its own width
         return (k - idx) < duty - thin
     for p in parts:
@@ -57,7 +66,8 @@ def zebra_paint(img, parts, seed=7):
                         if b["name"] == "body":
                             # stripes taper away down the flanks, fading into a white belly
                             fade = max(0.0, (j - fh * 0.45) / (fh * 0.55))
-                            if f in ("side1", "side2"):   on = striped(i if f == "side2" else fw - 1 - i, j, 3.0, phase, 1.4, 0.42 * fade)
+                            if f in ("side1", "side2"):   on = striped(i if f == "side2" else fw - 1 - i, j, 3.0, phase, 1.4, 0.15 * fade,
+                                                                   ends=((j + 0.5) / fh, 1 if f == "side1" else 2))
                             elif f == "top":              on = striped(fh - 1 - j, i, 3.0, phase, 1.0)
                             else:                         on = striped(i, j, 3.0, phase, 1.0)
                         else:                             on = striped(j, i, 2.6 if b["name"] != "head" else 3.0, phase, 0.8)
