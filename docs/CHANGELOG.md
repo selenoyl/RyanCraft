@@ -2,8 +2,14 @@
 
 Release jars live in [`releases/`](../releases/). Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
-## Unreleased
-- The fishing loop (catching and measuring fish) is being reworked.
+## 1.3.1
+- **Fishing loop**: every rod catch is called out with its length ("Largemouth Bass - 18.5 in"), with a fanfare
+  for trophies (roughly the top 5% of a species) and a chat note for a new personal best.
+- **Angler's Logbook** (book + any fish): your biggest fish of each species, trophies starred.
+- **Fish Plaque** (3 wooden slabs over slab, item frame, slab; makes 2): hang it on a wall and use a fish on it
+  to mount it, length engraved underneath (gold for trophies). Use it empty-handed to take the fish back.
+- Rivers, lakes and swamps give our freshwater fish (plus salmon); oceans give cod, salmon and pufferfish.
+  Catfish and walleye bite more after dark.
 
 ## 1.3.0
 - **Seasons**, Serene Seasons style: a 12-part year (early, mid and late spring, summer, autumn and winter, 8 days

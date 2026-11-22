@@ -60,6 +60,9 @@ public final class FishSize {
             Entity e = ctx.getOptionalParameter(LootContextParams.THIS_ENTITY);
             if (e instanceof KentuckyFish f) stack.set(LENGTH, f.length());
             else { Spec s = BY_ITEM.get(stack.getItem()); if (s != null) stack.set(LENGTH, s.roll(ctx.getRandom())); }
+            // a rod catch: tell the angler what they landed, and keep their personal best
+            if (e instanceof net.minecraft.world.entity.projectile.FishingHook hook && hook.getPlayerOwner() instanceof net.minecraft.server.level.ServerPlayer p)
+                FishingLog.caught(p, stack);
             return stack;
         }
         @Override public LootItemFunctionType<LengthFunction> getType() { return TYPE; }
@@ -78,6 +81,7 @@ public final class FishSize {
         add(RyanEntities.WALLEYE, RyanItems.WALLEYE, RyanItems.WALLEYE_BUCKET, 12, 30);
         add(RyanEntities.NORTHERN_PIKE, RyanItems.NORTHERN_PIKE, RyanItems.NORTHERN_PIKE_BUCKET, 18, 44);
         add(RyanEntities.MUSKELLUNGE, RyanItems.MUSKELLUNGE, RyanItems.MUSKELLUNGE_BUCKET, 30, 56);
+        RyanFishing.init();
     }
 
     private FishSize() {}

@@ -6,7 +6,7 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
 - **Thirst bar**: drink from water sources or bottles; some foods give water too.
 - **Deep layer below deepslate** (Alex's Caves style): regular, toxic, frozen, underground-overworld and deep-dark caverns.
-- **Fishing loop**: catch-and-measure fish and trophies (being fixed now).
+- ~~**Fishing loop**~~ (built): catch-and-measure fish, trophies, personal bests in the Angler's Logbook, fish plaques.
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
 - ~~**Old-school spawn eggs**~~ (built): redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
 - **Chipmunk eyes**: they're tiny, so the eyes may need to move to the sides of the head; check in game.

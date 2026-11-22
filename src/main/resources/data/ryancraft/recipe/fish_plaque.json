@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "SSS",
+    "SFS"
+  ],
+  "key": {
+    "S": "#minecraft:wooden_slabs",
+    "F": "minecraft:item_frame"
+  },
+  "result": {
+    "id": "ryancraft:fish_plaque",
+    "count": 2
+  }
+}

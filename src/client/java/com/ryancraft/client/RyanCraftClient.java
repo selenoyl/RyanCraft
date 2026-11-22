@@ -38,6 +38,7 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PIPE_ENTITY, com.ryancraft.client.pipes.PipeRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.ENGINE_ENTITY, com.ryancraft.client.pipes.EngineRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.TANK_ENTITY, com.ryancraft.client.pipes.TankRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.fish.RyanFishing.PLAQUE_ENTITY, FishPlaqueRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.VAT_ENTITY, com.ryancraft.client.pipes.TankRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.HAND_PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);

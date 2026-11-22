@@ -182,13 +182,7 @@ def fish_entry(item, weight, cook=True):
     if item.startswith("ryancraft:"): e["functions"] = [{"function": "ryancraft:fish_length"}]    # every catch is measured
     if cook: e.setdefault("functions", []).append({"function": "minecraft:furnace_smelt", "conditions": [{"condition": "minecraft:entity_properties", "entity": "this", "predicate": {"flags": {"is_on_fire": True}}}]})
     return e
-w("data/minecraft/loot_table/gameplay/fishing/fish.json", {"type": "minecraft:fishing", "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [
-    fish_entry("minecraft:cod", 36), fish_entry("minecraft:salmon", 15), fish_entry("minecraft:tropical_fish", 2, False),
-    fish_entry("minecraft:pufferfish", 13, False), fish_entry("ryancraft:bluegill", 12), fish_entry("ryancraft:crappie", 9),
-    fish_entry("ryancraft:largemouth_bass", 8), fish_entry("ryancraft:channel_catfish", 5), fish_entry("ryancraft:yellow_perch", 9),
-    fish_entry("ryancraft:rainbow_trout", 6), fish_entry("ryancraft:smallmouth_bass", 6), fish_entry("ryancraft:walleye", 4),
-    fish_entry("ryancraft:northern_pike", 3), fish_entry("ryancraft:muskellunge", 1)]}],
-    "random_sequence": "minecraft:gameplay/fishing/fish"})
+from fishing_assets import fish_table; w("data/minecraft/loot_table/gameplay/fishing/fish.json", fish_table())  # freshwater vs ocean
 
 # ---- tags
 w("data/ryancraft/tags/item/kentucky_fish.json", {"values": ["ryancraft:" + f for f in FISH]})
@@ -275,5 +269,6 @@ from autumn import lang_entries as autumn_lang; lang.update(autumn_lang())
 from pipes_assets import lang_entries as pipes_lang; lang.update(pipes_lang())
 from fluid_blocks_assets import lang_entries as fluid_lang; lang.update(fluid_lang())
 from seasons_assets import lang_entries as seasons_lang; lang.update(seasons_lang())
+from fishing_assets import lang_entries as fishing_lang; lang.update(fishing_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

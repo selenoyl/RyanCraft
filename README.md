@@ -82,7 +82,7 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
-| **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; cook for a fish fry |
+| **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; every fish has a length, trophies go on a Fish Plaque |
 | **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
 | **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
 
@@ -200,6 +200,10 @@ Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes
 
 End portal frames can be mined with a diamond pickaxe (as hard as obsidian) and drop themselves with Silk Touch.
 
+## New in 1.3.1
+- Fishing loop: every catch is measured and called out, trophies get a fanfare, the Angler's Logbook keeps your personal bests, and Fish Plaques hang your trophies on the wall
+- Freshwater fish in rivers and lakes, sea fish in the ocean; catfish and walleye bite after dark
+
 ## New in 1.3.0
 - Seasons: a 12-part year with snowy winters, frozen ponds, spring thaw, autumn leaves on every broadleaf tree, and crops that need a greenhouse in winter
 - Trees rebuilt with fancy-oak style crowns of limbs and leaf clusters
@@ -221,7 +225,7 @@ The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` 
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.3.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
+2. Put `ryancraft-1.3.1.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
 3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
 
 ## Build
