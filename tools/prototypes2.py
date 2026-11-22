@@ -29,6 +29,35 @@ def equine():
         ps.append(part(nm, (sx * 3, 13, sz * 8), [box("leg", (-2, 0, -2), (4, 11, 4), "leg", mirror=sx > 0)], nm))
     return ps
 zebra = equine()
+
+def zebra_paint(img, parts, seed=7):
+    """Repaint the zebra's coat with organic stripes: each one wobbles, and they vary in width."""
+    import random
+    r = random.Random(seed); px = img.load()
+    WHITE, BLACK = (242, 240, 234), (22, 22, 22)
+    def striped(coord, other, period, phase, amp):
+        k = (coord + amp * math.sin(other * 0.28 + phase)) / period    # a slow, gentle curve along each stripe
+        idx = math.floor(k)
+        duty = 0.36 + 0.12 * ((idx * 7919 + seed) % 3) / 2          # each stripe its own width
+        return (k - idx) < duty
+    for p in parts:
+        for b in p["boxes"]:
+            if b["name"] not in ("body", "neck", "head") and b["paint"] != "leg": continue
+            u, v = b["uv"]; w, h, d = [max(0, math.ceil(x)) for x in b["size"]]
+            faces = {"top": (u + d, v, w, d), "side1": (u, v + d, d, h), "front": (u + d, v + d, w, h),
+                     "side2": (u + d + w, v + d, d, h), "back": (u + 2 * d + w, v + d, w, h)}
+            phase = r.random() * 6
+            for f, (fx, fy, fw, fh) in faces.items():
+                for i in range(fw):
+                    for j in range(fh):
+                        if b["name"] == "body":
+                            if f in ("side1", "side2"):   on = striped(i if f == "side2" else fw - 1 - i, j, 3.0, phase, 1.4)
+                            elif f == "top":              on = striped(fh - 1 - j, i, 3.0, phase, 1.0)
+                            else:                         on = striped(i, j, 3.0, phase, 1.0)
+                        else:                             on = striped(j, i, 2.6 if b["name"] != "head" else 3.0, phase, 0.8)
+                        c = BLACK if on else WHITE
+                        n = r.randint(-5, 5)
+                        px[fx + i, fy + j] = tuple(max(0, min(255, x + n)) for x in c) + (255,)
 STRIPES = ["#f2f0ea", "#161616"] * 8
 add("Zebra", "a horse variant", zebra, {
     "body": {"c": "#f2f0ea", "noise": 4, "rings": {"c": "#161616", "n": 7}},
@@ -171,6 +200,8 @@ if __name__ == "__main__":
     for i, (label, sub, parts, style, scale) in enumerate(P):
         parts = copy.deepcopy(parts); name = f"proto2_{i}"
         size = pack(parts); emit_model(name, parts, size); emit_textures(parts, size, {name: style})
+        if label == "Zebra":
+            t = os.path.join(ROOT, "textures/entity", name + ".png"); im = Image.open(t).convert("RGBA"); zebra_paint(im, parts); im.save(t)
         made += [f"{ROOT}/critter_models/{name}.json", f"{ROOT}/textures/entity/{name}.png"]
         R.YAW = math.radians(-35)
         renders.append((label, sub, R.render(name, name, scale)))
