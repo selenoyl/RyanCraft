@@ -114,6 +114,8 @@ Tekkit-style transport that feels vanilla. You can watch items ride through the 
 
 ![Pipes, engines and the Ender Terminal](docs/pipes_engines.jpg)
 
+![The Ender Terminal and its screen](docs/ender_terminal.jpg)
+
 ![Tanks and pumps](docs/tanks_pumps.png)
 
 ## The 1.2.5 feel

@@ -71,14 +71,14 @@ Our own take on the old Clay Soldiers idea, and the main "fight your friends" ga
 - Rare little squads of **mudlings** live in the wild, each biome with its own kind, made from that biome's stuff.
 - **Rarity: relatively rare, never teeming, never unobtainable.** Mudlings only live at their camps (they don't
   spawn freely like animals). Aim for roughly one camp every 400-600 blocks of a given biome, generated as a small
-  world structure, with 3-6 mudlings per camp. A camp doesn't refill once it's emptied, so filling a bundle of 16
+  world structure, with 3-6 mudlings per camp. A camp doesn't refill once it's emptied, so building a squad
   means finding a few camps. Rare colour variants are about 1 in 20 mudlings.
 - They patrol a tiny camp (a pebble fort, a twig lean-to) and scatter if you charge in, so sneaking and camo help.
 - Rare colour variants (gilded, mossy, charred) to collect.
 
 **Collecting**
-- Scoop them up with a **vanilla bundle**: right-click a mudling and it goes in. A bundle holds **up to 16 mudlings**
-  (mudling items stack to 16, which makes 16 fill a bundle exactly). One full bundle = one squad of one type.
+- Scoop them up with a **vanilla bundle**: right-click a mudling and it goes in. A bundle holds **up to 4 mudlings**,
+  the same as critters (no bundle holds more than 4 creatures). A squad is a few bundles' worth.
 - Empty the bundle to deploy them; they hop out and form up.
 
 **Biome mudlings, their style, and what they crumble into**
@@ -191,15 +191,36 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 
 ## A sky dimension (our own, not the Aether)
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
-creatures and way in (no glowstone portal, holystone, skyroot, moas or aerwhales).
-- **Getting there**: a portal of our own, e.g. a frame that has to be charged by a lightning strike, or riding a
-  strong updraft from a mountain peak.
+creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.
+- **Getting there**: the classic Aether way: a frame of glowstone, lit by pouring a bucket of water into it.
 - **The land**: floating islands of grassy meadow, cloud blocks you can stand on (some bouncy, some that drop you),
   updraft columns that carry you between islands, waterfalls pouring off the edges into nothing.
 - **Great winged creatures**: big gliding sky rays that drift in flocks, huge soaring birds with nests on the high
   islands, maybe a rideable one you have to raise from an egg.
 - **Its own materials**: sky-only wood and stone, a light ore for gear suited to falling and gliding.
 - **Ambience**: high winds, the creak of floating rock, distant calls of the big birds.
+
+## More dimensions (ideas)
+Each one is reached through a portal built from vanilla blocks, has its own creatures and materials, and gives
+something back to the overworld, so it's worth the trip. All in the same vanilla-plus look.
+- **The Twilight Woods** (Twilight Forest in spirit, our own take): a forest stuck at dusk, with giant old-growth
+  versions of our eastern trees, fireflies everywhere, owls and great elk, and hollow hills to dig into. You get
+  there by stepping into a ring of flowers and mushrooms under a full moon. Brings back ancient seeds and giant wood.
+- **The Far Lands**: a nostalgia world that generates like Alpha and Beta did, with overhangs, floating chunks, a
+  cobblestone-and-mossy sky, and the old Far Lands wall at the edge. You get there through a portal framed in mossy
+  cobblestone and bookshelves. Brings back old blocks like the nether reactor core, the glowing obsidian and the cyan rose.
+- **The Frost Reach**: a frozen glacial world under an aurora, with mammoths (the elephants' woolly cousins),
+  ice caves, frozen shipwrecks and a slow, pale sun. You get there through a portal of packed and blue ice, lit by
+  powdered snow. Brings back mammoth wool, glacial blue ice and old frozen loot.
+- **The Drowned Deep**: an ocean dimension with no surface, just kelp forests, sunken towns, whales and air
+  pockets you have to find. You get there through a conduit set into a prismarine ring. Brings back pearls,
+  sea-glass and drowned-town relics. Breathing gear and lead-weighted boots matter.
+- **The Hollow Moon** (an End neighbour): low gravity, pale dust, chorus groves, ruined shulker towers and slow
+  meteor showers. You get there by throwing an eye of ender into a ring of end rods at night. Brings back moon dust
+  (a light ore for gliding gear) and shulker parts.
+- **Dreams**: sleep in a special bed and wake up in a strange, shifting dream world (floating furniture, bright
+  colours, odd gravity) for one night; wake up in your bed at dawn with whatever you carried out. A nightmare
+  version for anyone who sleeps hungry or thirsty.
 
 ## Ores and the world underground (very Tekkit)
 - **Salt**, found in **salt caves**

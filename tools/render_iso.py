@@ -16,7 +16,14 @@ LIGHT = np.array([-0.35, 0.85, 0.4]); LIGHT /= np.linalg.norm(LIGHT)
 def B(uv, frm, size, mirror=False): return {"uv": uv, "from": frm, "size": size, "mirror": mirror}
 def Pt(pivot, boxes, rot=(0, 0, 0)): return {"pivot": pivot, "rot": rot, "boxes": boxes}
 
-HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel)
+HAND = {  # Java models (BoarModel, DeerModel, DuckModel, TurkeyModel; vanilla's horse, for the zebra)
+    "horse": (64, 64, [
+        Pt([-4, 14, -10], [B([48, 21], [-1, -1.01, -1.9], [4, 11, 4])]), Pt([4, 14, -10], [B([48, 21], [-3, -1.01, -1.9], [4, 11, 4], True)]),
+        Pt([-4, 14, 7], [B([48, 21], [-1, -1.01, -1], [4, 11, 4])]), Pt([4, 14, 7], [B([48, 21], [-3, -1.01, -1], [4, 11, 4], True)]),
+        Pt([0, 11, 5], [B([0, 32], [-5, -8, -17], [10, 10, 22])]),
+        Pt([0, 6, 7], [B([42, 36], [-1.5, 0, 0], [3, 14, 4])], (0.5236, 0, 0)),
+        Pt([0, 4, -12], [B([0, 35], [-2.05, -6, -2], [4, 12, 7]), B([0, 13], [-3, -11, -2], [6, 5, 7]), B([19, 16], [-2.55, -13, 4], [2, 3, 1]),
+                         B([19, 16], [0.55, -13, 4], [2, 3, 1]), B([56, 36], [-1, -11, 5.01], [2, 16, 2]), B([0, 25], [-2, -11, -7], [4, 5, 5])], (0.5236, 0, 0))]),
     "boar": (64, 64, [
         Pt([0, 12, -8], [B([0, 0], [-4, -4, -6], [8, 8, 6]), B([28, 0], [-2, 0, -9], [4, 3, 3]),
                          B([42, 0], [-3, 0, -8], [1, 3, 1]), B([42, 0], [2, 0, -8], [1, 3, 1], True)]),
@@ -154,6 +161,7 @@ LAND = [
     ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
     ("Black-tailed Deer", "buck", "black_tailed_deer", "black_tailed_deer_buck", 1.0, None),
     ("Pronghorn", "with fawn", "pronghorn", "pronghorn", 1.0, ("pronghorn_fawn", 0.5)),
+    ("Zebra", "savanna herds; tame and ride it", "horse", "zebra", 1.0, None),
     ("Cougar", "", "cougar", "cougar", 1.0, None),
     ("Boar", "", "boar", "boar", 1.0, None),
     ("Coyote", "", "coyote", "coyote", 1.0, None),
