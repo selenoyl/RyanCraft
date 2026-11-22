@@ -166,6 +166,23 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 ## Roadmap
 See [ROADMAP.md](ROADMAP.md) for what's queued: seasons, elk, moose, grizzlies, eagles, whales, sharks, new ores and more.
 
+## Pipes, engines and the Ender Terminal
+Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes.
+
+| Block | Recipe | What it does |
+|---|---|---|
+| Wooden / Cobblestone / Stone / Golden / Iron / Diamond / Obsidian Pipe | material, glass, material (8 pipes) | Wooden pulls from the inventory it touches each engine pulse; gold speeds items up; iron sends everything out one side (turn it with a wrench); diamond sorts with six colour-coded filter rows; obsidian vacuums up dropped items |
+| Ender Pipe | ender pearl, glass, ender pearl (8) | Put one against a chest to let an Ender Terminal reach into it and store into it, no engine needed |
+| Fluid Pipe | stone pipe + green dye | Carries water and lava |
+| Redstone Engine | planks, glass, redstone, piston | Runs while powered; warms up slowly; 1 item per pulse. Stack engines in a line (each facing the next) to add their pulses together |
+| Stirling Engine | cobblestone, glass, pistons, furnace | Burns coal or any furnace fuel, no redstone needed; glows while lit; warms up to fast pulses of 8 items; hoppers can feed it |
+| Pump | iron, redstone, bucket, tank | Over a pool, each engine pulse draws a bucket and pushes it into fluid pipes; leaves infinite water sources intact, drains lava |
+| Tank | glass ring | Holds 16 buckets, shows its level; fill/empty with buckets or pipes |
+| Ender Terminal | comparator, redstone, an end portal frame, ender pipe | A sideways end portal frame wired with redstone. Hook it to a pipe network and it sees every chest that has an Ender Pipe on it; click an item and the Ender Pipe pulls it out and sends it down the pipes to you; shift-click your items to send them into storage |
+| Wrench | iron ingots | Turns iron pipes and engines |
+
+End portal frames can be mined with a diamond pickaxe (as hard as obsidian) and drop themselves with Silk Touch.
+
 ## New in 1.1.0
 - Reindeer; elk and black-tailed deer grow staged antler racks (with rare non-typical racks)
 - Moobloom (yellow mooshroom wearing old-school dandelions), swans (rare black swan), five frog and toad species
@@ -179,7 +196,7 @@ The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` 
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.1.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
+2. Put `ryancraft-1.2.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
 3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
 
 ## Build

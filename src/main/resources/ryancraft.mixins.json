@@ -10,7 +10,8 @@
     "BundleItemMixin",
     "ServerPlayerShoulderAccess",
     "PlayerCrowMixin",
-    "ServerPlayerCrowMixin"
+    "ServerPlayerCrowMixin",
+    "EndPortalFrameMiningMixin"
   ],
   "injectors": {
     "defaultRequire": 0

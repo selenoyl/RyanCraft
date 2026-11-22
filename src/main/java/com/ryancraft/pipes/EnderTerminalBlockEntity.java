@@ -41,7 +41,7 @@ public class EnderTerminalBlockEntity extends BlockEntity implements MenuProvide
     /** An inventory on the network, the pipe next to it, and the turns from there to the terminal. */
     public record Endpoint(BlockPos inv, BlockPos pipe, Direction pipeToInv, List<Direction> toTerminal, List<Direction> fromTerminal, BlockPos firstPipe, Direction firstPipeFromTerminal) {}
 
-    /** Walk the pipes out from the terminal and list every inventory they touch. */
+    /** Walk the pipes out from the terminal and list every inventory an Ender Pipe touches. */
     public List<Endpoint> scan(Level level) {
         Map<BlockPos, BlockPos> parent = new HashMap<>();
         Map<BlockPos, Direction> stepFromParent = new HashMap<>();
@@ -66,6 +66,7 @@ public class EnderTerminalBlockEntity extends BlockEntity implements MenuProvide
                     continue;
                 }
                 if (n.equals(worldPosition) || level.getBlockEntity(n) instanceof EnderTerminalBlockEntity) continue;
+                if (!(level.getBlockEntity(p) instanceof PipeBlockEntity here) || here.type() != PipeType.ENDER) continue;   // only Ender Pipes reach in
                 if (ItemStorage.SIDED.find(level, n, d.getOpposite()) == null || !seenInv.add(n)) continue;
                 BlockState is = level.getBlockState(n);                      // count a double chest once
                 if (is.getBlock() instanceof ChestBlock && is.getValue(ChestBlock.TYPE) != ChestType.SINGLE
@@ -108,6 +109,8 @@ public class EnderTerminalBlockEntity extends BlockEntity implements MenuProvide
             if (s == null || !(level.getBlockEntity(e.pipe()) instanceof PipeBlockEntity pipe)) continue;
             long got;
             try (Transaction tx = Transaction.openOuter()) { got = s.extract(item, left, tx); tx.commit(); }
+            if (got > 0 && level instanceof net.minecraft.server.level.ServerLevel sl)        // the Ender Pipe reaches in
+                sl.sendParticles(net.minecraft.core.particles.ParticleTypes.PORTAL, e.pipe().getX() + 0.5, e.pipe().getY() + 0.5, e.pipe().getZ() + 0.5, 12, 0.2, 0.2, 0.2, 0.3);
             while (got > 0) {
                 int n = (int) Math.min(got, item.getItem().getDefaultMaxStackSize());
                 pipe.launch(item.toStack(n), e.pipeToInv(), e.toTerminal(), true);

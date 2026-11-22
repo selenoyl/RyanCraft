@@ -27,8 +27,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * The little engines. A redstone engine runs while powered and gives a slow, weak pulse; a Stirling engine burns furnace
- * fuel (and needs a redstone signal too) for faster, stronger pulses. Each pulse goes to what the engine faces: a wooden
+ * The little engines. A redstone engine runs while powered and gives a slow, weak pulse; a Stirling engine burns coal or
+ * any furnace fuel (no redstone needed) for faster, stronger pulses, and glows like a lit furnace while it burns. Each pulse goes to what the engine faces: a wooden
  * pipe pulls items out of its inventory, a pump draws up a bucket of fluid. Turn it with a wrench.
  */
 public class EngineBlock extends BaseEntityBlock {
@@ -50,7 +50,7 @@ public class EngineBlock extends BaseEntityBlock {
 
     static boolean powerable(Level level, BlockPos pos) {
         BlockState s = level.getBlockState(pos);
-        return (s.getBlock() instanceof PipeBlock p && p.type == PipeType.WOODEN) || s.getBlock() instanceof PumpBlock;
+        return (s.getBlock() instanceof PipeBlock p && p.type == PipeType.WOODEN) || s.getBlock() instanceof PumpBlock || s.getBlock() instanceof EngineBlock;
     }
 
     @Override
@@ -82,6 +82,7 @@ public class EngineBlock extends BaseEntityBlock {
 
     @Override
     public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> t) {
-        return level.isClientSide() ? null : createTickerHelper(t, RyanPipes.ENGINE_ENTITY, EngineBlockEntity::serverTick);
+        return level.isClientSide() ? createTickerHelper(t, RyanPipes.ENGINE_ENTITY, EngineBlockEntity::clientTick)
+                                    : createTickerHelper(t, RyanPipes.ENGINE_ENTITY, EngineBlockEntity::serverTick);
     }
 }

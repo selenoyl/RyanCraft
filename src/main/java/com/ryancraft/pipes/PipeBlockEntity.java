@@ -97,7 +97,7 @@ public class PipeBlockEntity extends BlockEntity implements MenuProvider {
     private void chooseExit(Level level, TravelingItem t) {
         PipeType type = type();
         // speed: gold pipes push items along; elsewhere they slowly ease back to the pipe's own pace
-        t.speed = type == PipeType.GOLD ? Math.min(0.3f, t.speed + 0.05f) : Math.max(type.baseSpeed, t.speed * 0.96f);
+        t.speed = type == PipeType.GOLD ? Math.min(0.16f, t.speed + 0.025f) : Math.max(type.baseSpeed, t.speed * 0.97f);
         if (t.routed && !t.route.isEmpty()) { t.to = t.route.remove(0); return; }
         List<Direction> options = new ArrayList<>();
         for (Direction d : Direction.values()) {

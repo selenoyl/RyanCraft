@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "pattern": [
-    "OEO",
-    "EYE",
-    "OPO"
+    " C ",
+    "RFR",
+    " P "
   ],
   "key": {
-    "O": "minecraft:obsidian",
-    "E": "minecraft:ender_pearl",
-    "Y": "minecraft:ender_eye",
-    "P": "ryancraft:stone_pipe"
+    "C": "minecraft:comparator",
+    "R": "minecraft:redstone",
+    "F": "minecraft:end_portal_frame",
+    "P": "ryancraft:ender_pipe"
   },
   "result": {
     "id": "ryancraft:ender_terminal",

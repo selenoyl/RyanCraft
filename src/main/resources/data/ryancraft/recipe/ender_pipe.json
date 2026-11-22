@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "MGM"
+  ],
+  "key": {
+    "M": "minecraft:ender_pearl",
+    "G": "minecraft:glass"
+  },
+  "result": {
+    "id": "ryancraft:ender_pipe",
+    "count": 8
+  }
+}

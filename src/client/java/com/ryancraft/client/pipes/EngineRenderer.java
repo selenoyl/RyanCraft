@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, EngineRenderer.State> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(RyanCraft.id("engine"), "main");
     public static class State extends BlockEntityRenderState {
-        EngineBlock.Kind kind; Direction facing; boolean running; float stroke;
+        EngineBlock.Kind kind; Direction facing; boolean running, hot; float stroke;
     }
     private final ModelPart base, trunk, piston;
 
@@ -41,9 +41,10 @@ public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, En
     public static LayerDefinition createLayer() {
         MeshDefinition mesh = new MeshDefinition();
         var root = mesh.getRoot();
-        root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8, 0, -8, 16, 4, 16), PartPose.ZERO);
-        root.addOrReplaceChild("piston", CubeListBuilder.create().texOffs(0, 20).addBox(-8, 4, -8, 16, 4, 16), PartPose.ZERO);
-        root.addOrReplaceChild("trunk", CubeListBuilder.create().texOffs(64, 0).addBox(-4, 4, -4, 8, 12, 8), PartPose.ZERO);
+        // the piston's DNA: a piston base, the piston head as the moving plate, and between them a glowing heat chamber
+        root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8, 0, -8, 16, 6, 16), PartPose.ZERO);
+        root.addOrReplaceChild("piston", CubeListBuilder.create().texOffs(0, 24).addBox(-8, 6, -8, 16, 4, 16), PartPose.ZERO);
+        root.addOrReplaceChild("trunk", CubeListBuilder.create().texOffs(64, 0).addBox(-4, 0, -4, 8, 10, 8), PartPose.offset(0, 6, 0));
         return LayerDefinition.create(mesh, 128, 64);
     }
 
@@ -63,19 +64,19 @@ public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, En
             }
             s.lightCoords = best;
         }
-        float t = be.getLevel() == null ? 0 : be.getLevel().getGameTime() + partial;
-        float period = s.kind == EngineBlock.Kind.REDSTONE ? 40f : 16f;
-        s.stroke = s.running ? (float) (0.5 - 0.5 * Math.cos(t / period * Math.PI * 2)) : 0f;
+        s.stroke = be.stroke(partial);
+        s.hot = be.warmth() > 0.6f;
     }
 
     @Override
     public void submit(State s, PoseStack pose, SubmitNodeCollector out, CameraRenderState camera) {
-        Identifier tex = RyanCraft.id("textures/entity/engine/" + (s.kind == EngineBlock.Kind.REDSTONE ? "redstone" : "stirling") + (s.running ? "_hot" : "") + ".png");
+        Identifier tex = RyanCraft.id("textures/entity/engine/" + (s.kind == EngineBlock.Kind.REDSTONE ? "redstone" : "stirling") + (s.hot ? "_hot" : "") + ".png");
         pose.pushPose();
         pose.translate(0.5, 0.5, 0.5);
         pose.mulPose(s.facing.getRotation());                 // the piston pushes toward what it powers
         pose.translate(0, -0.5, 0);
-        piston.y = s.stroke * 8f;
+        piston.y = s.stroke * 6f;
+        trunk.yScale = (s.stroke * 6f + 3.9f) / 10f;          // the chamber shows between base and head as the piston rises
         var rt = RenderTypes.entityCutout(tex);
         out.submitModelPart(base, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         out.submitModelPart(trunk, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
