@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:cut_steel",
+  "result": {
+    "id": "ryancraft:cut_steel_slab",
+    "count": 2
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:steel_block",
+  "result": {
+    "id": "ryancraft:steel_plating",
+    "count": 4
+  }
+}

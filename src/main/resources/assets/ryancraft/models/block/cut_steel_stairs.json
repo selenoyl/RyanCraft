@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "ryancraft:block/cut_steel",
+    "side": "ryancraft:block/cut_steel",
+    "top": "ryancraft:block/cut_steel"
+  }
+}

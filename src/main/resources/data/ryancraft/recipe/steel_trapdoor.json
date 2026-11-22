@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:steel_ingot"
+  },
+  "result": {
+    "id": "ryancraft:steel_trapdoor",
+    "count": 1
+  }
+}

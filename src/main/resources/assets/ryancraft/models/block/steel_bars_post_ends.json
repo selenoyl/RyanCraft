@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_bars_post_ends",
+  "textures": {
+    "bars": "ryancraft:block/steel_bars",
+    "edge": "ryancraft:block/steel_bars"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:cut_steel"
+  },
+  "result": {
+    "id": "ryancraft:cut_steel_slab",
+    "count": 6
+  }
+}

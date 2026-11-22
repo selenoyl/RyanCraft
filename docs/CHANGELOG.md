@@ -2,6 +2,11 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.5.1
+- **Steel decoration blocks**: Cut Steel (with stairs and slab), Steel Plating, Chiseled Steel, a see-through Steel
+  Grate, Steel Bars, and a redstone-operated Steel Door and Trapdoor. Most can also be made on the stonecutter
+  from a Block of Steel.
+
 ## 1.5.0
 - **Steel**: point a running engine at a blast furnace and it works like a bellows. While it's stoked and burning
   fuel, iron ingots turn into steel ingots (20 seconds each). Steel Ingot and Block of Steel.

@@ -98,7 +98,9 @@ Tekkit-style transport that feels vanilla. You can watch items ride through the 
   - obsidian pipes vacuum up dropped items
   - fluid pipes carry water and lava
 - **Engines:** redstone engines and coal-burning Stirling engines warm up, then pulse faster. Stack engines in a line to add their power together.
-- **Steel:** point a running engine at a blast furnace to work it like a bellows. While it's stoked and burning fuel, iron ingots turn into steel ingots (for the cannons and muskets to come).
+- **Steel:** point a running engine at a blast furnace to work it like a bellows. While it's stoked and burning fuel, iron ingots turn into steel ingots, for building and for the cannons and muskets to come. Steel comes as blocks, cut steel (with stairs and slabs), plating, chiseled steel, a see-through grate, bars, a door and a trapdoor.
+
+![Steel blocks](docs/steel_blocks.png)
 - **Tanks and pumps:**
   - stacking glass tanks
   - an iron-hooped vat that collects rain

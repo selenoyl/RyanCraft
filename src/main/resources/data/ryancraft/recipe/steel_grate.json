@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": "ryancraft:steel_block"
+  },
+  "result": {
+    "id": "ryancraft:steel_grate",
+    "count": 4
+  }
+}

@@ -16,6 +16,15 @@
     "minecraft:end_portal_frame",
     "ryancraft:hand_pump",
     "ryancraft:tank",
-    "ryancraft:steel_block"
+    "ryancraft:steel_block",
+    "ryancraft:cut_steel",
+    "ryancraft:cut_steel_stairs",
+    "ryancraft:cut_steel_slab",
+    "ryancraft:steel_plating",
+    "ryancraft:chiseled_steel",
+    "ryancraft:steel_grate",
+    "ryancraft:steel_bars",
+    "ryancraft:steel_door",
+    "ryancraft:steel_trapdoor"
   ]
 }
