@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 /**
+ * Milk it with a bowl for suspicious stew of some random flower.
  * The moobloom: a sunny yellow cow with dandelions growing on its back. It leaves dandelions behind as it
  * grazes; shear it for a handful and it turns back into a plain cow, like a mooshroom.
  */
@@ -45,6 +46,17 @@ public class Moobloom extends Cow implements Shearable {
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(Items.BOWL) && !this.isBaby()) {           // milk it with a bowl: suspicious stew of some random flower
+            if (this.level() instanceof ServerLevel) {
+                var holders = net.minecraft.world.level.block.SuspiciousEffectHolder.getAllEffectHolders();
+                ItemStack stew = new ItemStack(Items.SUSPICIOUS_STEW);
+                if (!holders.isEmpty()) stew.set(net.minecraft.core.component.DataComponents.SUSPICIOUS_STEW_EFFECTS,
+                        holders.get(this.random.nextInt(holders.size())).getSuspiciousEffects());
+                player.setItemInHand(hand, net.minecraft.world.item.ItemUtils.createFilledResult(stack, player, stew, false));
+                this.playSound(SoundEvents.MOOSHROOM_MILK_SUSPICIOUSLY, 1.0f, 1.0f);
+            }
+            return InteractionResult.SUCCESS;
+        }
         if (stack.is(Items.SHEARS) && readyForShearing()) {
             if (this.level() instanceof ServerLevel level) {
                 shear(level, SoundSource.PLAYERS, stack);

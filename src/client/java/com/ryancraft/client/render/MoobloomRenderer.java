@@ -38,21 +38,23 @@ public class MoobloomRenderer extends CowRenderer {
             if (state.isBaby || state.isInvisible) return;
             BlockState flower = net.minecraft.world.level.block.Blocks.DANDELION.defaultBlockState();
             int overlay = LivingEntityRenderer.getOverlayCoords(state, 0.0f);
-            float[][] back = {{0.2f, -0.35f, 0.5f, -48f}, {-0.15f, -0.35f, 0.05f, 30f}, {0.15f, -0.35f, -0.35f, 75f}};
+            // stems planted in the hide: the flower's base sits where the mooshroom's mushroom bases do, a hair lower
+            final float k = 0.8f, backY = 0.2f - 0.5f * k, headY = -0.16f - 0.5f * k;
+            float[][] back = {{0.2f, backY, 0.5f, -48f}, {-0.15f, backY, 0.05f, 30f}, {0.15f, backY, -0.35f, 75f}};
             for (float[] b : back) {
                 pose.pushPose();
                 pose.translate(b[0], b[1], b[2]);
                 pose.mulPose(Axis.YP.rotationDegrees(b[3]));
-                pose.scale(-0.8f, -0.8f, 0.8f);
+                pose.scale(-k, -k, k);
                 pose.translate(-0.5f, -0.5f, -0.5f);
                 out.submitBlock(pose, flower, light, overlay, state.outlineColor);
                 pose.popPose();
             }
             pose.pushPose();
             this.getParentModel().getHead().translateAndRotate(pose);
-            pose.translate(0.0f, -0.7f, -0.2f);
+            pose.translate(0.0f, headY, -0.2f);
             pose.mulPose(Axis.YP.rotationDegrees(-78f));
-            pose.scale(-0.8f, -0.8f, 0.8f);
+            pose.scale(-k, -k, k);
             pose.translate(-0.5f, -0.5f, -0.5f);
             out.submitBlock(pose, flower, light, overlay, state.outlineColor);
             pose.popPose();
