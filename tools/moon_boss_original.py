@@ -103,6 +103,13 @@ def steve(c):        # Steve / villager: a white pixel beside a coloured iris
     return {(3, 5): W_, (4, 5): c + (255,), (9, 5): c + (255,), (10, 5): W_}
 def vrabbit(c):      # the vanilla rabbit: a small dark eye with a white highlight, set wide
     return {(2, 5): K_, (2, 4): W_, (11, 5): K_, (11, 4): W_, (3, 5): K_, (10, 5): K_}
+def vrabbit_big(c):  # the vanilla rabbit's eyes, bigger: 2x2 dark, a white highlight in the top outer corner, set wide
+    f = {}
+    for (x0, hx) in ((2, 2), (10, 11)):
+        for dx in (0, 1):
+            for dy in (0, 1): f[(x0 + dx, 4 + dy)] = K_
+        f[(hx, 4)] = W_
+    return f
 def enderman(c):     # enderman: a glowing slit with a brighter centre
     return {**{(x, 5): c + (255,) for x in (2, 3, 4, 9, 10, 11)}, (3, 5): bright(c), (10, 5): bright(c)}
 def spider(c):       # spider: several small glowing eyes
@@ -145,7 +152,21 @@ def eye_sheet(out):
         d.text((x + cw // 2, 100 + ch - 40), name, font=R.font(26, True), fill=INK, anchor="mm")
     c.save(out); print("wrote", out, c.size)
 
+def big_rabbit_eyes(out):
+    import math as _m
+    BG, INK, SUB = (243, 239, 230), (46, 42, 36), (128, 118, 104)
+    R.YAW = _m.radians(-35); full = rabbit("dust", None, None, vrabbit_big).draw(2.6)
+    R.YAW = _m.radians(-20); im = rabbit("dust", None, None, vrabbit_big).draw(4.5); bb = im.getbbox(); w = bb[2] - bb[0]
+    head = im.crop((bb[0] + int(w * 0.30), bb[1] + int(im.height * 0.16), bb[0] + int(w * 0.92), bb[1] + int(im.height * 0.52)))
+    W = full.width + head.width + 120; H = max(full.height, head.height) + 160
+    c = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(c)
+    d.text((40, 30), "The Great Moon Rabbit: moon-dust, with bigger vanilla-rabbit eyes", font=R.font(40, True), fill=INK)
+    c.paste(full, (40, H - 40 - full.height), full); c.paste(head, (full.width + 80, 120), head)
+    c.save(out); print("wrote", out, c.size)
+
 if __name__ == "__main__":
+    if len(sys.argv) > 2 and sys.argv[2] == "bigeyes":
+        big_rabbit_eyes(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_rabbit_eyes.png")); sys.exit()
     if len(sys.argv) > 2 and sys.argv[2] == "styles":
         style_sheet(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "docs", "moon_boss_eye_styles.png")); sys.exit()
     if len(sys.argv) > 2 and sys.argv[2] == "eyes":
