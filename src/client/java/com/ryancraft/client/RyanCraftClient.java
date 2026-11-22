@@ -127,6 +127,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
         AmbienceEngine ambience = new AmbienceEngine();
         ClientTickEvents.END_CLIENT_TICK.register(ambience::tick);
+        ClassicPack.register();
         ClientLifecycleEvents.CLIENT_STARTED.register(ClassicPack::start);
     }
 }

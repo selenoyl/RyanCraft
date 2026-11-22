@@ -23,8 +23,8 @@ public final class RyanConfig {
     /** Hide the Report button in the Social Interactions screen. */
     public boolean hideReportButton = true;
 
-    // ---- Classic 1.2.5 pack (built on your machine from Mojang's official 1.2.5 files) ----
-    /** Build and use the "RyanCraft Classic 1.2.5" resource pack. */
+    // ---- Classic 1.2.5 pack (shipped inside the mod as a built-in resource pack) ----
+    /** Offer (and on first launch, enable) the "RyanCraft Classic 1.2.5" resource pack. */
     public boolean classicPack = true;
     /** 1.2.5 block, item, mob, armor and font textures (incl. the old gravel) and old Steve. */
     public boolean classicTextures = true;

@@ -5,14 +5,14 @@ A Fabric mod for **Minecraft 1.21.11**: the feel of 2012, Tekkit-era Minecraft 1
 ![Kentucky wildlife on a 1.2.5-textured platform](docs/kentucky.png)
 
 ## Classic 1.2.5 pack
-On first launch the mod downloads the **official 1.2.5 files from Mojang's servers** (the same ones the launcher uses) and builds a resource pack on your machine called *RyanCraft Classic 1.2.5*, then switches it on. No Mojang assets are shipped in this mod.
+The mod ships a built-in resource pack, *RyanCraft Classic 1.2.5*: Minecraft's own 1.2.5 textures, sounds and music, rearranged for today's game. It's switched on the first time you launch; nothing is downloaded.
 - **Textures**: every 1.2.5 block and item (yes, *that* gravel), the old crack animation, old Steve and zombie, the 1.2.5 font, clouds, rain, snow, and the old grass/foliage colours. Mobs that changed shape since 1.2.5 (like the new warm and cold chickens, cows and pigs) keep their modern look; only mobs whose texture layout still matches get the old skin.
 - **GUI**: the 1.2.5 hotbar, hearts, hunger, armor, XP bar, crosshair and buttons, and the original title-screen panorama.
 - **Sounds**: the 1.2.5 sound set: footsteps, digging, damage, the old mob sounds, caves, rain, doors, explosions.
 - **Music**: only the original C418 tracks (calm 1-3, hal 1-4, nuance 1-2, piano 1-3), everywhere.
 - **Programmer Art** is switched on underneath so blocks added after 1.2.5 still look the part.
 
-Turn it off any time in *Resource Packs*. Each part can be toggled in `config/ryancraft.json` (`classicTextures`, `classicSounds`, `classicMusic`, `classicProgrammerArt`).
+Turn it off any time in *Resource Packs*, or set `classicPack` / `classicProgrammerArt` in `config/ryancraft.json`.
 
 ![Title screen](docs/title.png)
 
