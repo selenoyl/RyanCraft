@@ -237,7 +237,14 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade, a green cousin of the lapis block.
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
-  - **A one-way trip.** The jade portal only goes up. You land on the moon with no portal back, so pack well:
+  - **No air.** The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
+    start to suffocate. To breathe up there you need one of:
+    - a **Potion of Air**, brewed from an awkward potion and a wind charge (the breeze's bottled wind, from trial
+      chambers). It works like water breathing, but only for thin air: 3 minutes, 8 with redstone.
+    - the inside of a running **force field**, which holds air as well as keeping meteors out.
+    - the **jade crown**, whose breathing works on the moon too.
+    Water breathing potions and Respiration don't help: there's no water to breathe from.
+  - **A one-way trip.** The jade portal only goes up. You land on the moon with no portal back, so pack well (plenty of Potions of Air):
     the only way home is to find the jade temple and beat the Great Moon Rabbit, which opens a portal home.
     - Dying still sends you back to your bed, as anywhere, but everything you carried stays on the moon.
     - Once you've beaten a rabbit, its temple's portal home stays open, so later trips can be two-way.
@@ -274,8 +281,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       - A meteor that lands near you bursts with a small blast, like a creeper's but weaker. One that hits you
         directly blows up right on you.
       - Out in the open you have to keep an eye on the sky, and a roof or a cave keeps you safe.
-    - **Build a moon base.** A **force field generator** around your base catches meteors before they reach you,
-      so you can live up there. Switch it off, or run out of fuel, and the meteors come through again.
+    - **Build a moon base.** A **force field generator** around your base catches meteors before they reach you
+      and holds in air you can breathe, so you can live up there. Switch it off, or run out of fuel, and the meteors come through again.
     - **Dig out meteor iron** from the old craters (the moon's surface is pocked with them, made long ago): a rare,
       dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools, armour
       and cannon barrels, and it shimmers faintly at night.
@@ -304,7 +311,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
         (about 4 hearts on Normal). Kill the brutes first.
       - They vanish when the boss dies.
     - At half health it goes into a frenzy: faster hops, and meteors come two or three at a time.
-    - Beat it for its **jade crown**: worn in the helmet slot, it lets you breathe underwater for as long as you
+    - Beat it for its **jade crown**: worn in the helmet slot, it lets you breathe underwater (and on the airless moon) for as long as you
       like, mine underwater at full speed (built-in Aqua Affinity), and see much farther and clearer underwater
       (not crystal clear, but far better than a Respiration helmet or a conduit). It's the key to exploring
       the sunken islands of the deep ocean, and the price is giving up a real helmet.
