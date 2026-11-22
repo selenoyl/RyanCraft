@@ -50,52 +50,104 @@ def render(m, scale=1.0):
     R.load_model = lambda name, m=m: ((512, 512), m.parts)
     img = R.render("x", "_concept", scale); os.remove(path); return img
 
+# ---------------- materials for the refined designs
+def riveted(base, k=0.55):
+    """Dark iron with a rivet in each corner and a darker edge."""
+    t = base.copy(); px = t.load()
+    for y in range(16):
+        for x in range(16):
+            if min(x, y, 15 - x, 15 - y) == 0: px[x, y] = shade(px[x, y], 0.6)
+    for (x, y) in ((2, 2), (13, 2), (2, 13), (13, 13)): px[x, y] = (150, 150, 156, 255); px[x + 1, y + 1] = (40, 40, 44, 255)
+    return t
+def shade(c, k): return tuple(max(0, min(255, int(v * k))) for v in c[:3]) + (c[3] if len(c) > 3 else 255,)
+dark = riveted(iron_dark)
+def clean_glass():
+    t = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = t.load()
+    for i in range(16):
+        for (x, y) in ((i, 0), (i, 15), (0, i), (15, i)): px[x, y] = (200, 220, 230, 200)
+    for i in range(3, 8): px[i, 11 - i] = (240, 250, 255, 220); px[i + 1, 11 - i] = (220, 235, 245, 160)   # a highlight streak
+    return t
+cglass = clean_glass()
+def copper_plate(c):
+    t = c.copy(); px = t.load()
+    for x in range(16): px[x, 7] = shade(px[x, 7], 0.75); px[x, 8] = shade(px[x, 8], 1.12)            # a seam band
+    for x in (1, 5, 10, 14): px[x, 5] = shade(px[x, 5], 0.55); px[x, 10] = shade(px[x, 10], 0.55)      # rivets along it
+    for y in range(16): px[0, y] = shade(px[0, y], 0.7); px[15, y] = shade(px[15, y], 0.7)
+    return t
+def porthole(c):
+    t = copper_plate(c); px = t.load()
+    for y in range(4, 12):
+        for x in range(4, 12):
+            corner = (x in (4, 11)) and (y in (4, 11))
+            if corner: continue
+            ring = x in (4, 11) or y in (4, 11) or (x in (5, 10) and y in (5, 10))
+            px[x, y] = (54, 52, 56, 255) if ring else (0, 0, 0, 0)
+    return t
+def vat_side():
+    t = barrel.copy(); px = t.load()
+    for y in (3, 4, 11, 12):
+        for x in range(16): px[x, y] = shade(iron_dark.getpixel((x, y)), 0.9 if y in (3, 11) else 0.6)
+    return t
+def vat_rim():
+    t = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = t.load()
+    for y in range(16):
+        for x in range(16):
+            if min(x, y, 15 - x, 15 - y) < 2: px[x, y] = planks.getpixel((x, y))
+    return t
+
 # ---------------- tanks
 def tank_frame(fluid=water, level=11, tall=False):
     m = Model(); H = 32 if tall else 16
-    m.box((3, 1, 3), (10, level + (16 if tall else 0), 10), fluid)                      # the fluid inside
-    m.box((1, 0, 1), (14, H, 14), glass)                                                 # glass body
-    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), iron_dark)  # dark-iron corner posts
-    for y in ((0, H - 1) if not tall else (0, H - 1)):
-        m.box((0, y, 0), (16, 1, 2), iron_dark); m.box((0, y, 14), (16, 1, 2), iron_dark)
-        m.box((0, y, 2), (2, 1, 12), iron_dark); m.box((14, y, 2), (2, 1, 12), iron_dark)
+    m.box((2, 1, 2), (12, level + (16 if tall else 0), 12), fluid)
+    m.box((1, 1, 1), (14, H - 2, 14), cglass)
+    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), dark)
+    for y in (0, H - 2):
+        m.box((0, y, 0), (16, 2, 16), dark if y == 0 else dark) if y == 0 else None
+    m.box((0, H - 2, 0), (16, 2, 2), dark); m.box((0, H - 2, 14), (16, 2, 2), dark); m.box((0, H - 2, 2), (2, 2, 12), dark); m.box((14, H - 2, 2), (2, 2, 12), dark)
+    m.box((6, H - 2, 6), (4, 2, 4), dark)                                               # fill hatch on top
     return m
 def tank_vat():
-    m = Model()
-    m.box((1, 0, 1), (14, 14, 14), barrel, side=barrel)
-    m.box((2, 12, 2), (12, 1, 12), water)                                                # open top, water surface
-    for y in (2, 10):                                                                    # iron hoops
-        m.box((0, y, 0), (16, 2, 1), iron_dark); m.box((0, y, 15), (16, 2, 1), iron_dark)
-        m.box((0, y, 1), (1, 2, 14), iron_dark); m.box((15, y, 1), (1, 2, 14), iron_dark)
+    """Walls and a floor, so you look down past the plank rim at the water inside; hoops only around the sides."""
+    m = Model(); vs = vat_side()
+    m.box((1, 0, 1), (14, 1, 14), planks)                                                 # floor
+    m.box((3, 1, 3), (10, 11, 10), water)                                                 # the water, up to just below the rim
+    m.box((1, 1, 1), (14, 13, 2), planks, side=vs); m.box((1, 1, 13), (14, 13, 2), planks, side=vs)
+    m.box((1, 1, 3), (2, 13, 10), planks, side=vs); m.box((13, 1, 3), (2, 13, 10), planks, side=vs)
     return m
+
 def tank_copper(c=copper):
     m = Model()
-    m.box((1, 0, 1), (14, 16, 14), c)
-    for (x, z, w_, d_) in ((5, 0.0, 6, 1), (0.0, 5, 1, 6)):                              # round-ish portholes with fluid behind
-        m.box((5, 5, 0), (6, 6, 1), glass); m.box((0, 5, 5), (1, 6, 6), glass)
-    m.box((6, 6, 0.5), (4, 4, 1), water); m.box((0.5, 6, 6), (1, 4, 4), water)
-    m.box((3, 16, 3), (10, 1, 10), c)
+    m.box((1, 0, 1), (14, 15, 14), copper_plate(c), side=porthole(c))
+    m.box((3, 4, 3), (10, 8, 10), water)                                                 # seen through the portholes
+    m.box((2, 15, 2), (12, 1, 12), copper_plate(c)); m.box((6, 16, 6), (4, 1, 4), dark)  # lid and hatch
+    for (x, z) in ((0, 0), (15, 0), (0, 15), (15, 15)): m.box((x, 0, z), (1, 16, 1), shade_img(c, 0.7))
     return m
+def shade_img(t, k):
+    t = t.copy(); px = t.load()
+    for y in range(16):
+        for x in range(16): px[x, y] = shade(px[x, y], k)
+    return t
 
 # ---------------- pumps
 def pump_screw(turn=0):
     m = Model()
-    m.box((0, 0, 0), (16, 2, 16), iron_dark); m.box((0, 14, 0), (16, 2, 16), iron_dark)     # base and cap
-    for (x, z) in ((0, 0), (13, 0), (0, 13), (13, 13)): m.box((x, 2, z), (3, 12, 3), caul)   # dark-iron frame posts
-    m.box((7, 2, 7), (2, 12, 2), iron)                                                       # the screw's shaft
-    for i in range(16):                                                                      # helix blades
-        a = turn + i * 45
-        m.box((9, 2 + i * 0.72, 7.5), (4, 1, 1), iron, rot=math.radians(a), pivot=(8, 2 + i * 0.72, 8))
-        if i % 2 == 0: m.box((9.5, 2.5 + i * 0.72, 7.6), (2, 1, 0.8), water, rot=math.radians(a + 10), pivot=(8, 2.5 + i * 0.72, 8))
-    m.box((6, -14, 6), (4, 14, 4), iron_dark)                                                # intake tube down to the pool
-    m.box((2, -15, 2), (12, 1, 12), water)
+    m.box((0, 0, 0), (16, 2, 16), dark); m.box((0, 14, 0), (16, 2, 16), dark)
+    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 2, z), (2, 12, 2), dark)
+    m.box((7, 2, 7), (2, 12, 2), iron)
+    for i in range(10):
+        a = turn + i * 40
+        m.box((9, 2.5 + i * 1.1, 7), (5, 1, 2), iron, rot=math.radians(a), pivot=(8, 2.5 + i * 1.1, 8))
+        m.box((9.5, 3.4 + i * 1.1, 7.2), (3, 0.6, 1.6), water, rot=math.radians(a + 6), pivot=(8, 3.4 + i * 1.1, 8))
+    m.box((6, -12, 6), (4, 12, 4), dark); m.box((2, -13, 2), (12, 1, 12), water)
     return m
 def pump_hand():
     m = Model()
-    m.box((5, 0, 5), (6, 12, 6), caul); m.box((4, 12, 4), (8, 2, 8), iron_dark)            # cast-iron column and cap
-    m.box((7, 9, -1), (2, 2, 6), iron_dark); m.box((7, 7, -1), (2, 2, 2), iron_dark)        # spout
-    m.box((7, 15, 2), (2, 1, 14), iron_dark, rot=math.radians(0), pivot=(8, 15, 8))         # lever arm
-    m.box((7, 14, 7), (2, 2, 2), iron)
+    m.box((4, 0, 4), (8, 2, 8), dark)                                                    # foot
+    m.box((5, 2, 5), (6, 11, 6), caul); m.box((4, 13, 4), (8, 2, 8), dark)              # column and cap
+    m.box((7, 9, 0), (2, 2, 5), dark); m.box((7, 7, 0), (2, 2, 1), dark)                # spout
+    m.box((7, 15, 7), (2, 3, 2), iron)                                                   # pivot
+    m.box((7, 17, 1), (2, 1, 14), dark)                                                  # handle
+    m.box((6, 17, 14), (4, 2, 2), planks)                                                # grip
     return m
 
 def engine(kind, stroke):
@@ -108,15 +160,15 @@ def engine(kind, stroke):
     return m
 
 if __name__ == "__main__":
-    rows = [("Tanks", [("Glass + dark iron (my pick)", tank_frame()), ("…stacked, lava", tank_frame(lava, 12, True)),
-                       ("Iron-hooped vat", tank_vat()), ("Copper w/ portholes", tank_copper()), ("…weathered", tank_copper(oxid))]),
-            ("Pumps", [("Archimedes screw (my pick)", pump_screw()), ("Cast-iron hand pump", pump_hand())]),
-            ("New engines", [("Redstone, closed", engine("redstone", 0)), ("Redstone, extended", engine("redstone", 1)),
-                             ("Stirling, closed", engine("stirling", 0)), ("Stirling, extended", engine("stirling", 1))])]
+    exposed = T(VT.replace("vt", "vt") + "copper_block.png")
+    rows = [("Tanks", [("Glass + dark iron", tank_frame()), ("...stacked, lava", tank_frame(lava, 12, True)),
+                       ("Iron-hooped vat", tank_vat()), ("Copper", tank_copper()), ("...oxidized", tank_copper(oxid))]),
+            ("Pumps", [("Archimedes screw", pump_screw()), ("...turning", pump_screw(20)), ("Cast-iron hand pump", pump_hand())]),
+]
     imgs = [[(lbl, render(mdl, 1.0)) for lbl, mdl in items] for _, items in rows]
     cell = 260; W = 40 + 5 * cell; Hh = 60 + len(rows) * (cell + 60)
     sheet = Image.new("RGB", (W, Hh), (238, 234, 226)); d = ImageDraw.Draw(sheet)
-    d.text((24, 16), "Tank & pump concepts, new engines", font=R.font(26, True), fill=(40, 36, 30))
+    d.text((24, 16), "Tanks & pumps, refined", font=R.font(26, True), fill=(40, 36, 30))
     for r, ((title, _), row) in enumerate(zip(rows, imgs)):
         y = 60 + r * (cell + 60); d.text((24, y), title, font=R.font(20, True), fill=(60, 54, 44))
         for i, (lbl, im) in enumerate(row):
