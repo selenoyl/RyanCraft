@@ -14,14 +14,27 @@ P = []
 def add(label, sub, parts, style, scale=1.0): P.append((label, sub, parts, style, scale))
 
 # ---- Zebra: a horse variant with bold stripes and an upright two-tone mane
-zebra = cervid((10, 10, 22), (3, 12), -8, neck=((-2, -2, -4), (4, 12, 6)), head=((-2.5, -5, -11), (5, 5, 7)), snout=((-2, -3, -14), (4, 4, 3)),
-               ears=((-3, -8, -5), (1, 3, 1)), tail=((-1, 0, 0), (2, 10, 2), 0.35),
-               extra_head=[box("mane", (-0.5, -7, -1), (1, 13, 3), "mane2")])
+def equine():
+    """Horse proportions: deep body on sturdy legs, the neck angled forward, a long head with a tapered muzzle."""
+    body = [box("body", (-5, -5, -11), (10, 10, 22), "body")]
+    head = [box("neck", (-2.5, -12, -3.5), (5, 13, 7), "mane"),
+            box("head", (-3, -15, -9), (6, 5, 7), "head"),
+            box("muzzle", (-2, -14.5, -13), (4, 4, 4), "snout"),
+            box("crest", (-1, -14, 3.5), (2, 14, 2), "mane2"),
+            box("ear_r", (-2.5, -17, -3), (2, 2, 1), "ear"), box("ear_l", (0.5, -17, -3), (2, 2, 1), "ear", mirror=True)]
+    ps = [part("body", (0, 8, 0), body, "body"),
+          part("head", (0, 5, -9), head, "head", rot=(0.52, 0, 0)),
+          part("tail", (0, 4, 10.5), [box("tail", (-1.5, 0, 0), (3, 13, 3), "tail")], "tail", rot=(0.35, 0, 0))]
+    for nm, sx, sz in [("leg_rf", -1, -1), ("leg_lf", 1, -1), ("leg_rb", -1, 1), ("leg_lb", 1, 1)]:
+        ps.append(part(nm, (sx * 3, 13, sz * 8), [box("leg", (-2, 0, -2), (4, 11, 4), "leg", mirror=sx > 0)], nm))
+    return ps
+zebra = equine()
 STRIPES = ["#f2f0ea", "#161616"] * 8
 add("Zebra", "a horse variant", zebra, {
     "body": {"c": "#f2f0ea", "noise": 4, "rings": {"c": "#161616", "n": 7}},
-    "mane": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES}, "head": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "side_eyes": "#0a0a0a", "eye_row": 1},
-    "snout": {"c": "#2a2a2a", "noise": 3}, "ear": {"c": "#f2f0ea", "back": "#161616"},
+    "mane": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "front": "#f2f0ea"},
+    "head": {"c": "#f2f0ea", "noise": 3, "side_rows": ["#f2f0ea", "#161616", "#f2f0ea", "#f2f0ea", "#161616"], "side_eyes": "#0a0a0a", "eye_row": 2},
+    "snout": {"c": "#3a3634", "noise": 3, "top": "#5a5450", "front": "#1e1c1a"}, "ear": {"c": "#f2f0ea", "back": "#161616"},
     "leg": {"c": "#f2f0ea", "noise": 3, "side_rows": STRIPES, "bottom": "#161616"}, "tail": {"c": "#f2f0ea", "tip": {"c": "#161616", "frac": 0.4}},
     "mane2": {"c": "#161616", "noise": 3, "side_rows": STRIPES}})
 
