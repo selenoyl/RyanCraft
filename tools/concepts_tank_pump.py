@@ -31,8 +31,9 @@ class Model:
         def put(tex, x0, y0, ww, hh):
             if ww <= 0 or hh <= 0: return
             t = Image.new("RGBA", (ww, hh))
+            ox, oy = max(0, (16 - ww) // 2), max(0, (16 - hh) // 2)      # crop from the middle so smaller faces stay centred
             for yy in range(hh):
-                for xx in range(ww): t.putpixel((xx, yy), tex.getpixel((xx % 16, yy % 16)))
+                for xx in range(ww): t.putpixel((xx, yy), tex.getpixel(((xx + ox) % 16, (yy + oy) % 16)))
             self.atlas.paste(t, (x0, y0))
         put(top, u + di, v, wi, di); put(bottom, u + di + wi, v, wi, di)
         for i, x0 in enumerate((u, u + di, u + di + wi, u + 2 * di + wi)): put(side, x0, v + di, di if i % 2 == 0 else wi, hi)
@@ -105,12 +106,13 @@ def pane():
     return t
 glass_pane = pane()
 def tank_frame(fluid=water, level=11, tall=False):
-    """A dark-iron frame along all twelve edges with a glass pane inset on every face: symmetrical from every side."""
+    """A full block: dark-iron frame on all twelve edges, real glass panes on every face, the fluid inside.
+    The same shape whatever it holds; stacked tanks share one fluid column and drop the frame between them."""
     m = Model(); H = 32 if tall else 16
-    m.box((2, 2, 2), (12, min(level + (16 if tall else 0), H - 4), 12), fluid)
-    m.box((1, 1, 1), (14, H - 2, 14), glass_pane)
-    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), dark)           # vertical edges
-    for y in (0, H - 2):                                                                                  # top and bottom edges
+    if fluid is not None: m.box((2, 2, 2), (12, min(level + (16 if tall else 0), H - 4), 12), fluid)
+    m.box((0.5, 0.5, 0.5), (15, H - 1, 15), glass)                                       # real glass, frame lines and streaks
+    for (x, z) in ((0, 0), (14, 0), (0, 14), (14, 14)): m.box((x, 0, z), (2, H, 2), dark)
+    for y in (0, H - 2):
         m.box((2, y, 0), (12, 2, 2), dark); m.box((2, y, 14), (12, 2, 2), dark)
         m.box((0, y, 2), (2, 2, 12), dark); m.box((14, y, 2), (2, 2, 12), dark)
     return m
@@ -180,15 +182,14 @@ def engine(kind, stroke):
 
 if __name__ == "__main__":
     exposed = T(VT.replace("vt", "vt") + "copper_block.png")
-    rows = [("Tanks", [("Glass + dark iron", tank_frame()), ("...stacked, lava", tank_frame(lava, 12, True)),
-                       ("Iron-hooped vat", tank_vat()), ("Copper", tank_copper()), ("...exposed", tank_copper(T(VT + "exposed_copper.png")))]),
-            ("Copper weathering", [("...weathered", tank_copper(T(VT + "weathered_copper.png"))), ("...oxidized", tank_copper(oxid))]),
+    rows = [("Glass tank: one shape, any fluid", [("Water", tank_frame(water)), ("Lava", tank_frame(lava)), ("Empty", tank_frame(None)),
+                                                ("Two stacked", tank_frame(water, 12, True)), ("Iron-hooped vat", tank_vat())]),
             ("Pumps", [("Archimedes screw", pump_screw()), ("...turning", pump_screw(20)), ("Cast-iron hand pump", pump_hand())]),
 ]
     imgs = [[(lbl, render(mdl, 1.0)) for lbl, mdl in items] for _, items in rows]
     cell = 260; W = 40 + 5 * cell; Hh = 60 + len(rows) * (cell + 60)
     sheet = Image.new("RGB", (W, Hh), (238, 234, 226)); d = ImageDraw.Draw(sheet)
-    d.text((24, 16), "Tanks & pumps, refined", font=R.font(26, True), fill=(40, 36, 30))
+    d.text((24, 16), "Tanks & pumps", font=R.font(26, True), fill=(40, 36, 30))
     for r, ((title, _), row) in enumerate(zip(rows, imgs)):
         y = 60 + r * (cell + 60); d.text((24, y), title, font=R.font(20, True), fill=(60, 54, 44))
         for i, (lbl, im) in enumerate(row):
