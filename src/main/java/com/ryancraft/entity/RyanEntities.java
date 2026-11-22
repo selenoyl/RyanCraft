@@ -85,6 +85,16 @@ public final class RyanEntities {
             EntityType.Builder.of(GreatBlueHeron::new, MobCategory.CREATURE).sized(0.6f, 1.4f).clientTrackingRange(10));
     public static final EntityType<CanadaGoose> CANADA_GOOSE = register("canada_goose",
             EntityType.Builder.of(CanadaGoose::new, MobCategory.CREATURE).sized(0.6f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<Orca> ORCA = register("orca",
+            EntityType.Builder.of(Orca::new, MobCategory.WATER_CREATURE).sized(2.2f, 1.4f).clientTrackingRange(10));
+    public static final EntityType<BlueWhale> BLUE_WHALE = register("blue_whale",
+            EntityType.Builder.of(BlueWhale::new, MobCategory.WATER_CREATURE).sized(4.5f, 2.8f).clientTrackingRange(10));
+    public static final EntityType<Shark> SHARK = register("shark",
+            EntityType.Builder.of(Shark::new, MobCategory.WATER_CREATURE).sized(1.4f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<MantaRay> MANTA_RAY = register("manta_ray",
+            EntityType.Builder.of(MantaRay::new, MobCategory.WATER_CREATURE).sized(2.2f, 0.4f).clientTrackingRange(10));
+    public static final EntityType<Jellyfish> JELLYFISH = register("jellyfish",
+            EntityType.Builder.of(Jellyfish::new, MobCategory.WATER_CREATURE).sized(0.7f, 1.0f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -132,6 +142,11 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(GREAT_HORNED_OWL, GreatHornedOwl.createAttributes());
         FabricDefaultAttributeRegistry.register(GREAT_BLUE_HERON, GreatBlueHeron.createAttributes());
         FabricDefaultAttributeRegistry.register(CANADA_GOOSE, CanadaGoose.createAttributes());
+        FabricDefaultAttributeRegistry.register(ORCA, Orca.createAttributes());
+        FabricDefaultAttributeRegistry.register(BLUE_WHALE, BlueWhale.createAttributes());
+        FabricDefaultAttributeRegistry.register(SHARK, Shark.createAttributes());
+        FabricDefaultAttributeRegistry.register(MANTA_RAY, MantaRay.createAttributes());
+        FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());

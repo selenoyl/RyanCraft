@@ -66,6 +66,11 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Great Horned Owl** | Forests, taiga | Sits tight by day, hunts low and silent at night, hoots from the trees |
 | **Great Blue Heron** | Rivers, swamps | Stalks the shallows and spears fish; stalks off if you come close |
 | **Canada Goose** | Plains, rivers, swamps, meadows | Honking flocks that graze and swim; hiss and attack if you go near their goslings |
+| **Orca** | Cold and temperate oceans (pods) | Hunts fish and squid in pods, calls with whistles and clicks, surfaces to blow; fights back if attacked |
+| **Blue Whale** | Deep oceans | Huge and slow; sings deep, mournful songs and surfaces to blow a towering spout; harmless |
+| **Shark** | Warm and lukewarm oceans | Hunts fish; comes for players who swim near it, loses interest once you're out of the water |
+| **Manta Ray** | Warm oceans | Glides gently on wing-like fins |
+| **Jellyfish** | Warm and temperate oceans | Drifts and pulses; brush against one and it stings (poison) |
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |

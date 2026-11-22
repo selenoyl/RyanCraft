@@ -45,6 +45,16 @@ def entries():
                              ("canada_goose", "Canada Goose", ("#7a6a58", "#141210"))]:
         parts, st = proto(label)
         E[name] = (parts, {name: st}, egg)
+    # ---- ocean: whale flukes beat up and down
+    def whale_tail(parts):
+        for p in parts:
+            if p["role"] == "fish_tail" and any(b["name"] == "fluke" for b in p["boxes"]): p["role"] = "whale_tail"
+        return parts
+    for name, label, egg in [("orca", "Orca", ("#141416", "#f2f2f0")), ("blue_whale", "Blue Whale", ("#5a7084", "#8aa0b2")),
+                             ("shark", "Shark", ("#6a7480", "#eceeee")), ("manta_ray", "Manta Ray", ("#1e2026", "#eeeeec")),
+                             ("jellyfish", "Jellyfish", ("#e8a8c8", "#d07aa8"))]:
+        parts, st = proto(label)
+        E[name] = (whale_tail(parts), {name: st}, egg)
     return E
 
 if __name__ == "__main__":

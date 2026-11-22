@@ -156,6 +156,13 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.GREAT_BLUE_HERON, 3, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.RIVER, Biomes.SWAMP, Biomes.MEADOW),
                 MobCategory.CREATURE, RyanEntities.CANADA_GOOSE, 5, 3, 6);
+        // Ocean life
+        spawn(BiomeSelectors.includeByKey(Biomes.COLD_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.DEEP_FROZEN_OCEAN, Biomes.OCEAN, Biomes.DEEP_OCEAN),
+                MobCategory.WATER_CREATURE, RyanEntities.ORCA, 2, 3, 5);
+        spawn(BiomeSelectors.includeByKey(Biomes.DEEP_OCEAN, Biomes.DEEP_COLD_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.BLUE_WHALE, 1, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.SHARK, 2, 1, 2);
+        spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.MANTA_RAY, 2, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.OCEAN), MobCategory.WATER_CREATURE, RyanEntities.JELLYFISH, 4, 2, 5);
         // Zebras: herds on the savanna
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups

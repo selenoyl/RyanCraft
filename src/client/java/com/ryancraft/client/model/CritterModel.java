@@ -116,6 +116,8 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         if (tail != null) {
             tail.yRot += Mth.sin(age * 0.12f) * 0.12f + Mth.sin(pos * 0.6662f) * 0.35f * speed;
         }
+        ModelPart whaleTail = roles.get("whale_tail");                 // whale flukes beat up and down
+        if (whaleTail != null) whaleTail.xRot = Mth.sin(age * 0.18f) * 0.28f;
         ModelPart fishTail = roles.get("fish_tail");
         if (fishTail != null) {
             fishTail.yRot = Mth.sin(age * 0.6f) * (state.isInWater ? 0.45f : 0.7f);

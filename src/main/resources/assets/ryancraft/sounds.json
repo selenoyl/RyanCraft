@@ -651,6 +651,40 @@
     ],
     "subtitle": "subtitles.ryancraft.entity.heron.croak"
   },
+  "entity.orca.call": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/orca_call1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/orca_call2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/orca_call3",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.orca.call"
+  },
+  "entity.blue_whale.song": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/whale_song1",
+        "attenuation_distance": 96
+      },
+      {
+        "name": "ryancraft:critter/whale_song2",
+        "attenuation_distance": 96
+      },
+      {
+        "name": "ryancraft:critter/whale_song3",
+        "attenuation_distance": 96
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.blue_whale.song"
+  },
   "entity.elk.bugle": {
     "sounds": [
       {

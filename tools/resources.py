@@ -44,6 +44,8 @@ EVENTS = {  # event: (file prefix, subtitle, attenuation distance or None, strea
     "entity.goose.honk": ("critter/goose_honk", "Goose honks", 48, False),
     "entity.goose.hiss": ("critter/goose_hiss", "Goose hisses", None, False),
     "entity.heron.croak": ("critter/heron_croak", "Heron croaks", 32, False),
+    "entity.orca.call": ("critter/orca_call", "Orca calls", 48, False),
+    "entity.blue_whale.song": ("critter/whale_song", "Whale sings", 96, False),
     "entity.elk.bugle": ("critter/elk_bugle", "Bull elk bugles", 96, False),
     "entity.elk.chirp": ("critter/elk_chirp", "Elk mews", None, False),
     "entity.moose.call": ("critter/moose_call", "Moose calls", 48, False),
@@ -73,7 +75,8 @@ EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", 
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish",
             "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
-            "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose"]
+            "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
+            "orca", "blue_whale", "shark", "manta_ray", "jellyfish"]
 ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap", "cherries", "cherry_pie", "black_walnut", "shelled_walnut"] \
         + [m + "_spawn_egg" for m in EGG_MOBS]
 for it in ITEMS:
@@ -131,6 +134,8 @@ loot("bison", [pool("minecraft:beef", 3, 5, True), pool("minecraft:leather", 1, 
 for name in ["cougar", "river_otter", "groundhog", "porcupine"]: loot(name, [])
 for name in ["bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron"]: loot(name, [pool("minecraft:feather", 0, 2)])
 loot("canada_goose", [pool("ryancraft:raw_duck", 1, 1, True), pool("minecraft:feather", 1, 3)])
+for name in ["orca", "blue_whale", "shark", "manta_ray"]: loot(name, [])
+loot("jellyfish", [pool("minecraft:slime_ball", 0, 1)])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
@@ -210,7 +215,9 @@ lang.update({
     "entity.ryancraft.groundhog": "Groundhog", "entity.ryancraft.porcupine": "Porcupine",
     "entity.ryancraft.bald_eagle": "Bald Eagle", "entity.ryancraft.golden_eagle": "Golden Eagle", "entity.ryancraft.red_tailed_hawk": "Red-tailed Hawk",
     "entity.ryancraft.turkey_vulture": "Turkey Vulture", "entity.ryancraft.great_horned_owl": "Great Horned Owl",
-    "entity.ryancraft.great_blue_heron": "Great Blue Heron", "entity.ryancraft.canada_goose": "Canada Goose", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
+    "entity.ryancraft.great_blue_heron": "Great Blue Heron", "entity.ryancraft.canada_goose": "Canada Goose",
+    "entity.ryancraft.orca": "Orca", "entity.ryancraft.blue_whale": "Blue Whale", "entity.ryancraft.shark": "Shark",
+    "entity.ryancraft.manta_ray": "Manta Ray", "entity.ryancraft.jellyfish": "Jellyfish", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
     "entity.ryancraft.songbird.mourning_dove": "Mourning Dove",
     "item.ryancraft.deer_skull_mount": "Deer Skull Mount",
     "item.ryancraft.deer_skull_mount.s1": "Spike Buck Skull Mount", "item.ryancraft.deer_skull_mount.s2": "Fork Buck Skull Mount",
@@ -233,7 +240,8 @@ EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Tur
              "black_tailed_deer": "Black-tailed Deer", "bison": "Bison", "cougar": "Cougar", "river_otter": "River Otter",
              "groundhog": "Groundhog", "porcupine": "Porcupine", "bald_eagle": "Bald Eagle", "golden_eagle": "Golden Eagle",
              "red_tailed_hawk": "Red-tailed Hawk", "turkey_vulture": "Turkey Vulture", "great_horned_owl": "Great Horned Owl",
-             "great_blue_heron": "Great Blue Heron", "canada_goose": "Canada Goose"}
+             "great_blue_heron": "Great Blue Heron", "canada_goose": "Canada Goose", "orca": "Orca", "blue_whale": "Blue Whale",
+             "shark": "Shark", "manta_ray": "Manta Ray", "jellyfish": "Jellyfish"}
 for m, n in EGG_NAMES.items(): lang[f"item.ryancraft.{m}_spawn_egg"] = f"{n} Spawn Egg"
 sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; lang.update(lang_entries())
 from cages import lang_entries as cage_lang; lang.update(cage_lang())
