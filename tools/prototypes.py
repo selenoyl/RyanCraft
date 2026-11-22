@@ -123,9 +123,9 @@ for p in shark:
 P.append(("Shark", "", shark, {"body": {"c": "#6a7480", "noise": 6, "belly": "#eceeee"},
                                 "snout": {"c": "#6a7480", "noise": 6, "bottom": "#eceeee", "side_eyes": "#0a0a0c", "eye_row": 0},
                                 "snout_tip": {"c": "#6a7480", "noise": 6, "bottom": "#d8dcdc"},
-                                "fin": {"c": "#5e6874", "noise": 5}, "mouth": {"c": "#2e1418", "noise": 2, "bars": {"c": "#f4f2ea", "n": 2},
-                                          "front_map": ["wdwdw"], "front_colors": {"w": "#f4f2ea", "d": "#2e1418"}},
-                                "jaw": {"c": "#e6e8e8", "noise": 4, "top": "#2e1418", "front_map": ["wcwcw"], "front_colors": {"w": "#f4f2ea", "c": "#d8dada"}}}, 0.8))
+                                "fin": {"c": "#5e6874", "noise": 5}, "mouth": {"c": "#b04a56", "noise": 3, "bars": {"c": "#f4f2ea", "n": 2},
+                                          "front_map": ["wgwgw"], "front_colors": {"w": "#f4f2ea", "g": "#b04a56"}},
+                                "jaw": {"c": "#e6e8e8", "noise": 4, "top": "#8a3440", "front_map": ["wcwcw"], "front_colors": {"w": "#f4f2ea", "c": "#d8dada"}}}, 0.8))
 manta = [part("body", (0, 21, 0), [box("disc", (-6, -1, -6), (12, 2, 12), "body"),
                                     box("wing_r", (-14, -0.5, -4), (8, 1, 8), "wing"), box("wing_l", (6, -0.5, -4), (8, 1, 8), "wing", mirror=True),
                                     box("horn_r", (-4, -0.5, -9), (2, 1, 3), "body"), box("horn_l", (2, -0.5, -9), (2, 1, 3), "body", mirror=True)], "fish_body"),
@@ -134,17 +134,6 @@ P.append(("Manta Ray", "", manta, {"body": {"c": "#1e2026", "noise": 5, "bottom"
                                             "speckle": {"c": "#2a2e36", "p": 0.15}},
                                    "wing": {"c": "#1e2026", "noise": 5, "bottom": "#eeeeec", "tip": {"c": "#30343c", "frac": 0.2}},
                                    "tail": {"c": "#1a1c20"}}, 0.8))
-# ---------------- butterflies: wings in a V
-def butterfly():
-    return [part("body", (0, 20, 0), [box("body", (-0.5, -0.5, -2), (1, 1, 4), "body"),
-                                      box("antenna_r", (-1, -2.5, -3), (0.5, 2, 0.5), "body"), box("antenna_l", (0.5, -2.5, -3), (0.5, 2, 0.5), "body")], "body"),
-            part("wing_r", (-0.5, 19.5, 0), [box("wing", (-6, 0, -3), (6, 0.5, 6), "wing")], "wing_r", rot=(0, 0, 0.5)),
-            part("wing_l", (0.5, 19.5, 0), [box("wing", (0, 0, -3), (6, 0.5, 6), "wing", mirror=True)], "wing_l", rot=(0, 0, -0.5))]
-P.append(("Monarch", "butterfly", butterfly(), {"body": {"c": "#1a1614"},
-         "wing": {"c": "#e8781e", "noise": 8, "speckle": {"c": "#141210", "p": 0.25}, "fringe": "#141210", "tip": {"c": "#141210", "frac": 0.2}}}, 2.0))
-P.append(("Eastern Tiger Swallowtail", "butterfly", butterfly(), {"body": {"c": "#1a1614"},
-         "wing": {"c": "#f2d23a", "noise": 6, "bars": {"c": "#141210", "n": 3}, "fringe": "#141210", "speckle": {"c": "#141210", "p": 0.08}}}, 2.0))
-
 if __name__ == "__main__":
     made, renders = [], []
     for i, (label, sub, parts, style, scale) in enumerate(P):
@@ -161,7 +150,7 @@ if __name__ == "__main__":
     rh = [max(im.height for *_, im in r) + 90 for r in rows]
     c = Image.new("RGB", (cols * cw + 60, 150 + sum(rh)), BG); d = ImageDraw.Draw(c)
     d.text((30, 28), "Mob prototypes", font=R.font(42, True), fill=INK)
-    d.text((32, 84), "Models and textures only, not in the game yet. Ocean animals and butterflies are drawn at different scales to fit.", font=R.font(19), fill=SUB)
+    d.text((32, 84), "Models and textures only, not in the game yet. Ocean animals are drawn at smaller scales to fit. Butterflies: docs/butterflies.png.", font=R.font(19), fill=SUB)
     y = 150
     for row, h in zip(rows, rh):
         base = y + h - 70

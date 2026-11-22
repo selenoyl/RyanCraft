@@ -31,7 +31,7 @@ Ideas queued for later, roughly grouped. Nothing here is built yet.
 - **Schools of ocean fish** that move together.
 
 **Small life**
-- **Butterflies**
+- **Butterflies**: many species like the tropical fish (wing patterns x colours); 20 eastern species prototyped in docs/butterflies.png
 - **Fireflies**: drifting over plains and through the woods on summer nights (the game only has the firefly bush).
 - **Chipmunks**
 
