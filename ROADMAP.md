@@ -145,13 +145,21 @@ clusters like vanilla's fancy oak. Still to do:
 
 ## Food
 - **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals.
+- **More crops**: tomatoes, onions, cabbage, corn, peppers, rice, beans, squash and the like, growing with the
+  seasons (some only in spring or summer).
+- **More foods** to go with them: stews, soups, pies, roasts, sandwiches, plus dishes built on our game (venison,
+  turkey, duck, fish fillets) and orchard fruit (cherries, walnuts).
 
 ## Weather
 - **Dust storms**: rare, in deserts and badlands.
 
 ## Combat
+Technology tops out around the early age of gunpowder: nothing past a muzzle-loader.
 - **Old combat**: no attack cooldown, as in 1.8 and before.
-- **Cannons**.
+- **Cannons**: fire lead (or iron) cannonballs.
+- **Muskets**: very rudimentary guns, slow to load (powder, ball, ramrod), loud and smoky, inaccurate past close
+  range. They fire lead balls.
+- **Lead finally gets a use**: cast lead into musket balls and cannonballs.
 
 ## Mobs: vanilla variants
 - **Creeper variants**: biome-specific creepers, with the original still by far the most common.

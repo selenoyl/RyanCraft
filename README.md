@@ -1,237 +1,130 @@
 # RyanCraft
 
-A Fabric mod for **Minecraft 1.21.11**: the feel of 2012, Tekkit-era Minecraft 1.2.5, plus a woods full of Kentucky wildlife.
+A Fabric mod for **Minecraft 1.21.11**: the feel of 2012, Tekkit-era Minecraft 1.2.5, with woods full of Kentucky
+wildlife, a real year of seasons, and vanilla-style pipes and engines.
+
+**[Download the latest release](https://github.com/selenoyl/RyanCraft/releases/latest)** · [Changelog](docs/CHANGELOG.md) · [Roadmap](ROADMAP.md)
 
 ![Kentucky wildlife on a 1.2.5-textured platform](docs/kentucky.png)
 
-## Classic 1.2.5 pack
-The mod ships a built-in resource pack, *RyanCraft Classic 1.2.5*: Minecraft's own 1.2.5 textures, sounds and music, rearranged for today's game. It's switched on the first time you launch; nothing is downloaded.
-- **Textures**: every 1.2.5 block and item (yes, *that* gravel), the old crack animation, old Steve and zombie, the 1.2.5 font, clouds, rain, snow, and the old grass/foliage colours. Mobs that changed shape since 1.2.5 (like the new warm and cold chickens, cows and pigs) keep their modern look; only mobs whose texture layout still matches get the old skin.
-- **GUI**: the 1.2.5 hotbar, hearts, hunger, armor, XP bar, crosshair and buttons, and the original title-screen panorama.
-- **Sounds**: the 1.2.5 sound set: footsteps, digging, damage, the old mob sounds, caves, rain, doors, explosions.
-- **Music**: only the original C418 tracks (calm 1-3, hal 1-4, nuance 1-2, piano 1-3), everywhere.
-- **Programmer Art** is switched on underneath so blocks added after 1.2.5 still look the part.
+## What's in it
+- **60+ animals** (deer with antlers that grow over time, bears with cubs, turkey flocks, eagles, whales and more), each with its own behaviour, sounds and spawn egg
+- **Hunting and fishing**: trophy bucks and skull mounts, fish with real-world lengths, trophy fish for the wall
+- **Fifteen eastern US trees**, each with a full wood set
+- **Seasons**: autumn colours, snowy winters, spring thaw
+- **Pipes, engines, tanks and pumps**, plus an Ender Terminal for storage
+- **The classic 1.2.5 look and sound** built in, with MAtmos-style ambience
 
-Turn it off any time in *Resource Packs*, or set `classicPack` / `classicProgrammerArt` in `config/ryancraft.json`.
-
-![Title screen](docs/title.png)
-
-## Atmosphere (MAtmos-style)
-The mod reads your surroundings every second (biome, time of day, how many trees are around, running water, caves, altitude, rain) and mixes:
-- **Beds that fade in and out**: wind (stronger high up, on mountains and in storms), howling wind in the snow, leaves rustling and distant twitter in forests, cricket chorus on warm nights, frogs in swamps and ponds, a babbling brook placed where the running water actually is, surf at the coast, rain pattering on leaves, deep cave air.
-- **Calls placed around you in 3D**: songbirds (loudest at dawn), woodpeckers, cuckoos, crows, hawks over open country, gulls at the beach, owls and distant wolf howls at night, bullfrogs, cave drips and rumbles, gusts through the leaves.
-- **The MAtmos big three, remade from scratch**:
-  - **Wind**: a light breeze anywhere under open sky that builds with altitude and storms, howling in the snow, with big gusts rolling over high ground.
-  - **Cicadas**: the drone of a hot summer day in the trees, swelling toward midday.
-  - **Splashing water**: sloshing splashes as you wade or swim, paced by how fast you move, and waterfalls that roar from where the water actually falls.
-- Also from the MAtmos spirit: stones rattling down an old shaft somewhere deep underground.
-- **Fireflies** drift over fields and through the woods on warm, dry nights.
-- Wild turkeys **shock-gobble** back at owls, crows and hawks, like the real thing.
-
-All of it plays on the *Ambient/Environment* volume slider and has subtitles. `ambience` / `ambienceVolume` in the config. The sounds are original synths (see `tools/synth_ambience.py`), made in the spirit of [MAtmos](https://github.com/makamys/MAtmos) by Hurricaaane. MAtmos's code is WTFPL, but its classic 2012 soundpack has no stated license, so none of its audio is used here. Any resource pack can replace them with real recordings, since the files live under `assets/ryancraft/sounds/ambience/`.
-
-## Animals
-
+## Wildlife
 ![Field guide: every RyanCraft mob at the same scale](docs/field_guide.png)
 
-*Rendered from the game's own models and textures with `python3 tools/render_iso.py`.*
+**Big game:**
+- whitetail and black-tailed deer, elk, moose, reindeer and pronghorn
+- bison, black and grizzly bears, cougars, bobcats, coyotes and boars
 
-| Animal | Where | What it does |
-|---|---|---|
-| **Wild Turkey** | Hardwood forests, meadows, plains | Roams in flocks of 4-7; gobbles at dawn and at thunder; toms fight back and the flock joins in; drops turkey and feathers |
-| **Black Bear** (sometimes cinnamon) | Forests, taiga | See below |
-| **Raccoon** | Forests, swamps | Climbs trees, keeps its distance, steals food left on the ground; tail drops for a **Coonskin Cap** |
-| **Striped Skunk** | Forest edges, plains, meadows | Crowd it (or a wolf/fox does) and it sprays: nausea and blindness. Sneak past |
-| **Opossum** | Forests, swamps, plains | Hisses; hit it and it **plays possum** for a few seconds |
-| **Beaver** | Rivers, swamps | Swims, slaps its tail in alarm, bites back if attacked, leaves gnawed sticks |
-| **Mink** | Rivers, swamps | Swims and hunts fish |
-| **Coyote** | Plains, meadows, savanna, woodland edges | Loose packs; leave you alone unless you crowd them, then the pack piles in; run when badly hurt; hunt small game; yip and howl at night |
-| **Elk** | Meadows, windswept hills and forest, taiga, Shrubland | Herds of cows with a few bulls carrying big swept-back racks. Bulls bugle at dawn and dusk and fight back when hurt; cows bolt. Sneak to get close |
-| **Moose** | Taiga, snowy taiga, swamps, Tundra | Usually alone or a cow and calf. They don't run from you, they charge: keep your distance, more so from a calf. Bulls carry palmate paddles |
-| **Pronghorn** | Plains, savanna, badlands, Shrubland | The fastest animal on the plains. Spooks from 20+ blocks and outruns anything; snorts the alarm |
-| **Grizzly Bear** | Old-growth taiga, windswept hills, meadows, groves | A bigger, shorter-tempered bear with a shoulder hump. Gives you far less room than a black bear and fights nearly to the end |
-| **Bobcat** | Forests, swamps, savanna, badlands, Shrubland (always scarce) | A shy wildcat: slips away from people, climbs trees, hunts rabbits, chickens, squirrels and chipmunks, and screams at night |
-| **Zebra** | Savanna (herds) | A horse variant: tame, saddle, armour and ride it like any horse; striped coat; zebras breed with zebras |
-| **American Crow** | Plains, forests, taiga, swamps | Wary of strangers; tame with seeds; follows you, sits, settles on your shoulder when you stand still |
-| **Black-tailed Deer** | Old-growth and windswept conifer forests | Smaller, greyer deer with big ears; bucks carry forked antlers; skittish |
-| **American Bison** | Plains, Shrubland (big herds) | Slow to spook, but hurt one and the adults charge; drops beef and leather |
-| **Cougar** | Mountains, deep woods, badlands (rare) | Keeps away from people, stalks deer, sheep, goats and rabbits; climbs; fights hard when cornered |
-| **River Otter** | Rivers, swamps | Playful swimmer that mostly stays in the water and catches fish |
-| **Groundhog** | Fields, meadows, woodland edges | Shy; win it over with carrots, beetroot or apples |
-| **Porcupine** | Forests | Doesn't run; hit it up close and you get quilled |
-| **Bald Eagle** | Rivers, swamps, taiga, forests | Soars in slow circles high overhead, perches on treetops, snatches fish, rabbits and ducks |
-| **Golden Eagle** | Mountains, meadows, badlands | Soars higher still; hunts rabbits, squirrels and chipmunks |
-| **Red-tailed Hawk** | Fields, meadows, forest edges | Circles with its screaming call and drops on small game |
-| **Turkey Vulture** | Plains, savanna, badlands | Wobbles in wide, lazy circles for hours; harmless |
-| **Great Horned Owl** | Forests, taiga | Sits tight by day, hunts low and silent at night, hoots from the trees |
-| **Great Blue Heron** | Rivers, swamps | Stalks the shallows and spears fish; stalks off if you come close |
-| **Canada Goose** | Plains, rivers, swamps, meadows | Honking flocks that graze and swim; hiss and attack if you go near their goslings |
-| **Orca** | Cold and temperate oceans (pods) | Hunts fish and squid in pods, calls with whistles and clicks, surfaces to blow; fights back if attacked |
-| **Blue Whale** | Deep oceans | Huge and slow; sings deep, mournful songs and surfaces to blow a towering spout; harmless |
-| **Shark** | Warm and lukewarm oceans | Hunts fish; comes for players who swim near it, loses interest once you're out of the water |
-| **Manta Ray** | Warm oceans | Glides gently on wing-like fins |
-| **Jellyfish** | Warm and temperate oceans | Drifts and pulses; brush against one and it stings (poison) |
-| **Butterflies** | Meadows, flower forests, plains, forests | Twenty eastern species (monarch, swallowtails, red admiral, luna moth...); catch them in a bundle for the bird cage |
-| **Ruby-throated Hummingbird** | Flower forests, meadows | Zips between flowers; fits in a bundle and the bird cage |
-| **Pileated Woodpecker** | Forests | Flies trunk to trunk and drums loudly |
-| **Northern Bobwhite** | Fields, meadows, savanna | Coveys that whistle "bob-white" and burst into the air when flushed; win them over with seeds |
-| **Eastern Box Turtle** | Forests, swamps | Slow and tough; keep one in the chipmunk cage |
-| **Timber Rattlesnake** | Hills, badlands, forests | Rattles a warning when you come near; step up and it strikes (poison) |
-| **Bullfrog** | Swamps, rivers | Hops along the bank, plops into the water, calls at night |
-| **American Alligator** | Swamps | Lurks in the water; slow on land, quick in water; grabs anything at the water's edge |
-| **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
-| **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
-| **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |
-| **Bluegill, Crappie, Largemouth Bass, Channel Catfish** | Rivers, swamps | Bucket them, or catch them on a rod; every fish has a length, trophies go on a Fish Plaque |
-| **Deer** | Forests, taiga, meadows | Very skittish; antlers grow with age (see below) |
-| **Boar, Duck** | Forests, plains, rivers | Boar fights back; ducks drop feathers |
+**Small critters:** raccoons, skunks, opossums, beavers, otters, mink, groundhogs, porcupines, squirrels and chipmunks.
 
-![Big game](docs/big_game_iso.png)
+**Birds:**
+- turkeys, crows (tame one for your shoulder), bald and golden eagles, hawks, vultures, owls, herons
+- geese, ducks, swans, bobwhites, woodpeckers, hummingbirds and six songbirds
 
-### Deer: antlers and hunting
-**Antlers grow with age.** A deer ages only while its chunk is loaded, and goes up one stage every 2-3 in-game weeks (each deer on its own clock):
-stage 0 (does and young) -> 1 spikes -> 2 forks -> 3 six-to-eight point -> 4 ten-point **Trophy Buck**. Fawns start once they're grown, and bigger racks come on bigger bodies.
-Wild deer spawn at every stage, but big bucks take some hunting: about 38% are does or young, 28% spikes, 20% forks, 10% six-to-eight point, and only about 4% (one in 25) trophies. Herds gain more as their deer age.
-The rare **Drop-Tine Buck** carries non-typical tines hanging off its beams: about 3% of big bucks spawn that way, and a few turn non-typical as they grow into it.
+**Water and swamp life:**
+- orcas, blue whales, sharks, manta rays and jellyfish
+- alligators, bullfrogs, frogs and toads, box turtles and rattlesnakes
 
-![Antler stages](docs/antlers.png)
+**Also:** twenty butterfly species, fireflies, zebras and the moobloom.
 
-**Collect them.** Every deer also rolls an antler colour (normal, dark about 1 in 5, chocolate about 1 in 17), and when a buck reaches stage 4 it has a small chance of a super-rare rack:
-**Cactus Buck** (knobby points everywhere), **Palmated Buck** (flat moose-like paddles) and **Lopsided Buck** (a full rack on one side, a spike on the other); together about 6% of trophies.
-Stage 0 deer just have two little antler-coloured nubs.
+Animals act like the real thing:
+- Deer bolt at 14 blocks, but only notice you at 5 if you sneak, and camo-dyed leather helps.
+- A bear only fights if you crowd her or her cubs, and runs when she's beaten down.
+- Toms defend the flock, moose charge, and coyotes pile in as a pack.
 
-**Skull mounts.** Kill an antlered deer and it drops a primitive skull mount (a hollow bleached skull, with real eye-socket and nostril holes, nailed to a plank) with that exact rack and colour,
-named for what it is ("Drop-Tine Buck Skull Mount", "Cactus Buck Skull Mount"...). Use it on a wall to hang it; punch it to take it down.
+**Antlers grow with age**, from spikes up to a ten-point Trophy Buck. Rare drop-tine, cactus, palmated and lopsided
+racks come in three antler colours. Every antlered deer drops a skull mount with its exact rack.
 
-![Rare racks, antler colours and skull mounts](docs/racks_and_mounts.png)
 ![A trophy wall](docs/trophy_wall.png)
 
-**They're skittish.** A deer notices you at about 14 blocks walking, 24 sprinting, and only 5 sneaking. Night and rain make you harder to notice. When one deer flags, the whole herd within 16 blocks bolts.
-**Wear camo.** Each piece of leather armor dyed to blend in with the biome you're standing in cuts that distance by 15% (a full matching set: 40%, so sneaking in full camo gets you to about 2 blocks):
+## Fishing
+**Ten freshwater game fish** live in rivers, lakes and swamps; the ocean gives cod, salmon and pufferfish. Catfish and
+walleye bite after dark.
 
-| Where you are | Dye your leather |
-|---|---|
-| Snowy biomes | White or light gray |
-| Forests, taiga, jungle, swamps | Dark green or brown |
-| Plains, meadows | Lime or green |
-| Savanna, shrubland, badlands, desert | Yellow or brown |
-| Mountains | Gray or light gray |
+**Every fish has a length**, true to life: most bluegill are 4 to 9 inches, and most muskies 28 to 44. About 1 in 50
+is a trophy, up to the real-world record, and about 1 in 1000 is a Legendary fish beyond it.
 
-Close mixes count too, not just exact dye colours.
+Every catch is called out, and the **Angler's Logbook** keeps your personal bests. Mount your trophies on a
+**Fish Plaque**.
 
-### Black bears
-- **Peaceful most of the time.** Get within about 4 blocks (2.5 if you're sneaking), or near her cubs, and she fights.
-- **Beat her down to half health and she runs**, keeping clear of players until she has healed back up. Bears heal slowly when left alone.
-- **Sows roam the woods with one or two cubs.** Cubs stay cubs for 4 in-game days (normal babies grow up in 1), so you'll actually meet families out walking.
-- **Grown cubs go their own way.** Every week or two of game time a sow may have a new litter, but only where there are fewer than 4 bears within ~100 blocks, so the woods don't fill up.
+![Fish plaques](docs/fish_plaques.png)
 
-![A sow with cubs, a turkey flock, and the two squirrels](docs/bears_turkeys_squirrels.png)
-
-Every RyanCraft mob has a **spawn egg** in the Spawn Eggs tab.
-
-Breeding foods: turkey and songbirds take seeds; bears take berries, honey or fish; raccoons take berries, eggs or fish; squirrels take berries or seeds; beavers take saplings.
-
-## Vanilla tweaks
-- **Skeletons come in variants**: cracked skulls, missing ribs, darker aged bones, and the odd dark one with a cracked skull. The variant textures are built on your machine from whatever skeleton texture is active (vanilla, the classic 1.2.5 pack, or any resource pack).
-- **Armadillos drop their scutes when killed** (1-3, more with Looting). No brush needed.
-- **Goats drop their horns when killed** (1-2 playable horns with a random goat-horn sound). No ramming needed.
-- **Turtles drop scutes when killed** (1-3, on top of their usual drops). No waiting for babies to grow up.
-
-![Skeleton variants](docs/skeletons.png)
-
-## Trees
-Fifteen eastern US trees grow in the world: white and red oak, sugar and red maple, tulip poplar, shagbark hickory,
-black walnut, American beech, sycamore, eastern redbud, flowering dogwood, eastern red cedar, black cherry, sassafras
-and Ohio buckeye. The hardwoods mix into forests, redbud and dogwood fill the understory, sycamores line rivers and
-swamps, and red cedars dot plains, hills and savannas. No two trees are the same: each one varies in height, limbs,
-crown and lean, and some fork into twin trunks. Crowns grow like vanilla's fancy oak: limbs reach out from the
-trunk and end in flat-bottomed leaf clusters, inside an outline that fits the species (wide white oak, egg-shaped
-sugar maple, tall tulip poplar, vase-shaped redbud). Every species has a full wood set (logs, stripped logs, planks,
-slabs, stairs, fences, gates, doors, trapdoors, buttons, pressure plates, leaves and saplings), and its door and
-trapdoor have their own design. Saplings are hand-drawn in each tree's own leaf shape, and they go in flower pots.
-
-**Fruit:** black cherry leaves drop **cherries** (eat them straight away, or bake 3 with sugar and an egg into a
-**cherry pie**). Black walnut leaves drop **black walnuts** in their green husks; crack one open in the crafting grid
-for a **shelled walnut**.
+## Trees and seasons
+**The trees:**
+- **Species:** white and red oak, sugar and red maple, tulip poplar, shagbark hickory, black walnut, beech, sycamore, redbud, dogwood, red cedar, black cherry, sassafras and Ohio buckeye.
+- **Shape:** each tree grows its own shape, with limbs ending in leaf clusters inside an outline that fits the species.
+- **Wood:** every species has a full wood set, with its own door and trapdoor design.
+- **Fruit:** cherries and black walnuts fall from the leaves.
 
 ![Tree variation](docs/trees_variation_small.png)
 
-## Seasons
-A Serene Seasons-style year, run from world time: early, mid and late spring, summer, autumn and winter, 8 days each
-(96 days a year), starting in early spring.
-- **Winter**: temperate biomes get snow, and ponds freeze over. In spring the snow melts a layer at a time.
-- **Colours**: grass and foliage shift through the year. All 14 broadleaf species turn to autumn colours and go back
-  to green in spring (redbud and dogwood back to blossom).
-- **Farming**: crops stall in winter unless they're under a roof, so build a greenhouse.
-- **Season Calendar** (3 paper + a clock): shows the season and the day.
-- `/season` tells you where in the year you are; `/season set <season> [early|mid|late]` jumps to it (operators).
+**The year runs Serene Seasons-style**: early, mid and late spring, summer, autumn and winter, 8 days each.
+- Leaves turn gold, red and orange through autumn.
+- Winter brings snow and frozen ponds to temperate biomes.
+- In spring the snow melts and the trees leaf out again, redbud and dogwood back to blossom.
+- Crops stall in winter unless they're in a greenhouse.
+- The Season Calendar tells you the date, and `/season set` jumps to any season.
 
-The Autumn Forest biome no longer generates; every temperate forest now turns in autumn instead.
-
-## Biomes
-Rainforest, Seasonal Forest, Shrubland and Tundra (the Beta 1.7 set), placed by **[TerraBlender](https://modrinth.com/mod/terrablender)**. Without TerraBlender everything else still works.
-
-## Other classic tweaks
-All on by default; each can be switched off in `config/ryancraft.json`:
-- `disableChatReporting`: never creates a chat-signing key, so your messages can't be reported. Vanilla servers with `enforce-secure-profile=true` will refuse you while this is on.
-- `hideReportButton`, `disableProfanityFilter`, `classicDefaultSkins` (Steve or Alex only).
-- No "Java Edition" badge, and Alpha/Beta-style splash text.
-
-## Roadmap
-See [ROADMAP.md](ROADMAP.md) for what's queued: a thirst bar, a deep cave layer below deepslate, elephants, cooking,
-cannons, new ores and more. What changed in each release is in [docs/CHANGELOG.md](docs/CHANGELOG.md).
+![Autumn, first snow, winter, spring thaw](docs/seasons.jpg)
 
 ## Pipes, engines and the Ender Terminal
-Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes.
+Tekkit-style transport that feels vanilla. You can watch items ride through the pipes.
+- **Pipes:**
+  - wooden pipes pull from inventories
+  - gold pipes speed items up
+  - iron pipes direct items one way
+  - diamond pipes sort by colour-coded filters
+  - obsidian pipes vacuum up dropped items
+  - fluid pipes carry water and lava
+- **Engines:** redstone engines and coal-burning Stirling engines warm up, then pulse faster. Stack engines in a line to add their power together.
+- **Tanks and pumps:**
+  - stacking glass tanks
+  - an iron-hooped vat that collects rain
+  - an Archimedes screw pump that lowers its intake into the pool
+  - a hand pump that draws groundwater into a tank beside it
+- **Ender Terminal:** an end portal frame wired with redstone. It sees every chest with an Ender Pipe on it, and pulls out whatever you click.
 
-| Block | Recipe | What it does |
-|---|---|---|
-| Wooden / Cobblestone / Stone / Golden / Iron / Diamond / Obsidian Pipe | material, glass, material (8 pipes) | Wooden pulls from the inventory it touches each engine pulse; gold speeds items up; iron sends everything out one side (turn it with a wrench); diamond sorts with six colour-coded filter rows; obsidian vacuums up dropped items |
-| Ender Pipe | ender pearl, glass, ender pearl (8) | Put one against a chest to let an Ender Terminal reach into it and store into it, no engine needed |
-| Fluid Pipe | stone pipe + green dye | Carries water and lava |
-| Redstone Engine | planks, glass, redstone, piston | Runs while powered; warms up slowly; 1 item per pulse. Stack engines in a line (each facing the next) to add their pulses together |
-| Stirling Engine | cobblestone, glass, pistons, furnace | Burns coal or any furnace fuel, no redstone needed; glows while lit; warms up to fast pulses of 8 items; hoppers can feed it |
-| Glass Tank | iron and glass | Holds 16 buckets and shows its level. Stacked tanks join seamlessly and fluid falls into the tank below; fill/empty with buckets or pipes |
-| Iron-Hooped Vat | planks and an iron ingot | An open wooden tub for 8 buckets: collects rain, fills bottles and buckets, takes fluid from pipes and pumps |
-| Screw Pump | iron, redstone, bucket, tank | An Archimedes screw run by an engine: it spins, lowers an intake tube to the pool and pushes a bucket per pulse into fluid pipes. Infinite water sources stay infinite; lava drains |
-| Hand Pump | iron ingots and a bucket | Draws groundwater from up to 16 blocks down, through the ground, and pours it from the spout into an adjacent tank or pipe. Work it by hand or with an engine; hold a bucket to fill it |
-| Ender Terminal | comparator, redstone, an end portal frame, ender pipe | A sideways end portal frame wired with redstone. Hook it to a pipe network and it sees every chest that has an Ender Pipe on it; click an item and the Ender Pipe pulls it out and sends it down the pipes to you; shift-click your items to send them into storage |
-| Wrench | iron ingots | Turns iron pipes and engines |
+![Tanks and pumps](docs/tanks_pumps.png)
 
-End portal frames can be mined with a diamond pickaxe (as hard as obsidian) and drop themselves with Silk Touch.
+## The 1.2.5 feel
+**Classic look and sound:**
+- A built-in *Classic 1.2.5* resource pack brings back the 1.2.5 textures, GUI, sounds, title panorama and the original C418 music, with nothing to download.
+- Programmer Art sits underneath it for newer blocks.
+- The 1.2.5 rose is back, along with deep-blue water.
 
-## New in 1.3.2
-- Fish come in true-to-life sizes; about 1 in 50 is a trophy and about 1 in 1000 a Legendary fish past the real-world record
+**Ambience:**
+- Wind that builds with altitude.
+- Cicadas on summer days, crickets and frogs at night.
+- A brook where the water actually runs, birdsong at dawn, cave drips.
 
-## New in 1.3.1
-- Fishing loop: every catch is measured and called out, trophies get a fanfare, the Angler's Logbook keeps your personal bests, and Fish Plaques hang your trophies on the wall
-- Freshwater fish in rivers and lakes, sea fish in the ocean; catfish and walleye bite after dark
+All the ambience is original synthesised sound, made in the spirit of MAtmos.
 
-## New in 1.3.0
-- Seasons: a 12-part year with snowy winters, frozen ponds, spring thaw, autumn leaves on every broadleaf tree, and crops that need a greenhouse in winter
-- Trees rebuilt with fancy-oak style crowns of limbs and leaf clusters
-- Stacking glass tanks, the iron-hooped vat, the Archimedes screw pump and the hand pump
-- Fish spawn at vanilla-like levels; every craftable item has a recipe
+**Small touches:**
+- skeleton variants
+- armadillos, goats and turtles drop their scutes and horns when killed
+- Beta 1.7 biomes (with [TerraBlender](https://modrinth.com/mod/terrablender))
+- no chat reporting
+- old-style splash text
 
-See [docs/CHANGELOG.md](docs/CHANGELOG.md) for earlier releases.
+Everything can be switched off in `config/ryancraft.json`.
 
-## New in 1.1.0
-- Reindeer; elk and black-tailed deer grow staged antler racks (with rare non-typical racks)
-- Moobloom (yellow mooshroom wearing old-school dandelions), swans (rare black swan), five frog and toad species
-- The 1.2.5 rose is back (rose bush → 2 roses); classic deep-blue water and bright lava; crisp classic title panorama
-- Planks, leaves and spawn eggs follow the base-game templates; exotic planks for cedar, walnut, cherry and poplar
-- Squirrels climb trees, jellyfish stay deep and come in six colours, spawn eggs work on cages
-- Many fixes: no more z-fighting heads, attached limbs, reshaped dogwood and tulip poplar, seamless bark
-
-## Download
-Download the latest jar from [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases/latest) and drop `ryancraft-<version>.jar` into your `mods` folder (Fabric Loader 0.20.1+, Fabric API, Minecraft 1.21.11; TerraBlender optional for the Beta biomes).
+![Title screen](docs/title.png)
 
 ## Install
-1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.3.2.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
-3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
+1. Install [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for Minecraft 1.21.11.
+2. Put the [latest RyanCraft jar](https://github.com/selenoyl/RyanCraft/releases/latest) and [Fabric API](https://modrinth.com/mod/fabric-api) in `.minecraft/mods`. Add [TerraBlender](https://modrinth.com/mod/terrablender) too if you want the Beta biomes.
+3. That's it: the classic pack ships inside the mod and switches on by default.
 
 ## Build
-Needs Java 21: `./gradlew build` (jar in `build/libs/`), `./gradlew runClient`.
+**Mod:** needs Java 21. Run `./gradlew build` (the jar lands in `build/libs/`) or `./gradlew runClient`.
 
-Regenerating art and sound: `python3 tools/critters.py` (models + textures from one spec), `python3 tools/check_fit.py` (fails if any head, leg, tail or ear floats free of its body), `python3 tools/synth_ambience.py` (needs numpy, scipy, ffmpeg), `python3 tools/resources.py` (JSON data).
+**Art, sound and data:** the generators are in `tools/`. Start with `python3 tools/resources.py` for the JSON data and `python3 tools/critters.py` for mob models and textures.
+
+**Releasing:** bump `mod_version` in `gradle.properties` and add a changelog section. A GitHub Release is published automatically.
