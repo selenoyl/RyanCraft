@@ -111,6 +111,8 @@ public final class RyanEntities {
             EntityType.Builder.of(Bullfrog::new, MobCategory.CREATURE).sized(0.5f, 0.4f).clientTrackingRange(10));
     public static final EntityType<Alligator> ALLIGATOR = register("alligator",
             EntityType.Builder.of(Alligator::new, MobCategory.CREATURE).sized(1.0f, 0.5f).clientTrackingRange(10));
+    public static final EntityType<Moobloom> MOOBLOOM = register("moobloom",
+            EntityType.Builder.of(Moobloom::new, MobCategory.CREATURE).sized(0.9f, 1.4f).eyeHeight(1.3f).passengerAttachments(1.36875f).clientTrackingRange(10));
     public static final EntityType<Reindeer> REINDEER = register("reindeer",
             EntityType.Builder.of(Reindeer::new, MobCategory.CREATURE).sized(0.9f, 1.6f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
@@ -174,6 +176,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(BULLFROG, Bullfrog.createAttributes());
         FabricDefaultAttributeRegistry.register(ALLIGATOR, Alligator.createAttributes());
         FabricDefaultAttributeRegistry.register(REINDEER, Deer.createAttributes());
+        FabricDefaultAttributeRegistry.register(MOOBLOOM, net.minecraft.world.entity.animal.cow.Cow.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());
