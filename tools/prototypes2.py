@@ -39,11 +39,11 @@ def zebra_paint(img, parts, seed=7):
     import random
     r = random.Random(seed); px = img.load()
     WHITE, BLACK = (242, 240, 234), (22, 22, 22)
-    def striped(coord, other, period, phase, amp):
+    def striped(coord, other, period, phase, amp, thin=0.0):
         k = (coord + amp * math.sin(other * 0.28 + phase)) / period    # a slow, gentle curve along each stripe
         idx = math.floor(k)
         duty = 0.36 + 0.12 * ((idx * 7919 + seed) % 3) / 2          # each stripe its own width
-        return (k - idx) < duty
+        return (k - idx) < duty - thin
     for p in parts:
         for b in p["boxes"]:
             if b["name"] not in ("body", "neck", "head") and b["paint"] != "leg": continue
@@ -55,7 +55,9 @@ def zebra_paint(img, parts, seed=7):
                 for i in range(fw):
                     for j in range(fh):
                         if b["name"] == "body":
-                            if f in ("side1", "side2"):   on = striped(i if f == "side2" else fw - 1 - i, j, 3.0, phase, 1.4)
+                            # stripes taper away down the flanks, fading into a white belly
+                            fade = max(0.0, (j - fh * 0.45) / (fh * 0.55))
+                            if f in ("side1", "side2"):   on = striped(i if f == "side2" else fw - 1 - i, j, 3.0, phase, 1.4, 0.42 * fade)
                             elif f == "top":              on = striped(fh - 1 - j, i, 3.0, phase, 1.0)
                             else:                         on = striped(i, j, 3.0, phase, 1.0)
                         else:                             on = striped(j, i, 2.6 if b["name"] != "head" else 3.0, phase, 0.8)
