@@ -39,7 +39,7 @@ porcupine, eastern box turtle, timber rattlesnake, bullfrog, great horned owl, g
 ruby-throated hummingbird, pileated woodpecker, northern bobwhite, jellyfish.
 
 **Small life**
-- ~~**Butterflies**~~ (built): many species like the tropical fish (wing patterns x colours); 20 eastern species prototyped in docs/butterflies.png
+- ~~**Butterflies**~~ (built): many species like the tropical fish (wing patterns x colours); 20 eastern species, see docs/butterflies_chart.png
 - ~~**Fireflies**~~ (built): drifting over plains and through the woods on summer nights (the game only has the firefly bush).
 - ~~**Chipmunks**~~ (built)
 
@@ -64,6 +64,8 @@ ruby-throated hummingbird, pileated woodpecker, northern bobwhite, jellyfish.
 
 ## Mudlings: biome soldiers you collect and battle
 Our own take on the old Clay Soldiers idea, and the main "fight your friends" game.
+
+![Mudling concept art](docs/mudlings_concept.png)
 
 **Finding them**
 - Rare little squads of **mudlings** live in the wild, each biome with its own kind, made from that biome's stuff.

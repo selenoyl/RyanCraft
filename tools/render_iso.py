@@ -143,39 +143,81 @@ def render(name, textures, scale=1.0, pose=None):
         zbuf[y0:y1, x0:x1][ok] = depth[ok]
     return Image.fromarray(img.clip(0, 255).astype(np.uint8))
 
-MOBS = [  # (label, subtitle, model, texture, scale, extra) ; extra = (texture, scale) of a young one shown alongside
+# (label, subtitle, model, texture, scale, extra) ; extra = (texture, scale) of a second one shown alongside
+LAND = [
     ("Elk", "Roosevelt bull, with calf", "elk", "elk_bull", 1.0, ("elk", 0.5)),
     ("Moose", "bull, with calf", "moose", "moose_bull", 1.0, ("moose", 0.5)),
+    ("American Bison", "", "bison", "bison", 1.0, None),
     ("Grizzly Bear", "with cub", "grizzly_bear", "grizzly_bear", 1.0, ("grizzly_bear", 0.5)),
-    ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
-    ("Pronghorn", "with fawn", "pronghorn", "pronghorn", 1.0, ("pronghorn_fawn", 0.5)),
     ("Black Bear", "with cub", "black_bear", "black", 1.0, ("black", 0.5)),
     ("Cinnamon Bear", "rare colour phase", "black_bear", "cinnamon", 1.0, None),
+    ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
+    ("Black-tailed Deer", "buck", "black_tailed_deer", "black_tailed_deer_buck", 1.0, None),
+    ("Pronghorn", "with fawn", "pronghorn", "pronghorn", 1.0, ("pronghorn_fawn", 0.5)),
+    ("Cougar", "", "cougar", "cougar", 1.0, None),
     ("Boar", "", "boar", "boar", 1.0, None),
     ("Coyote", "", "coyote", "coyote", 1.0, None),
     ("Bobcat", "", "bobcat", "bobcat", 1.0, None),
-    ("Wild Turkey", "tom", "turkey", "turkey", 1.0, None),
-    ("Duck", "mallard drake", "duck", "duck", 1.0, None),
     ("Beaver", "", "beaver", "beaver", 1.0, None),
+    ("River Otter", "", "river_otter", "river_otter", 1.0, None),
     ("Raccoon", "", "raccoon", "raccoon", 1.0, None),
     ("Opossum", "", "opossum", "opossum", 1.0, None),
     ("Striped Skunk", "", "skunk", "skunk", 1.0, None),
+    ("Porcupine", "", "porcupine", "porcupine", 1.0, None),
+    ("Groundhog", "", "groundhog", "groundhog", 1.0, None),
     ("Mink", "", "mink", "mink", 1.0, None),
     ("Fox Squirrel", "", "squirrel", "fox_squirrel", 1.15, None),
     ("Eastern Gray Squirrel", "", "squirrel", "gray_squirrel", 0.85, None),
     ("Eastern Chipmunk", "", "chipmunk", "chipmunk", 1.0, None),
+    ("American Alligator", "", "alligator", "alligator", 1.0, None),
+    ("Timber Rattlesnake", "", "rattlesnake", "rattlesnake", 1.0, None),
+    ("Eastern Box Turtle", "", "box_turtle", "box_turtle", 1.0, None),
+    ("Bullfrog", "", "bullfrog", "bullfrog", 1.0, None),
+]
+BIRDS = [
+    ("Bald Eagle", "", "bald_eagle", "bald_eagle", 1.0, None),
+    ("Golden Eagle", "", "golden_eagle", "golden_eagle", 1.0, None),
+    ("Red-tailed Hawk", "", "red_tailed_hawk", "red_tailed_hawk", 1.0, None),
+    ("Turkey Vulture", "", "turkey_vulture", "turkey_vulture", 1.0, None),
+    ("Great Horned Owl", "", "great_horned_owl", "great_horned_owl", 1.0, None),
+    ("Great Blue Heron", "", "great_blue_heron", "great_blue_heron", 1.0, None),
+    ("Wild Turkey", "tom", "turkey", "turkey", 1.0, None),
+    ("Canada Goose", "", "canada_goose", "canada_goose", 1.0, None),
+    ("Swan", "and the rare black swan", "swan", "swan", 1.0, ("black_swan", 1.0)),
+    ("Duck", "mallard drake", "duck", "duck", 1.0, None),
+    ("American Crow", "tameable, rides your shoulder", "crow", "crow", 1.0, None),
+    ("Pileated Woodpecker", "", "pileated_woodpecker", "pileated_woodpecker", 1.0, None),
+    ("Northern Bobwhite", "", "bobwhite", "bobwhite", 1.0, None),
+    ("Ruby-throated Hummingbird", "", "hummingbird", "hummingbird", 1.0, None),
     ("Northern Cardinal", "Kentucky's state bird", "songbird", "cardinal", 0.8, None),
     ("American Goldfinch", "", "songbird", "goldfinch", 0.8, None),
     ("American Robin", "", "songbird", "robin", 0.8, None),
     ("Blue Jay", "", "songbird", "blue_jay", 0.8, None),
     ("Eastern Bluebird", "", "songbird", "eastern_bluebird", 0.8, None),
     ("Mourning Dove", "", "songbird", "mourning_dove", 0.8, None),
-    ("American Crow", "tameable, rides your shoulder", "crow", "crow", 1.0, None),
-    ("Bluegill", "", "bluegill", "bluegill", 1.0, None),
-    ("Crappie", "", "crappie", "crappie", 1.0, None),
-    ("Largemouth Bass", "", "largemouth_bass", "largemouth_bass", 1.0, None),
-    ("Channel Catfish", "", "channel_catfish", "channel_catfish", 1.0, None),
 ]
+WATER = [
+    ("Orca", "", "orca", "orca", 1.0, None),
+    ("Shark", "", "shark", "shark", 1.0, None),
+    ("Manta Ray", "", "manta_ray", "manta_ray", 1.0, None),
+    ("Jellyfish", "in six colours", "jellyfish", "jellyfish", 1.0, ("jellyfish_blue", 1.0)),
+    ("Bluegill", "4-9 in", "bluegill", "bluegill", 1.0, None),
+    ("Yellow Perch", "5-11 in", "yellow_perch", "yellow_perch", 1.0, None),
+    ("Crappie", "6-13 in", "crappie", "crappie", 1.0, None),
+    ("Smallmouth Bass", "8-17 in", "smallmouth_bass", "smallmouth_bass", 1.0, None),
+    ("Largemouth Bass", "10-20 in", "largemouth_bass", "largemouth_bass", 1.0, None),
+    ("Rainbow Trout", "8-20 in", "rainbow_trout", "rainbow_trout", 1.0, None),
+    ("Walleye", "12-24 in", "walleye", "walleye", 1.0, None),
+    ("Channel Catfish", "12-28 in", "channel_catfish", "channel_catfish", 1.0, None),
+    ("Northern Pike", "16-32 in", "northern_pike", "northern_pike", 1.0, None),
+    ("Muskellunge", "28-44 in", "muskellunge", "muskellunge", 1.0, None),
+]
+WHALE = [("Blue Whale", "drawn at a quarter of the scale of the rest", "blue_whale", "blue_whale", 0.25, None)]
+BUTTERFLIES = ["monarch", "viceroy", "eastern_tiger_swallowtail", "black_swallowtail", "pipevine_swallowtail",    # Butterfly.SPECIES order
+               "spicebush_swallowtail", "zebra_swallowtail", "red_admiral", "painted_lady", "great_spangled_fritillary", "gulf_fritillary",
+               "mourning_cloak", "question_mark", "red_spotted_purple", "cabbage_white", "clouded_sulphur", "spring_azure", "common_buckeye",
+               "luna_moth", "zebra_longwing"]
+MOBS = LAND + BIRDS + WATER
 
 def font(size, bold=False):
     for f in (["/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"] if bold else ["/usr/share/fonts/opentype/inter/Inter-Regular.otf"]) + \
@@ -183,11 +225,12 @@ def font(size, bold=False):
         if os.path.exists(f): return ImageFont.truetype(f, size)
     return ImageFont.load_default()
 
-def sheet(out):
+def sheet(out, mobs=None, title=None, subtitle=None, cols=5, sections=None):
     BG = (243, 239, 230); INK = (46, 42, 36); SUB = (128, 118, 104)
-    cols, label_h, gap = 5, 90, 30
+    mobs = mobs or MOBS
+    label_h, gap = 90, 30
     renders = []
-    for label, sub, model, tex, sc, extra in MOBS:
+    for label, sub, model, tex, sc, extra in mobs:
         imgs = [render(model, tex, sc)] + ([render(model, extra[0], extra[1])] if extra else [])
         renders.append((label, sub, imgs))
     cell_w = max(sum(im.width for im in r[2]) + 20 * (len(r[2]) - 1) for r in renders) + 30
@@ -196,8 +239,8 @@ def sheet(out):
     W, H = cols * cell_w + 80, 170 + sum(row_h) + 30
     canvas = Image.new("RGB", (W, H), BG)
     d = ImageDraw.Draw(canvas)
-    d.text((40, 36), "RyanCraft field guide: %d animals" % len(MOBS), font=font(44, True), fill=INK)
-    d.text((42, 92), "All drawn at the same scale: one model pixel = %d screen pixels." % PX, font=font(20), fill=SUB)
+    d.text((40, 36), title or "RyanCraft field guide: %d animals" % len(mobs), font=font(44, True), fill=INK)
+    d.text((42, 92), subtitle or "All drawn at the same scale: one model pixel = %d screen pixels." % PX, font=font(20), fill=SUB)
     y = 160
     for row, rh in zip(rows, row_h):
         base_y = y + rh - label_h
@@ -218,5 +261,29 @@ def sheet(out):
     canvas.save(out)
     print("wrote", out, canvas.size)
 
+def butterfly_sheet(out):
+    """Every butterfly species, drawn from the butterfly model with each species' texture."""
+    BG = (243, 239, 230); INK = (46, 42, 36)
+    lang = json.load(open(os.path.join(ROOT, "lang", "en_us.json")))
+    imgs = [(lang["entity.ryancraft.butterfly." + b], render("butterfly", "butterfly_%d" % i, 3.0)) for i, b in enumerate(BUTTERFLIES)]
+    cols = 5; cw = max(im.width for _, im in imgs) + 60; ch = max(im.height for _, im in imgs) + 60
+    W, H = cols * cw + 60, 150 + ((len(imgs) + cols - 1) // cols) * ch + 20
+    canvas = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(canvas)
+    d.text((40, 36), "Butterflies: %d eastern species" % len(imgs), font=font(44, True), fill=INK)
+    d.text((42, 92), "Catch them in a bundle and keep them in the bird cage. Drawn at three times the scale of the field guide.", font=font(20), fill=(128, 118, 104))
+    for k, (name, im) in enumerate(imgs):
+        x = 30 + (k % cols) * cw; y = 150 + (k // cols) * ch
+        canvas.paste(im, (x + (cw - im.width) // 2, y + ch - 50 - im.height), im)
+        d.text((x + cw // 2, y + ch - 28), name, font=font(20, True), fill=INK, anchor="mm")
+    canvas.save(out); print("wrote", out, canvas.size)
+
 if __name__ == "__main__":
-    sheet(sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), "..", "docs", "field_guide.png"))
+    docs = os.path.join(os.path.dirname(__file__), "..", "docs")
+    if len(sys.argv) > 1 and sys.argv[1] != "all":
+        sheet(sys.argv[1])
+    else:
+        sheet(os.path.join(docs, "field_guide_land.png"), LAND, "On land: %d animals" % len(LAND), cols=6)
+        sheet(os.path.join(docs, "field_guide_birds.png"), BIRDS, "In the air: %d birds" % len(BIRDS), cols=5)
+        sheet(os.path.join(docs, "field_guide_water.png"), WATER + WHALE, "In the water: %d animals" % (len(WATER) + 1),
+              "All at one scale (one model pixel = %d screen pixels), except the blue whale." % PX, cols=5)
+        butterfly_sheet(os.path.join(docs, "butterflies_chart.png"))

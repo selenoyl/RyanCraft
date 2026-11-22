@@ -2,6 +2,20 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.5.0
+- **Steel**: point a running engine at a blast furnace and it works like a bellows. While it's stoked and burning
+  fuel, iron ingots turn into steel ingots (20 seconds each). Steel Ingot and Block of Steel.
+- **Thirst**:
+  - Drains about half as fast.
+  - Drinks and juicy foods give hydration, thirst's version of saturation, used up before the bar drops.
+  - More foods count: honey, beetroot, pumpkin pie and cherry pie.
+  - Water bottles go down in three sips, and the bottle's texture and tooltip show how much is left.
+- New charts on the front page:
+  - the fifteen trees in game
+  - field guides for land, air and water
+  - the twenty butterflies
+- Mudling concept art added to the roadmap.
+
 ## 1.4.0
 - **Thirst**: a row of water droplets over the hunger bar. It drains a little faster than hunger, faster when you
   sprint, under the sun in hot biomes (deserts, badlands, savanna) and in the Nether.

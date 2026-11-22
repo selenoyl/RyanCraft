@@ -1,7 +1,7 @@
 """
 Butterflies, built like vanilla's tropical fish: a handful of wing PATTERNS, each painted in a species' COLOURS.
 Twenty eastern US species as presets (the same patterns can mix with other colours for endless variety).
-  python3 tools/butterflies.py  ->  docs/butterflies.png   (prototype; nothing is added to the game yet)
+  python3 tools/butterflies.py  ->  docs/butterflies.png   (the original prototype sheet)
 Wing grid: x = 0 at the body to 7 at the wingtip, z = 0 at the leading edge to 6 at the trailing edge.
 """
 import copy, math, os, random, sys

@@ -12,11 +12,15 @@ wildlife, a real year of seasons, and vanilla-style pipes and engines.
 - **Hunting and fishing**: trophy bucks and skull mounts, fish with real-world lengths, trophy fish for the wall
 - **Fifteen eastern US trees**, each with a full wood set
 - **Seasons and thirst**: autumn colours, snowy winters, spring thaw, and a thirst bar beside hunger
-- **Pipes, engines, tanks and pumps**, plus an Ender Terminal for storage
+- **Pipes, engines, tanks and pumps**, an Ender Terminal for storage, and steel from an engine-stoked blast furnace
 - **The classic 1.2.5 look and sound** built in, with MAtmos-style ambience
 
 ## Wildlife
-![Field guide: every RyanCraft mob at the same scale](docs/field_guide.png)
+![On land](docs/field_guide_land.png)
+
+![In the air](docs/field_guide_birds.png)
+
+![In the water](docs/field_guide_water.png)
 
 **Big game:**
 - whitetail and black-tailed deer, elk, moose, reindeer and pronghorn
@@ -33,6 +37,8 @@ wildlife, a real year of seasons, and vanilla-style pipes and engines.
 - alligators, bullfrogs, frogs and toads, box turtles and rattlesnakes
 
 **Also:** twenty butterfly species, fireflies, zebras and the moobloom.
+
+![Butterflies](docs/butterflies_chart.png)
 
 Animals act like the real thing:
 - Deer bolt at 14 blocks, but only notice you at 5 if you sneak, and camo-dyed leather helps.
@@ -63,6 +69,8 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 - **Wood:** every species has a full wood set, with its own door and trapdoor design.
 - **Fruit:** cherries and black walnuts fall from the leaves.
 
+![The fifteen trees](docs/trees_chart.jpg)
+
 ![The same grove in summer and late autumn](docs/trees_grove.jpg)
 
 **The year runs Serene Seasons-style**: early, mid and late spring, summer, autumn and winter, 8 days each.
@@ -74,9 +82,10 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 
 ![Autumn, first snow, winter, spring thaw](docs/seasons.jpg)
 
-**Thirst**: a row of droplets over the hunger bar. It drains faster when you sprint and in the desert sun.
-- Sip from any water with an empty hand, or carry water bottles.
-- Milk, stews, melon and berries help a little.
+**Thirst**: a row of droplets over the hunger bar. It drains slowly, so it's there without being a chore, and faster when you sprint or stand in the desert sun.
+- Sip from any water with an empty hand.
+- Water bottles go down in three sips, and the bottle shows how full it is.
+- Milk, stews, honey, melon and berries also quench. Like hunger, drinks give hidden hydration that runs out before the bar drops.
 - Run dry and you stop healing and start to suffer, like starving.
 
 ## Pipes, engines and the Ender Terminal
@@ -89,6 +98,7 @@ Tekkit-style transport that feels vanilla. You can watch items ride through the 
   - obsidian pipes vacuum up dropped items
   - fluid pipes carry water and lava
 - **Engines:** redstone engines and coal-burning Stirling engines warm up, then pulse faster. Stack engines in a line to add their power together.
+- **Steel:** point a running engine at a blast furnace to work it like a bellows. While it's stoked and burning fuel, iron ingots turn into steel ingots (for the cannons and muskets to come).
 - **Tanks and pumps:**
   - stacking glass tanks
   - an iron-hooped vat that collects rain
