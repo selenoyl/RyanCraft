@@ -9,6 +9,9 @@
           "name": "ryancraft:crappie",
           "functions": [
             {
+              "function": "ryancraft:fish_length"
+            },
+            {
               "function": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",

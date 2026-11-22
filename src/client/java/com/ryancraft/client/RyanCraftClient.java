@@ -36,6 +36,15 @@ public class RyanCraftClient implements ClientModInitializer {
                 lines.add(2 + i, net.minecraft.network.chat.Component.literal("  ").append(bag.names().get(i)).withStyle(net.minecraft.ChatFormatting.DARK_GREEN));
             }
         });
+        // Caught fish show their length; the biggest of their kind are trophies
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, ctx, type, lines) -> {
+            Float len = stack.get(com.ryancraft.fish.FishSize.LENGTH);
+            if (len == null) return;
+            lines.add(1, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.fish_length", String.format(java.util.Locale.ROOT, "%.1f", len))
+                    .withStyle(net.minecraft.ChatFormatting.GRAY));
+            if (com.ryancraft.fish.FishSize.isTrophy(stack))
+                lines.add(2, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.trophy_fish").withStyle(net.minecraft.ChatFormatting.GOLD));
+        });
         for (com.ryancraft.trees.WoodSet w : com.ryancraft.trees.RyanWood.sets())
             net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, w.door(), w.trapdoor(), w.sapling(), w.pottedSapling());
         EntityModelLayerRegistry.registerModelLayer(BoarModel.LAYER, BoarModel::createBodyLayer);
@@ -52,7 +61,7 @@ public class RyanCraftClient implements ClientModInitializer {
                 ctx -> new RyanAnimalRenderer<>(ctx, new TurkeyModel(ctx.bakeLayer(TurkeyModel.LAYER)), 0.5f, "turkey"));
 
         for (String m : new String[]{"black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel", "songbird",
-                "bluegill", "crappie", "largemouth_bass", "channel_catfish", "chipmunk", "coyote",
+                "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge", "chipmunk", "coyote",
                 "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine", "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose", "orca", "blue_whale", "shark", "manta_ray", "jellyfish", "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator", "swan"}) {
             EntityModelLayerRegistry.registerModelLayer(CritterModel.layer(m), () -> CritterModel.createLayer(m));
         }
@@ -115,6 +124,12 @@ public class RyanCraftClient implements ClientModInitializer {
         });
         EntityRendererRegistry.register(RyanEntities.CHIPMUNK, c -> new CritterRenderer<>(c, "chipmunk", 0.25f, 1.0f, false, "chipmunk"));
         EntityRendererRegistry.register(RyanEntities.BLUEGILL, c -> new CritterRenderer<>(c, "bluegill", 0.2f, 1.0f, true, "bluegill"));
+        EntityRendererRegistry.register(RyanEntities.RAINBOW_TROUT, c -> new CritterRenderer<>(c, "rainbow_trout", 0.2f, 1.0f, true, "rainbow_trout"));
+        EntityRendererRegistry.register(RyanEntities.SMALLMOUTH_BASS, c -> new CritterRenderer<>(c, "smallmouth_bass", 0.2f, 1.0f, true, "smallmouth_bass"));
+        EntityRendererRegistry.register(RyanEntities.YELLOW_PERCH, c -> new CritterRenderer<>(c, "yellow_perch", 0.2f, 1.0f, true, "yellow_perch"));
+        EntityRendererRegistry.register(RyanEntities.WALLEYE, c -> new CritterRenderer<>(c, "walleye", 0.2f, 1.0f, true, "walleye"));
+        EntityRendererRegistry.register(RyanEntities.NORTHERN_PIKE, c -> new CritterRenderer<>(c, "northern_pike", 0.2f, 1.0f, true, "northern_pike"));
+        EntityRendererRegistry.register(RyanEntities.MUSKELLUNGE, c -> new CritterRenderer<>(c, "muskellunge", 0.2f, 1.0f, true, "muskellunge"));
         EntityRendererRegistry.register(RyanEntities.CRAPPIE, c -> new CritterRenderer<>(c, "crappie", 0.2f, 1.0f, true, "crappie"));
         EntityRendererRegistry.register(RyanEntities.LARGEMOUTH_BASS, c -> new CritterRenderer<>(c, "largemouth_bass", 0.25f, 1.0f, true, "largemouth_bass"));
         EntityRendererRegistry.register(RyanEntities.CHANNEL_CATFISH, c -> new CritterRenderer<>(c, "channel_catfish", 0.3f, 1.0f, true, "channel_catfish"));

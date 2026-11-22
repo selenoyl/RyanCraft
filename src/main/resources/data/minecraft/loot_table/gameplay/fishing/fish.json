@@ -63,6 +63,9 @@
           "weight": 12,
           "functions": [
             {
+              "function": "ryancraft:fish_length"
+            },
+            {
               "function": "minecraft:furnace_smelt",
               "conditions": [
                 {
@@ -83,6 +86,9 @@
           "name": "ryancraft:crappie",
           "weight": 9,
           "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
             {
               "function": "minecraft:furnace_smelt",
               "conditions": [
@@ -105,6 +111,9 @@
           "weight": 8,
           "functions": [
             {
+              "function": "ryancraft:fish_length"
+            },
+            {
               "function": "minecraft:furnace_smelt",
               "conditions": [
                 {
@@ -125,6 +134,153 @@
           "name": "ryancraft:channel_catfish",
           "weight": 5,
           "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:yellow_perch",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:rainbow_trout",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:smallmouth_bass",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:walleye",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:northern_pike",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
+            {
+              "function": "minecraft:furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "flags": {
+                      "is_on_fire": true
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "ryancraft:muskellunge",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "ryancraft:fish_length"
+            },
             {
               "function": "minecraft:furnace_smelt",
               "conditions": [

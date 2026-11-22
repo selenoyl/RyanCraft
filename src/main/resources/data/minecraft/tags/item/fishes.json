@@ -5,9 +5,21 @@
     "ryancraft:crappie",
     "ryancraft:largemouth_bass",
     "ryancraft:channel_catfish",
+    "ryancraft:rainbow_trout",
+    "ryancraft:smallmouth_bass",
+    "ryancraft:yellow_perch",
+    "ryancraft:walleye",
+    "ryancraft:northern_pike",
+    "ryancraft:muskellunge",
     "ryancraft:cooked_bluegill",
     "ryancraft:cooked_crappie",
     "ryancraft:cooked_largemouth_bass",
-    "ryancraft:cooked_channel_catfish"
+    "ryancraft:cooked_channel_catfish",
+    "ryancraft:cooked_rainbow_trout",
+    "ryancraft:cooked_smallmouth_bass",
+    "ryancraft:cooked_yellow_perch",
+    "ryancraft:cooked_walleye",
+    "ryancraft:cooked_northern_pike",
+    "ryancraft:cooked_muskellunge"
   ]
 }

@@ -5,6 +5,8 @@ public interface CritterVisual {
     int getVariant();
     default boolean isPlayingDead() { return false; }
     default boolean isFlyingVisual() { return false; }
+    /** Extra size factor for this one animal (fish are drawn to their length). */
+    default float renderScale() { return 1.0f; }
     /** Sitting down (tamed and told to stay). */
     default boolean isSittingVisual() { return false; }
     /** Really in the air: the client doesn't always know onGround for a still mob, so look for ground just below. */

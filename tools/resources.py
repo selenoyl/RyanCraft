@@ -73,9 +73,9 @@ w("assets/ryancraft/sounds.json", sounds)
 
 # ---- items
 FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
-FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"]
+FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"] + ['rainbow_trout', 'smallmouth_bass', 'yellow_perch', 'walleye', 'northern_pike', 'muskellunge']
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
-            "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish",
+            "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge",
             "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
@@ -147,8 +147,9 @@ for name in ["butterfly", "box_turtle", "rattlesnake", "bullfrog"]: loot(name, [
 for name in ["hummingbird", "pileated_woodpecker"]: loot(name, [pool("minecraft:feather", 0, 1)])
 loot("bobwhite", [pool("ryancraft:raw_duck", 0, 1, True), pool("minecraft:feather", 0, 2)])
 loot("alligator", [pool("minecraft:leather", 1, 2)])
-for f in FISH:
-    loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
+for f in FISH:     # the fish item keeps the length of the fish it came from
+    fp = pool("ryancraft:" + f, 1, 1, True, looting=False); fp["entries"][0].setdefault("functions", []).insert(0, {"function": "ryancraft:fish_length"})
+    loot(f, [fp, pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
 # Armadillos drop their scutes when killed; no brush needed (babies drop nothing)
 w("data/minecraft/loot_table/entities/armadillo.json", {"type": "minecraft:entity", "random_sequence": "minecraft:entities/armadillo",
@@ -178,12 +179,15 @@ w("data/minecraft/loot_table/entities/turtle.json", {"type": "minecraft:entity",
 # Fishing: Kentucky fish join the catch (same overall fish odds as vanilla)
 def fish_entry(item, weight, cook=True):
     e = {"type": "minecraft:item", "name": item, "weight": weight}
-    if cook: e["functions"] = [{"function": "minecraft:furnace_smelt", "conditions": [{"condition": "minecraft:entity_properties", "entity": "this", "predicate": {"flags": {"is_on_fire": True}}}]}]
+    if item.startswith("ryancraft:"): e["functions"] = [{"function": "ryancraft:fish_length"}]    # every catch is measured
+    if cook: e.setdefault("functions", []).append({"function": "minecraft:furnace_smelt", "conditions": [{"condition": "minecraft:entity_properties", "entity": "this", "predicate": {"flags": {"is_on_fire": True}}}]})
     return e
 w("data/minecraft/loot_table/gameplay/fishing/fish.json", {"type": "minecraft:fishing", "pools": [{"rolls": 1, "bonus_rolls": 0, "entries": [
     fish_entry("minecraft:cod", 36), fish_entry("minecraft:salmon", 15), fish_entry("minecraft:tropical_fish", 2, False),
     fish_entry("minecraft:pufferfish", 13, False), fish_entry("ryancraft:bluegill", 12), fish_entry("ryancraft:crappie", 9),
-    fish_entry("ryancraft:largemouth_bass", 8), fish_entry("ryancraft:channel_catfish", 5)]}],
+    fish_entry("ryancraft:largemouth_bass", 8), fish_entry("ryancraft:channel_catfish", 5), fish_entry("ryancraft:yellow_perch", 9),
+    fish_entry("ryancraft:rainbow_trout", 6), fish_entry("ryancraft:smallmouth_bass", 6), fish_entry("ryancraft:walleye", 4),
+    fish_entry("ryancraft:northern_pike", 3), fish_entry("ryancraft:muskellunge", 1)]}],
     "random_sequence": "minecraft:gameplay/fishing/fish"})
 
 # ---- tags
@@ -216,6 +220,8 @@ lang.update({
     "item.ryancraft.bluegill_bucket": "Bucket of Bluegill", "item.ryancraft.crappie_bucket": "Bucket of Crappie",
     "item.ryancraft.largemouth_bass_bucket": "Bucket of Largemouth Bass", "item.ryancraft.channel_catfish_bucket": "Bucket of Channel Catfish",
     "item.ryancraft.raccoon_tail": "Raccoon Tail",
+    "entity.ryancraft.rainbow_trout": "Rainbow Trout", "item.ryancraft.rainbow_trout": "Raw Rainbow Trout", "item.ryancraft.cooked_rainbow_trout": "Pan-fried Trout", "item.ryancraft.rainbow_trout_bucket": "Bucket of Rainbow Trout", "entity.ryancraft.smallmouth_bass": "Smallmouth Bass", "item.ryancraft.smallmouth_bass": "Raw Smallmouth Bass", "item.ryancraft.cooked_smallmouth_bass": "Cooked Smallmouth Bass", "item.ryancraft.smallmouth_bass_bucket": "Bucket of Smallmouth Bass", "entity.ryancraft.yellow_perch": "Yellow Perch", "item.ryancraft.yellow_perch": "Raw Yellow Perch", "item.ryancraft.cooked_yellow_perch": "Fried Perch", "item.ryancraft.yellow_perch_bucket": "Bucket of Yellow Perch", "entity.ryancraft.walleye": "Walleye", "item.ryancraft.walleye": "Raw Walleye", "item.ryancraft.cooked_walleye": "Fried Walleye", "item.ryancraft.walleye_bucket": "Bucket of Walleye", "entity.ryancraft.northern_pike": "Northern Pike", "item.ryancraft.northern_pike": "Raw Northern Pike", "item.ryancraft.cooked_northern_pike": "Cooked Pike", "item.ryancraft.northern_pike_bucket": "Bucket of Northern Pike", "entity.ryancraft.muskellunge": "Muskellunge", "item.ryancraft.muskellunge": "Raw Muskellunge", "item.ryancraft.cooked_muskellunge": "Cooked Muskie", "item.ryancraft.muskellunge_bucket": "Bucket of Muskellunge",
+    "tooltip.ryancraft.fish_length": "%s in", "tooltip.ryancraft.trophy_fish": "Trophy",
     "entity.ryancraft.coyote": "Coyote",
     "entity.ryancraft.elk": "Elk", "entity.ryancraft.elk.bull": "Bull Elk",
     "entity.ryancraft.moose": "Moose", "entity.ryancraft.moose.bull": "Bull Moose",
@@ -251,7 +257,7 @@ lang.update({
 EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Turkey", "black_bear": "Black Bear", "raccoon": "Raccoon",
              "skunk": "Skunk", "mink": "Mink", "opossum": "Opossum", "beaver": "Beaver", "squirrel": "Squirrel", "songbird": "Songbird",
              "chipmunk": "Chipmunk", "coyote": "Coyote", "bluegill": "Bluegill", "crappie": "Crappie", "largemouth_bass": "Largemouth Bass",
-             "channel_catfish": "Channel Catfish", "elk": "Elk", "moose": "Moose", "pronghorn": "Pronghorn",
+             "channel_catfish": "Channel Catfish", "rainbow_trout": "Rainbow Trout", "smallmouth_bass": "Smallmouth Bass", "yellow_perch": "Yellow Perch", "walleye": "Walleye", "northern_pike": "Northern Pike", "muskellunge": "Muskellunge", "elk": "Elk", "moose": "Moose", "pronghorn": "Pronghorn",
              "grizzly_bear": "Grizzly Bear", "bobcat": "Bobcat", "crow": "Crow", "zebra": "Zebra", "reindeer": "Reindeer",
              "black_tailed_deer": "Black-tailed Deer", "bison": "Bison", "cougar": "Cougar", "river_otter": "River Otter",
              "groundhog": "Groundhog", "porcupine": "Porcupine", "bald_eagle": "Bald Eagle", "golden_eagle": "Golden Eagle",

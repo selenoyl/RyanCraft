@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": "ryancraft:northern_pike",
+  "result": {
+    "id": "ryancraft:cooked_northern_pike"
+  }
+}

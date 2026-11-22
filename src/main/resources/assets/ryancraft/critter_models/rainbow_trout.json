@@ -1,0 +1,93 @@
+{
+ "texture": [
+  32,
+  32
+ ],
+ "parts": [
+  {
+   "name": "body",
+   "parent": null,
+   "pivot": [
+    0,
+    20.5,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "fish_body",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      0
+     ],
+     "from": [
+      -1.0,
+      -2.5,
+      -5.5
+     ],
+     "size": [
+      2,
+      5,
+      11
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      8,
+      16
+     ],
+     "from": [
+      -0.5,
+      -4.5,
+      -2.0
+     ],
+     "size": [
+      1,
+      2,
+      4
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "tail",
+   "parent": null,
+   "pivot": [
+    0,
+    20.5,
+    5.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "fish_tail",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      16
+     ],
+     "from": [
+      -0.5,
+      -2.0,
+      0
+     ],
+     "size": [
+      1,
+      4,
+      3
+     ],
+     "mirror": false
+    }
+   ]
+  }
+ ]
+}

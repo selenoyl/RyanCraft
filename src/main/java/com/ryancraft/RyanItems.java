@@ -49,11 +49,29 @@ public final class RyanItems {
     public static final Item COOKED_LARGEMOUTH_BASS = food("cooked_largemouth_bass", 6, 0.8f);
     public static final Item CHANNEL_CATFISH = food("channel_catfish", 2, 0.1f);
     public static final Item COOKED_CHANNEL_CATFISH = food("cooked_channel_catfish", 6, 0.8f);
+    public static final Item RAINBOW_TROUT = food("rainbow_trout", 2, 0.1f);
+    public static final Item COOKED_RAINBOW_TROUT = food("cooked_rainbow_trout", 5, 0.6f);
+    public static final Item SMALLMOUTH_BASS = food("smallmouth_bass", 2, 0.1f);
+    public static final Item COOKED_SMALLMOUTH_BASS = food("cooked_smallmouth_bass", 6, 0.8f);
+    public static final Item YELLOW_PERCH = food("yellow_perch", 2, 0.1f);
+    public static final Item COOKED_YELLOW_PERCH = food("cooked_yellow_perch", 5, 0.6f);
+    public static final Item WALLEYE = food("walleye", 2, 0.1f);
+    public static final Item COOKED_WALLEYE = food("cooked_walleye", 6, 0.8f);
+    public static final Item NORTHERN_PIKE = food("northern_pike", 2, 0.1f);
+    public static final Item COOKED_NORTHERN_PIKE = food("cooked_northern_pike", 6, 0.8f);
+    public static final Item MUSKELLUNGE = food("muskellunge", 2, 0.1f);
+    public static final Item COOKED_MUSKELLUNGE = food("cooked_muskellunge", 7, 0.9f);
 
     public static final Item BLUEGILL_BUCKET = bucket("bluegill_bucket", RyanEntities.BLUEGILL);
     public static final Item CRAPPIE_BUCKET = bucket("crappie_bucket", RyanEntities.CRAPPIE);
     public static final Item LARGEMOUTH_BASS_BUCKET = bucket("largemouth_bass_bucket", RyanEntities.LARGEMOUTH_BASS);
     public static final Item CHANNEL_CATFISH_BUCKET = bucket("channel_catfish_bucket", RyanEntities.CHANNEL_CATFISH);
+    public static final Item RAINBOW_TROUT_BUCKET = bucket("rainbow_trout_bucket", RyanEntities.RAINBOW_TROUT);
+    public static final Item SMALLMOUTH_BASS_BUCKET = bucket("smallmouth_bass_bucket", RyanEntities.SMALLMOUTH_BASS);
+    public static final Item YELLOW_PERCH_BUCKET = bucket("yellow_perch_bucket", RyanEntities.YELLOW_PERCH);
+    public static final Item WALLEYE_BUCKET = bucket("walleye_bucket", RyanEntities.WALLEYE);
+    public static final Item NORTHERN_PIKE_BUCKET = bucket("northern_pike_bucket", RyanEntities.NORTHERN_PIKE);
+    public static final Item MUSKELLUNGE_BUCKET = bucket("muskellunge_bucket", RyanEntities.MUSKELLUNGE);
 
     public static final Item RACCOON_TAIL = register("raccoon_tail", Item::new, new Item.Properties());
 
@@ -77,6 +95,7 @@ public final class RyanItems {
         egg("squirrel", RyanEntities.SQUIRREL); egg("songbird", RyanEntities.SONGBIRD); egg("chipmunk", RyanEntities.CHIPMUNK);
         egg("coyote", RyanEntities.COYOTE); egg("bluegill", RyanEntities.BLUEGILL); egg("crappie", RyanEntities.CRAPPIE);
         egg("largemouth_bass", RyanEntities.LARGEMOUTH_BASS); egg("channel_catfish", RyanEntities.CHANNEL_CATFISH);
+        egg("rainbow_trout", RyanEntities.RAINBOW_TROUT); egg("smallmouth_bass", RyanEntities.SMALLMOUTH_BASS); egg("yellow_perch", RyanEntities.YELLOW_PERCH); egg("walleye", RyanEntities.WALLEYE); egg("northern_pike", RyanEntities.NORTHERN_PIKE); egg("muskellunge", RyanEntities.MUSKELLUNGE);
         egg("elk", RyanEntities.ELK); egg("moose", RyanEntities.MOOSE); egg("pronghorn", RyanEntities.PRONGHORN);
         egg("grizzly_bear", RyanEntities.GRIZZLY_BEAR); egg("bobcat", RyanEntities.BOBCAT);
         egg("crow", RyanEntities.CROW); egg("zebra", RyanEntities.ZEBRA); egg("reindeer", RyanEntities.REINDEER); egg("moobloom", RyanEntities.MOOBLOOM); egg("swan", RyanEntities.SWAN);
@@ -96,6 +115,12 @@ public final class RyanItems {
         BUCKETS.put(RyanEntities.CRAPPIE, CRAPPIE_BUCKET);
         BUCKETS.put(RyanEntities.LARGEMOUTH_BASS, LARGEMOUTH_BASS_BUCKET);
         BUCKETS.put(RyanEntities.CHANNEL_CATFISH, CHANNEL_CATFISH_BUCKET);
+        BUCKETS.put(RyanEntities.RAINBOW_TROUT, RAINBOW_TROUT_BUCKET);
+        BUCKETS.put(RyanEntities.SMALLMOUTH_BASS, SMALLMOUTH_BASS_BUCKET);
+        BUCKETS.put(RyanEntities.YELLOW_PERCH, YELLOW_PERCH_BUCKET);
+        BUCKETS.put(RyanEntities.WALLEYE, WALLEYE_BUCKET);
+        BUCKETS.put(RyanEntities.NORTHERN_PIKE, NORTHERN_PIKE_BUCKET);
+        BUCKETS.put(RyanEntities.MUSKELLUNGE, MUSKELLUNGE_BUCKET);
     }
 
     public static Item bucketFor(EntityType<?> type) {
@@ -121,10 +146,10 @@ public final class RyanItems {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(e -> {
             for (Item i : new Item[]{VENISON, COOKED_VENISON, RAW_DUCK, COOKED_DUCK, RAW_TURKEY, COOKED_TURKEY,
                     BLUEGILL, COOKED_BLUEGILL, CRAPPIE, COOKED_CRAPPIE, LARGEMOUTH_BASS, COOKED_LARGEMOUTH_BASS,
-                    CHANNEL_CATFISH, COOKED_CHANNEL_CATFISH, CHERRIES, CHERRY_PIE, SHELLED_WALNUT}) e.accept(i);
+                    CHANNEL_CATFISH, COOKED_CHANNEL_CATFISH, RAINBOW_TROUT, COOKED_RAINBOW_TROUT, SMALLMOUTH_BASS, COOKED_SMALLMOUTH_BASS, YELLOW_PERCH, COOKED_YELLOW_PERCH, WALLEYE, COOKED_WALLEYE, NORTHERN_PIKE, COOKED_NORTHERN_PIKE, MUSKELLUNGE, COOKED_MUSKELLUNGE, CHERRIES, CHERRY_PIE, SHELLED_WALNUT}) e.accept(i);
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(e -> {
-            for (Item i : new Item[]{BLUEGILL_BUCKET, CRAPPIE_BUCKET, LARGEMOUTH_BASS_BUCKET, CHANNEL_CATFISH_BUCKET}) e.accept(i);
+            for (Item i : new Item[]{BLUEGILL_BUCKET, CRAPPIE_BUCKET, LARGEMOUTH_BASS_BUCKET, CHANNEL_CATFISH_BUCKET, RAINBOW_TROUT_BUCKET, SMALLMOUTH_BASS_BUCKET, YELLOW_PERCH_BUCKET, WALLEYE_BUCKET, NORTHERN_PIKE_BUCKET, MUSKELLUNGE_BUCKET}) e.accept(i);
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(e -> e.accept(COONSKIN_CAP));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(e -> {

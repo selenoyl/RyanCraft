@@ -42,6 +42,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
         state.antlers = entity.isBaby() ? -1 : entity.antlerStage();
         state.rack = entity.antlerRack();
         state.flying = entity.isFlyingVisual();
+        state.sizeScale = entity.renderScale();
         state.sitting = entity.isSittingVisual();
         state.rising = state.flying && entity.getY() - entity.yo > 0.015;
         state.climbing = entity.isClimbingVisual();
@@ -60,7 +61,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
 
     @Override
     protected void scale(CritterRenderState state, PoseStack pose) {
-        float s = state.isBaby ? scale * 0.5f : scale;
+        float s = (state.isBaby ? scale * 0.5f : scale) * state.sizeScale;
         pose.scale(s, s, s);
     }
 

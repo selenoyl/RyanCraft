@@ -40,6 +40,12 @@ public final class RyanEntities {
     public static final EntityType<KentuckyFish> CRAPPIE = fish("crappie", 0.4f, 0.45f);
     public static final EntityType<KentuckyFish> LARGEMOUTH_BASS = fish("largemouth_bass", 0.5f, 0.4f);
     public static final EntityType<KentuckyFish> CHANNEL_CATFISH = fish("channel_catfish", 0.6f, 0.3f);
+    public static final EntityType<KentuckyFish> RAINBOW_TROUT = fish("rainbow_trout", 0.45f, 0.35f);
+    public static final EntityType<KentuckyFish> SMALLMOUTH_BASS = fish("smallmouth_bass", 0.5f, 0.4f);
+    public static final EntityType<KentuckyFish> YELLOW_PERCH = fish("yellow_perch", 0.4f, 0.4f);
+    public static final EntityType<KentuckyFish> WALLEYE = fish("walleye", 0.5f, 0.35f);
+    public static final EntityType<KentuckyFish> NORTHERN_PIKE = fish("northern_pike", 0.7f, 0.3f);
+    public static final EntityType<KentuckyFish> MUSKELLUNGE = fish("muskellunge", 0.8f, 0.35f);
 
     public static final EntityType<Coyote> COYOTE = register("coyote",
             EntityType.Builder.of(Coyote::new, MobCategory.CREATURE).sized(0.6f, 0.8f).clientTrackingRange(10));
@@ -181,7 +187,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(SWAN, Swan.createAttributes());
         FabricDefaultAttributeRegistry.register(MOOBLOOM, net.minecraft.world.entity.animal.cow.Cow.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
-        for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
+        for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH, RAINBOW_TROUT, SMALLMOUTH_BASS, YELLOW_PERCH, WALLEYE, NORTHERN_PIKE, MUSKELLUNGE)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());
         }
     }
