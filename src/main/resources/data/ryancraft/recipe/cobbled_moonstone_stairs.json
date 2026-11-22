@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:cobbled_moonstone"
+  },
+  "result": {
+    "id": "ryancraft:cobbled_moonstone_stairs",
+    "count": 4
+  }
+}

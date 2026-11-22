@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:meteor_iron_block"
+  ],
+  "result": {
+    "id": "ryancraft:meteor_iron_ingot",
+    "count": 9
+  }
+}

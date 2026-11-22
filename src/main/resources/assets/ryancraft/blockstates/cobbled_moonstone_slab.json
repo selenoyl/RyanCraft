@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/cobbled_moonstone_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/cobbled_moonstone"
+    },
+    "type=top": {
+      "model": "ryancraft:block/cobbled_moonstone_slab_top"
+    }
+  }
+}

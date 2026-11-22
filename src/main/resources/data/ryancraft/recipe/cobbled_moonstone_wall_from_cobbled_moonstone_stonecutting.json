@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:cobbled_moonstone",
+  "result": {
+    "id": "ryancraft:cobbled_moonstone_wall",
+    "count": 1
+  }
+}

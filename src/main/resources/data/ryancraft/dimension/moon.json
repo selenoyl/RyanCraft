@@ -1,0 +1,11 @@
+{
+  "type": "ryancraft:moon",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "ryancraft:moon",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "ryancraft:moon"
+    }
+  }
+}

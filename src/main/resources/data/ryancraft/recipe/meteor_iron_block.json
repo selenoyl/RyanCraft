@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:meteor_iron_ingot"
+  },
+  "result": {
+    "id": "ryancraft:meteor_iron_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:moonstone_bricks",
+  "result": {
+    "id": "ryancraft:chiseled_moonstone_bricks",
+    "count": 1
+  }
+}

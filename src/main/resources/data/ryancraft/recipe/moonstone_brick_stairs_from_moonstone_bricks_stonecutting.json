@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:moonstone_bricks",
+  "result": {
+    "id": "ryancraft:moonstone_brick_stairs",
+    "count": 1
+  }
+}

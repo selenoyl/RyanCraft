@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:moonstone",
+  "result": {
+    "id": "ryancraft:polished_moonstone",
+    "count": 1
+  }
+}

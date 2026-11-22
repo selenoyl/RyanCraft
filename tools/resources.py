@@ -272,5 +272,6 @@ from seasons_assets import lang_entries as seasons_lang; lang.update(seasons_lan
 from fishing_assets import lang_entries as fishing_lang; lang.update(fishing_lang())
 from thirst_assets import lang_entries as thirst_lang; lang.update(thirst_lang())
 from steel_assets import lang_entries as steel_lang; lang.update(steel_lang())
+from moon_assets import lang_entries as moon_lang; lang.update(moon_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

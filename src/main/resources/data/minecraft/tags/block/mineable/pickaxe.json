@@ -25,6 +25,21 @@
     "ryancraft:steel_grate",
     "ryancraft:steel_bars",
     "ryancraft:steel_door",
-    "ryancraft:steel_trapdoor"
+    "ryancraft:steel_trapdoor",
+    "ryancraft:moonstone",
+    "ryancraft:cobbled_moonstone",
+    "ryancraft:cobbled_moonstone_stairs",
+    "ryancraft:cobbled_moonstone_slab",
+    "ryancraft:cobbled_moonstone_wall",
+    "ryancraft:polished_moonstone",
+    "ryancraft:moonstone_bricks",
+    "ryancraft:cracked_moonstone_bricks",
+    "ryancraft:chiseled_moonstone_bricks",
+    "ryancraft:moonstone_brick_stairs",
+    "ryancraft:moonstone_brick_slab",
+    "ryancraft:moonstone_brick_wall",
+    "ryancraft:meteor_iron_ore",
+    "ryancraft:raw_meteor_iron_block",
+    "ryancraft:meteor_iron_block"
   ]
 }
