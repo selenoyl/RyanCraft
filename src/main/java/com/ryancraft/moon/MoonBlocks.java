@@ -36,7 +36,8 @@ public final class MoonBlocks {
     public static final Block MOON_DUST, MOONSTONE, COBBLED_MOONSTONE, COBBLED_MOONSTONE_STAIRS, COBBLED_MOONSTONE_SLAB, COBBLED_MOONSTONE_WALL,
             POLISHED_MOONSTONE, MOONSTONE_BRICKS, CRACKED_MOONSTONE_BRICKS, CHISELED_MOONSTONE_BRICKS,
             MOONSTONE_BRICK_STAIRS, MOONSTONE_BRICK_SLAB, MOONSTONE_BRICK_WALL,
-            METEOR_IRON_ORE, RAW_METEOR_IRON_BLOCK, METEOR_IRON_BLOCK;
+            METEOR_IRON_ORE, RAW_METEOR_IRON_BLOCK, METEOR_IRON_BLOCK,
+            DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE;
     public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT;
 
     static {
@@ -56,6 +57,12 @@ public final class MoonBlocks {
         MOONSTONE_BRICK_WALL = block("moonstone_brick_wall", WallBlock::new, stone().forceSolidOn());
         METEOR_IRON_ORE = block("meteor_iron_ore", p -> new DropExperienceBlock(UniformInt.of(1, 3), p),
                 stone().strength(3.5f, 4.0f).lightLevel(s -> 4));
+        // deep moonstone: the moon's deepslate, below about y=32
+        DEEP_MOONSTONE = block("deep_moonstone", net.minecraft.world.level.block.RotatedPillarBlock::new, deep().strength(3.0f, 6.0f));
+        COBBLED_DEEP_MOONSTONE = block("cobbled_deep_moonstone", Block::new, deep().strength(3.5f, 6.0f));
+        POLISHED_DEEP_MOONSTONE = block("polished_deep_moonstone", Block::new, deep().strength(3.5f, 6.0f));
+        DEEP_MOONSTONE_BRICKS = block("deep_moonstone_bricks", Block::new, deep().strength(3.5f, 6.0f));
+        DEEP_METEOR_IRON_ORE = block("deep_meteor_iron_ore", p -> new DropExperienceBlock(UniformInt.of(1, 3), p), deep().strength(5.0f, 4.0f).lightLevel(s -> 4));
         RAW_METEOR_IRON_BLOCK = block("raw_meteor_iron_block", Block::new,
                 BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0f, 6.0f));
         METEOR_IRON_BLOCK = block("meteor_iron_block", Block::new,
@@ -66,6 +73,10 @@ public final class MoonBlocks {
 
     private static BlockBehaviour.Properties stone() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.5f, 6.0f);
+    }
+
+    private static BlockBehaviour.Properties deep() {
+        return BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE);
     }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {

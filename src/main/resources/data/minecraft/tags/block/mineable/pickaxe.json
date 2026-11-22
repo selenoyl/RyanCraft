@@ -40,6 +40,11 @@
     "ryancraft:moonstone_brick_wall",
     "ryancraft:meteor_iron_ore",
     "ryancraft:raw_meteor_iron_block",
-    "ryancraft:meteor_iron_block"
+    "ryancraft:meteor_iron_block",
+    "ryancraft:deep_moonstone",
+    "ryancraft:cobbled_deep_moonstone",
+    "ryancraft:polished_deep_moonstone",
+    "ryancraft:deep_moonstone_bricks",
+    "ryancraft:deep_meteor_iron_ore"
   ]
 }

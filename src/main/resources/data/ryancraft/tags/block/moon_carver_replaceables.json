@@ -2,6 +2,8 @@
   "values": [
     "ryancraft:moonstone",
     "ryancraft:moon_dust",
-    "ryancraft:meteor_iron_ore"
+    "ryancraft:meteor_iron_ore",
+    "ryancraft:deep_moonstone",
+    "ryancraft:deep_meteor_iron_ore"
   ]
 }

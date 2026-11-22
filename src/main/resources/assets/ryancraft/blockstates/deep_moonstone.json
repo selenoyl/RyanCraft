@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "ryancraft:block/deep_moonstone"
+    },
+    "axis=z": {
+      "model": "ryancraft:block/deep_moonstone",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "ryancraft:block/deep_moonstone",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

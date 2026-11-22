@@ -18,7 +18,7 @@
     },
     "minecraft:gameplay/respawn_anchor_works": false,
     "minecraft:visual/sky_color": "#000000",
-    "minecraft:visual/fog_color": "#0b0b10",
+    "minecraft:visual/fog_color": "#000000",
     "minecraft:visual/star_brightness": 0.75,
     "minecraft:visual/sunrise_sunset_color": "#00000000",
     "minecraft:visual/cloud_color": "#00000000"

@@ -1,8 +1,13 @@
 {
   "carvers": [
     "ryancraft:moon_cave",
-    "ryancraft:moon_lava_tube"
+    "ryancraft:moon_lava_tube",
+    "ryancraft:moon_ravine"
   ],
+  "attributes": {
+    "minecraft:visual/fog_color": "#000000",
+    "minecraft:visual/sky_color": "#000000"
+  },
   "downfall": 0.0,
   "effects": {
     "water_color": "#3f76e4"

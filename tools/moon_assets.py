@@ -15,7 +15,8 @@ LANG = {"moon_dust": "Moon Dust", "moonstone": "Moonstone", "cobbled_moonstone":
         "cobbled_moonstone_wall": "Cobbled Moonstone Wall", "polished_moonstone": "Polished Moonstone", "moonstone_bricks": "Moonstone Bricks",
         "cracked_moonstone_bricks": "Cracked Moonstone Bricks", "chiseled_moonstone_bricks": "Chiseled Moonstone Bricks",
         "moonstone_brick_stairs": "Moonstone Brick Stairs", "moonstone_brick_slab": "Moonstone Brick Slab", "moonstone_brick_wall": "Moonstone Brick Wall",
-        "meteor_iron_ore": "Meteor Iron Ore", "raw_meteor_iron_block": "Block of Raw Meteor Iron", "meteor_iron_block": "Block of Meteor Iron"}
+        "meteor_iron_ore": "Meteor Iron Ore", "deep_moonstone": "Deep Moonstone", "cobbled_deep_moonstone": "Cobbled Deep Moonstone",
+        "polished_deep_moonstone": "Polished Deep Moonstone", "deep_moonstone_bricks": "Deep Moonstone Bricks", "deep_meteor_iron_ore": "Deep Meteor Iron Ore", "raw_meteor_iron_block": "Block of Raw Meteor Iron", "meteor_iron_block": "Block of Meteor Iron"}
 EXTRA_LANG = {"block.ryancraft.bed.no_sleep_moon": "You can't sleep on the moon", "biome.ryancraft.moon": "The Moon"}
 ITEM_LANG = {"raw_meteor_iron": "Raw Meteor Iron", "meteor_iron_ingot": "Meteor Iron Ingot"}
 
@@ -65,6 +66,20 @@ def textures():
                 v = sum(pr[x, y][:3]) / 3; k = 0.38 if v > 150 else 0.24
                 po[x, y] = (int(v * k) - 4, int(v * k) - 2, int(v * k) + 10, 255); spots.add((x, y))
     sparkle(out, 6, 3, spots).save(os.path.join(b, "meteor_iron_ore.png"))
+    # deep moonstone: vanilla deepslate's layered look, recoloured to a dark blue-grey
+    dt = lambda n: os.path.join(HERE, "templates", "moon", "textures", n + ".png")
+    deep = recolour(dt("deepslate"), 84, 1.0, STONE_TINT); deep.save(os.path.join(b, "deep_moonstone.png"))
+    recolour(dt("deepslate_top"), 84, 1.0, STONE_TINT).save(os.path.join(b, "deep_moonstone_top.png"))
+    for src, dst in (("cobbled_deepslate", "cobbled_deep_moonstone"), ("polished_deepslate", "polished_deep_moonstone"), ("deepslate_bricks", "deep_moonstone_bricks")):
+        recolour(dt(src), 84, 1.0, STONE_TINT).save(os.path.join(b, dst + ".png"))
+    ds, do = Image.open(dt("deepslate")).convert("RGBA"), Image.open(dt("deepslate_iron_ore")).convert("RGBA")
+    out = deep.copy(); po, ps, pr = out.load(), ds.load(), do.load(); spots = set()
+    for y in range(16):
+        for x in range(16):
+            if abs(sum(ps[x, y][:3]) - sum(pr[x, y][:3])) > 30:
+                v = sum(pr[x, y][:3]) / 3; k = 0.3 if v > 120 else 0.2
+                po[x, y] = (int(v * k) - 4, int(v * k) - 2, int(v * k) + 12, 255); spots.add((x, y))
+    sparkle(out, 6, 13, spots).save(os.path.join(b, "deep_meteor_iron_ore.png"))
     # metal: iron recoloured to a dark blue-black gunmetal, with flecks
     sparkle(recolour(cb("iron_block"), 74, 0.75, METEOR_TINT), 7, 5).save(os.path.join(b, "meteor_iron_block.png"))
     sparkle(recolour(os.path.join(TPL, "textures", "block", "raw_iron_block.png"), 62, 0.9, METEOR_TINT), 6, 7).save(os.path.join(b, "raw_meteor_iron_block.png"))
@@ -109,11 +124,17 @@ def silk_or(name, other, fortune=False, count=None):
 
 def json_files():
     cubes = ["moon_dust", "moonstone", "cobbled_moonstone", "polished_moonstone", "moonstone_bricks", "cracked_moonstone_bricks",
-             "chiseled_moonstone_bricks", "meteor_iron_ore", "raw_meteor_iron_block", "meteor_iron_block"]
+             "chiseled_moonstone_bricks", "meteor_iron_ore", "raw_meteor_iron_block", "meteor_iron_block",
+             "cobbled_deep_moonstone", "polished_deep_moonstone", "deep_moonstone_bricks", "deep_meteor_iron_ore"]
     for n in cubes:
         w(f"assets/ryancraft/blockstates/{n}.json", {"variants": {"": {"model": f"ryancraft:block/{n}"}}})
         w(f"assets/ryancraft/models/block/{n}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{n}"}})
         w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{n}"}})
+    w("assets/ryancraft/blockstates/deep_moonstone.json", {"variants": {"axis=y": {"model": "ryancraft:block/deep_moonstone"},
+        "axis=z": {"model": "ryancraft:block/deep_moonstone", "x": 90}, "axis=x": {"model": "ryancraft:block/deep_moonstone", "x": 90, "y": 90}}})
+    w("assets/ryancraft/models/block/deep_moonstone.json", {"parent": "minecraft:block/cube_column",
+        "textures": {"end": "ryancraft:block/deep_moonstone_top", "side": "ryancraft:block/deep_moonstone"}})
+    w("assets/ryancraft/items/deep_moonstone.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/deep_moonstone"}})
     for src, dst, tex in (("cobblestone", "cobbled_moonstone", "cobbled_moonstone"), ("stone_brick", "moonstone_brick", "moonstone_bricks")):
         for kind in ("stairs", "slab", "wall"):
             bs = json.load(open(os.path.join(TPL, "blockstates", f"{src}_{kind}.json")))
@@ -130,10 +151,12 @@ def json_files():
     # loot
     L = "data/ryancraft/loot_table/blocks/"
     for n in LANG:
-        if n in ("moonstone", "meteor_iron_ore") or n.endswith("_slab"): continue
+        if n in ("moonstone", "meteor_iron_ore", "deep_moonstone", "deep_meteor_iron_ore") or n.endswith("_slab"): continue
         w(L + n + ".json", drops(n))
     w(L + "moonstone.json", silk_or("moonstone", "cobbled_moonstone"))
     w(L + "meteor_iron_ore.json", silk_or("meteor_iron_ore", "raw_meteor_iron", fortune=True))
+    w(L + "deep_moonstone.json", silk_or("deep_moonstone", "cobbled_deep_moonstone"))
+    w(L + "deep_meteor_iron_ore.json", silk_or("deep_meteor_iron_ore", "raw_meteor_iron", fortune=True))
     for n in ("cobbled_moonstone_slab", "moonstone_brick_slab"):
         w(L + n + ".json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": f"ryancraft:{n}", "functions": [
             {"function": "minecraft:set_count", "count": 2, "add": False, "conditions": [{"condition": "minecraft:block_state_property", "block": f"ryancraft:{n}",
@@ -151,6 +174,10 @@ def json_files():
     smelt("moonstone", "cobbled_moonstone", "moonstone", 0.1, blast=False)
     smelt("cracked_moonstone_bricks", "moonstone_bricks", "cracked_moonstone_bricks", 0.1, blast=False)
     smelt("meteor_iron_ingot", "raw_meteor_iron", "meteor_iron_ingot", 1.0)
+    smelt("deep_moonstone", "cobbled_deep_moonstone", "deep_moonstone", 0.1, blast=False)
+    smelt("meteor_iron_ingot_from_deep_ore", "deep_meteor_iron_ore", "meteor_iron_ingot", 1.0)
+    shaped("polished_deep_moonstone", ["##", "##"], {"#": "cobbled_deep_moonstone"}, 4)
+    shaped("deep_moonstone_bricks", ["##", "##"], {"#": "polished_deep_moonstone"}, 4)
     smelt("meteor_iron_ingot_from_ore", "meteor_iron_ore", "meteor_iron_ingot", 1.0)
     shaped("polished_moonstone", ["##", "##"], {"#": "moonstone"}, 4)
     shaped("moonstone_bricks", ["##", "##"], {"#": "polished_moonstone"}, 4)
@@ -173,7 +200,7 @@ def json_files():
     stoney = [f"ryancraft:{n}" for n in LANG if n != "moon_dust"]
     add_tag("data/minecraft/tags/block/mineable/pickaxe.json", stoney)
     add_tag("data/minecraft/tags/block/mineable/shovel.json", ["ryancraft:moon_dust"])
-    add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:meteor_iron_ore", "ryancraft:raw_meteor_iron_block", "ryancraft:meteor_iron_block"])
+    add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:meteor_iron_ore", "ryancraft:deep_meteor_iron_ore", "ryancraft:raw_meteor_iron_block", "ryancraft:meteor_iron_block"])
     for kind in ("stairs", "slabs", "walls"):
         k = kind[:-1] if kind != "stairs" else "stairs"
         names = [f"ryancraft:cobbled_moonstone_{k}", f"ryancraft:moonstone_brick_{k}"]
@@ -183,7 +210,8 @@ def json_files():
     add_tag("data/minecraft/tags/item/stone_crafting_materials.json", ["ryancraft:cobbled_moonstone"])
     add_tag("data/minecraft/tags/item/stone_tool_materials.json", ["ryancraft:cobbled_moonstone"])
     # what the moon's caves may carve through
-    w("data/ryancraft/tags/block/moon_carver_replaceables.json", {"values": ["ryancraft:moonstone", "ryancraft:moon_dust", "ryancraft:meteor_iron_ore"]})
+    w("data/ryancraft/tags/block/moon_carver_replaceables.json", {"values": ["ryancraft:moonstone", "ryancraft:moon_dust",
+        "ryancraft:meteor_iron_ore", "ryancraft:deep_moonstone", "ryancraft:deep_meteor_iron_ore"]})
 
 # --------------------------------------------------------------------------------------------- the moon dimension
 def worldgen():
@@ -201,7 +229,7 @@ def worldgen():
             "minecraft:gameplay/bed_rule": {"can_set_spawn": "never", "can_sleep": "never", "explodes": False,
                                             "error_message": {"translate": "block.ryancraft.bed.no_sleep_moon"}},
             "minecraft:gameplay/respawn_anchor_works": False,
-            "minecraft:visual/sky_color": "#000000", "minecraft:visual/fog_color": "#0b0b10",
+            "minecraft:visual/sky_color": "#000000", "minecraft:visual/fog_color": "#000000",
             "minecraft:visual/star_brightness": 0.75, "minecraft:visual/sunrise_sunset_color": "#00000000",
             "minecraft:visual/cloud_color": "#00000000"},
         "coordinate_scale": 1.0, "has_ceiling": False, "has_skylight": True, "height": 256, "logical_height": 256, "min_y": 0,
@@ -229,6 +257,9 @@ def worldgen():
             {"type": "minecraft:condition", "if_true": {"type": "minecraft:vertical_gradient", "random_name": "minecraft:bedrock_floor",
                 "true_at_and_below": {"above_bottom": 0}, "false_at_and_above": {"above_bottom": 5}},
              "then_run": {"type": "minecraft:block", "result_state": {"Name": "minecraft:bedrock"}}},
+            {"type": "minecraft:condition", "if_true": {"type": "minecraft:vertical_gradient", "random_name": "ryancraft:deep_moonstone",
+                "true_at_and_below": {"absolute": 24}, "false_at_and_above": {"absolute": 36}},
+             "then_run": {"type": "minecraft:block", "result_state": {"Name": "ryancraft:deep_moonstone", "Properties": {"axis": "y"}}}},
             {"type": "minecraft:condition", "if_true": {"type": "minecraft:stone_depth", "offset": 2, "surface_type": "floor",
                 "add_surface_depth": True, "secondary_depth_range": 0}, "then_run": dust}]}})
     def carver(name, prob, hr, vr, ys, lo, hi):
@@ -241,14 +272,21 @@ def worldgen():
             "floor_level": {"type": "minecraft:uniform", "min_inclusive": -1.0, "max_exclusive": -0.4}}})
     carver("moon_cave", 0.2, (0.8, 1.6), (0.8, 1.3), (0.2, 0.9), 8, 120)
     carver("moon_lava_tube", 0.05, (2.2, 3.6), (0.9, 1.2), (0.25, 0.45), 12, 70)     # the moon's old lava tubes: wide, low tunnels
+    canyon = json.load(open(os.path.join(HERE, "templates", "moon", "canyon.json")))      # ravines, as on Earth but more of them
+    cfg = canyon["config"]; cfg.pop("debug_settings", None); cfg["replaceable"] = "#ryancraft:moon_carver_replaceables"
+    cfg["lava_level"] = {"absolute": -64}; cfg["probability"] = 0.03
+    cfg["y"] = {"type": "minecraft:uniform", "min_inclusive": {"absolute": 20}, "max_inclusive": {"absolute": 90}}
+    w(D + "worldgen/configured_carver/moon_ravine.json", canyon)
     w(D + "worldgen/configured_feature/ore_meteor_iron.json", {"type": "minecraft:ore", "config": {"size": 7, "discard_chance_on_air_exposure": 0.0,
-        "targets": [{"state": {"Name": "ryancraft:meteor_iron_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:moonstone"}}]}})
+        "targets": [{"state": {"Name": "ryancraft:meteor_iron_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:moonstone"}},
+                    {"state": {"Name": "ryancraft:deep_meteor_iron_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:deep_moonstone"}}]}})
     w(D + "worldgen/placed_feature/ore_meteor_iron.json", {"feature": "ryancraft:ore_meteor_iron", "placement": [
         {"type": "minecraft:count", "count": 14}, {"type": "minecraft:in_square"},
-        {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid", "min_inclusive": {"absolute": 4}, "max_inclusive": {"absolute": 90}}},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid", "min_inclusive": {"absolute": 1}, "max_inclusive": {"absolute": 90}}},
         {"type": "minecraft:biome"}]})
     features = [[] for _ in range(11)]; features[6] = ["ryancraft:ore_meteor_iron"]
-    w(D + "worldgen/biome/moon.json", {"carvers": ["ryancraft:moon_cave", "ryancraft:moon_lava_tube"], "downfall": 0.0,
+    w(D + "worldgen/biome/moon.json", {"carvers": ["ryancraft:moon_cave", "ryancraft:moon_lava_tube", "ryancraft:moon_ravine"],
+        "attributes": {"minecraft:visual/fog_color": "#000000", "minecraft:visual/sky_color": "#000000"}, "downfall": 0.0,
         "effects": {"water_color": "#3f76e4"}, "features": features, "has_precipitation": False, "spawn_costs": {},
         "spawners": {k: [] for k in ("ambient", "axolotls", "creature", "misc", "monster", "underground_water_creature", "water_ambient", "water_creature")},
         "temperature": 0.5})

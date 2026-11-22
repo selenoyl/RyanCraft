@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "ryancraft:block/deep_moonstone_top",
+    "side": "ryancraft:block/deep_moonstone"
+  }
+}

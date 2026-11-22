@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:cobbled_deep_moonstone"
+  },
+  "result": {
+    "id": "ryancraft:polished_deep_moonstone",
+    "count": 4
+  }
+}

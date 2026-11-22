@@ -94,6 +94,28 @@
       {
         "type": "minecraft:condition",
         "if_true": {
+          "type": "minecraft:vertical_gradient",
+          "random_name": "ryancraft:deep_moonstone",
+          "true_at_and_below": {
+            "absolute": 24
+          },
+          "false_at_and_above": {
+            "absolute": 36
+          }
+        },
+        "then_run": {
+          "type": "minecraft:block",
+          "result_state": {
+            "Name": "ryancraft:deep_moonstone",
+            "Properties": {
+              "axis": "y"
+            }
+          }
+        }
+      },
+      {
+        "type": "minecraft:condition",
+        "if_true": {
           "type": "minecraft:stone_depth",
           "offset": 2,
           "surface_type": "floor",
