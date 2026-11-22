@@ -287,7 +287,11 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
         (about 4 hearts on Normal). Kill the brutes first.
       - They vanish when the boss dies.
     - At half health it goes into a frenzy: faster hops, and meteors come two or three at a time.
-    - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
+    - Beat it for its **jade crown**: worn in the helmet slot, it lets you breathe underwater for as long as you
+      like, mine underwater at full speed (built-in Aqua Affinity), and see much farther and clearer underwater
+      (not crystal clear, but far better than a Respiration helmet or a conduit). It's the key to exploring
+      the sunken islands of the deep ocean, and the price is giving up a real helmet.
+    - It also drops the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
       mace: the rabbit's own mortar staff, shrunk to fit your hands.
       - **Pound:** a ground slam that throws nearby mobs up into a few seconds of moon gravity, floating and helpless.
       - **Grind:** each hit on a floating target lands harder.
