@@ -22,6 +22,10 @@ public class RyanCraftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ThirstHud.init();
+        // winter: our leaves go drab (they can't fall), a dull tint over their colours
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->
+                level == null ? 0xFFFFFFFF : com.ryancraft.season.Seasons.leafTint(),
+                com.ryancraft.trees.RyanWood.seasonalLeaves().toArray(new net.minecraft.world.level.block.Block[0]));
         DustStormClient.init();
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.metal.Steel.STEEL_GRATE, com.ryancraft.metal.Steel.STEEL_BARS, com.ryancraft.metal.Steel.STEEL_DOOR, com.ryancraft.metal.Steel.STEEL_TRAPDOOR);

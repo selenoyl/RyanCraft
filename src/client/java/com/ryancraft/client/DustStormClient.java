@@ -29,7 +29,12 @@ public final class DustStormClient {
         return (r << 16) | (g << 8) | bl;
     }
 
+    /** Whether the server says a dust storm is blowing. */
+    public static boolean active;
+
     public static void init() {
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(DustStorms.Sync.TYPE, (payload, ctx) -> active = payload.active());
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.DISCONNECT.register((h, mc) -> active = false);
         ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             ClientLevel level = mc.level; Player p = mc.player;
             if (level == null || p == null) { intensity = 0; return; }
@@ -42,7 +47,7 @@ public final class DustStormClient {
                     if (DustStorms.dusty(b)) { dusty++; if (DustStorms.red(b)) red++; }
                 }
             float sheltered = level.canSeeSky(at) || level.canSeeSky(at.above()) ? 1f : 0.35f;      // indoors it's calmer
-            float target = level.getThunderLevel(1f) * dusty / (float) n * sheltered;
+            float target = (active && level.dimension() == net.minecraft.world.level.Level.OVERWORLD ? 1f : 0f) * dusty / (float) n * sheltered;
             intensity += (target - intensity) * 0.02f;
             if (dusty > 0) redness += ((float) red / dusty - redness) * 0.05f;
             if (intensity > 0.05f && !mc.isPaused()) blow(level, p, level.getRandom());

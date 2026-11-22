@@ -81,6 +81,12 @@ public final class RyanWood {
             Map.entry(TreeSpecies.SYCAMORE, 0xa8803a), Map.entry(TreeSpecies.BLACK_CHERRY, 0xc84a28), Map.entry(TreeSpecies.EASTERN_REDBUD, 0xd8b030));
     private static final Map<TreeSpecies, Block> AUTUMN_LEAVES = new EnumMap<>(TreeSpecies.class);
     /** The species' autumn leaves, or its ordinary leaves if it doesn't turn. */
+    /** Every leaf block of ours that changes with the seasons (green and autumn forms). */
+    public static java.util.List<Block> seasonalLeaves() {
+        java.util.List<Block> out = new java.util.ArrayList<>(AUTUMN_LEAVES.values());
+        for (TreeSpecies s : AUTUMN_LEAVES.keySet()) out.add(get(s).leaves());
+        return out;
+    }
     public static Block autumnLeaves(TreeSpecies s) { return AUTUMN_LEAVES.getOrDefault(s, get(s).leaves()); }
 
     public static void init() {

@@ -36,7 +36,7 @@ if __name__ == "__main__":
         name = f"{sp}_autumn_leaves"; names.append(f"ryancraft:{name}")
         leaves(9100 + i * 7, main, fleck, mix=0.3).save(os.path.join(A, "textures", "block", name + ".png"))
         w(f"assets/ryancraft/blockstates/{name}.json", {"variants": {"": {"model": f"ryancraft:block/{name}"}}})
-        w(f"assets/ryancraft/models/block/{name}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{name}"}})
+        w(f"assets/ryancraft/models/block/{name}.json", {"parent": "minecraft:block/leaves", "textures": {"all": f"ryancraft:block/{name}"}})
         w(f"assets/ryancraft/items/{name}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{name}"}})
         loot = open(os.path.join(D, "ryancraft", "loot_table", "blocks", f"{sp}_leaves.json")).read().replace(f"ryancraft:{sp}_leaves", f"ryancraft:{name}")
         w(f"data/ryancraft/loot_table/blocks/{name}.json", json.loads(loot))

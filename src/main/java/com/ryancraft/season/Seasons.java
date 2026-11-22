@@ -64,6 +64,14 @@ public final class Seasons {
         return (a & 0xff000000) | (r << 16) | (g << 8) | bl;
     }
 
+    /** Our trees can't drop their leaves, so in winter they go drab: a dull grey-brown tint over the autumn colours. */
+    private static final float[] DRAB = {0.15f, 0, 0, 0, 0, 0, 0, 0, 0.25f, 0.7f, 0.85f, 0.65f};
+    public static int leafTint() {
+        float k = DRAB[current];
+        if (k <= 0) return 0xFFFFFFFF;
+        return 0xFF000000 | blend(0xFFFFFF, 0x7A7062, k);
+    }
+
     /** How far our trees have turned: chance per random tick that a leaf block takes on this season's colour. */
     public static boolean autumnLeaves(int sub) { return sub >= 6; }
     public static float turnChance(int sub) {

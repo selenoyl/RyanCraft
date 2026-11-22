@@ -140,7 +140,8 @@ def resources():
         # leaves: our own untinted cube (colour is in the texture), birch-style loot (sapling, sticks; no apples)
         names.append(f"{sp}_leaves")
         w(f"assets/ryancraft/blockstates/{sp}_leaves.json", {"variants": {"": {"model": f"ryancraft:block/{sp}_leaves"}}})
-        w(f"assets/ryancraft/models/block/{sp}_leaves.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{sp}_leaves"}})
+        w(f"assets/ryancraft/models/block/{sp}_leaves.json", {"parent": "minecraft:block/cube_all" if sp == "eastern_red_cedar" else "minecraft:block/leaves",   # tintable: drab in winter
+           "textures": {"all": f"ryancraft:block/{sp}_leaves"}})
         w(f"assets/ryancraft/items/{sp}_leaves.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{sp}_leaves"}})
         w(f"data/ryancraft/loot_table/blocks/{sp}_leaves.json",
           json.loads(dj.read("data/minecraft/loot_table/blocks/birch_leaves.json").decode().replace("minecraft:birch_", f"ryancraft:{sp}_")))
