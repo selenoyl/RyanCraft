@@ -108,10 +108,10 @@ def great_rabbit_detailed():
         m.box(SILVER, (-2, -1, -2), (4, 13, 4), part=a); m.box(WHITE_FUR, (-2.5, 11, -2.5), (5, 4, 5), part=a)
     st = m.part([0, 20, -15], (0.35, 0, -0.55))                                                       # the giant mortar staff, raised
     m.box(WOOD, (-2, -30, -2), (4, 50, 4), part=st); m.box(METEOR, (-2.1, 20, -2.1), (4.2, 2.5, 4.2), part=st)   # haft, a simple meteor-iron cap
-    for (w, d) in ((16, 11), (11, 16)): m.box(STONE_M, (-w / 2, -44, -d / 2), (w, 14, d), part=st)          # the mortar head
-    for (x, z, w, d) in ((-8, -8, 16, 2), (-8, 6, 16, 2), (-8, -8, 2, 16), (6, -8, 2, 16)): m.box(JADE, (x, -45.5, z), (w, 2, d), part=st)
-    m.box(MOON_GLOW, (-6, -45, -6), (12, 0.6, 12), part=st)
-    for y in (-36, -32): m.box(JADE, (-8.2, y, -5.6), (16.4, 1.2, 11.2), part=st)                    # jade bands round the head
+    for (w, d) in ((8, 6), (6, 8)): m.box(STONE_M, (-w / 2, -37, -d / 2), (w, 7, d), part=st)              # a small mortar head
+    for (x, z, w, d) in ((-4, -4, 8, 1), (-4, 3, 8, 1), (-4, -4, 1, 8), (3, -4, 1, 8)): m.box(JADE, (x, -38, z), (w, 1, d), part=st)
+    m.box(MOON_GLOW, (-3, -37.6, -3), (6, 0.5, 6), part=st)
+    m.box(JADE, (-4.1, -33, -3.1), (8.2, 1, 6.2), part=st)                                            # a jade band
     return m
 
 def moon_rabbit(): m = Model(1); rabbit(m); return m
