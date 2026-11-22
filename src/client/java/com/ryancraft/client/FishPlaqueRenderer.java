@@ -26,7 +26,7 @@ import net.minecraft.world.phys.Vec3;
 public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEntity, FishPlaqueRenderer.State> {
     public static class State extends BlockEntityRenderState {
         final ItemStackRenderState item = new ItemStackRenderState(); boolean has; Direction facing = Direction.NORTH;
-        FormattedCharSequence label; int labelWidth; boolean trophy;
+        FormattedCharSequence label; int labelWidth; boolean trophy, legend;
     }
     private final ItemModelResolver items; private final Font font;
     public FishPlaqueRenderer(BlockEntityRendererProvider.Context ctx) { items = ctx.itemModelResolver(); font = ctx.font(); }
@@ -40,7 +40,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
         if (!s.has) return;
         items.updateForTopItem(s.item, be.fish, ItemDisplayContext.FIXED, be.getLevel(), null, 0);
         Float len = be.fish.get(FishSize.LENGTH);
-        s.trophy = FishSize.isTrophy(be.fish);
+        s.trophy = FishSize.isTrophy(be.fish); s.legend = FishSize.isLegendary(be.fish);
         s.label = Component.literal(len == null ? "" : FishingLog.inches(len)).getVisualOrderText();
         s.labelWidth = font.width(s.label);
     }
@@ -61,7 +61,7 @@ public class FishPlaqueRenderer implements BlockEntityRenderer<FishPlaqueBlockEn
         pose.mulPose(Axis.YP.rotationDegrees(180));
         pose.scale(0.0085f, -0.0085f, 0.0085f);
         out.submitText(pose, -s.labelWidth / 2f, 0, s.label, false, Font.DisplayMode.POLYGON_OFFSET, s.lightCoords,
-                s.trophy ? 0xFFF0C040 : 0xFFE8DCC0, 0, 0);
+                s.legend ? 0xFFE080F0 : s.trophy ? 0xFFF0C040 : 0xFFE8DCC0, 0, 0);
         pose.popPose();
     }
 }

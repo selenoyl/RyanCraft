@@ -38,7 +38,8 @@ public final class FishingLog {
 
         MutableComponent msg = fish.getHoverName().copy().withStyle(ChatFormatting.WHITE)
                 .append(Component.literal(" - " + inches(len)).withStyle(ChatFormatting.AQUA));
-        if (trophy) msg.append(Component.literal("  Trophy!").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
+        if (FishSize.isLegendary(fish)) msg.append(Component.literal("  Legendary!").withStyle(ChatFormatting.LIGHT_PURPLE, ChatFormatting.BOLD));
+        else if (trophy) msg.append(Component.literal("  Trophy!").withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD));
         player.displayClientMessage(msg, true);
         if (best && old != null)
             player.displayClientMessage(Component.literal("New personal best: ").withStyle(ChatFormatting.GREEN).append(fish.getHoverName())
@@ -56,7 +57,8 @@ public final class FishingLog {
             Item item = BuiltInRegistries.ITEM.getValue(net.minecraft.resources.Identifier.parse(id));
             ItemStack s = new ItemStack(item); s.set(FishSize.LENGTH, len);
             MutableComponent line = Component.literal(" ").append(s.getHoverName()).append(Component.literal(" " + inches(len)).withStyle(ChatFormatting.AQUA));
-            if (FishSize.isTrophy(s)) line.append(Component.literal(" *").withStyle(ChatFormatting.GOLD));
+            if (FishSize.isLegendary(s)) line.append(Component.literal(" **").withStyle(ChatFormatting.LIGHT_PURPLE));
+            else if (FishSize.isTrophy(s)) line.append(Component.literal(" *").withStyle(ChatFormatting.GOLD));
             player.displayClientMessage(line, false);
         });
     }

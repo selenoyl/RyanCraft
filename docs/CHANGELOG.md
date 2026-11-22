@@ -2,6 +2,11 @@
 
 Release jars live in [`releases/`](../releases/). Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.3.2
+- **True-to-life fish sizes**: most catches fall in each species' typical range (a bluegill is 4-9 in, a
+  largemouth bass 10-20 in, a muskie 28-44 in). About 1 in 50 is a trophy, up to the real-world record.
+  About 1 in 1000 is a **Legendary** fish, up to 15% past the record.
+
 ## 1.3.1
 - **Fishing loop**: every rod catch is called out with its length ("Largemouth Bass - 18.5 in"), with a fanfare
   for trophies (roughly the top 5% of a species) and a chat note for a new personal best.

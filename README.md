@@ -200,6 +200,9 @@ Tekkit-style transport, made to feel vanilla. Watch items ride through the pipes
 
 End portal frames can be mined with a diamond pickaxe (as hard as obsidian) and drop themselves with Silk Touch.
 
+## New in 1.3.2
+- Fish come in true-to-life sizes; about 1 in 50 is a trophy and about 1 in 1000 a Legendary fish past the real-world record
+
 ## New in 1.3.1
 - Fishing loop: every catch is measured and called out, trophies get a fanfare, the Angler's Logbook keeps your personal bests, and Fish Plaques hang your trophies on the wall
 - Freshwater fish in rivers and lakes, sea fish in the ocean; catfish and walleye bite after dark
@@ -225,7 +228,7 @@ The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` 
 
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
-2. Put `ryancraft-1.3.1.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
+2. Put `ryancraft-1.3.2.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
 3. That's it: the classic 1.2.5 pack ships inside the mod and switches on by default.
 
 ## Build

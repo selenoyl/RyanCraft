@@ -70,7 +70,9 @@ public class RyanCraftClient implements ClientModInitializer {
             if (len == null) return;
             lines.add(1, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.fish_length", String.format(java.util.Locale.ROOT, "%.1f", len))
                     .withStyle(net.minecraft.ChatFormatting.GRAY));
-            if (com.ryancraft.fish.FishSize.isTrophy(stack))
+            if (com.ryancraft.fish.FishSize.isLegendary(stack))
+                lines.add(2, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.legendary_fish").withStyle(net.minecraft.ChatFormatting.LIGHT_PURPLE));
+            else if (com.ryancraft.fish.FishSize.isTrophy(stack))
                 lines.add(2, net.minecraft.network.chat.Component.translatable("tooltip.ryancraft.trophy_fish").withStyle(net.minecraft.ChatFormatting.GOLD));
         });
         for (com.ryancraft.trees.WoodSet w : com.ryancraft.trees.RyanWood.sets())
