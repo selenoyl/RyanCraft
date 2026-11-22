@@ -44,7 +44,10 @@ public class CanadaGoose extends CritterAnimal {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.3, true));
+        this.goalSelector.addGoal(1, new PanicGoal(this, 1.6) {          // hit it and it bolts (unless it's defending goslings)
+            @Override public boolean canUse() { return CanadaGoose.this.getTarget() == null && super.canUse(); }
+        });
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.3, true));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
@@ -63,13 +66,28 @@ public class CanadaGoose extends CritterAnimal {
         });
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this).setAlertOthers(CanadaGoose.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, (t, l) -> guardingGoslings(t)));
+    }
+
+    private int flight;
+
+    /** A hurt goose takes to the air for a few seconds, honking. */
+    @Override
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel level, DamageSource source, float amount) {
+        boolean hurt = super.hurtServer(level, source, amount);
+        if (hurt && this.getTarget() == null) flight = 60 + this.random.nextInt(40);
+        return hurt;
     }
 
     @Override
     public void aiStep() {
         super.aiStep();
+        if (flight > 0) {
+            flight--;
+            Vec3 v = this.getDeltaMovement(), look = this.getLookAngle();
+            double lift = this.onGround() ? 0.45 : (flight > 20 ? 0.06 : 0.0);
+            this.setDeltaMovement(v.x + look.x * 0.04, Math.max(v.y, 0) * 0.7 + lift, v.z + look.z * 0.04);
+        }
         Vec3 m = this.getDeltaMovement();
         if (!this.onGround() && !this.isInWater() && m.y < 0.0) this.setDeltaMovement(m.multiply(1.0, 0.6, 1.0));
         this.fallDistance = 0;
@@ -83,4 +101,5 @@ public class CanadaGoose extends CritterAnimal {
     @Override protected SoundEvent getHurtSound(DamageSource s) { return RyanSounds.GOOSE_HONK; }
     @Override protected SoundEvent getDeathSound() { return RyanSounds.GOOSE_HONK; }
     @Override public int getAmbientSoundInterval() { return 300; }
+    @Override public boolean isFlyingVisual() { return airborne(); }
 }

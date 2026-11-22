@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "GGG",
+    "G G",
+    "GGG"
+  ],
+  "key": {
+    "G": "minecraft:glass"
+  },
+  "result": {
+    "id": "ryancraft:tank",
+    "count": 1
+  }
+}

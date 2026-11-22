@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "PPP",
+    " G ",
+    "RXR"
+  ],
+  "key": {
+    "P": "#minecraft:planks",
+    "G": "minecraft:glass",
+    "R": "minecraft:redstone",
+    "X": "minecraft:piston"
+  },
+  "result": {
+    "id": "ryancraft:redstone_engine",
+    "count": 1
+  }
+}

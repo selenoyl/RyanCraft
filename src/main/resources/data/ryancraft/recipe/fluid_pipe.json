@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "ryancraft:stone_pipe",
+    "minecraft:green_dye"
+  ],
+  "result": {
+    "id": "ryancraft:fluid_pipe",
+    "count": 1
+  }
+}

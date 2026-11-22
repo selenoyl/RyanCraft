@@ -1,0 +1,74 @@
+{
+  "parent": "block/block",
+  "render_type": "cutout",
+  "ambientocclusion": false,
+  "textures": {
+    "pipe": "ryancraft:block/stone_pipe",
+    "end": "ryancraft:block/stone_pipe_end",
+    "particle": "ryancraft:block/stone_pipe"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        4,
+        0
+      ],
+      "to": [
+        12,
+        12,
+        4
+      ],
+      "faces": {
+        "east": {
+          "uv": [
+            4,
+            0,
+            12,
+            4
+          ],
+          "texture": "#pipe",
+          "rotation": 90
+        },
+        "west": {
+          "uv": [
+            4,
+            0,
+            12,
+            4
+          ],
+          "texture": "#pipe",
+          "rotation": 90
+        },
+        "up": {
+          "uv": [
+            4,
+            0,
+            12,
+            4
+          ],
+          "texture": "#pipe"
+        },
+        "down": {
+          "uv": [
+            4,
+            0,
+            12,
+            4
+          ],
+          "texture": "#pipe"
+        },
+        "north": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#end",
+          "cullface": "north"
+        }
+      }
+    }
+  ]
+}

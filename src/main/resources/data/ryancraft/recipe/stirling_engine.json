@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "CCC",
+    " G ",
+    "XFX"
+  ],
+  "key": {
+    "C": "minecraft:cobblestone",
+    "G": "minecraft:glass",
+    "X": "minecraft:piston",
+    "F": "minecraft:furnace"
+  },
+  "result": {
+    "id": "ryancraft:stirling_engine",
+    "count": 1
+  }
+}

@@ -1,6 +1,16 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:bird_cage"
+    "ryancraft:bird_cage",
+    "ryancraft:cobblestone_pipe",
+    "ryancraft:stone_pipe",
+    "ryancraft:gold_pipe",
+    "ryancraft:iron_pipe",
+    "ryancraft:diamond_pipe",
+    "ryancraft:obsidian_pipe",
+    "ryancraft:fluid_pipe",
+    "ryancraft:stirling_engine",
+    "ryancraft:pump",
+    "ryancraft:ender_terminal"
   ]
 }

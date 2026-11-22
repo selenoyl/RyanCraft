@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:chipmunk_cage"
+    "ryancraft:chipmunk_cage",
+    "ryancraft:wooden_pipe",
+    "ryancraft:redstone_engine"
   ]
 }

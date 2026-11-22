@@ -1,0 +1,78 @@
+{
+  "parent": "block/block",
+  "render_type": "cutout",
+  "textures": {
+    "t": "ryancraft:block/tank",
+    "particle": "ryancraft:block/tank"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        0,
+        2
+      ],
+      "to": [
+        14,
+        16,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0,
+            14,
+            16
+          ],
+          "texture": "#t"
+        },
+        "south": {
+          "uv": [
+            2,
+            0,
+            14,
+            16
+          ],
+          "texture": "#t"
+        },
+        "east": {
+          "uv": [
+            2,
+            0,
+            14,
+            16
+          ],
+          "texture": "#t"
+        },
+        "west": {
+          "uv": [
+            2,
+            0,
+            14,
+            16
+          ],
+          "texture": "#t"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t"
+        }
+      }
+    }
+  ]
+}

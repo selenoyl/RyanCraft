@@ -22,6 +22,19 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.bag.Cages.BIRD_CAGE, com.ryancraft.bag.Cages.CHIPMUNK_CAGE);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.storage.RyanStorage.POT_MENU, com.ryancraft.client.screen.PotScreen::new);
+        // Pipes, engines, tanks and the Ender Terminal
+        net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.DIAMOND_MENU, com.ryancraft.client.pipes.DiamondPipeScreen::new);
+        net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.TERMINAL_MENU, com.ryancraft.client.pipes.EnderTerminalScreen::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PIPE_ENTITY, com.ryancraft.client.pipes.PipeRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.ENGINE_ENTITY, com.ryancraft.client.pipes.EngineRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.TANK_ENTITY, com.ryancraft.client.pipes.TankRenderer::new);
+        net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.EngineRenderer.LAYER, com.ryancraft.client.pipes.EngineRenderer::createLayer);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
+                com.ryancraft.pipes.RyanPipes.PIPES.values().toArray(net.minecraft.world.level.block.Block[]::new));
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.pipes.RyanPipes.TANK);
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(com.ryancraft.pipes.TerminalPayloads.Contents.TYPE, (p, ctx) -> {
+            if (ctx.client().player != null && ctx.client().player.containerMenu instanceof com.ryancraft.pipes.EnderTerminalMenu m) { m.shown = p.items(); m.counts = p.counts(); }
+        });
         // Water in a placed bucket takes the biome's water colour
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->
                 level != null && pos != null ? net.minecraft.client.renderer.BiomeColors.getAverageWaterColor(level, pos) : 0x3F76E4,
