@@ -268,7 +268,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
-    - **Meteors fall all the time.** Glowing rocks streak down out of the black sky at random, more often at
+    - **Meteors fall all the time** (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
       "night" and in showers. They never break blocks, so your builds and the landscape are safe, but they're
       dangerous to you:
       - A meteor that lands near you bursts with a small blast, like a creeper's but weaker. One that hits you
@@ -295,8 +295,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - **Ground slam**: it brings the staff down on the floor, and a ring of dust and rock particles bursts out
       across the ground. Anyone caught in the ring takes damage and gets thrown up in the low gravity.
     - **Meteor swing**: it swings the staff at you from range and bats a baby meteor your way. A glowing rock flies
-      in a straight line like a ghast fireball and blows up on impact like weak TNT, leaving a small crater (with
-      a little meteor iron in it). You can hit it back, like a ghast fireball.
+      in a straight line like a ghast fireball and blows up on impact like the wither's skulls, blasting a small crater
+      in the arena (with a little meteor iron in it). You can hit it back, like a ghast fireball.
     - **Summons angry moon rabbits**: a handful of minions that pop out around it and rush you, red-eyed like an
       angry wolf. They're small and go down in a couple of hits (about 4 hearts each).
       - Most are a nuisance and nip for 1 to 1.5 hearts.
