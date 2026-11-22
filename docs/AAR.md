@@ -55,5 +55,10 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       resource loading hang on a black screen (swan). Each new mob also needs an entity type, attributes, renderer, spawn egg, egg colour, loot, lang and spawns.
 - [ ] **Breedable, with sensible food.** Every animal breeds on something it would really eat (swans: grain and seagrass; frogs: slimeballs, as vanilla).
 
+## Licensing
+- [ ] **Check every borrowed asset's source, file by file.** A permissive code license doesn't cover bundled media. The
+      MAtmos sound pack turned out to be Half-Life 2 audio (Valve's), so it can't be used. Only ship CC0/public domain,
+      or CC-BY with credits in docs/CREDITS.md; otherwise make our own.
+
 ## Release
 - [ ] **Rebuild the release jar** in `releases/` after a round of changes, so the downloadable jar matches the code.
