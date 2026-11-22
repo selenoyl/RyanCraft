@@ -55,6 +55,13 @@ def entries():
                              ("jellyfish", "Jellyfish", ("#e8a8c8", "#d07aa8"))]:
         parts, st = proto(label)
         E[name] = (whale_tail(parts), {name: st}, egg)
+    # ---- small things
+    for name, label, egg in [("hummingbird", "Ruby-throated Hummingbird", ("#4a8a3a", "#c8202a")), ("pileated_woodpecker", "Pileated Woodpecker", ("#141214", "#d8202a")),
+                             ("bobwhite", "Northern Bobwhite", ("#8a5a36", "#f2f0ea")), ("box_turtle", "Eastern Box Turtle", ("#3a2a1a", "#e0a030")),
+                             ("rattlesnake", "Timber Rattlesnake", ("#a8946c", "#2a221a")), ("bullfrog", "Bullfrog", ("#5a7a34", "#e8e0a8")),
+                             ("alligator", "American Alligator", ("#3a4a2c", "#c8c08a"))]:
+        parts, st = proto(label)
+        E[name] = (parts, {name: st}, egg)
     return E
 
 if __name__ == "__main__":

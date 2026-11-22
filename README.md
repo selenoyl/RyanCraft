@@ -71,6 +71,14 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **Shark** | Warm and lukewarm oceans | Hunts fish; comes for players who swim near it, loses interest once you're out of the water |
 | **Manta Ray** | Warm oceans | Glides gently on wing-like fins |
 | **Jellyfish** | Warm and temperate oceans | Drifts and pulses; brush against one and it stings (poison) |
+| **Butterflies** | Meadows, flower forests, plains, forests | Twenty eastern species (monarch, swallowtails, red admiral, luna moth...); catch them in a bundle for the bird cage |
+| **Ruby-throated Hummingbird** | Flower forests, meadows | Zips between flowers; fits in a bundle and the bird cage |
+| **Pileated Woodpecker** | Forests | Flies trunk to trunk and drums loudly |
+| **Northern Bobwhite** | Fields, meadows, savanna | Coveys that whistle "bob-white" and burst into the air when flushed; win them over with seeds |
+| **Eastern Box Turtle** | Forests, swamps | Slow and tough; keep one in the chipmunk cage |
+| **Timber Rattlesnake** | Hills, badlands, forests | Rattles a warning when you come near; step up and it strikes (poison) |
+| **Bullfrog** | Swamps, rivers | Hops along the bank, plops into the water, calls at night |
+| **American Alligator** | Swamps | Lurks in the water; slow on land, quick in water; grabs anything at the water's edge |
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |

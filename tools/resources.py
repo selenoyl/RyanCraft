@@ -46,6 +46,9 @@ EVENTS = {  # event: (file prefix, subtitle, attenuation distance or None, strea
     "entity.heron.croak": ("critter/heron_croak", "Heron croaks", 32, False),
     "entity.orca.call": ("critter/orca_call", "Orca calls", 48, False),
     "entity.blue_whale.song": ("critter/whale_song", "Whale sings", 96, False),
+    "entity.bobwhite.call": ("critter/bobwhite_call", "Bobwhite whistles", 48, False),
+    "entity.rattlesnake.rattle": ("critter/rattlesnake_rattle", "Rattlesnake rattles", 16, False),
+    "entity.alligator.bellow": ("critter/alligator_bellow", "Alligator bellows", 48, False),
     "entity.elk.bugle": ("critter/elk_bugle", "Bull elk bugles", 96, False),
     "entity.elk.chirp": ("critter/elk_chirp", "Elk mews", None, False),
     "entity.moose.call": ("critter/moose_call", "Moose calls", 48, False),
@@ -76,7 +79,8 @@ EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", 
             "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
-            "orca", "blue_whale", "shark", "manta_ray", "jellyfish"]
+            "orca", "blue_whale", "shark", "manta_ray", "jellyfish",
+            "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator"]
 ITEMS = FOODS + FISH + ["cooked_" + f for f in FISH] + [f + "_bucket" for f in FISH] + ["raccoon_tail", "coonskin_cap", "cherries", "cherry_pie", "black_walnut", "shelled_walnut"] \
         + [m + "_spawn_egg" for m in EGG_MOBS]
 for it in ITEMS:
@@ -136,6 +140,10 @@ for name in ["bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", 
 loot("canada_goose", [pool("ryancraft:raw_duck", 1, 1, True), pool("minecraft:feather", 1, 3)])
 for name in ["orca", "blue_whale", "shark", "manta_ray"]: loot(name, [])
 loot("jellyfish", [pool("minecraft:slime_ball", 0, 1)])
+for name in ["butterfly", "box_turtle", "rattlesnake", "bullfrog"]: loot(name, [])
+for name in ["hummingbird", "pileated_woodpecker"]: loot(name, [pool("minecraft:feather", 0, 1)])
+loot("bobwhite", [pool("ryancraft:raw_duck", 0, 1, True), pool("minecraft:feather", 0, 2)])
+loot("alligator", [pool("minecraft:leather", 1, 2)])
 for f in FISH:
     loot(f, [pool("ryancraft:" + f, 1, 1, True, looting=False), pool("minecraft:bone_meal", 1, 1, looting=False, chance=0.05)])
 
@@ -217,7 +225,9 @@ lang.update({
     "entity.ryancraft.turkey_vulture": "Turkey Vulture", "entity.ryancraft.great_horned_owl": "Great Horned Owl",
     "entity.ryancraft.great_blue_heron": "Great Blue Heron", "entity.ryancraft.canada_goose": "Canada Goose",
     "entity.ryancraft.orca": "Orca", "entity.ryancraft.blue_whale": "Blue Whale", "entity.ryancraft.shark": "Shark",
-    "entity.ryancraft.manta_ray": "Manta Ray", "entity.ryancraft.jellyfish": "Jellyfish", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
+    "entity.ryancraft.manta_ray": "Manta Ray", "entity.ryancraft.jellyfish": "Jellyfish",
+    "entity.ryancraft.butterfly": "Butterfly", "entity.ryancraft.hummingbird": "Ruby-throated Hummingbird", "entity.ryancraft.pileated_woodpecker": "Pileated Woodpecker", "entity.ryancraft.bobwhite": "Northern Bobwhite", "entity.ryancraft.box_turtle": "Eastern Box Turtle", "entity.ryancraft.rattlesnake": "Timber Rattlesnake", "entity.ryancraft.bullfrog": "Bullfrog", "entity.ryancraft.alligator": "American Alligator",
+    "entity.ryancraft.butterfly.monarch": "Monarch", "entity.ryancraft.butterfly.viceroy": "Viceroy", "entity.ryancraft.butterfly.eastern_tiger_swallowtail": "Eastern Tiger Swallowtail", "entity.ryancraft.butterfly.black_swallowtail": "Black Swallowtail", "entity.ryancraft.butterfly.pipevine_swallowtail": "Pipevine Swallowtail", "entity.ryancraft.butterfly.spicebush_swallowtail": "Spicebush Swallowtail", "entity.ryancraft.butterfly.zebra_swallowtail": "Zebra Swallowtail", "entity.ryancraft.butterfly.red_admiral": "Red Admiral", "entity.ryancraft.butterfly.painted_lady": "Painted Lady", "entity.ryancraft.butterfly.great_spangled_fritillary": "Great Spangled Fritillary", "entity.ryancraft.butterfly.gulf_fritillary": "Gulf Fritillary", "entity.ryancraft.butterfly.mourning_cloak": "Mourning Cloak", "entity.ryancraft.butterfly.question_mark": "Question Mark", "entity.ryancraft.butterfly.red_spotted_purple": "Red-spotted Purple", "entity.ryancraft.butterfly.cabbage_white": "Cabbage White", "entity.ryancraft.butterfly.clouded_sulphur": "Clouded Sulphur", "entity.ryancraft.butterfly.spring_azure": "Spring Azure", "entity.ryancraft.butterfly.common_buckeye": "Common Buckeye", "entity.ryancraft.butterfly.luna_moth": "Luna Moth", "entity.ryancraft.butterfly.zebra_longwing": "Zebra Longwing", "entity.ryancraft.chipmunk": "Eastern Chipmunk",
     "entity.ryancraft.songbird.mourning_dove": "Mourning Dove",
     "item.ryancraft.deer_skull_mount": "Deer Skull Mount",
     "item.ryancraft.deer_skull_mount.s1": "Spike Buck Skull Mount", "item.ryancraft.deer_skull_mount.s2": "Fork Buck Skull Mount",
@@ -241,7 +251,7 @@ EGG_NAMES = {"boar": "Boar", "deer": "Deer", "duck": "Duck", "turkey": "Wild Tur
              "groundhog": "Groundhog", "porcupine": "Porcupine", "bald_eagle": "Bald Eagle", "golden_eagle": "Golden Eagle",
              "red_tailed_hawk": "Red-tailed Hawk", "turkey_vulture": "Turkey Vulture", "great_horned_owl": "Great Horned Owl",
              "great_blue_heron": "Great Blue Heron", "canada_goose": "Canada Goose", "orca": "Orca", "blue_whale": "Blue Whale",
-             "shark": "Shark", "manta_ray": "Manta Ray", "jellyfish": "Jellyfish"}
+             "shark": "Shark", "manta_ray": "Manta Ray", "jellyfish": "Jellyfish", "butterfly": "Butterfly", "hummingbird": "Ruby-throated Hummingbird", "pileated_woodpecker": "Pileated Woodpecker", "bobwhite": "Northern Bobwhite", "box_turtle": "Eastern Box Turtle", "rattlesnake": "Timber Rattlesnake", "bullfrog": "Bullfrog", "alligator": "American Alligator"}
 for m, n in EGG_NAMES.items(): lang[f"item.ryancraft.{m}_spawn_egg"] = f"{n} Spawn Egg"
 sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; lang.update(lang_entries())
 from cages import lang_entries as cage_lang; lang.update(cage_lang())

@@ -62,6 +62,9 @@ public final class RyanSounds {
     public static final SoundEvent HERON_CROAK = reg("entity.heron.croak");
     public static final SoundEvent ORCA_CALL = reg("entity.orca.call");
     public static final SoundEvent WHALE_SONG = reg("entity.blue_whale.song");
+    public static final SoundEvent BOBWHITE_CALL = reg("entity.bobwhite.call");
+    public static final SoundEvent RATTLESNAKE_RATTLE = reg("entity.rattlesnake.rattle");
+    public static final SoundEvent ALLIGATOR_BELLOW = reg("entity.alligator.bellow");
     public static final SoundEvent ELK_BUGLE = reg("entity.elk.bugle");
     public static final SoundEvent ELK_CHIRP = reg("entity.elk.chirp");
     public static final SoundEvent MOOSE_CALL = reg("entity.moose.call");

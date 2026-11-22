@@ -685,6 +685,53 @@
     ],
     "subtitle": "subtitles.ryancraft.entity.blue_whale.song"
   },
+  "entity.bobwhite.call": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/bobwhite_call1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/bobwhite_call2",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/bobwhite_call3",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.bobwhite.call"
+  },
+  "entity.rattlesnake.rattle": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/rattlesnake_rattle1",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:critter/rattlesnake_rattle2",
+        "attenuation_distance": 16
+      },
+      {
+        "name": "ryancraft:critter/rattlesnake_rattle3",
+        "attenuation_distance": 16
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.rattlesnake.rattle"
+  },
+  "entity.alligator.bellow": {
+    "sounds": [
+      {
+        "name": "ryancraft:critter/alligator_bellow1",
+        "attenuation_distance": 48
+      },
+      {
+        "name": "ryancraft:critter/alligator_bellow2",
+        "attenuation_distance": 48
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.entity.alligator.bellow"
+  },
   "entity.elk.bugle": {
     "sounds": [
       {

@@ -64,7 +64,11 @@ public final class Cages {
             RyanEntities.CHIPMUNK, Baggable.CageKind.CRITTER,
             RyanEntities.SONGBIRD, Baggable.CageKind.BIRD,
             EntityType.PARROT, Baggable.CageKind.BIRD,
-            RyanEntities.CROW, Baggable.CageKind.BIRD);
+            RyanEntities.CROW, Baggable.CageKind.BIRD,
+            RyanEntities.BUTTERFLY, Baggable.CageKind.BIRD,
+            RyanEntities.HUMMINGBIRD, Baggable.CageKind.BIRD,
+            RyanEntities.BOBWHITE, Baggable.CageKind.BIRD,
+            RyanEntities.BOX_TURTLE, Baggable.CageKind.CRITTER);
 
     public static Baggable.CageKind kindOf(EntityType<?> type) { return KINDS.getOrDefault(type, Baggable.CageKind.NONE); }
 

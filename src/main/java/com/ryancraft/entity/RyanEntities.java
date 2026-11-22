@@ -95,6 +95,22 @@ public final class RyanEntities {
             EntityType.Builder.of(MantaRay::new, MobCategory.WATER_CREATURE).sized(2.2f, 0.4f).clientTrackingRange(10));
     public static final EntityType<Jellyfish> JELLYFISH = register("jellyfish",
             EntityType.Builder.of(Jellyfish::new, MobCategory.WATER_CREATURE).sized(0.7f, 1.0f).clientTrackingRange(10));
+    public static final EntityType<Butterfly> BUTTERFLY = register("butterfly",
+            EntityType.Builder.of(Butterfly::new, MobCategory.CREATURE).sized(0.4f, 0.3f).clientTrackingRange(10));
+    public static final EntityType<Hummingbird> HUMMINGBIRD = register("hummingbird",
+            EntityType.Builder.of(Hummingbird::new, MobCategory.CREATURE).sized(0.3f, 0.3f).clientTrackingRange(10));
+    public static final EntityType<PileatedWoodpecker> PILEATED_WOODPECKER = register("pileated_woodpecker",
+            EntityType.Builder.of(PileatedWoodpecker::new, MobCategory.CREATURE).sized(0.4f, 0.8f).clientTrackingRange(10));
+    public static final EntityType<Bobwhite> BOBWHITE = register("bobwhite",
+            EntityType.Builder.of(Bobwhite::new, MobCategory.CREATURE).sized(0.4f, 0.45f).clientTrackingRange(10));
+    public static final EntityType<BoxTurtle> BOX_TURTLE = register("box_turtle",
+            EntityType.Builder.of(BoxTurtle::new, MobCategory.CREATURE).sized(0.5f, 0.35f).clientTrackingRange(10));
+    public static final EntityType<Rattlesnake> RATTLESNAKE = register("rattlesnake",
+            EntityType.Builder.of(Rattlesnake::new, MobCategory.CREATURE).sized(0.6f, 0.3f).clientTrackingRange(10));
+    public static final EntityType<Bullfrog> BULLFROG = register("bullfrog",
+            EntityType.Builder.of(Bullfrog::new, MobCategory.CREATURE).sized(0.5f, 0.4f).clientTrackingRange(10));
+    public static final EntityType<Alligator> ALLIGATOR = register("alligator",
+            EntityType.Builder.of(Alligator::new, MobCategory.CREATURE).sized(1.0f, 0.5f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -147,6 +163,14 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(SHARK, Shark.createAttributes());
         FabricDefaultAttributeRegistry.register(MANTA_RAY, MantaRay.createAttributes());
         FabricDefaultAttributeRegistry.register(JELLYFISH, Jellyfish.createAttributes());
+        FabricDefaultAttributeRegistry.register(BUTTERFLY, Butterfly.createAttributes());
+        FabricDefaultAttributeRegistry.register(HUMMINGBIRD, Hummingbird.createAttributes());
+        FabricDefaultAttributeRegistry.register(PILEATED_WOODPECKER, PileatedWoodpecker.createAttributes());
+        FabricDefaultAttributeRegistry.register(BOBWHITE, Bobwhite.createAttributes());
+        FabricDefaultAttributeRegistry.register(BOX_TURTLE, BoxTurtle.createAttributes());
+        FabricDefaultAttributeRegistry.register(RATTLESNAKE, Rattlesnake.createAttributes());
+        FabricDefaultAttributeRegistry.register(BULLFROG, Bullfrog.createAttributes());
+        FabricDefaultAttributeRegistry.register(ALLIGATOR, Alligator.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());

@@ -163,6 +163,21 @@ public final class RyanBiomes {
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.DEEP_LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.SHARK, 2, 1, 2);
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN), MobCategory.WATER_CREATURE, RyanEntities.MANTA_RAY, 2, 1, 1);
         spawn(BiomeSelectors.includeByKey(Biomes.WARM_OCEAN, Biomes.LUKEWARM_OCEAN, Biomes.OCEAN), MobCategory.WATER_CREATURE, RyanEntities.JELLYFISH, 4, 2, 5);
+        // Small things
+        spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.FOREST, Biomes.CHERRY_GROVE,
+                SEASONAL_FOREST, SHRUBLAND, RAINFOREST), MobCategory.CREATURE, RyanEntities.BUTTERFLY, 8, 2, 4);
+        spawn(BiomeSelectors.includeByKey(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS, Biomes.CHERRY_GROVE, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.HUMMINGBIRD, 4, 1, 2);
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.TAIGA, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.PILEATED_WOODPECKER, 3, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.SAVANNA, SHRUBLAND),
+                MobCategory.CREATURE, RyanEntities.BOBWHITE, 5, 3, 6);
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.FLOWER_FOREST, Biomes.SWAMP, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.BOX_TURTLE, 3, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_HILLS, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.SAVANNA_PLATEAU, Biomes.FOREST, SHRUBLAND),
+                MobCategory.CREATURE, RyanEntities.RATTLESNAKE, 2, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.RIVER, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.BULLFROG, 5, 1, 3);
+        spawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.ALLIGATOR, 3, 1, 2);
         // Zebras: herds on the savanna
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups

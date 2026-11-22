@@ -83,6 +83,7 @@ public final class RyanItems {
         egg("black_tailed_deer", RyanEntities.BLACK_TAILED_DEER); egg("bison", RyanEntities.BISON); egg("cougar", RyanEntities.COUGAR); egg("river_otter", RyanEntities.RIVER_OTTER); egg("groundhog", RyanEntities.GROUNDHOG); egg("porcupine", RyanEntities.PORCUPINE);
         egg("bald_eagle", RyanEntities.BALD_EAGLE); egg("golden_eagle", RyanEntities.GOLDEN_EAGLE); egg("red_tailed_hawk", RyanEntities.RED_TAILED_HAWK); egg("turkey_vulture", RyanEntities.TURKEY_VULTURE); egg("great_horned_owl", RyanEntities.GREAT_HORNED_OWL); egg("great_blue_heron", RyanEntities.GREAT_BLUE_HERON); egg("canada_goose", RyanEntities.CANADA_GOOSE);
         egg("orca", RyanEntities.ORCA); egg("blue_whale", RyanEntities.BLUE_WHALE); egg("shark", RyanEntities.SHARK); egg("manta_ray", RyanEntities.MANTA_RAY); egg("jellyfish", RyanEntities.JELLYFISH);
+        egg("butterfly", RyanEntities.BUTTERFLY); egg("hummingbird", RyanEntities.HUMMINGBIRD); egg("pileated_woodpecker", RyanEntities.PILEATED_WOODPECKER); egg("bobwhite", RyanEntities.BOBWHITE); egg("box_turtle", RyanEntities.BOX_TURTLE); egg("rattlesnake", RyanEntities.RATTLESNAKE); egg("bullfrog", RyanEntities.BULLFROG); egg("alligator", RyanEntities.ALLIGATOR);
     }
 
     private static void egg(String mob, EntityType<?> type) {

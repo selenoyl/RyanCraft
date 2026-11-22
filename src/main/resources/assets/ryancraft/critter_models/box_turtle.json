@@ -1,0 +1,246 @@
+{
+ "texture": [
+  64,
+  32
+ ],
+ "parts": [
+  {
+   "name": "body",
+   "parent": null,
+   "pivot": [
+    0,
+    21,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "body",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      0
+     ],
+     "from": [
+      -4,
+      -2,
+      -5
+     ],
+     "size": [
+      8,
+      3,
+      10
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      36,
+      0
+     ],
+     "from": [
+      -3,
+      -4,
+      -4
+     ],
+     "size": [
+      6,
+      2,
+      8
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      0,
+      13
+     ],
+     "from": [
+      -3.5,
+      1,
+      -4.5
+     ],
+     "size": [
+      7,
+      1,
+      9
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "head",
+   "parent": null,
+   "pivot": [
+    0,
+    21,
+    -5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "head",
+   "boxes": [
+    {
+     "uv": [
+      32,
+      13
+     ],
+     "from": [
+      -1.5,
+      -1.5,
+      -3
+     ],
+     "size": [
+      3,
+      3,
+      3
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_rf",
+   "parent": null,
+   "pivot": [
+    -3.5,
+    22,
+    -3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rf",
+   "boxes": [
+    {
+     "uv": [
+      44,
+      13
+     ],
+     "from": [
+      -1,
+      0,
+      -1
+     ],
+     "size": [
+      2,
+      2,
+      2
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_lf",
+   "parent": null,
+   "pivot": [
+    3.5,
+    22,
+    -3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lf",
+   "boxes": [
+    {
+     "uv": [
+      52,
+      13
+     ],
+     "from": [
+      -1,
+      0,
+      -1
+     ],
+     "size": [
+      2,
+      2,
+      2
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "leg_rb",
+   "parent": null,
+   "pivot": [
+    -3.5,
+    22,
+    3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rb",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      23
+     ],
+     "from": [
+      -1,
+      0,
+      -1
+     ],
+     "size": [
+      2,
+      2,
+      2
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_lb",
+   "parent": null,
+   "pivot": [
+    3.5,
+    22,
+    3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lb",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      23
+     ],
+     "from": [
+      -1,
+      0,
+      -1
+     ],
+     "size": [
+      2,
+      2,
+      2
+     ],
+     "mirror": true
+    }
+   ]
+  }
+ ]
+}

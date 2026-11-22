@@ -144,6 +144,20 @@ def build(i, name, pattern, colours, tails):
     img = Image.open(tex).convert("RGBA"); paint_wings(img, parts, pattern, colours, 500 + i); img.save(tex)
     return n
 
+def game_assets():
+    """In-game assets: one model 'butterfly' and a texture per species (butterfly_0 .. butterfly_19)."""
+    parts = model(True); size = pack(parts); emit_model("butterfly", parts, size)
+    for i, (name, pat, cols, tails) in enumerate(S):
+        n = f"butterfly_{i}"
+        tail_c = (cols.get("a", "#141210") if pat in (zebra, eyespots) else "#141210") if tails else None
+        emit_textures(parts, size, {n: {"body": {"c": "#1e1a16", "noise": 3}, "wing": {"c": "#888888"}, "tail": {"c": tail_c}}})
+        tex = os.path.join(ROOT, "textures/entity", n + ".png")
+        img = Image.open(tex).convert("RGBA"); paint_wings(img, parts, pat, cols, 500 + i); img.save(tex)
+    return [name for name, *_ in S]
+
+if __name__ == "__main__" and "--game" in sys.argv:
+    print(game_assets()); sys.exit()
+
 if __name__ == "__main__":
     R.PX = 14; R.ELEV = math.radians(55)
     made, renders = [], []
