@@ -28,8 +28,17 @@ def bricks(base, mortar, seed=2):
 
 DUST = noise((200, 198, 190), 12, 1, [((170, 168, 160), 20)])
 MOONSTONE = bricks((214, 214, 222), (150, 150, 162), 3)
-JADE = noise((62, 168, 118), 16, 4, [((140, 220, 180), 18), ((30, 110, 72), 14)])
-JADE_ORE = noise((200, 198, 190), 10, 5, [((62, 168, 118), 22), ((140, 220, 180), 8)])
+def jade_from_lapis(name):
+    """Vanilla's lapis texture, its blues turned to jade greens (so jade reads as green lapis)."""
+    im = tex(name).copy(); px = im.load()
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = px[x, y]
+            if b > r + 18 and b > g:                       # a lapis-blue pixel
+                px[x, y] = (int(r * 0.7 + b * 0.12), min(255, int(b * 0.92 + 10)), int(g * 0.75 + b * 0.18), a)
+    return im
+JADE = jade_from_lapis("lapis_block")
+JADE_ORE = jade_from_lapis("lapis_ore")
 METEOR = noise((48, 46, 58), 10, 6, [((230, 230, 255), 7), ((120, 150, 255), 6)])
 METEOR_ORE = noise((70, 66, 64), 12, 7, [((255, 150, 60), 10), ((255, 210, 120), 6)])
 SILVER = noise((214, 214, 226), 10, 8, [((190, 190, 206), 18)])
@@ -93,16 +102,16 @@ def great_rabbit_detailed():
     # crown
     m.box(GOLD, (-6, -4, -7), (12, 2, 10))
     for x in (-6, -2, 2): m.box(GOLD, (x, -7, -7), (2, 3, 1)); m.box(JADE, (x + 0.5, -6, -7.4), (1, 1, 0.4))
-    # forearms reaching forward to grip the pestle
+    # forearms gripping the mortar staff, its weapon
     for sgn in (-1, 1):
         a = m.part([sgn * 7, 16, -3], (-1.15, sgn * 0.45, 0))
         m.box(SILVER, (-2, -1, -2), (4, 13, 4), part=a); m.box(WHITE_FUR, (-2.5, 11, -2.5), (5, 4, 5), part=a)
-    p = m.part([0, 6, -15], (0.15, 0, 0)); m.box(WOOD, (-1.5, -14, -1.5), (3, 32, 3), part=p); m.box(WOOD, (-3, 18, -3), (6, 6, 6), part=p)
-    # the great mortar
-    for (w, d) in ((22, 14), (14, 22)): m.box(STONE_M, (-w / 2, 26, -24 - d / 2), (w, 18, d))
-    m.box(MOON_GLOW, (-9, 25.4, -33), (18, 0.6, 18))                                                                    # glowing dust inside
-    for (x, z, w, d) in ((-11, -35, 22, 2), (-11, -15, 22, 2), (-11, -35, 2, 22), (9, -35, 2, 22)):                 # jade rim
-        m.box(JADE, (x, 24, z), (w, 2, d))
+    st = m.part([0, 20, -15], (0.35, 0, -0.55))                                                       # the giant mortar staff, raised
+    m.box(WOOD, (-2, -30, -2), (4, 52, 4), part=st); m.box(METEOR, (-2.5, 18, -2.5), (5, 4, 5), part=st)   # haft, meteor-iron butt
+    for (w, d) in ((16, 11), (11, 16)): m.box(STONE_M, (-w / 2, -44, -d / 2), (w, 14, d), part=st)          # the mortar head
+    for (x, z, w, d) in ((-8, -8, 16, 2), (-8, 6, 16, 2), (-8, -8, 2, 16), (6, -8, 2, 16)): m.box(JADE, (x, -45.5, z), (w, 2, d), part=st)
+    m.box(MOON_GLOW, (-6, -45, -6), (12, 0.6, 12), part=st)
+    for y in (-36, -32): m.box(JADE, (-8.2, y, -5.6), (16.4, 1.2, 11.2), part=st)                    # jade bands round the head
     return m
 
 def moon_rabbit(): m = Model(1); rabbit(m); return m
@@ -171,13 +180,14 @@ def crown():
 def cake(): m = Model(12); m.box(CAKE, (-5, 18, -5), (10, 6, 10)); m.box(JADE, (-1, 17, -1), (2, 1, 2)); return m
 def ingot(): m = Model(13); m.box(METEOR, (-5, 20, -2.5), (10, 3, 5)); m.box(METEOR, (-4, 19, -1.5), (8, 1, 3)); return m
 
-CREATURES = [("Moon Rabbit", "shy and high-hopping; tame with moon herbs", moon_rabbit, 2.4),
+CREATURES = [("Moon Rabbit", "tame it, or bundle it home for a cage", moon_rabbit, 2.4),
              ("Dust Drifter", "floats over the craters, glowing softly", drifter, 2.4),
              ("Crater Crab", "hides in moon dust and pinches", crab, 2.4),
              ("Lantern Moth", "glows, and comes to light", moth, 2.4),
              ("Lost Spaceman", "a dead Steve in an old spacesuit; walks the craters at night", walker, 2.0)]
 THINGS = [("Jade Ore", "rare, deep in mountains and lush caves", lambda: cube(JADE_ORE), 1.2),
-          ("Block of Jade", "the portal frame material", lambda: cube(JADE), 1.2),
+          ("Block of Jade", "green lapis; the portal frame material", lambda: cube(JADE), 1.2),
+          ("Jade Portal", "nether-portal sized; lit with an eye of ender", portal, 0.42),
           ("Moonstone Bricks", "light building stone", lambda: cube(MOONSTONE), 1.2),
           ("Moon Dust", "light; for gliding gear", lambda: cube(DUST), 1.2),
           ("Meteor Iron Ore", "dug from fresh craters", lambda: cube(METEOR_ORE), 1.2),
@@ -229,16 +239,15 @@ def sheet(out):
     W = scene.width + 80
     cw1 = (W - 60) // 3; ch1 = max(i.height for _, _, i in crs) + 90
     cw2 = (W - 60) // 5; ch2 = max(i.height for _, _, i in ths) + 90
-    H = 160 + scene.height + 60 + big.height + 120 + 2 * ch1 + 60 + 2 * ch2 + 40
+    H = 160 + scene.height + 60 + big.height + 120 + 2 * ch1 + 60 + 3 * ch2 + 40
     c = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(c)
     d.text((40, 36), "The Hollow Moon: concept art", font=R.font(46, True), fill=INK)
     d.text((42, 96), "The actual moon, reached through a portal of jade blocks lit with an eye of ender under a full moon. Low gravity, the Earth in the sky.", font=R.font(20), fill=SUB)
     y = 140; c.paste(scene, (40, y)); y += scene.height + 40
     # boss with the portal beside it
-    c.paste(big, (60, y), big); c.paste(port, (W - port.width - 80, y + big.height - port.height), port)
-    d.text((60 + big.width // 2, y + big.height + 24), "The Great Moon Rabbit (boss)", font=R.font(28, True), fill=INK, anchor="mm")
-    d.text((60 + big.width // 2, y + big.height + 56), "pounds its mortar in the jade temple; slams, kits, rice-cake bombs, a frenzy at half health", font=R.font(18), fill=SUB, anchor="mm")
-    d.text((W - port.width // 2 - 80, y + big.height + 24), "The jade portal (nether-portal sized)", font=R.font(28, True), fill=INK, anchor="mm")
+    c.paste(big, ((W - big.width) // 2, y), big)
+    d.text((W // 2, y + big.height + 24), "The Great Moon Rabbit (boss)", font=R.font(28, True), fill=INK, anchor="mm")
+    d.text((W // 2, y + big.height + 56), "swings a giant mortar staff in the jade temple; slams, kits, rice-cake bombs, a frenzy at half health", font=R.font(18), fill=SUB, anchor="mm")
     y += big.height + 100
     for k, (n, s, im) in enumerate(crs):
         x = 30 + (k % 3) * cw1; base = y + (k // 3) * ch1 + ch1 - 70

@@ -235,7 +235,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
   ![Hollow Moon concept art](docs/moon_concept.png)
 
-  - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade.
+  - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade, a green cousin of the lapis block.
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
   - **The land:**
     - low gravity (big floaty jumps, slow falls)
@@ -245,8 +245,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - the real Earth hanging huge in a black sky, drawn Minecraft-style: blocky blue oceans, green and tan
       continents, white cloud bands, slowly turning and lit from one side like the moon is in ours
   - **Creatures:**
-    - **Moon rabbits:** long-eared, silvery, and they hop very high. They're shy, and you can tame them with moon
-      herbs.
+    - **Moon rabbits:** long-eared, silvery, and they hop very high. They're shy. Tame one with moon herbs and it
+      follows you home, or scoop it up in a bundle (4 to a bundle) and keep it in a cage like the chipmunks.
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.
     - **Lantern moths:** they glow and come to light.
@@ -265,14 +265,14 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
-  - **The boss: the Great Moon Rabbit.** A giant rabbit that pounds a mortar and pestle in the heart of the
-    jade temple, as in the old moon-rabbit legends. It leaps around the arena:
+  - **The boss: the Great Moon Rabbit.** A giant crowned rabbit in the heart of the jade temple, wielding a
+    giant mortar staff (a stone mortar on a long haft) as its weapon, a nod to the old moon-rabbit legends. It leaps around the arena:
     - Ground slams that throw you up in the low gravity.
     - It summons moon-rabbit kits.
     - It throws glowing rice-cake bombs.
     - At half health it goes into a frenzy.
     - Beat it for its **jade crown** and the **Moon Mortar**, a one-of-a-kind heavy weapon in the spirit of the
-      mace: the rabbit's great stone mortar on a pestle haft.
+      mace: the rabbit's own mortar staff, shrunk to fit your hands.
       - **Pound:** a ground slam that throws nearby mobs up into a few seconds of moon gravity, floating and helpless.
       - **Grind:** each hit on a floating target lands harder.
       - **Mooncharge:** like the mace, it hits harder the farther you fall, and in low gravity you can chain slams.
