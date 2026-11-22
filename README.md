@@ -59,6 +59,13 @@ All of it plays on the *Ambient/Environment* volume slider and has subtitles. `a
 | **River Otter** | Rivers, swamps | Playful swimmer that mostly stays in the water and catches fish |
 | **Groundhog** | Fields, meadows, woodland edges | Shy; win it over with carrots, beetroot or apples |
 | **Porcupine** | Forests | Doesn't run; hit it up close and you get quilled |
+| **Bald Eagle** | Rivers, swamps, taiga, forests | Soars in slow circles high overhead, perches on treetops, snatches fish, rabbits and ducks |
+| **Golden Eagle** | Mountains, meadows, badlands | Soars higher still; hunts rabbits, squirrels and chipmunks |
+| **Red-tailed Hawk** | Fields, meadows, forest edges | Circles with its screaming call and drops on small game |
+| **Turkey Vulture** | Plains, savanna, badlands | Wobbles in wide, lazy circles for hours; harmless |
+| **Great Horned Owl** | Forests, taiga | Sits tight by day, hunts low and silent at night, hoots from the trees |
+| **Great Blue Heron** | Rivers, swamps | Stalks the shallows and spears fish; stalks off if you come close |
+| **Canada Goose** | Plains, rivers, swamps, meadows | Honking flocks that graze and swim; hiss and attack if you go near their goslings |
 | **Eastern Chipmunk** | Hardwood forests, taiga | Striped and quick; darts off chirping "chip-chip-chip" |
 | **Eastern Gray / Fox Squirrel** | Woods (gray) and open woods/edges (fox) | Chatters, flees, runs straight up tree trunks. Grays are smaller, with salt-and-pepper fur and a silver-fringed tail; fox squirrels are bigger and rusty |
 | **Songbirds** | Woods and fields | Northern Cardinal, American Goldfinch, American Robin, Blue Jay, Eastern Bluebird and Mourning Dove, each with its own song |

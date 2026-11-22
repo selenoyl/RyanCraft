@@ -71,6 +71,20 @@ public final class RyanEntities {
             EntityType.Builder.of(Groundhog::new, MobCategory.CREATURE).sized(0.6f, 0.55f).clientTrackingRange(10));
     public static final EntityType<Porcupine> PORCUPINE = register("porcupine",
             EntityType.Builder.of(Porcupine::new, MobCategory.CREATURE).sized(0.6f, 0.6f).clientTrackingRange(10));
+    public static final EntityType<BaldEagle> BALD_EAGLE = register("bald_eagle",
+            EntityType.Builder.of(BaldEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<GoldenEagle> GOLDEN_EAGLE = register("golden_eagle",
+            EntityType.Builder.of(GoldenEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<RedTailedHawk> RED_TAILED_HAWK = register("red_tailed_hawk",
+            EntityType.Builder.of(RedTailedHawk::new, MobCategory.CREATURE).sized(0.6f, 0.7f).clientTrackingRange(10));
+    public static final EntityType<TurkeyVulture> TURKEY_VULTURE = register("turkey_vulture",
+            EntityType.Builder.of(TurkeyVulture::new, MobCategory.CREATURE).sized(0.7f, 0.8f).clientTrackingRange(10));
+    public static final EntityType<GreatHornedOwl> GREAT_HORNED_OWL = register("great_horned_owl",
+            EntityType.Builder.of(GreatHornedOwl::new, MobCategory.CREATURE).sized(0.6f, 0.9f).clientTrackingRange(10));
+    public static final EntityType<GreatBlueHeron> GREAT_BLUE_HERON = register("great_blue_heron",
+            EntityType.Builder.of(GreatBlueHeron::new, MobCategory.CREATURE).sized(0.6f, 1.4f).clientTrackingRange(10));
+    public static final EntityType<CanadaGoose> CANADA_GOOSE = register("canada_goose",
+            EntityType.Builder.of(CanadaGoose::new, MobCategory.CREATURE).sized(0.6f, 0.9f).clientTrackingRange(10));
     public static final EntityType<DeerMount> DEER_MOUNT = register("deer_skull_mount",
             EntityType.Builder.of(DeerMount::new, MobCategory.MISC).sized(0.5f, 0.9f).clientTrackingRange(10));
 
@@ -111,6 +125,13 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(RIVER_OTTER, RiverOtter.createAttributes());
         FabricDefaultAttributeRegistry.register(GROUNDHOG, Groundhog.createAttributes());
         FabricDefaultAttributeRegistry.register(PORCUPINE, Porcupine.createAttributes());
+        FabricDefaultAttributeRegistry.register(BALD_EAGLE, BaldEagle.createAttributes());
+        FabricDefaultAttributeRegistry.register(GOLDEN_EAGLE, GoldenEagle.createAttributes());
+        FabricDefaultAttributeRegistry.register(RED_TAILED_HAWK, RedTailedHawk.createAttributes());
+        FabricDefaultAttributeRegistry.register(TURKEY_VULTURE, TurkeyVulture.createAttributes());
+        FabricDefaultAttributeRegistry.register(GREAT_HORNED_OWL, GreatHornedOwl.createAttributes());
+        FabricDefaultAttributeRegistry.register(GREAT_BLUE_HERON, GreatBlueHeron.createAttributes());
+        FabricDefaultAttributeRegistry.register(CANADA_GOOSE, CanadaGoose.createAttributes());
         FabricDefaultAttributeRegistry.register(DEER_MOUNT, net.minecraft.world.entity.Mob.createMobAttributes());
         for (var f : java.util.List.of(BLUEGILL, CRAPPIE, LARGEMOUTH_BASS, CHANNEL_CATFISH)) {
             FabricDefaultAttributeRegistry.register(f, net.minecraft.world.entity.animal.fish.AbstractFish.createAttributes());

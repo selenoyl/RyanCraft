@@ -30,6 +30,21 @@ def entries():
     E["groundhog"] = (parts, {"groundhog": st}, ("#7a5a3a", "#c8b49a"))
     parts, st = proto("Porcupine")
     E["porcupine"] = (parts, {"porcupine": st}, ("#3a2e26", "#e8e0d0"))
+    # ---- big birds: raptors get soaring roles (wings fold when perched, spread in flight)
+    def soaring(parts):
+        for p in parts:
+            p["role"] = {"wing_r": "soar_wing_r", "wing_l": "soar_wing_l", "body": "soar_body"}.get(p["role"], p["role"])
+        return parts
+    for name, label, egg in [("bald_eagle", "Bald Eagle", ("#3a2a1c", "#f2f0ea")), ("golden_eagle", "Golden Eagle", ("#3a2a1c", "#c8962e")),
+                             ("red_tailed_hawk", "Red-tailed Hawk", ("#6a4a2e", "#b85a2a"))]:
+        parts, st = proto(label, "perched" if "Eagle" in label else None)
+        E[name] = (soaring(parts), {name: st}, egg)
+    _, vst = proto("Turkey Vulture")
+    E["turkey_vulture"] = (soaring(P1.raptor((5, 5, 9), 3, 6, (6, 10), beak=(1, 1, 2))), {"turkey_vulture": vst}, ("#2a221e", "#b8302a"))
+    for name, label, egg in [("great_horned_owl", "Great Horned Owl", ("#7a5a3a", "#e8b820")), ("great_blue_heron", "Great Blue Heron", ("#7a8a9a", "#d8a830")),
+                             ("canada_goose", "Canada Goose", ("#7a6a58", "#141210"))]:
+        parts, st = proto(label)
+        E[name] = (parts, {name: st}, egg)
     return E
 
 if __name__ == "__main__":

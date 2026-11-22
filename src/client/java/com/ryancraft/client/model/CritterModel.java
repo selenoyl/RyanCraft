@@ -99,6 +99,12 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         }
         rotX("leg_rf", swing); rotX("leg_lb", swing);
         rotX("leg_lf", -swing); rotX("leg_rb", -swing);
+        // Soaring birds: wings folded when perched; spread wide (with a slow, shallow beat) and the body level in flight
+        if (flying) {
+            float glide = 1.35f + Mth.sin(age * 0.18f) * 0.12f;
+            rotZ("soar_wing_r", glide); rotZ("soar_wing_l", -glide);
+            rotX("soar_body", 0.35f);
+        }
         if (flying) {
             rotX("leg_r", 1.1f); rotX("leg_l", 1.1f);
             float flap = 0.3f + Mth.sin(age * 1.9f) * 0.9f;

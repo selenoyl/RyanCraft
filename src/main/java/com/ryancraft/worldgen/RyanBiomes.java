@@ -142,6 +142,20 @@ public final class RyanBiomes {
         // Porcupines: forests north and south
         spawn(BiomeSelectors.includeByKey(Biomes.TAIGA, Biomes.FOREST, Biomes.BIRCH_FOREST, Biomes.DARK_FOREST, Biomes.OLD_GROWTH_SPRUCE_TAIGA, SEASONAL_FOREST),
                 MobCategory.CREATURE, RyanEntities.PORCUPINE, 3, 1, 1);
+        // Big birds
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA, Biomes.FOREST),
+                MobCategory.CREATURE, RyanEntities.BALD_EAGLE, 2, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.MEADOW, Biomes.GROVE, Biomes.BADLANDS,
+                Biomes.WOODED_BADLANDS), MobCategory.CREATURE, RyanEntities.GOLDEN_EAGLE, 2, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW, Biomes.FOREST, Biomes.BIRCH_FOREST, SHRUBLAND, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.RED_TAILED_HAWK, 3, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.BADLANDS, Biomes.WOODED_BADLANDS, SHRUBLAND),
+                MobCategory.CREATURE, RyanEntities.TURKEY_VULTURE, 3, 2, 4);
+        spawn(BiomeSelectors.includeByKey(Biomes.FOREST, Biomes.DARK_FOREST, Biomes.TAIGA, Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_PINE_TAIGA, SEASONAL_FOREST),
+                MobCategory.CREATURE, RyanEntities.GREAT_HORNED_OWL, 2, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.RIVER, Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.CREATURE, RyanEntities.GREAT_BLUE_HERON, 3, 1, 1);
+        spawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.RIVER, Biomes.SWAMP, Biomes.MEADOW),
+                MobCategory.CREATURE, RyanEntities.CANADA_GOOSE, 5, 3, 6);
         // Zebras: herds on the savanna
         spawn(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "ryancraft:item/great_horned_owl_spawn_egg"
+  }
+}

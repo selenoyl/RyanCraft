@@ -1,0 +1,280 @@
+{
+ "texture": [
+  64,
+  64
+ ],
+ "parts": [
+  {
+   "name": "body",
+   "parent": null,
+   "pivot": [
+    0,
+    17,
+    0
+   ],
+   "rot": [
+    -0.35,
+    0,
+    0
+   ],
+   "role": "soar_body",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      16
+     ],
+     "from": [
+      -2.5,
+      -2.5,
+      -4.5
+     ],
+     "size": [
+      5,
+      5,
+      9
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "head",
+   "parent": null,
+   "pivot": [
+    0,
+    13.5,
+    -3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "head",
+   "boxes": [
+    {
+     "uv": [
+      48,
+      16
+     ],
+     "from": [
+      -1.5,
+      -2,
+      -3
+     ],
+     "size": [
+      3,
+      3,
+      3
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      4,
+      30
+     ],
+     "from": [
+      -0.5,
+      -1,
+      -4
+     ],
+     "size": [
+      1,
+      1,
+      2
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      10,
+      30
+     ],
+     "from": [
+      -0.5,
+      0,
+      -4
+     ],
+     "size": [
+      1,
+      1,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "tail",
+   "parent": null,
+   "pivot": [
+    0,
+    18,
+    3.5
+   ],
+   "rot": [
+    0.45,
+    0,
+    0
+   ],
+   "role": "tail",
+   "boxes": [
+    {
+     "uv": [
+      28,
+      16
+     ],
+     "from": [
+      -2.0,
+      -0.5,
+      0
+     ],
+     "size": [
+      4,
+      1,
+      6
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "wing_r",
+   "parent": null,
+   "pivot": [
+    -2.5,
+    15.0,
+    -3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "soar_wing_r",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      0
+     ],
+     "from": [
+      -1,
+      0,
+      -1
+     ],
+     "size": [
+      1,
+      6,
+      10
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "wing_l",
+   "parent": null,
+   "pivot": [
+    2.5,
+    15.0,
+    -3.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "soar_wing_l",
+   "boxes": [
+    {
+     "uv": [
+      22,
+      0
+     ],
+     "from": [
+      0,
+      0,
+      -1
+     ],
+     "size": [
+      1,
+      6,
+      10
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "leg_r",
+   "parent": null,
+   "pivot": [
+    -1,
+    19.0,
+    0.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_r",
+   "boxes": [
+    {
+     "uv": [
+      60,
+      16
+     ],
+     "from": [
+      -0.5,
+      0,
+      -0.5
+     ],
+     "size": [
+      1,
+      5.0,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_l",
+   "parent": null,
+   "pivot": [
+    1,
+    19.0,
+    0.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_l",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      30
+     ],
+     "from": [
+      -0.5,
+      0,
+      -0.5
+     ],
+     "size": [
+      1,
+      5.0,
+      1
+     ],
+     "mirror": true
+    }
+   ]
+  }
+ ]
+}
