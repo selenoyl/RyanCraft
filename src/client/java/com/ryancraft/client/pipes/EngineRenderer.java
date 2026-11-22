@@ -31,20 +31,24 @@ public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, En
     public static class State extends BlockEntityRenderState {
         EngineBlock.Kind kind; Direction facing; boolean running, hot; float stroke;
     }
-    private final ModelPart base, trunk, piston;
+    private final ModelPart base, trunk, piston, chamber;
 
     public EngineRenderer(BlockEntityRendererProvider.Context ctx) {
         ModelPart root = ctx.bakeLayer(LAYER);
-        base = root.getChild("base"); trunk = root.getChild("trunk"); piston = root.getChild("piston");
+        base = root.getChild("base"); trunk = root.getChild("trunk"); piston = root.getChild("piston"); chamber = root.getChild("chamber");
     }
 
+    /**
+     * BuildCraft's engine layout in vanilla piston materials: a base plate, a piston-head plate that slides out along the
+     * trunk, a dark bellows chamber stretching between them, and the heat trunk fixed at the far end.
+     */
     public static LayerDefinition createLayer() {
         MeshDefinition mesh = new MeshDefinition();
         var root = mesh.getRoot();
-        // the piston's DNA: a piston base, the piston head as the moving plate, and between them a glowing heat chamber
-        root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8, 0, -8, 16, 6, 16), PartPose.ZERO);
-        root.addOrReplaceChild("piston", CubeListBuilder.create().texOffs(0, 24).addBox(-8, 6, -8, 16, 4, 16), PartPose.ZERO);
-        root.addOrReplaceChild("trunk", CubeListBuilder.create().texOffs(64, 0).addBox(-4, 0, -4, 8, 10, 8), PartPose.offset(0, 6, 0));
+        root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 0).addBox(-8, 0, -8, 16, 4, 16), PartPose.ZERO);
+        root.addOrReplaceChild("piston", CubeListBuilder.create().texOffs(0, 20).addBox(-8, 4, -8, 16, 4, 16), PartPose.ZERO);
+        root.addOrReplaceChild("chamber", CubeListBuilder.create().texOffs(64, 0).addBox(-6, 0, -6, 12, 8, 12), PartPose.offset(0, 4, 0));
+        root.addOrReplaceChild("trunk", CubeListBuilder.create().texOffs(64, 32).addBox(-4, 8, -4, 8, 8, 8), PartPose.ZERO);
         return LayerDefinition.create(mesh, 128, 64);
     }
 
@@ -75,11 +79,12 @@ public class EngineRenderer implements BlockEntityRenderer<EngineBlockEntity, En
         pose.translate(0.5, 0.5, 0.5);
         pose.mulPose(s.facing.getRotation());                 // the piston pushes toward what it powers
         pose.translate(0, -0.5, 0);
-        piston.y = s.stroke * 6f;
-        trunk.yScale = (s.stroke * 6f + 3.9f) / 10f;          // the chamber shows between base and head as the piston rises
+        piston.y = s.stroke * 8f;                              // the plate slides out along the trunk
+        chamber.yScale = Math.max(0.01f, s.stroke * 8f / 8f); // the bellows stretch behind it
         var rt = RenderTypes.entityCutout(tex);
         out.submitModelPart(base, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         out.submitModelPart(trunk, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
+        if (s.stroke > 0.01f) out.submitModelPart(chamber, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         out.submitModelPart(piston, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         pose.popPose();
     }

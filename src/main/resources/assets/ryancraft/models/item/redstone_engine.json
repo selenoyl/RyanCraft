@@ -1,12 +1,10 @@
 {
   "parent": "block/block",
   "textures": {
-    "base": "minecraft:block/piston_side",
-    "inner": "minecraft:block/piston_inner",
+    "base": "minecraft:block/oak_planks",
     "head": "minecraft:block/piston_top",
-    "head_side": "minecraft:block/piston_side",
     "trunk": "ryancraft:block/engine_trunk",
-    "particle": "minecraft:block/piston_side"
+    "particle": "minecraft:block/oak_planks"
   },
   "elements": [
     {
@@ -17,43 +15,43 @@
       ],
       "to": [
         16,
-        6,
+        4,
         16
       ],
       "faces": {
         "north": {
           "uv": [
             0,
-            10,
+            6,
             16,
-            16
+            10
           ],
           "texture": "#base"
         },
         "south": {
           "uv": [
             0,
-            10,
+            6,
             16,
-            16
+            10
           ],
           "texture": "#base"
         },
         "east": {
           "uv": [
             0,
-            10,
+            6,
             16,
-            16
+            10
           ],
           "texture": "#base"
         },
         "west": {
           "uv": [
             0,
-            10,
+            6,
             16,
-            16
+            10
           ],
           "texture": "#base"
         },
@@ -64,7 +62,7 @@
             16,
             16
           ],
-          "texture": "#inner"
+          "texture": "#base"
         },
         "down": {
           "uv": [
@@ -79,101 +77,51 @@
     },
     {
       "from": [
-        4,
-        6,
-        4
-      ],
-      "to": [
-        12,
-        12,
-        12
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            4,
-            2,
-            12,
-            8
-          ],
-          "texture": "#trunk"
-        },
-        "south": {
-          "uv": [
-            4,
-            2,
-            12,
-            8
-          ],
-          "texture": "#trunk"
-        },
-        "east": {
-          "uv": [
-            4,
-            2,
-            12,
-            8
-          ],
-          "texture": "#trunk"
-        },
-        "west": {
-          "uv": [
-            4,
-            2,
-            12,
-            8
-          ],
-          "texture": "#trunk"
-        }
-      }
-    },
-    {
-      "from": [
         0,
-        12,
+        4,
         0
       ],
       "to": [
         16,
-        16,
+        8,
         16
       ],
       "faces": {
         "north": {
           "uv": [
             0,
-            0,
+            6,
             16,
-            4
+            10
           ],
-          "texture": "#head_side"
+          "texture": "#base"
         },
         "south": {
           "uv": [
             0,
-            0,
+            6,
             16,
-            4
+            10
           ],
-          "texture": "#head_side"
+          "texture": "#base"
         },
         "east": {
           "uv": [
             0,
-            0,
+            6,
             16,
-            4
+            10
           ],
-          "texture": "#head_side"
+          "texture": "#base"
         },
         "west": {
           "uv": [
             0,
-            0,
+            6,
             16,
-            4
+            10
           ],
-          "texture": "#head_side"
+          "texture": "#base"
         },
         "up": {
           "uv": [
@@ -191,7 +139,66 @@
             16,
             16
           ],
-          "texture": "#inner"
+          "texture": "#base"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        8,
+        4
+      ],
+      "to": [
+        12,
+        16,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#trunk"
+        },
+        "south": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#trunk"
+        },
+        "east": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#trunk"
+        },
+        "west": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#trunk"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#trunk"
         }
       }
     }

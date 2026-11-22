@@ -93,46 +93,72 @@ def box_faces(img, u, v, w_, h, d, top, bottom, side):
     for i, x0 in enumerate((u, u + d, u + d + w_, u + 2 * d + w_)):
         face_paint(img, side, x0, v + d, d if i % 2 == 0 else w_, h)
 
+def trimmed(tex, dark=0.45):
+    """A plate face with the piston's dark trim around the edge."""
+    t = tex.copy()
+    for i in range(16):
+        for (x, y) in ((i, 0), (i, 15), (0, i), (15, i)): t.putpixel((x, y), shade(tex.getpixel((x, y)), dark))
+    return t
+
+def strip(tex, h, dark=0.45):
+    """A plate's side: a band of the material with dark trim top and bottom (like the piston head's rim)."""
+    t = Image.new("RGBA", (16, h))
+    for y in range(h):
+        for x in range(16):
+            c = tex.getpixel((x, y + 6))
+            t.putpixel((x, y), shade(c, dark) if y in (0, h - 1) else c)
+    return t
+
+def heat_glass(hot):
+    """BuildCraft's heat trunk: checkered glowing glass with dark corners: blue when cool, green when warm."""
+    a, b = ((70, 190, 70), (40, 140, 40)) if hot else ((40, 110, 230), (20, 70, 200))
+    t = Image.new("RGBA", (16, 16))
+    for y in range(16):
+        for x in range(16):
+            edge = x in (0, 15) or y in (0, 15)
+            t.putpixel((x, y), (34, 30, 28, 255) if edge else (a if (x // 2 + y // 2) % 2 else b) + (255,))
+    return t
+
 def engine_textures():
-    p_top, p_side, p_inner, p_bottom = src("piston_top"), src("piston_side"), src("piston_inner"), src("piston_bottom")
-    iron = src("iron_block")
-    for hot, col in ((False, (60, 110, 200)), (True, (70, 190, 70))):
-        # the heat chamber: glowing glass between iron bands
-        t = Image.new("RGBA", (16, 16)); r = random.Random(3)
-        for y in range(16):
-            for x in range(16):
-                if y < 2 or y > 13: t.putpixel((x, y), shade(iron.getpixel((x, y)), 0.75))
-                else:
-                    k = 0.75 if x % 5 == 0 else 1.0
-                    t.putpixel((x, y), tuple(max(0, min(255, int(c * k) + r.randint(-10, 10))) for c in col) + (255,))
-        t.save(os.path.join(A, "textures", "block", "engine_trunk" + ("_hot" if hot else "") + ".png"))
+    p_top, p_side, p_inner = src("piston_top"), src("piston_side"), src("piston_inner")
+    planks, stone, cob, iron = src("oak_planks"), src("stone"), src("cobblestone"), src("iron_block")
+    stone_head = p_top.copy()                                             # the piston head's iron square, set in stone
+    for y in range(16):
+        for x in range(16):
+            r, g, b, al = p_top.getpixel((x, y))
+            if not (4 <= x <= 11 and 4 <= y <= 11): stone_head.putpixel((x, y), stone.getpixel((x, y)))
+    bellows = Image.new("RGBA", (16, 16))
+    for y in range(16):
+        for x in range(16): bellows.putpixel((x, y), shade(iron.getpixel((x, y)), 0.35 if y % 3 == 0 else 0.55))
+    for hot in (False, True):
+        glass = heat_glass(hot)
+        glass.save(os.path.join(A, "textures", "block", "engine_trunk" + ("_hot" if hot else "") + ".png"))
         for kind in ("redstone", "stirling"):
+            mat = planks if kind == "redstone" else stone
             img = Image.new("RGBA", (128, 64), (0, 0, 0, 0))
-            if kind == "redstone":
-                base_side = rows(p_side, 10, 16)                                   # the piston base's stone
-                base_bottom = p_bottom
-            else:                                                                  # cobblestone with a furnace mouth
-                cob = src("cobblestone"); furn = src("furnace_front_on" if hot else "furnace_front")
-                base_side = rows(cob, 0, 6); base_side.paste(rows(furn, 8, 14).crop((4, 0, 12, 6)), (4, 0))
-                base_bottom = cob
-            box_faces(img, 0, 0, 16, 6, 16, p_inner, base_bottom, base_side)        # base
-            box_faces(img, 0, 24, 16, 4, 16, p_top, p_inner, rows(p_side, 0, 4))    # the piston head as the plate
-            box_faces(img, 64, 0, 8, 10, 8, rows(iron, 0, 8).crop((0, 0, 8, 8)), rows(iron, 0, 8).crop((0, 0, 8, 8)), t.crop((4, 2, 12, 12)))
+            base_side = strip(mat if kind == "redstone" else cob, 4)
+            if kind == "stirling":                                         # a furnace mouth in the base, lit while burning
+                furn = src("furnace_front_on" if hot else "furnace_front")
+                base_side.paste(furn.crop((4, 9, 12, 13)), (4, 0))
+            box_faces(img, 0, 0, 16, 4, 16, trimmed(mat if kind == "redstone" else cob), mat, base_side)                   # base plate
+            box_faces(img, 0, 20, 16, 4, 16, p_top if kind == "redstone" else stone_head, trimmed(mat), strip(mat, 4))     # piston-head plate
+            box_faces(img, 64, 0, 12, 8, 12, bellows, bellows, bellows)                                                     # bellows chamber
+            box_faces(img, 64, 32, 8, 8, 8, glass, glass, glass)                                                            # heat trunk
             os.makedirs(os.path.join(A, "textures", "entity", "engine"), exist_ok=True)
             img.save(os.path.join(A, "textures", "entity", "engine", kind + ("_hot" if hot else "") + ".png"))
     for kind in ("redstone", "stirling"):
-        base = "minecraft:block/piston_side" if kind == "redstone" else "minecraft:block/cobblestone"
+        base = "minecraft:block/oak_planks" if kind == "redstone" else "minecraft:block/cobblestone"
+        head = "minecraft:block/piston_top" if kind == "redstone" else "minecraft:block/stone"
         w(f"assets/ryancraft/models/block/{kind}_engine.json", {"textures": {"particle": base}})
         w(f"assets/ryancraft/blockstates/{kind}_engine.json", {"variants": {"": {"model": f"ryancraft:block/{kind}_engine"}}})
         w(f"assets/ryancraft/models/item/{kind}_engine.json", {"parent": "block/block", "textures": {
-            "base": base, "inner": "minecraft:block/piston_inner", "head": "minecraft:block/piston_top", "head_side": "minecraft:block/piston_side",
-            "trunk": "ryancraft:block/engine_trunk", "particle": base},
+            "base": base, "head": head, "trunk": "ryancraft:block/engine_trunk", "particle": base},
             "elements": [
-                {"from": [0, 0, 0], "to": [16, 6, 16], "faces": {**{d: face([0, 10, 16, 16] if kind == "redstone" else [0, 0, 16, 6], "#base") for d in ("north", "south", "east", "west")},
-                                                                 "up": face([0, 0, 16, 16], "#inner"), "down": face([0, 0, 16, 16], "#base")}},
-                {"from": [4, 6, 4], "to": [12, 12, 12], "faces": {d: face([4, 2, 12, 8], "#trunk") for d in ("north", "south", "east", "west")}},
-                {"from": [0, 12, 0], "to": [16, 16, 16], "faces": {**{d: face([0, 0, 16, 4], "#head_side") for d in ("north", "south", "east", "west")},
-                                                                   "up": face([0, 0, 16, 16], "#head"), "down": face([0, 0, 16, 16], "#inner")}}]})
+                {"from": [0, 0, 0], "to": [16, 4, 16], "faces": {**{d: face([0, 6, 16, 10], "#base") for d in ("north", "south", "east", "west")},
+                                                                 "up": face([0, 0, 16, 16], "#base"), "down": face([0, 0, 16, 16], "#base")}},
+                {"from": [0, 4, 0], "to": [16, 8, 16], "faces": {**{d: face([0, 6, 16, 10], "#base") for d in ("north", "south", "east", "west")},
+                                                                 "up": face([0, 0, 16, 16], "#head"), "down": face([0, 0, 16, 16], "#base")}},
+                {"from": [4, 8, 4], "to": [12, 16, 12], "faces": {d: face([4, 4, 12, 12], "#trunk") for d in ("north", "south", "east", "west", "up")}}]})
         w(f"assets/ryancraft/items/{kind}_engine.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{kind}_engine"}})
 
 def simple_blocks():
