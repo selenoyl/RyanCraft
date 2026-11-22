@@ -27,10 +27,10 @@ def pack(parts):
 P = []   # (label, subtitle, parts, style, scale)
 
 # ---------------- black-tailed deer: smaller, darker, big mule-deer ears, black-topped tail, forked antlers
-BTD_ANTLER = [((-2, -9, -4), (1, 5, 1)), ((-3, -12, -4), (1, 4, 1)), ((-3, -12, -6), (1, 1, 2)), ((-3, -14, -6), (1, 2, 1)),
-              ((-2, -10, -6), (1, 1, 2)), ((-2, -12, -7), (1, 2, 1))]
+BTD_ANTLER = [((-2, -8, -4), (1, 5, 1)), ((-3, -11, -4), (1, 4, 1)), ((-3, -11, -6), (1, 1, 2)), ((-3, -13, -6), (1, 2, 1)),
+              ((-2, -9, -6), (1, 1, 2)), ((-2, -11, -7), (1, 2, 1))]
 btd = cervid((7, 7, 14), (2, 10), -6, neck=((-1.5, -1, -3), (3, 8, 4)), head=((-2, -3, -8), (4, 4, 5)), snout=((-1.5, -2, -10), (3, 3, 2)),
-             ears=((-5, -5, -4), (2, 3, 1)), tail=((-1, 0, 0), (2, 3, 1), 0.3), extra_head=mirror(BTD_ANTLER, "antler", "antler"))
+             ears=((-4, -5, -4), (2, 3, 1)), tail=((-1, 0, 0), (2, 3, 1), 0.3), extra_head=mirror(BTD_ANTLER, "antler", "antler"))
 P.append(("Black-tailed Deer", "Pacific coast buck", btd, {
     "body": {"c": "#7a6a58", "noise": 8, "belly": "#d8ccb4", "speckle": {"c": "#5e5040", "p": 0.15}},
     "mane": {"c": "#6e6050", "noise": 6, "front": "#e8e0d0"}, "head": {"c": "#7a6a58", "noise": 5, "side_eyes": "#0a0806", "eye_row": 1, "front": "#3a3028"},
@@ -69,13 +69,13 @@ def raptor(body, head, tail_len, wing, beak=(1, 2, 3), spread=False):
         part("leg_l", (1, 17 + bh / 2 - 0.5, 0.5), [box("leg", (-0.5, 0, -0.5), (1, 24 - 17 - bh / 2 + 0.5, 1), "leg", mirror=True)], "leg_l"),
     ]
 
-EAGLE = {"body": {"c": "#3a2a1c", "noise": 8, "speckle": {"c": "#2a1e14", "p": 0.25}}, "head": {"c": "#f2f0ea", "noise": 4, "side_eyes": "#c8a020", "eye_row": 1},
+EAGLE = {"body": {"c": "#3a2a1c", "noise": 8, "speckle": {"c": "#2a1e14", "p": 0.25}}, "head": {"c": "#f2f0ea", "noise": 4, "side_eyes": "#0a0806", "eye_row": 1},
          "beak": {"c": "#e8b828", "noise": 4}, "tail": {"c": "#f2f0ea", "noise": 4}, "wing": {"c": "#33251a", "noise": 8, "speckle": {"c": "#1e160e", "p": 0.25}},
          "leg": {"c": "#e8b828"}}
 P.append(("Bald Eagle", "perched", raptor((5, 6, 9), 4, 6, (6, 10)), EAGLE, 1.0))
 P.append(("Bald Eagle", "soaring", raptor((5, 5, 9), 4, 6, (14, 8), spread=True), EAGLE, 1.0))
 P.append(("Golden Eagle", "perched", raptor((5, 6, 9), 4, 6, (6, 10)), dict(EAGLE,
-         head={"c": "#5a3e22", "noise": 6, "side_eyes": "#c88a20", "eye_row": 1, "top": "#c8962e", "back": "#c8962e"},
+         head={"c": "#5a3e22", "noise": 6, "side_eyes": "#0a0806", "eye_row": 1, "top": "#c8962e", "back": "#c8962e"},
          beak={"c": "#2a2420", "noise": 3}, tail={"c": "#3a2a1c", "noise": 6, "rings": {"c": "#5a4632", "n": 3}}), 1.0))
 P.append(("Red-tailed Hawk", "", raptor((4, 5, 7), 3, 5, (5, 8)), {
     "body": {"c": "#6a4a2e", "noise": 8, "belly": "#efe4d0", "front": "#efe4d0", "speckle": {"c": "#4a3220", "p": 0.2}},
@@ -109,13 +109,16 @@ P.append(("Orca", "hunts in pods", whale((10, 10, 28), (16, 6), (5, 8, -2), (5, 
 P.append(("Blue Whale", "huge and slow; surfaces to spout", whale((14, 12, 64), (22, 8), (3, 2, 20), (5, 14)), {
     "body": {"c": "#5a7084", "noise": 10, "speckle": {"c": "#8aa0b2", "p": 0.25}, "bottom": "#7a8ea0", "side_eyes": "#141416", "eye_row": 7},
     "fin": {"c": "#4e6476", "noise": 8}}, 0.4))
-shark = fish((6, 7, 22), (1, 12, 5), dorsal=(1, 6, 5))
+shark = fish((6, 7, 22), (1, 12, 5))
 for p in shark:
     if p["name"] == "body":
-        p["boxes"] += [box("nose", (-2, -2.5, -15), (4, 4, 4), "body"),
+        p["boxes"] += [box("dorsal1", (-0.5, -5.5, -3), (1, 2, 7), "fin"), box("dorsal2", (-0.5, -7.5, -1), (1, 2, 5), "fin"),
+                       box("dorsal3", (-0.5, -9.5, 1), (1, 2, 3), "fin"), box("dorsal4", (-0.5, -10.5, 3), (1, 1, 1), "fin"),
+                       box("jaw", (-2, 1.5, -14.5), (4, 1, 3.5), "mouth"), box("teeth", (-1.75, 0.5, -14.6), (3.5, 1, 0.5), "teeth"),
+                       box("nose", (-2, -2.5, -15), (4, 3, 4), "body"),
                        box("pec_r", (-9, 2, -6), (6, 1, 5), "fin"), box("pec_l", (3, 2, -6), (6, 1, 5), "fin", mirror=True)]
 P.append(("Shark", "", shark, {"body": {"c": "#6a7480", "noise": 6, "belly": "#eceeee", "side_eyes": "#0a0a0c", "eye_row": 1},
-                                "fin": {"c": "#5e6874", "noise": 5}}, 0.8))
+                                "fin": {"c": "#5e6874", "noise": 5}, "mouth": {"c": "#3a1e22"}, "teeth": {"c": "#f4f2ea"}}, 0.8))
 manta = [part("body", (0, 21, 0), [box("disc", (-6, -1, -6), (12, 2, 12), "body"),
                                     box("wing_r", (-14, -0.5, -4), (8, 1, 8), "wing"), box("wing_l", (6, -0.5, -4), (8, 1, 8), "wing", mirror=True),
                                     box("horn_r", (-4, -0.5, -9), (2, 1, 3), "body"), box("horn_l", (2, -0.5, -9), (2, 1, 3), "body", mirror=True)], "fish_body"),
@@ -124,14 +127,6 @@ P.append(("Manta Ray", "", manta, {"body": {"c": "#1e2026", "noise": 5, "bottom"
                                             "speckle": {"c": "#2a2e36", "p": 0.15}},
                                    "wing": {"c": "#1e2026", "noise": 5, "bottom": "#eeeeec", "tip": {"c": "#30343c", "frac": 0.2}},
                                    "tail": {"c": "#1a1c20"}}, 0.8))
-school = []
-for k, (x, y, z) in enumerate([(0, 0, 0), (-6, -3, 5), (6, -2, 4), (-3, -7, 10), (4, -6, 11), (0, -11, 15)]):
-    for p in fish((1, 3, 5), (1, 3, 2), dorsal=(1, 1, 2)):
-        p = copy.deepcopy(p); p["name"] = f"{p['name']}{k}"; p["pivot"][0] += x; p["pivot"][1] += y; p["pivot"][2] += z
-        p["role"] = None; school.append(p)
-P.append(("Ocean Fish School", "menhaden, moving together", school, {"body": {"c": "#9aaab8", "noise": 6, "top": "#4a6074", "belly": "#e8eef2",
-                                                                    "side_eyes": "#0a0a0c", "eye_row": 0, "spot": "#2a3440"}, "fin": {"c": "#7a8a98"}}, 1.6))
-
 # ---------------- butterflies: wings in a V
 def butterfly():
     return [part("body", (0, 20, 0), [box("body", (-0.5, -0.5, -2), (1, 1, 4), "body"),
