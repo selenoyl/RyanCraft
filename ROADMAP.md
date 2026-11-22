@@ -252,7 +252,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - **Lantern moths:** a night butterfly variant, dusky violet with glowing moon-gold wing spots. They come to
       light, and fit in a bundle and the bird cage like the other butterflies.
     - **Lost spacemen:** dead Steves in old lavender spacesuits, their skulls grinning behind tinted glass
-      visors (skin: docs/lost_spaceman_skin.png). They shamble across the craters at night, slow and floaty in the
+      visors (skin: docs/lost_spaceman_skin.png). Suits come in lavender, white, blue, red, orange and green
+      (docs/lost_spaceman_variants.png). They shamble across the craters at night, slow and floaty in the
       low gravity.
   - **Things to do:**
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
