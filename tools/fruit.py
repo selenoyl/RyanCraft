@@ -89,21 +89,25 @@ def walnut():
     return img
 
 def shelled_walnut():
-    """The kernel: two lumpy, deeply wrinkled lobes either side of a groove (it looks a bit like a brain)."""
+    """The kernel: two lumpy, wrinkled lobes either side of a wandering groove, tilted and a little lopsided like a real one."""
     img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
     lo, md, hi, dk = (146, 94, 50), (188, 134, 76), (224, 180, 116), (104, 64, 32)
-    cx, cy = 7.5, 8.0
+    cx, cy, tilt = 7.6, 8.2, math.radians(-22)
     for x in range(16):
         for y in range(16):
-            ang = math.atan2(y - cy, x - cx)
-            rad = 1 + .13 * math.sin(ang * 7)                                    # lumpy edge
-            d = math.hypot((x - cx) / 6.5, (y - cy) / 5.2) / rad
+            # rotate into the kernel's own frame
+            u = (x - cx) * math.cos(tilt) - (y - cy) * math.sin(tilt)
+            v = (x - cx) * math.sin(tilt) + (y - cy) * math.cos(tilt)
+            ang = math.atan2(v, u)
+            rad = 1 + .11 * math.sin(ang * 7 + 0.8) + .06 * math.sin(ang * 3)          # lumpy, uneven edge
+            d = math.hypot(u / (6.4 if u > 0 else 5.6), v / 5.0) / rad                    # one lobe bigger than the other
             if d > 1: continue
-            if abs(x - cx) < .6: c = dk
+            groove = 0.5 * math.sin(v * 0.9)                                              # the groove wanders
+            if abs(u - groove) < .6: c = dk
             else:
-                side = 1 if x > cx else -1
-                lobe = ((x - cx - side * 3.2) / 2.6) ** 2 + ((y - cy) / 3.4) ** 2     # each half is a rounded lobe
-                fold = math.sin(y * 2.3 + abs(x - cx) * .9)
+                side = 1 if u > groove else -1
+                lobe = ((u - side * (3.4 if side > 0 else 2.8)) / 2.6) ** 2 + ((v + side * 0.4) / 3.3) ** 2
+                fold = math.sin(v * 2.3 + abs(u - groove) * .9 + (0.0 if side > 0 else 1.3))   # wrinkles out of step
                 c = hi if lobe < .35 and fold > -.2 else md if fold > -.45 else lo
                 if fold < -.85: c = dk
             px[x, y] = c + (255,)

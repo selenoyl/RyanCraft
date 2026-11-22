@@ -77,8 +77,6 @@ def meat(raw,base,fat,path,shape="steak"):
                 im.putpixel((x+1,y+1), noisy(hexc(fat if edge else base),10))
             elif c=='f': im.putpixel((x+1,y+1), noisy(hexc("#efe6cf"),6))
     save(im,path)
-meat(True,"#b8463c","#e6a39a","ryancraft/textures/item/venison.png")
-meat(False,"#7a4a2a","#a8784a","ryancraft/textures/item/cooked_venison.png")
 meat(True,"#e09a8c","#f2c8bc","ryancraft/textures/item/raw_duck.png","leg")
 meat(False,"#b0702e","#d29a50","ryancraft/textures/item/cooked_duck.png","leg")
 

@@ -408,8 +408,7 @@ if __name__ == "__main__":
     for name, (back, belly, shape) in FISH_ICON.items():
         save_item(name, fish_icon(name, back, belly, shape))
         save_item("cooked_" + name, fish_icon(name, back, belly, shape, cooked=True))
-    save_item("raw_turkey", meat_icon("#e0a090", "#f2c8bc", "drum"))
-    save_item("cooked_turkey", meat_icon("#b0702e", "#d29a50", "drum"))
+    # turkey and venison icons come from tools/meats.py (Programmer Art style)
     save_item("raccoon_tail", tail_icon())
 
 # ---------------------------------------------------------------- extra icons (buckets, cap)
