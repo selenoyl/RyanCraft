@@ -166,6 +166,9 @@ All on by default; each can be switched off in `config/ryancraft.json`:
 ## Roadmap
 See [ROADMAP.md](ROADMAP.md) for what's queued: seasons, elk, moose, grizzlies, eagles, whales, sharks, new ores and more.
 
+## Download
+The latest build is in [`releases/`](releases/): drop `ryancraft-<version>.jar` into your `mods` folder (Fabric Loader 0.20.1+, Fabric API, Minecraft 1.21.11; TerraBlender optional for the Beta biomes).
+
 ## Install
 1. [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for 1.21.11.
 2. Put `ryancraft-1.0.0.jar`, [Fabric API](https://modrinth.com/mod/fabric-api) and (for the biomes) TerraBlender in `.minecraft/mods`.
