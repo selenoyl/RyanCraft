@@ -120,10 +120,11 @@ MOOSE = {   # rusty: warm chestnut, grizzled, dark tops to the pale stockings
          "snout": {"c": "#4a3220", "noise": 6, "front": "#1e140c", "top": "#6a4a30"}, "mane": {"c": "#3a2414", "noise": 12, "fringe": "#24160c"},
          "bell": {"c": "#2a1c14"}, "ear": {"c": "#3a2a1e"}, "leg": {"c": "#8a7660", "noise": 8, "top": "#3e2818"},
          "tail": {"c": "#3e2818"}}
-PRONG = {"body": {"c": "#c48a4c", "noise": 6, "belly": "#f2ece0", "back": "#f2ece0"},
-         "mane": {"c": "#c48a4c", "noise": 4, "side_rows": ["#c48a4c", "#f2ece0", "#c48a4c", "#c48a4c", "#f2ece0", "#f2ece0", "#c48a4c", "#c48a4c"]},
-         "head": {"c": "#c48a4c", "noise": 4, "side_eyes": "#0a0806", "eye_ring": "#f2ece0", "eye_row": 1, "bottom": "#f2ece0"},
-         "ear": {"c": "#b07a40", "back": "#2a2018"}, "leg": {"c": "#c8925a", "noise": 4}, "tail": {"c": "#f2ece0"}}
+PRONG = {   # vanilla-style fur: muted tan with lighter and darker hairs, cream (not pure white) underparts, darker legs below
+         "body": {"c": "#b8834e", "noise": 10, "grizzle": {"c": ["#d29c62", "#94683c"], "p": [0.18, 0.14]}, "belly": "#e8dcc6", "back": "#e8dcc6"},
+         "mane": {"c": "#b8834e", "noise": 8, "side_rows": ["#b8834e", "#e8dcc6", "#b8834e", "#a87644", "#e8dcc6", "#e8dcc6", "#b8834e", "#a87644"]},
+         "head": {"c": "#b07c48", "noise": 8, "side_eyes": "#0a0806", "eye_ring": "#e8dcc6", "eye_row": 1, "bottom": "#e8dcc6"},
+         "ear": {"c": "#a07040", "back": "#2a2018"}, "leg": {"c": "#b8844e", "noise": 9, "top": "#c8925a"}, "tail": {"c": "#e8dcc6"}}
 VARIANTS = {
     "elk": {"elk": dict(ELK, antler=CLEAR),
             "elk_bull": dict(ELK, mane={"c": "#24160c", "noise": 10, "fringe": "#160c06"}, antler={"c": "#c8b088", "noise": 12, "tip": {"c": "#efe6d0", "frac": 0.25}}),
@@ -132,8 +133,8 @@ VARIANTS = {
     "moose": {"moose": dict(MOOSE, antler=CLEAR),
               "moose_bull": dict(MOOSE, antler={"c": "#d0bc96", "noise": 12, "speckle": {"c": "#b8a27a", "p": 0.2}})},
     # one look for all adults (horned, dark-faced); fawns are hornless
-    "pronghorn": {"pronghorn_fawn": dict(PRONG, snout={"c": "#c48a4c", "front": "#3a2c20"}, horn=CLEAR),
-                  "pronghorn": dict(PRONG, snout={"c": "#2a2018", "noise": 4}, horn={"c": "#1a1816", "noise": 4})},
+    "pronghorn": {"pronghorn_fawn": dict(PRONG, snout={"c": "#b8834e", "noise": 6, "front": "#3a2c20"}, horn=CLEAR),
+                  "pronghorn": dict(PRONG, snout={"c": "#2a2018", "noise": 6}, horn={"c": "#1a1816", "noise": 6})},
     "grizzly_bear": {"grizzly_bear": {   # dark chocolate, pale muzzle and chest collar
         "body": {"c": "#3a2618", "noise": 8, "grizzle": {"c": ["#5a3e28", "#24180e"], "p": [0.2, 0.15]}, "front": "#8a6a48"},
         "head": {"c": "#4a3220", "noise": 6, "eyes": "#080504", "eye_white": "#ece8de", "eye_row": 3},

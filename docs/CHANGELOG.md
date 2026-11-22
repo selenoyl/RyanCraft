@@ -2,6 +2,41 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.8.0
+- **The moon's blocks, and a first look at the moon** (no portal yet; operators can visit with
+  `/execute in ryancraft:moon run tp @s 0 120 0`):
+  - Moon dust (falls like sand), moonstone with cobbled, polished, brick, cracked and chiseled versions, plus
+    stairs, slabs and walls.
+  - Deep moonstone below about y=32, like deepslate, with its own cobbled, polished and brick blocks.
+  - Meteor iron ore (and deep meteor iron ore) in the moon's caves. It glows faintly, so it shows in the dark.
+    Smelts from raw meteor iron to ingots, and makes blocks.
+  - The moon itself: rolling dusty plains over moonstone, down to bedrock at y=0, under a black sky with the
+    stars always out. Caves, wide old lava tubes and ravines run through the stone.
+- **Ender Terminal**: the search box is gone. A button in the corner sorts by name or by amount.
+- **Engines**: each engine animates on its own. Before, every engine drew with one engine's stroke, so they
+  skipped, unpowered engines pumped, and warm-up looked like full speed. Powering one engine no longer runs the
+  engine next to it.
+- **Pumps**:
+  - The screw pump drains a pool for real, BuildCraft-style: farthest and edge sources first, so a pond, lake or
+    patch of ocean empties slowly from the outside in. Flowing water alone gives nothing.
+  - Pumps only feed a fluid pipe that leads to a tank or other store.
+  - The screw stops where it is instead of snapping back, and its casing fills with what it's pumping.
+  - No more seeing through the world when a screw pump is against a wall.
+  - The hand pump's spout meets a fluid pipe cleanly.
+- **Pipes**: you can see the far wall and the creeper plates through a pipe's windows, the item looks right in
+  hand, and a pipe at the back of an Ender Terminal reaches it.
+- **Trees**:
+  - New bark for all fifteen species, built on the classic logs and browner.
+  - Planks have more shades.
+  - Classic-style planks for acacia, dark oak, mangrove, cherry, pale oak, bamboo, crimson and warped.
+  - Our trees no longer grow by deserts, badlands, savannas or jungles (no more sycamores on desert riverbanks).
+- `/weather duststorm [duration]`, and `/weather clear` ends a dust storm.
+- Pronghorns, deer, squirrels, chipmunks and turkeys no longer bolt comically fast when hit.
+- The pronghorn has a more vanilla-style coat.
+- Jellyfish only live in warm and lukewarm oceans.
+- A placed lava bucket gives off light, and placed buckets' handles meet the rim.
+- The classic pack's giant mushroom stems were using the wrong texture.
+
 ## 1.7.0
 - **The price of an Ender Terminal**: end portal frames come from a stronghold, and taking one costs that stronghold.
   - Mine a frame with a Silk Touch diamond (or netherite) pickaxe and it drops itself. If it had an Eye of Ender
