@@ -35,7 +35,8 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * A fired clay cooking pot. Set it on a campfire (it settles into the flames), pour in water or milk, add up to six
+ * A cast-iron cooking pot. Set it over a campfire and it stands on an iron tripod, or, with solid blocks on two
+ * opposite sides (a fireplace), hangs from a crane bar between them. Pour in water or milk, add up to six
  * ingredients and let it simmer; then ladle portions out with bowls. Sneak with an empty hand to take back the last
  * thing you put in; an empty hand alone tells you what's in it.
  */
@@ -44,22 +45,39 @@ public class CookingPotBlock extends BaseEntityBlock {
         EMPTY, WATER, MILK, STEW, SOUP, CHOWDER, PORRIDGE;
         @Override public String getSerializedName() { return name().toLowerCase(); }
     }
-    public static final BooleanProperty SEATED = BooleanProperty.create("seated"), COOKING = BooleanProperty.create("cooking");
+    /** How the pot is held over a campfire: not at all, on a tripod, or hung from a bar between two blocks (a fireplace). */
+    public enum Support implements StringRepresentable {
+        NONE, TRIPOD, BAR_X, BAR_Z;
+        @Override public String getSerializedName() { return name().toLowerCase(); }
+    }
+    public static final EnumProperty<Support> SUPPORT = EnumProperty.create("support", Support.class);
+    public static final BooleanProperty COOKING = BooleanProperty.create("cooking");
     public static final EnumProperty<Fill> FILL = EnumProperty.create("fill", Fill.class);
-    private static final VoxelShape FREE = Block.box(2, 0, 2, 14, 11, 14), SEATED_SHAPE = Block.box(2, 0, 2, 14, 9, 14);
+    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 12, 14);
 
     public CookingPotBlock(Properties p) {
         super(p);
-        registerDefaultState(stateDefinition.any().setValue(SEATED, false).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
+        registerDefaultState(stateDefinition.any().setValue(SUPPORT, Support.NONE).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
     }
 
     @Override protected MapCodec<? extends BaseEntityBlock> codec() { return simpleCodec(CookingPotBlock::new); }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SEATED, COOKING, FILL); }
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SUPPORT, COOKING, FILL); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
-    @Override protected VoxelShape getShape(BlockState s, BlockGetter l, BlockPos p, CollisionContext c) { return s.getValue(SEATED) ? SEATED_SHAPE : FREE; }
+    @Override protected VoxelShape getShape(BlockState s, BlockGetter l, BlockPos p, CollisionContext c) { return SHAPE; }
     @Override public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new CookingPotBlockEntity(pos, state); }
 
     static boolean onCampfire(LevelReader level, BlockPos pos) { return level.getBlockState(pos.below()).getBlock() instanceof CampfireBlock; }
+
+    /** Over a campfire: a bar if there are solid blocks on two opposite sides to hang it from, otherwise a tripod. */
+    static Support supportFor(LevelReader level, BlockPos pos) {
+        if (!onCampfire(level, pos)) return Support.NONE;
+        if (solid(level, pos, Direction.EAST) && solid(level, pos, Direction.WEST)) return Support.BAR_X;
+        if (solid(level, pos, Direction.NORTH) && solid(level, pos, Direction.SOUTH)) return Support.BAR_Z;
+        return Support.TRIPOD;
+    }
+    private static boolean solid(LevelReader level, BlockPos pos, Direction d) {
+        BlockPos n = pos.relative(d); return level.getBlockState(n).isFaceSturdy(level, n, d.getOpposite());
+    }
     static boolean heated(LevelReader level, BlockPos pos) {
         BlockState b = level.getBlockState(pos.below());
         return b.getBlock() instanceof CampfireBlock && b.getValue(CampfireBlock.LIT);
@@ -67,12 +85,12 @@ public class CookingPotBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return defaultBlockState().setValue(SEATED, onCampfire(ctx.getLevel(), ctx.getClickedPos()));
+        return defaultBlockState().setValue(SUPPORT, supportFor(ctx.getLevel(), ctx.getClickedPos()));
     }
 
     @Override
     protected BlockState updateShape(BlockState s, LevelReader level, ScheduledTickAccess t, BlockPos pos, Direction dir, BlockPos np, BlockState ns, RandomSource r) {
-        return dir == Direction.DOWN ? s.setValue(SEATED, onCampfire(level, pos)) : s;
+        return s.setValue(SUPPORT, supportFor(level, pos));
     }
 
     @Override
@@ -121,7 +139,7 @@ public class CookingPotBlock extends BaseEntityBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource r) {
         if (!state.getValue(COOKING)) return;
-        double y = pos.getY() + (state.getValue(SEATED) ? 0.6 : 0.7);
+        double y = pos.getY() + 0.75;
         level.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5 + (r.nextDouble() - 0.5) * 0.4, y, pos.getZ() + 0.5 + (r.nextDouble() - 0.5) * 0.4, 0, 0.04, 0);
         if (r.nextInt(8) == 0) level.playLocalSound(pos, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS, 0.3f, 1.2f, false);
     }

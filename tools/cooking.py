@@ -15,6 +15,7 @@ FILLS = {   # base colour, fleck colour
     "stew": ((112, 64, 34), (168, 104, 52)), "soup": ((106, 140, 52), (170, 196, 80)),
     "chowder": ((222, 206, 162), (246, 232, 190)), "porridge": ((198, 170, 112), (232, 208, 150))}
 KINDS = ["stew", "soup", "chowder", "porridge"]
+SUPPORTS = ["none", "tripod", "bar_x", "bar_z"]
 
 def fill_tex(name):
     base, fleck = FILLS[name]; r = random.Random(name); im = Image.new("RGBA", (16, 16)); px = im.load()
@@ -24,22 +25,48 @@ def fill_tex(name):
             k = 0.92 + 0.12 * r.random(); px[x, y] = tuple(min(255, int(v * k)) for v in c) + (255,)
     im.save(os.path.join(B, f"cooking_pot_{name}.png"))
 
-def pot_model(seated, fill):
-    dy = -2 if seated else 0                                     # over a campfire it sinks into the flames a little
-    el = lambda f, t, faces: {"from": [f[0], f[1] + dy, f[2]], "to": [t[0], t[1] + dy, t[2]], "faces": {d: {"texture": "#pot"} for d in faces}}
-    els = [el([3, 0, 3], [13, 9, 13], ("north", "south", "east", "west", "down")),            # the belly
-           el([2, 9, 2], [14, 11, 3], ("north", "south", "east", "west", "up", "down")),     # the rim, four sides
-           el([2, 9, 13], [14, 11, 14], ("north", "south", "east", "west", "up", "down")),
-           el([2, 9, 3], [3, 11, 13], ("north", "south", "east", "west", "up", "down")),
-           el([13, 9, 3], [14, 11, 13], ("north", "south", "east", "west", "up", "down")),
-           el([0.5, 6, 7], [3, 7.5, 9], ("north", "south", "east", "west", "up", "down")),   # lugs
-           el([13, 6, 7], [15.5, 7.5, 9], ("north", "south", "east", "west", "up", "down"))]
-    tex = {"particle": "ryancraft:block/clay_pot", "pot": "ryancraft:block/clay_pot"}
+def iron_tex():
+    """Cast iron: dark, faintly mottled, with a few bright grains."""
+    r = random.Random(7); im = Image.new("RGBA", (16, 16)); px = im.load()
+    for y in range(16):
+        for x in range(16):
+            v = 44 + r.randrange(12) + (18 if r.random() < 0.04 else 0)
+            px[x, y] = (v, v, v + 6, 255)
+    im.save(os.path.join(B, "cooking_pot.png"))
+
+SIDES = ("north", "south", "east", "west")
+def box(f, t, faces=SIDES + ("up", "down"), tex="#iron", rot=None):
+    e = {"from": f, "to": t, "faces": {d: {"texture": tex} for d in faces}}
+    if rot: e["rotation"] = rot
+    return e
+
+def pot_model(support, fill):
+    """A little cast-iron cauldron on three stub feet. Over a campfire it hangs by its bail from a chain: from the top of
+    an iron tripod (legs splayed out over the fire), or from a crane bar spanning to the blocks either side."""
+    els = [box([3, 1, 3], [13, 9, 13], SIDES + ("down",)),                     # the belly
+           box([2, 3, 2], [14, 8, 14], SIDES),                                 # its bulge
+           box([2.5, 9, 2.5], [13.5, 11, 3.5]), box([2.5, 9, 12.5], [13.5, 11, 13.5]),      # the rim
+           box([2.5, 9, 3.5], [3.5, 11, 12.5]), box([12.5, 9, 3.5], [13.5, 11, 12.5]),
+           box([4, 0, 4], [5, 1, 5]), box([11, 0, 4], [12, 1, 5]), box([7.5, 0, 11], [8.5, 1, 12])]   # feet
+    tex = {"particle": "ryancraft:block/cooking_pot", "iron": "ryancraft:block/cooking_pot"}
     if fill != "empty":
-        els.append({"from": [3, 8 + dy, 3], "to": [13, 8 + dy, 13], "faces": {"up": {"texture": "#fill"}}})
+        els.append({"from": [3.5, 8.5, 3.5], "to": [12.5, 8.5, 12.5], "faces": {"up": {"texture": "#fill"}}})
         tex["fill"] = f"ryancraft:block/cooking_pot_{fill}"
     else:
-        els.append({"from": [3, 1 + dy, 3], "to": [13, 1 + dy, 13], "faces": {"up": {"texture": "#pot"}}})        # the inside floor
+        els.append({"from": [3.5, 2, 3.5], "to": [12.5, 2, 12.5], "faces": {"up": {"texture": "#iron"}}})
+    if support != "none":
+        els += [box([2, 10, 7.75], [2.5, 13.5, 8.25]), box([13.5, 10, 7.75], [14, 13.5, 8.25]),   # the bail
+                box([2, 13.5, 7.75], [14, 14, 8.25])]
+        top = 18 if support == "tripod" else 17
+        els.append(box([7.6, 14, 7.6], [8.4, top, 8.4]))                                          # the chain
+    if support == "tripod":
+        leg = lambda axis, ang: box([7.5, -16, 7.5], [8.5, 18, 8.5], rot={"origin": [8, 18, 8], "axis": axis, "angle": ang})
+        els += [leg("z", 22.5), leg("z", -22.5), leg("x", 22.5)]
+        els.append(box([7, 17.5, 7], [9, 19, 9]))                                                 # the lashing at the top
+    elif support == "bar_x":
+        els.append(box([0, 17, 7.5], [16, 18, 8.5]))
+    elif support == "bar_z":
+        els.append(box([7.5, 17, 0], [8.5, 18, 16]))
     return {"parent": "minecraft:block/block", "ambientocclusion": False, "textures": tex, "elements": els}
 
 def meal_tex(kind):
@@ -51,10 +78,6 @@ def meal_tex(kind):
     for x, y in spots:
         if y >= 9: po[x, y] = pal[0] + (255,)                          # the far side of the bowl, in shadow
     out.save(os.path.join(I, f"meal_{kind}.png"))
-
-def unfired():
-    im = Image.open(os.path.join(I, "unfired_clay_pot.png")).convert("RGBA")
-    im.save(os.path.join(I, "unfired_cooking_pot.png"))
 
 def short(name):
     for p in ("Raw ", "Cooked ", "Roast ", "Baked ", "Shelled "): name = name.replace(p, "")
@@ -69,7 +92,7 @@ VANILLA = {"apple": "Apple", "bread": "Bread", "porkchop": "Pork", "cooked_porkc
            "spider_eye": "Spider", "poisonous_potato": "Bad Potato", "golden_apple": "Golden Apple"}
 
 def lang_entries():
-    out = {"block.ryancraft.cooking_pot": "Cooking Pot", "item.ryancraft.unfired_cooking_pot": "Unfired Cooking Pot", "item.ryancraft.meal": "Meal",
+    out = {"block.ryancraft.cooking_pot": "Cooking Pot", "item.ryancraft.meal": "Meal",
            "item.ryancraft.meal.stew": "%s Stew", "item.ryancraft.meal.soup": "%s Soup", "item.ryancraft.meal.chowder": "%s Chowder",
            "item.ryancraft.meal.porridge": "%s Porridge", "item.ryancraft.meal.made_with": "Made with:",
            "block.ryancraft.cooking_pot.empty": "The pot is empty: pour in water or milk",
@@ -87,24 +110,21 @@ def build():
     W = M.w
     for f in FILLS: fill_tex(f)
     for k in KINDS: meal_tex(k)
-    unfired()
-    for seated in (False, True):
+    iron_tex()
+    for sup in SUPPORTS:
         for f in ["empty"] + list(FILLS):
-            W(f"assets/ryancraft/models/block/cooking_pot{'_seated' if seated else ''}_{f}.json", pot_model(seated, f))
-    W("assets/ryancraft/blockstates/cooking_pot.json", {"variants": {f"cooking={c},fill={f},seated={str(s).lower()}": {"model": f"ryancraft:block/cooking_pot{'_seated' if s else ''}_{f}"}
-        for c in ("false", "true") for f in ["empty"] + list(FILLS) for s in (False, True)}})
-    W("assets/ryancraft/items/cooking_pot.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/cooking_pot_empty"}})
-    W("assets/ryancraft/models/item/unfired_cooking_pot.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/unfired_cooking_pot"}})
-    W("assets/ryancraft/items/unfired_cooking_pot.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/unfired_cooking_pot"}})
+            W(f"assets/ryancraft/models/block/cooking_pot_{sup}_{f}.json", pot_model(sup, f))
+    W("assets/ryancraft/blockstates/cooking_pot.json", {"variants": {f"cooking={c},fill={f},support={sup}": {"model": f"ryancraft:block/cooking_pot_{sup}_{f}"}
+        for c in ("false", "true") for f in ["empty"] + list(FILLS) for sup in SUPPORTS}})
+    W("assets/ryancraft/items/cooking_pot.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/cooking_pot_none_empty"}})
     for k in KINDS: W(f"assets/ryancraft/models/item/meal_{k}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/meal_{k}"}})
     W("assets/ryancraft/items/meal.json", {"model": {"type": "minecraft:select", "property": "minecraft:custom_model_data", "index": 0,
         "cases": [{"when": k, "model": {"type": "minecraft:model", "model": f"ryancraft:item/meal_{k}"}} for k in KINDS],
         "fallback": {"type": "minecraft:model", "model": "ryancraft:item/meal_stew"}}})
     W("data/ryancraft/loot_table/blocks/cooking_pot.json", M.drops("cooking_pot"))
-    W("data/ryancraft/recipe/unfired_cooking_pot.json", {"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["C C", "C C", "CCC"],
-        "key": {"C": "minecraft:clay_ball"}, "result": {"id": "ryancraft:unfired_cooking_pot", "count": 1}})
-    W("data/ryancraft/recipe/cooking_pot.json", {"type": "minecraft:smelting", "category": "misc", "ingredient": "ryancraft:unfired_cooking_pot",
-        "result": {"id": "ryancraft:cooking_pot"}, "experience": 0.3, "cookingtime": 200})
+    W("data/ryancraft/recipe/cooking_pot.json", {"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["I I", "I I", "III"],
+        "key": {"I": "minecraft:iron_ingot"}, "result": {"id": "ryancraft:cooking_pot", "count": 1}})
+    M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:cooking_pot"])
 
 if __name__ == "__main__":
     build()

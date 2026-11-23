@@ -20,20 +20,19 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-/** Vintage Story style cooking: the clay cooking pot on a campfire, and the free-form meals it makes. Assets: tools/cooking.py. */
+/** Vintage Story style cooking: the cast-iron cooking pot over a campfire, and the free-form meals it makes. Assets: tools/cooking.py. */
 public final class Cooking {
     public static final DataComponentType<Meal> MEAL_DATA = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, RyanCraft.id("meal"),
             DataComponentType.<Meal>builder().persistent(Meal.CODEC).networkSynchronized(Meal.STREAM_CODEC).build());
     public static final Block COOKING_POT;
-    public static final Item COOKING_POT_ITEM, UNFIRED_COOKING_POT, MEAL;
+    public static final Item COOKING_POT_ITEM, MEAL;
     public static final BlockEntityType<CookingPotBlockEntity> POT_ENTITY;
 
     static {
         ResourceKey<Block> bk = ResourceKey.create(Registries.BLOCK, RyanCraft.id("cooking_pot"));
-        COOKING_POT = Registry.register(BuiltInRegistries.BLOCK, bk, new CookingPotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_ORANGE)
-                .strength(0.8f).sound(SoundType.DECORATED_POT).noOcclusion().pushReaction(PushReaction.DESTROY).setId(bk)));
+        COOKING_POT = Registry.register(BuiltInRegistries.BLOCK, bk, new CookingPotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
+                .requiresCorrectToolForDrops().strength(2.0f).sound(SoundType.LANTERN).noOcclusion().pushReaction(PushReaction.DESTROY).setId(bk)));
         COOKING_POT_ITEM = item("cooking_pot", p -> new BlockItem(COOKING_POT, p), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
-        UNFIRED_COOKING_POT = item("unfired_cooking_pot", Item::new, new Item.Properties().stacksTo(16));
         MEAL = item("meal", MealItem::new, new Item.Properties().stacksTo(1).food(new FoodProperties(6, 7.2f, false)).usingConvertsTo(Items.BOWL));
         POT_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("cooking_pot"),
                 FabricBlockEntityTypeBuilder.create(CookingPotBlockEntity::new, COOKING_POT).build());
@@ -46,7 +45,6 @@ public final class Cooking {
 
     public static void init() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(e -> e.accept(COOKING_POT_ITEM));
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> e.accept(UNFIRED_COOKING_POT));
     }
 
     private Cooking() {}

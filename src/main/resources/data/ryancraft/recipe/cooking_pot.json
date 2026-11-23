@@ -1,10 +1,16 @@
 {
-  "type": "minecraft:smelting",
+  "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "ingredient": "ryancraft:unfired_cooking_pot",
-  "result": {
-    "id": "ryancraft:cooking_pot"
+  "pattern": [
+    "I I",
+    "I I",
+    "III"
+  ],
+  "key": {
+    "I": "minecraft:iron_ingot"
   },
-  "experience": 0.3,
-  "cookingtime": 200
+  "result": {
+    "id": "ryancraft:cooking_pot",
+    "count": 1
+  }
 }
