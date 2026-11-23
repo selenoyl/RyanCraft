@@ -57,6 +57,9 @@ public class RyanCraftClient implements ClientModInitializer {
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.storage.RyanStorage.POT_MENU, com.ryancraft.client.screen.PotScreen::new);
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, view, pos, tint) ->      // the pot's liquid colour
                 tint == 0 ? 0xFF000000 | com.ryancraft.food.PotColour.RGB[state.getValue(com.ryancraft.food.CookingPotBlock.TINT)] : -1, com.ryancraft.food.Cooking.COOKING_POT);
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, view, pos, tint) ->      // each set-down bowl's meal colour
+                view != null && pos != null && view.getBlockEntity(pos) instanceof com.ryancraft.food.MealBowlsBlockEntity be ? 0xFF000000 | be.colour(tint) : -1,
+                com.ryancraft.food.Cooking.MEAL_BOWLS);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.food.CampfireFuel.MENU, com.ryancraft.client.screen.CampfireScreen::new);
         // Pipes, engines, tanks and the Ender Terminal
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.DIAMOND_MENU, com.ryancraft.client.pipes.DiamondPipeScreen::new);

@@ -154,7 +154,8 @@ clusters like vanilla's fancy oak. Still to do:
 
 ## Food
 - **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals. Built so far: the cast-iron
-  cooking pot (campfire, tripod or fireplace) and free-form meals; campfires burn fuel.
+  cooking pot (campfire, tripod or fireplace) and free-form meals, set down in bowls up to four to a block;
+  campfires burn fuel.
 - ~~**More crops**~~ (built): tomatoes, peppers, corn, squash, cabbage, onions, beans and rice, each growing only in
   its own seasons outdoors in temperate lands (greenhouses get round it). Seeds turn up when breaking grass.
 - **More foods** to go with them: stews, soups, pies, roasts, sandwiches, plus dishes built on our game (venison,

@@ -124,8 +124,31 @@ VANILLA = {"apple": "Apple", "bread": "Bread", "porkchop": "Pork", "cooked_porkc
            "pumpkin": "Pumpkin", "pumpkin_pie": "Pumpkin", "cookie": "Cookie", "honey_bottle": "Honey", "chorus_fruit": "Chorus", "rotten_flesh": "Rotten",
            "spider_eye": "Spider", "poisonous_potato": "Bad Potato", "golden_apple": "Golden Apple"}
 
+BOWL_SPOTS = {1: [(8, 8)], 2: [(4.5, 8), (11.5, 8)], 3: [(4.5, 4.5), (11.5, 4.5), (8, 11.5)], 4: [(4.5, 4.5), (11.5, 4.5), (4.5, 11.5), (11.5, 11.5)]}
+
+def bowl_wood():
+    """Turned wood for the set-down bowls, in the classic bowl's browns."""
+    r = random.Random(13); im = Image.new("RGBA", (16, 16)); px = im.load()
+    for y in range(16):
+        for x in range(16):
+            base = (112, 72, 32) if (y // 2) % 2 else (128, 84, 40)
+            k = 0.9 + 0.2 * r.random(); px[x, y] = tuple(int(v * k) for v in base) + (255,)
+    im.save(os.path.join(B, "meal_bowl_wood.png"))
+
+def bowls_model(n):
+    """n wooden bowls, each with its meal's surface tinted by its own tint index (the block colour reads each bowl's meal)."""
+    els = []
+    for i, (x, z) in enumerate(BOWL_SPOTS[n]):
+        els += [box([x - 1.5, 0, z - 1.5], [x + 1.5, 0.5, z + 1.5], tex="#wood"),                     # foot
+                box([x - 2.5, 0.5, z - 2.5], [x + 2.5, 2.5, z - 1.5], tex="#wood"), box([x - 2.5, 0.5, z + 1.5], [x + 2.5, 2.5, z + 2.5], tex="#wood"),
+                box([x - 2.5, 0.5, z - 1.5], [x - 1.5, 2.5, z + 1.5], tex="#wood"), box([x + 1.5, 0.5, z - 1.5], [x + 2.5, 2.5, z + 1.5], tex="#wood"),
+                box([x - 1.5, 0.5, z - 1.5], [x + 1.5, 1, z + 1.5], ("down",), tex="#wood"),
+                {"from": [x - 1.5, 2, z - 1.5], "to": [x + 1.5, 2, z + 1.5], "faces": {"up": {"texture": "#meal", "tintindex": i}}}]
+    return {"parent": "minecraft:block/block", "ambientocclusion": False, "elements": els,
+            "textures": {"particle": "ryancraft:block/meal_bowl_wood", "wood": "ryancraft:block/meal_bowl_wood", "meal": "ryancraft:block/cooking_pot_liquid"}}
+
 def lang_entries():
-    out = {"block.ryancraft.cooking_pot": "Cooking Pot", "item.ryancraft.meal": "Meal",
+    out = {"block.ryancraft.cooking_pot": "Cooking Pot", "block.ryancraft.meal_bowls": "Meals", "item.ryancraft.meal": "Meal",
            "item.ryancraft.meal.stew": "%s Stew", "item.ryancraft.meal.soup": "%s Soup", "item.ryancraft.meal.chowder": "%s Chowder",
            "item.ryancraft.meal.porridge": "%s Porridge", "item.ryancraft.meal.made_with": "Made with:",
            "block.ryancraft.cooking_pot.empty": "The pot is empty: pour in water or milk",
@@ -148,7 +171,10 @@ def build():
     W = M.w
     liquid_tex()
     for k in KINDS: meal_tex(k)
-    iron_tex()
+    iron_tex(); bowl_wood()
+    for n in BOWL_SPOTS: W(f"assets/ryancraft/models/block/meal_bowls_{n}.json", bowls_model(n))
+    W("assets/ryancraft/blockstates/meal_bowls.json", {"variants": {f"bowls={n}": {"model": f"ryancraft:block/meal_bowls_{n}"} for n in BOWL_SPOTS}})
+    W("data/ryancraft/loot_table/blocks/meal_bowls.json", {"type": "minecraft:block", "pools": []})          # the meals drop from the block entity
     for sup in SUPPORTS:
         for f in ["empty"] + list(FILLS):
             W(f"assets/ryancraft/models/block/cooking_pot_{sup}_{f}.json", pot_model(sup, f))

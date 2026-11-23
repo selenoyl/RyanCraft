@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "bowls=1": {
+      "model": "ryancraft:block/meal_bowls_1"
+    },
+    "bowls=2": {
+      "model": "ryancraft:block/meal_bowls_2"
+    },
+    "bowls=3": {
+      "model": "ryancraft:block/meal_bowls_3"
+    },
+    "bowls=4": {
+      "model": "ryancraft:block/meal_bowls_4"
+    }
+  }
+}
