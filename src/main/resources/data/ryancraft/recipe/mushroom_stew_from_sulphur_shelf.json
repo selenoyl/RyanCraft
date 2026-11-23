@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "mushroom_stew",
+  "ingredients": [
+    "ryancraft:sulphur_shelf",
+    "ryancraft:sulphur_shelf",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "minecraft:mushroom_stew",
+    "count": 1
+  }
+}

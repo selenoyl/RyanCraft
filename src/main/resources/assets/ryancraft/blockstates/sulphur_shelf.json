@@ -1,0 +1,49 @@
+{
+  "variants": {
+    "facing=north,shelves=1": {
+      "model": "ryancraft:block/sulphur_shelf_1"
+    },
+    "facing=north,shelves=2": {
+      "model": "ryancraft:block/sulphur_shelf_2"
+    },
+    "facing=north,shelves=3": {
+      "model": "ryancraft:block/sulphur_shelf_3"
+    },
+    "facing=east,shelves=1": {
+      "model": "ryancraft:block/sulphur_shelf_1",
+      "y": 90
+    },
+    "facing=east,shelves=2": {
+      "model": "ryancraft:block/sulphur_shelf_2",
+      "y": 90
+    },
+    "facing=east,shelves=3": {
+      "model": "ryancraft:block/sulphur_shelf_3",
+      "y": 90
+    },
+    "facing=south,shelves=1": {
+      "model": "ryancraft:block/sulphur_shelf_1",
+      "y": 180
+    },
+    "facing=south,shelves=2": {
+      "model": "ryancraft:block/sulphur_shelf_2",
+      "y": 180
+    },
+    "facing=south,shelves=3": {
+      "model": "ryancraft:block/sulphur_shelf_3",
+      "y": 180
+    },
+    "facing=west,shelves=1": {
+      "model": "ryancraft:block/sulphur_shelf_1",
+      "y": 270
+    },
+    "facing=west,shelves=2": {
+      "model": "ryancraft:block/sulphur_shelf_2",
+      "y": 270
+    },
+    "facing=west,shelves=3": {
+      "model": "ryancraft:block/sulphur_shelf_3",
+      "y": 270
+    }
+  }
+}

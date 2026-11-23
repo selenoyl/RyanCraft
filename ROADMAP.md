@@ -145,7 +145,7 @@ clusters like vanilla's fancy oak. Still to do:
 
 ## Blocks and backports
 - ~~**Concrete slabs and stairs**~~ (built): all sixteen colours, crafted or stonecut from concrete.
-- **Shelf mushrooms** (the newer shelf fungus that grows on tree trunks).
+- ~~**Shelf mushrooms**~~ (built): turkey tail and sulphur shelf, one to three shelves on forest tree trunks; they grow in the shade.
 - ~~**Ruby and sapphire**~~ (built): ore, gem and block. Rubies under deserts, badlands and savannas; sapphires under snowy lands.
 
 ## Villagers
