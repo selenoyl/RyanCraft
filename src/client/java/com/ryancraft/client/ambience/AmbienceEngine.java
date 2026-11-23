@@ -99,6 +99,7 @@ public final class AmbienceEngine {
             if (e.leaves > 30) wind *= 0.5f;
             wind = Math.min(wind, 0.85f);
         }
+        if (e.skylands) wind = e.leaves > 30 ? 0.35f : 0.55f + 0.15f * e.skyLight;   // the high wind never quite drops up here
         wind = Math.max(wind, com.ryancraft.client.DustStormClient.intensity);     // a dust storm howls
         loop(mc, e.snowy ? RyanSounds.WIND_HOWL : RyanSounds.WIND, wind * m, null);
         loop(mc, e.snowy ? RyanSounds.WIND : RyanSounds.WIND_HOWL, 0, null);
@@ -194,7 +195,7 @@ public final class AmbienceEngine {
         if (e.surface && e.day && (e.open || e.forest || e.taiga)) {
             if (maybe(mc, RyanSounds.CROW, 900, 2200, 16, 36, 4, 12, 0.35f, 0.6f, master)) shockGobble(mc);
         }
-        if (e.surface && calm && e.day && (e.mountain || e.desert || e.savanna || e.y > e.seaLevel + 45)) {
+        if (e.surface && calm && e.day && !e.skylands && (e.mountain || e.desert || e.savanna || e.y > e.seaLevel + 45)) {
             if (maybe(mc, RyanSounds.HAWK, 1200, 3000, 10, 30, 20, 35, 0.35f, 0.6f, master)) shockGobble(mc);
         }
         if (e.surface && e.day && (e.ocean || e.beach)) {
@@ -218,6 +219,14 @@ public final class AmbienceEngine {
             // The old-shaft stone slide: somewhere off in the dark, deeper down
             if (e.y < e.seaLevel - 10) maybe(mc, RyanSounds.STONE_SLIDE, 1800, 4800, 14, 36, -12, 6, 0.3f, 0.55f, master);
         }
+        // The Skylands: gusts, the creak and groan of floating rock below, distant roc cries from far above
+        if (e.skylands) {
+            maybePlayer(mc, RyanSounds.GUST, 140, 420, 0.4f, 0.7f, master);
+            maybePitched(mc, RyanSounds.STONE_SLIDE, 1400, 3600, 12, 30, -24, -6, 0.2f, 0.4f, master, 0.45f, 0.6f);
+            maybePitched(mc, RyanSounds.RUMBLE, 2400, 6000, 20, 40, -30, -10, 0.2f, 0.35f, master, 0.5f, 0.7f);
+            if (e.day) maybePitched(mc, RyanSounds.HAWK, 900, 2400, 30, 60, 12, 30, 0.3f, 0.5f, master, 0.5f, 0.62f);
+            return;
+        }
         // Gusts rolling over summits and high ground
         if (e.surface && (e.mountain || e.y > e.seaLevel + 35 || (e.thundering && e.skyLight > 0.8f))) {
             float g = e.thundering ? 0.8f : 0.55f;
@@ -240,6 +249,19 @@ public final class AmbienceEngine {
         float pitch = 0.9f + random.nextFloat() * 0.2f;
         mc.getSoundManager().play(new SimpleSoundInstance(event, SoundSource.AMBIENT, vol, pitch, random, x, y, z));
         return true;
+    }
+
+    /** Like {@link #maybe} with its own pitch range (deep roc cries, slow creaks of floating rock). */
+    private void maybePitched(Minecraft mc, SoundEvent event, int minGap, int maxGap, double minDist, double maxDist,
+                              double minUp, double maxUp, float minVol, float maxVol, float master, float minPitch, float maxPitch) {
+        int cd = cooldowns.getOrDefault(event, minGap / 2 + random.nextInt(Math.max(1, minGap)));
+        if (--cd > 0) { cooldowns.put(event, cd); return; }
+        cooldowns.put(event, minGap + random.nextInt(Math.max(1, maxGap - minGap)));
+        double angle = random.nextDouble() * Math.PI * 2, dist = minDist + random.nextDouble() * (maxDist - minDist);
+        Vec3 p = mc.player.position();
+        double y = mc.player.getEyeY() + minUp + random.nextDouble() * (maxUp - minUp);
+        mc.getSoundManager().play(new SimpleSoundInstance(event, SoundSource.AMBIENT, (minVol + random.nextFloat() * (maxVol - minVol)) * master,
+                minPitch + random.nextFloat() * (maxPitch - minPitch), random, p.x + Math.cos(angle) * dist, y, p.z + Math.sin(angle) * dist));
     }
 
     /** A sound that belongs to the player (a gust around you): not placed in the world. */

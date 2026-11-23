@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 
 /** A snapshot of what's around the player, sampled about once a second. */
 final class Surroundings {
-    boolean overworld, underground, submerged, surface;
+    boolean overworld, skylands, underground, submerged, surface;
     int y, seaLevel;
     boolean dawn, day, dusk, night;
     boolean raining, thundering, rainHere, snowy;
@@ -32,6 +32,7 @@ final class Surroundings {
         Level level = mc.level;
         BlockPos eye = BlockPos.containing(mc.player.getEyePosition());
         s.overworld = level.dimension() == Level.OVERWORLD;
+        s.skylands = level.dimension() == com.ryancraft.sky.Skylands.LEVEL;
         s.y = eye.getY();
         s.seaLevel = level.getSeaLevel();
         s.submerged = mc.player.isEyeInFluid(FluidTags.WATER);
@@ -95,7 +96,7 @@ final class Surroundings {
         if (s.stillWater > 0) s.waterCentre = new Vec3(wx / s.stillWater + .5, wy / s.stillWater + .5, wz / s.stillWater + .5);
 
         s.underground = s.overworld && s.skyLight < 0.2f && !level.canSeeSky(eye) && s.stone > 60 && s.y < s.seaLevel + 10;
-        s.surface = s.overworld && !s.underground && s.skyLight > 0.4f;
+        s.surface = (s.overworld && !s.underground || s.skylands) && s.skyLight > 0.4f;     // the Skylands is all surface
         return s;
     }
 }
