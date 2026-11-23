@@ -39,6 +39,7 @@ def recolour(src, pal, keep_wood=True):
         for x in range(im.width):
             c = px[x, y]
             if not c[3] or (keep_wood and not is_metal(c)): continue
+            if keep_wood and sum(c[:3]) / 3 >= 230: continue               # the white glints, as on vanilla's armour and tools
             t = (sum(c[:3]) / 3 - lo) / max(1, hi - lo); i = min(len(pal) - 2, int(t * (len(pal) - 1))); f = t * (len(pal) - 1) - i
             px[x, y] = tuple(int(pal[i][k] + (pal[i + 1][k] - pal[i][k]) * f) for k in range(3)) + (c[3],)
     return im
