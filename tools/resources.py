@@ -291,6 +291,7 @@ from money_changer import lang_entries as changer_lang; lang.update(changer_lang
 from cooking import lang_entries as cooking_lang; lang.update(cooking_lang())
 from crops import lang_entries as crops_lang; lang.update(crops_lang())
 from dishes import lang_entries as dishes_lang; lang.update(dishes_lang())
+from eggs import lang_entries as eggs_lang; lang.update(eggs_lang())
 from moon_portal import lang_entries as moonportal_lang; lang.update(moonportal_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

@@ -105,6 +105,17 @@ public final class RyanItems {
         egg("butterfly", RyanEntities.BUTTERFLY); egg("hummingbird", RyanEntities.HUMMINGBIRD); egg("pileated_woodpecker", RyanEntities.PILEATED_WOODPECKER); egg("bobwhite", RyanEntities.BOBWHITE); egg("box_turtle", RyanEntities.BOX_TURTLE); egg("rattlesnake", RyanEntities.RATTLESNAKE); egg("bullfrog", RyanEntities.BULLFROG); egg("alligator", RyanEntities.ALLIGATOR);
     }
 
+    /** One spawn egg per mudling kind (mudling_<kind>_spawn_egg); the plain mudling egg still picks the kind by biome. */
+    static {
+        for (com.ryancraft.entity.Mudling.Kind k : com.ryancraft.entity.Mudling.Kind.values()) {
+            net.minecraft.nbt.CompoundTag tag = new net.minecraft.nbt.CompoundTag();
+            tag.putInt("Kind", k.ordinal()); tag.putFloat("Health", (float) k.health);
+            SPAWN_EGGS.add(register("mudling_" + k.id + "_spawn_egg", net.minecraft.world.item.SpawnEggItem::new, new Item.Properties()
+                    .spawnEgg(RyanEntities.MUDLING).component(net.minecraft.core.component.DataComponents.ENTITY_DATA,
+                            net.minecraft.world.item.component.TypedEntityData.of(RyanEntities.MUDLING, tag))));
+        }
+    }
+
     private static void egg(String mob, EntityType<?> type) {
         SPAWN_EGGS.add(register(mob + "_spawn_egg", net.minecraft.world.item.SpawnEggItem::new, new Item.Properties().spawnEgg(type)));
     }
