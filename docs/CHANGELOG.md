@@ -2,6 +2,37 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.0
+- **The Skylands**, a floating-island dimension: a glowstone portal lit with water, cloud-strata skystone, the sky
+  willow, zephyrite ore, tools and armour (boots stop fall damage; the full set glides on sneak), springs and
+  waterfalls, zephyr vent updrafts, four sky flowers, and clouds drifting just below the islands. Animals: pegasus
+  (white or grey, jumps twice as high and glides; breeds with horses into winged hybrids), cloud sheep, sky rays and
+  sky rocs, which nest on high islands and can be raised from an egg and ridden. Its own high-wind ambience. No seasons.
+- **The moon**, reached through a jade portal on a full moon: low gravity, no air (Potion of Air, force fields,
+  gravity wells), moon rabbits, herbs, lantern moths, dust drifters, crater crabs, lost spacemen, falling meteors and
+  jade temples guarded by the Great Moon Rabbit, a boss that drops the jade crown and the Moon Mortar and opens the
+  way home. Moon cakes. New moon stone and meteor iron textures drawn from scratch.
+- **Metals**: silver, lead, tin, zinc, aluminum and uranium, each with ores, raw metal, ingots, nuggets, blocks and a
+  chiseled block of its own. Silver tarnishes through four stages (wax it to keep it shiny). Leaded glass in 17
+  colours and two patterns; lead tools and armour; meteor iron gear on par with diamond. Every metal block works in
+  a beacon.
+- **Gems**: jade, ruby and sapphire, with ores, blocks, and jade and lapis bricks.
+- **Regional currency**: desert and savanna villagers trade in rubies, snowy villagers in sapphires, the rest in
+  emeralds; the new Money Changer villager (job site: the Coin Scale) swaps one for another, five for four.
+- **Mudlings**: little biome soldiers of mud, sand, snow and more, with camps, dye teams, battles and level-ups.
+- **Cooking**: a cast-iron cooking pot, over a campfire on a tripod, hung from a crane bar in a fireplace, or set
+  right in the fire. Pour in water or milk, add up to six ingredients, and once it comes to the boil it simmers into
+  portions of a meal named for its main ingredient (stew, soup, chowder or porridge); the pot shows its colour and
+  bubbles. Meals can be set down in bowls, up to four to a block.
+- **Campfires burn fuel**, from a furnace-style menu, and go out when it runs dry.
+- **Seasonal crops**: tomatoes, peppers, corn, squash, cabbage, onions, beans and rice, each growing only in its own
+  seasons outdoors (greenhouses get round it), and dishes from them: roasted corn, baked squash, stuffed peppers,
+  cabbage rolls, sandwiches, garden salad and cornbread.
+- **Combat**: old combat (no attack cooldown; config `oldCombat`), cannons with six kinds of shot, and muskets.
+- **Special chests**: obsidian (blast-proof), diamond (54 slots, see-through) and lead glass.
+- **More**: concrete stairs and slabs, shelf mushrooms on tree trunks, new bark patterns, and eight new eastern
+  forest biomes placed in-house (TerraBlender is no longer needed).
+
 ## 1.8.0
 - **The moon's blocks, and a first look at the moon** (no portal yet; operators can visit with
   `/execute in ryancraft:moon run tp @s 0 120 0`):
