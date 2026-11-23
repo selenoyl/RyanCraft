@@ -10,7 +10,9 @@ ITEMS = [("Moon Dust", "block/moon_dust"), ("Moonstone", "block/moonstone"), ("C
          ("Cobbled Deep Moonstone", "block/cobbled_deep_moonstone"), ("Polished Deep Moonstone", "block/polished_deep_moonstone"),
          ("Deep Moonstone Bricks", "block/deep_moonstone_bricks"), ("Deep Meteor Iron Ore", "block/deep_meteor_iron_ore"),
          ("Block of Raw Meteor Iron", "block/raw_meteor_iron_block"), ("Block of Meteor Iron", "block/meteor_iron_block"),
-         ("Raw Meteor Iron", "item/raw_meteor_iron"), ("Meteor Iron Ingot", "item/meteor_iron_ingot")]
+         ("Raw Meteor Iron", "item/raw_meteor_iron"), ("Meteor Iron Ingot", "item/meteor_iron_ingot"),
+         ("Jade Ore", "block/jade_ore"), ("Deepslate Jade Ore", "block/deepslate_jade_ore"), ("Moonstone Jade Ore", "block/moonstone_jade_ore"),
+         ("Deep Moonstone Jade Ore", "block/deep_moonstone_jade_ore"), ("Block of Jade", "block/jade_block"), ("Jade", "item/jade")]
 
 def font(sz, bold=False):
     for f in (["/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"] if bold else ["/usr/share/fonts/opentype/inter/Inter-Regular.otf"]) + ["/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]:

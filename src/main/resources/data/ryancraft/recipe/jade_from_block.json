@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:jade_block"
+  ],
+  "result": {
+    "id": "ryancraft:jade",
+    "count": 9
+  }
+}

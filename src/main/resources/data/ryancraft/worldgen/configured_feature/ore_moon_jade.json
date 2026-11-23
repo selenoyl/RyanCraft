@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "size": 4,
+    "discard_chance_on_air_exposure": 0.0,
+    "targets": [
+      {
+        "state": {
+          "Name": "ryancraft:moonstone_jade_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "ryancraft:moonstone"
+        }
+      },
+      {
+        "state": {
+          "Name": "ryancraft:deep_moonstone_jade_ore"
+        },
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "ryancraft:deep_moonstone"
+        }
+      }
+    ]
+  }
+}

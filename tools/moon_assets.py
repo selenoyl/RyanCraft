@@ -17,8 +17,11 @@ LANG = {"moon_dust": "Moon Dust", "moonstone": "Moonstone", "cobbled_moonstone":
         "moonstone_brick_stairs": "Moonstone Brick Stairs", "moonstone_brick_slab": "Moonstone Brick Slab", "moonstone_brick_wall": "Moonstone Brick Wall",
         "meteor_iron_ore": "Meteor Iron Ore", "deep_moonstone": "Deep Moonstone", "cobbled_deep_moonstone": "Cobbled Deep Moonstone",
         "polished_deep_moonstone": "Polished Deep Moonstone", "deep_moonstone_bricks": "Deep Moonstone Bricks", "deep_meteor_iron_ore": "Deep Meteor Iron Ore", "raw_meteor_iron_block": "Block of Raw Meteor Iron", "meteor_iron_block": "Block of Meteor Iron"}
-EXTRA_LANG = {"block.ryancraft.bed.no_sleep_moon": "You can't sleep on the moon", "biome.ryancraft.moon": "The Moon"}
-ITEM_LANG = {"raw_meteor_iron": "Raw Meteor Iron", "meteor_iron_ingot": "Meteor Iron Ingot"}
+JADE_LANG = {"jade_ore": "Jade Ore", "deepslate_jade_ore": "Deepslate Jade Ore", "moonstone_jade_ore": "Moonstone Jade Ore",
+             "deep_moonstone_jade_ore": "Deep Moonstone Jade Ore", "jade_block": "Block of Jade"}
+LANG.update(JADE_LANG)
+EXTRA_LANG = {"item.ryancraft.jade": "Jade", "block.ryancraft.bed.no_sleep_moon": "You can't sleep on the moon", "biome.ryancraft.moon": "The Moon"}
+ITEM_LANG = {"raw_meteor_iron": "Raw Meteor Iron", "meteor_iron_ingot": "Meteor Iron Ingot", "jade": "Jade"}
 
 def lang_entries():
     out = {f"block.ryancraft.{k}": v for k, v in LANG.items()}; out.update({f"item.ryancraft.{k}": v for k, v in ITEM_LANG.items()}); out.update(EXTRA_LANG); return out
@@ -422,6 +425,32 @@ def flow_basalt(seed, dark, light):
         for k in range(1, l - 1): px[(x + k) % 16, (y + 1) % 16] = shade_px(px[(x + k) % 16, (y + 1) % 16], 1.3)
     return img
 
+
+# ---------------------------------------------------------------- jade
+JADE_SHADOW, JADE_BODY, JADE_SHINE, JADE_GLINT = (30, 90, 56), (64, 146, 94), (138, 208, 152), (212, 246, 216)
+
+def jade_gem():
+    """A polished jade cabochon: a rounded green stone, mottled, with a soft highlight and a dark outline."""
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load(); n = vnoise(77, 4); r = random.Random(78)
+    inside = lambda x, y: ((x - 7.5) / 5.6) ** 2 + ((y - 8.0) / 4.6) ** 2 < 1
+    for y in range(16):
+        for x in range(16):
+            if not inside(x, y): continue
+            edge = not all(inside(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            light = 0.55 - ((x - 7.5) * 0.7 + (y - 8) * 1.1) / 12 + (n[y][x] - 0.5) * 0.35
+            t = max(0, min(1, light))
+            c = tuple(int(JADE_SHADOW[k] + (JADE_SHINE[k] - JADE_SHADOW[k]) * t) for k in range(3))
+            px[x, y] = (16, 48, 30, 255) if edge else c + (255,)
+    for x, y in ((5, 5), (6, 5), (5, 6)): px[x, y] = JADE_GLINT + (255,)
+    return img
+
+def jade_block_tex(cb):
+    """The green cousin of the lapis block: the classic lapis block's tiles, in mottled jade greens."""
+    img = mapped(cb("lapis_block"), (34, 98, 60), (128, 200, 146)); px = img.load(); n = vnoise(79, 4)
+    for y in range(16):
+        for x in range(16): px[x, y] = shade_px(px[x, y], 0.92 + 0.16 * n[y][x])
+    return img
+
 def textures():
     b, i = os.path.join(TEX, "block"), os.path.join(TEX, "item")
     cb = lambda n: os.path.join(CLASSIC, "block", n + ".png")
@@ -453,6 +482,16 @@ def textures():
     laths(rock(55, (56, 58, 68), (92, 94, 106), 0.12), 56, (140, 146, 162), 5).save(os.path.join(b, "polished_deep_moonstone.png"))
     vesicles(tiles(rock(57, *BASALT, 0.2), 8, (124, 126, 136), (34, 34, 40), (22, 22, 28)), 58, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_bricks.png"))
     ore(deep, dt("deepslate"), dt("deepslate_iron_ore"), (60, 62, 70), (118, 122, 134), (190, 196, 212), (232, 240, 255), 17).save(os.path.join(b, "deep_meteor_iron_ore.png"))
+    # jade: green nuggets in each stone, the gem, and its block
+    jade = (JADE_SHADOW, JADE_BODY, JADE_SHINE, JADE_GLINT)
+    stone_c = Image.open(cb("stone")).convert("RGBA")
+    ore(stone_c, cb("stone"), cb("lapis_ore"), *jade, 80).save(os.path.join(b, "jade_ore.png"))
+    deepslate_v = Image.open(dt("deepslate")).convert("RGBA")
+    ore(deepslate_v, dt("deepslate"), dt("deepslate_lapis_ore"), *jade, 81).save(os.path.join(b, "deepslate_jade_ore.png"))
+    ore(ms, cb("stone"), cb("lapis_ore"), *jade, 82).save(os.path.join(b, "moonstone_jade_ore.png"))
+    ore(deep, dt("deepslate"), dt("deepslate_lapis_ore"), *jade, 83).save(os.path.join(b, "deep_moonstone_jade_ore.png"))
+    jade_gem().save(os.path.join(i, "jade.png"))
+    jade_block_tex(cb).save(os.path.join(b, "jade_block.png"))
     # meteor iron, all original: an etched meteorite slab, thumbprinted fusion crust, a meteorite lump and a bar
     # the block follows vanilla's iron block (bevelled plate), in the ingot's gunmetal with the same faint band etch
     blk = mapped(cb("iron_block"), (44, 46, 54), (132, 138, 154)); pb = blk.load()
@@ -503,7 +542,7 @@ def silk_or(name, other, fortune=False, count=None):
 def json_files():
     cubes = ["moon_dust", "moonstone", "cobbled_moonstone", "polished_moonstone", "moonstone_bricks", "cracked_moonstone_bricks",
              "chiseled_moonstone_bricks", "meteor_iron_ore", "raw_meteor_iron_block", "meteor_iron_block",
-             "cobbled_deep_moonstone", "polished_deep_moonstone", "deep_moonstone_bricks", "deep_meteor_iron_ore"]
+             "cobbled_deep_moonstone", "polished_deep_moonstone", "deep_moonstone_bricks", "deep_meteor_iron_ore"] + list(JADE_LANG)
     for n in cubes:
         w(f"assets/ryancraft/blockstates/{n}.json", {"variants": {"": {"model": f"ryancraft:block/{n}"}}})
         w(f"assets/ryancraft/models/block/{n}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{n}"}})
@@ -529,11 +568,12 @@ def json_files():
     # loot
     L = "data/ryancraft/loot_table/blocks/"
     for n in LANG:
-        if n in ("moonstone", "meteor_iron_ore", "deep_moonstone", "deep_meteor_iron_ore") or n.endswith("_slab"): continue
+        if n in ("moonstone", "meteor_iron_ore", "deep_moonstone", "deep_meteor_iron_ore") or n.endswith("_slab") or n.endswith("jade_ore"): continue
         w(L + n + ".json", drops(n))
     w(L + "moonstone.json", silk_or("moonstone", "cobbled_moonstone"))
     w(L + "meteor_iron_ore.json", silk_or("meteor_iron_ore", "raw_meteor_iron", fortune=True))
     w(L + "deep_moonstone.json", silk_or("deep_moonstone", "cobbled_deep_moonstone"))
+    for o in ("jade_ore", "deepslate_jade_ore", "moonstone_jade_ore", "deep_moonstone_jade_ore"): w(L + o + ".json", silk_or(o, "jade", fortune=True))
     w(L + "deep_meteor_iron_ore.json", silk_or("deep_meteor_iron_ore", "raw_meteor_iron", fortune=True))
     for n in ("cobbled_moonstone_slab", "moonstone_brick_slab"):
         w(L + n + ".json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": f"ryancraft:{n}", "functions": [
@@ -568,6 +608,9 @@ def json_files():
     shaped("raw_meteor_iron_block", ["###", "###", "###"], {"#": "raw_meteor_iron"}, 1)
     shapeless("meteor_iron_ingot_from_block", ["meteor_iron_block"], 9, "meteor_iron_ingot")
     shapeless("raw_meteor_iron_from_block", ["raw_meteor_iron_block"], 9, "raw_meteor_iron")
+    shaped("jade_block", ["###", "###", "###"], {"#": "jade"}, 1)
+    shapeless("jade_from_block", ["jade_block"], 9, "jade")
+    for o in ("jade_ore", "deepslate_jade_ore", "moonstone_jade_ore", "deep_moonstone_jade_ore"): smelt("jade_from_" + o, o, "jade", 0.7)
     def cut(name, src, n):
         w(f"{R}{name}_from_{src}_stonecutting.json", {"type": "minecraft:stonecutting", "ingredient": f"ryancraft:{src}", "result": {"id": f"ryancraft:{name}", "count": n}})
     for name, n in (("cobbled_moonstone_stairs", 1), ("cobbled_moonstone_slab", 2), ("cobbled_moonstone_wall", 1)): cut(name, "cobbled_moonstone", n)
@@ -578,6 +621,8 @@ def json_files():
     stoney = [f"ryancraft:{n}" for n in LANG if n != "moon_dust"]
     add_tag("data/minecraft/tags/block/mineable/pickaxe.json", stoney)
     add_tag("data/minecraft/tags/block/mineable/shovel.json", ["ryancraft:moon_dust"])
+    add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:jade_ore", "ryancraft:deepslate_jade_ore", "ryancraft:moonstone_jade_ore",
+        "ryancraft:deep_moonstone_jade_ore", "ryancraft:jade_block"])
     add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:meteor_iron_ore", "ryancraft:deep_meteor_iron_ore", "ryancraft:raw_meteor_iron_block", "ryancraft:meteor_iron_block"])
     for kind in ("stairs", "slabs", "walls"):
         k = kind[:-1] if kind != "stairs" else "stairs"
@@ -658,11 +703,26 @@ def worldgen():
     w(D + "worldgen/configured_feature/ore_meteor_iron.json", {"type": "minecraft:ore", "config": {"size": 7, "discard_chance_on_air_exposure": 0.0,
         "targets": [{"state": {"Name": "ryancraft:meteor_iron_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:moonstone"}},
                     {"state": {"Name": "ryancraft:deep_meteor_iron_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:deep_moonstone"}}]}})
+    # jade: rare, small veins. On Earth in stone and deepslate (mountains and lush caves, added in MoonBlocks); on the moon in both moon stones
+    w(D + "worldgen/configured_feature/ore_jade.json", {"type": "minecraft:ore", "config": {"size": 4, "discard_chance_on_air_exposure": 0.0,
+        "targets": [{"state": {"Name": "ryancraft:jade_ore"}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:stone_ore_replaceables"}},
+                    {"state": {"Name": "ryancraft:deepslate_jade_ore"}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:deepslate_ore_replaceables"}}]}})
+    w(D + "worldgen/placed_feature/ore_jade.json", {"feature": "ryancraft:ore_jade", "placement": [
+        {"type": "minecraft:count", "count": 3}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid", "min_inclusive": {"absolute": -48}, "max_inclusive": {"absolute": 48}}},
+        {"type": "minecraft:biome"}]})
+    w(D + "worldgen/configured_feature/ore_moon_jade.json", {"type": "minecraft:ore", "config": {"size": 4, "discard_chance_on_air_exposure": 0.0,
+        "targets": [{"state": {"Name": "ryancraft:moonstone_jade_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:moonstone"}},
+                    {"state": {"Name": "ryancraft:deep_moonstone_jade_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:deep_moonstone"}}]}})
+    w(D + "worldgen/placed_feature/ore_moon_jade.json", {"feature": "ryancraft:ore_moon_jade", "placement": [
+        {"type": "minecraft:count", "count": 4}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 1}, "max_inclusive": {"absolute": 80}}},
+        {"type": "minecraft:biome"}]})
     w(D + "worldgen/placed_feature/ore_meteor_iron.json", {"feature": "ryancraft:ore_meteor_iron", "placement": [
         {"type": "minecraft:count", "count": 14}, {"type": "minecraft:in_square"},
         {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid", "min_inclusive": {"absolute": 1}, "max_inclusive": {"absolute": 90}}},
         {"type": "minecraft:biome"}]})
-    features = [[] for _ in range(11)]; features[6] = ["ryancraft:ore_meteor_iron"]
+    features = [[] for _ in range(11)]; features[6] = ["ryancraft:ore_meteor_iron", "ryancraft:ore_moon_jade"]
     w(D + "worldgen/biome/moon.json", {"carvers": ["ryancraft:moon_cave", "ryancraft:moon_lava_tube", "ryancraft:moon_ravine"],
         "attributes": {"minecraft:visual/fog_color": "#000000", "minecraft:visual/sky_color": "#000000"}, "downfall": 0.0,
         "effects": {"water_color": "#3f76e4"}, "features": features, "has_precipitation": False, "spawn_costs": {},

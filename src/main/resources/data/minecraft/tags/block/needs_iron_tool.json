@@ -5,6 +5,11 @@
     "ryancraft:meteor_iron_ore",
     "ryancraft:raw_meteor_iron_block",
     "ryancraft:meteor_iron_block",
-    "ryancraft:deep_meteor_iron_ore"
+    "ryancraft:deep_meteor_iron_ore",
+    "ryancraft:jade_ore",
+    "ryancraft:deepslate_jade_ore",
+    "ryancraft:moonstone_jade_ore",
+    "ryancraft:deep_moonstone_jade_ore",
+    "ryancraft:jade_block"
   ]
 }

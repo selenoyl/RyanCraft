@@ -235,7 +235,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
   ![Hollow Moon concept art](docs/moon_concept.png)
 
-  - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves. Nine jade make a Block of Jade, a green cousin of the lapis block.
+  - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves (and in the moon's own stone). Nine jade make a Block of Jade, a green cousin of the lapis block. *(Jade, its ores and its block are in.)*
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
     The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
     a nether portal.

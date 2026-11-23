@@ -37,8 +37,9 @@ public final class MoonBlocks {
             POLISHED_MOONSTONE, MOONSTONE_BRICKS, CRACKED_MOONSTONE_BRICKS, CHISELED_MOONSTONE_BRICKS,
             MOONSTONE_BRICK_STAIRS, MOONSTONE_BRICK_SLAB, MOONSTONE_BRICK_WALL,
             METEOR_IRON_ORE, RAW_METEOR_IRON_BLOCK, METEOR_IRON_BLOCK,
-            DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE;
-    public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT;
+            DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE,
+            JADE_ORE, DEEPSLATE_JADE_ORE, MOONSTONE_JADE_ORE, DEEP_MOONSTONE_JADE_ORE, JADE_BLOCK;
+    public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT, JADE;
 
     static {
         MOON_DUST = block("moon_dust", p -> new ColoredFallingBlock(new ColorRGBA(0xFFB9B8B2), p),
@@ -67,6 +68,16 @@ public final class MoonBlocks {
                 BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(5.0f, 6.0f));
         METEOR_IRON_BLOCK = block("meteor_iron_block", Block::new,
                 BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instrument(NoteBlockInstrument.IRON_XYLOPHONE).requiresCorrectToolForDrops().strength(6.0f, 8.0f).sound(SoundType.METAL));
+        // jade: a rare green gem, deep in Earth's mountains and lush caves, and in the moon's stone; its block lights the moon portal
+        JADE_ORE = block("jade_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p),
+                BlockBehaviour.Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0f, 3.0f));
+        DEEPSLATE_JADE_ORE = block("deepslate_jade_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p),
+                BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(4.5f, 3.0f).sound(SoundType.DEEPSLATE));
+        MOONSTONE_JADE_ORE = block("moonstone_jade_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), stone().strength(3.0f, 3.0f));
+        DEEP_MOONSTONE_JADE_ORE = block("deep_moonstone_jade_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), deep().strength(4.5f, 3.0f));
+        JADE_BLOCK = block("jade_block", Block::new,
+                BlockBehaviour.Properties.of().mapColor(MapColor.EMERALD).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0f, 3.0f));
+        JADE = item("jade");
         RAW_METEOR_IRON = item("raw_meteor_iron");
         METEOR_IRON_INGOT = item("meteor_iron_ingot");
     }
@@ -95,6 +106,12 @@ public final class MoonBlocks {
     }
 
     public static void init() {
+        // jade ore in Earth's mountains and lush caves (the moon's comes with its own biome)
+        net.fabricmc.fabric.api.biome.v1.BiomeModifications.addFeature(
+                net.fabricmc.fabric.api.biome.v1.BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_MOUNTAIN)
+                        .or(net.fabricmc.fabric.api.biome.v1.BiomeSelectors.includeByKey(net.minecraft.world.level.biome.Biomes.LUSH_CAVES)),
+                net.minecraft.world.level.levelgen.GenerationStep.Decoration.UNDERGROUND_ORES,
+                ResourceKey.create(Registries.PLACED_FEATURE, RyanCraft.id("ore_jade")));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(e -> BLOCK_ITEMS.forEach(e::accept));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> ITEMS.forEach(e::accept));
     }
