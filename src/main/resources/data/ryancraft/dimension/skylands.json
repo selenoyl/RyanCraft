@@ -1,0 +1,11 @@
+{
+  "type": "ryancraft:skylands",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "ryancraft:skylands",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "ryancraft:sky_meadow"
+    }
+  }
+}

@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:moon_dust"
+    "ryancraft:moon_dust",
+    "ryancraft:cloud",
+    "ryancraft:blue_cloud",
+    "ryancraft:storm_cloud"
   ]
 }

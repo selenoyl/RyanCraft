@@ -211,7 +211,14 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 - **A little biplane**: basically a boat with wings, fuelled with coal, with that primitive early-mod look.
 - Other simple vehicles in the same style.
 
-## A sky dimension (our own, not the Aether)
+## The Skylands: our sky dimension (our own, not the Aether)
+**Built (first step):** the dimension (floating islands of grassy meadow over pale **skystone**, a bright sky with
+the clouds below you, drifting cloud patches between the islands); **clouds** (white cloud you can stand on that
+never hurts to land on, bouncy blue cloud, and storm cloud you sink slowly through); and the **portal**: a glowstone
+frame lit by pouring a water bucket into it. The far end finds a portal nearby or builds one (on an island, or on a
+little skystone ledge). Still to come: sky wood and the light ore, the great winged creatures, updrafts, waterfalls,
+ambience, and the cloud kite mudling.
+
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
 creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.
 - **Getting there**: the classic Aether way: a frame of glowstone, lit by pouring a bucket of water into it.
