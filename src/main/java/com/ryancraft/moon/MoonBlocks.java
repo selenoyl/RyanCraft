@@ -40,6 +40,10 @@ public final class MoonBlocks {
             DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE,
             JADE_ORE, DEEPSLATE_JADE_ORE, MOONSTONE_JADE_ORE, DEEP_MOONSTONE_JADE_ORE, JADE_BLOCK;
     public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT, JADE;
+    /** Moon cake: food, and the moon rabbit's favourite. */
+    public static final Item MOON_CAKE = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, ResourceKey.create(Registries.ITEM, RyanCraft.id("moon_cake")),
+            new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, RyanCraft.id("moon_cake")))
+                    .food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(6).saturationModifier(0.7f).build())));
     /** The jade portal's surface (no item: you light a jade frame with an eye of ender). */
     public static final Block MOON_PORTAL;
     /** Moon herb: the moon rabbit's food. */
@@ -136,6 +140,7 @@ public final class MoonBlocks {
     public static void init() {
         METEOR_IRON_GEAR.addToTabs();
         MoonPortalBlock.init();
+        net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents.modifyEntriesEvent(net.minecraft.world.item.CreativeModeTabs.FOOD_AND_DRINKS).register(e -> e.accept(MOON_CAKE));
         MoonPhysics.init();
         MoonRelics.init();
         MoonMeteors.init();

@@ -292,3 +292,22 @@ def gravity_well():
 
 if __name__ == "__main__":
     gravity_well(); print("gravity well ok")
+
+
+# ---------------------------------------------------------------- moon cake
+CAKE = ["................", "................", "................", "....gggggggg....", "...gGGGGGGGGg...", "..gGGhGGGGhGGg..", "..gGGGGhhGGGGg..",
+        "..dgGGGGGGGGgd..", "..ddggggggggdd..", "..dDDDDDDDDDDd..", "..dDdDDdDDdDDd..", "..dDDDDDDDDDDd..", "...dddddddddd...", "................",
+        "................", "................"]
+def moon_cake():
+    sprite(CAKE, {"g": (150, 176, 166), "G": (196, 218, 208), "h": (196, 214, 255), "d": (150, 108, 60), "D": (212, 166, 96)}).save(
+        os.path.join(M.A, "textures", "item", "moon_cake.png"))
+    M.w("assets/ryancraft/models/item/moon_cake.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/moon_cake"}})
+    M.w("assets/ryancraft/items/moon_cake.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/moon_cake"}})
+    M.w("data/ryancraft/recipe/moon_cake.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [
+        "ryancraft:moon_herb", "ryancraft:moon_herb", "minecraft:wheat", "minecraft:wheat", "minecraft:sugar", "minecraft:egg"],
+        "result": {"id": "ryancraft:moon_cake", "count": 4}})
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d["item.ryancraft.moon_cake"] = "Moon Cake"
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    moon_cake(); print("moon cake ok")

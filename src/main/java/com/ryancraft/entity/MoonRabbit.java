@@ -25,7 +25,7 @@ import java.util.UUID;
 
 /**
  * Moon rabbit: long-eared, silvery and shy, hopping very high in the low gravity. Feed one moon herbs and it may take to
- * you (one in three): it then follows you about, even home through the portal. Scoop it up in a bundle (four to a
+ * you (one in three; a moon cake always wins it over): it then follows you about, even home through the portal. Scoop it up in a bundle (four to a
  * bundle) and keep it in a cage like the chipmunks. Moon herbs breed them.
  */
 public class MoonRabbit extends Rabbit implements Baggable {
@@ -39,7 +39,7 @@ public class MoonRabbit extends Rabbit implements Baggable {
         this.goalSelector.addGoal(2, new FollowFriendGoal());
     }
 
-    @Override public boolean isFood(ItemStack stack) { return stack.is(MoonBlocks.MOON_HERB.asItem()); }
+    @Override public boolean isFood(ItemStack stack) { return stack.is(MoonBlocks.MOON_HERB.asItem()) || stack.is(MoonBlocks.MOON_CAKE); }
     @Override public int bagCapacity() { return 4; }
     @Override public CageKind cageKind() { return CageKind.CRITTER; }
     @Override public boolean requiresCustomPersistence() { return friend != null || super.requiresCustomPersistence(); }
@@ -48,9 +48,10 @@ public class MoonRabbit extends Rabbit implements Baggable {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (friend == null && isFood(stack) && !isBaby()) {
+            boolean cake = stack.is(MoonBlocks.MOON_CAKE);
             usePlayerItem(player, hand, stack);
             if (!level().isClientSide()) {
-                if (random.nextInt(3) == 0) { friend = player.getUUID(); level().broadcastEntityEvent(this, (byte) 7); }
+                if (cake || random.nextInt(3) == 0) { friend = player.getUUID(); level().broadcastEntityEvent(this, (byte) 7); }
                 else level().broadcastEntityEvent(this, (byte) 6);
             }
             return InteractionResult.SUCCESS;
