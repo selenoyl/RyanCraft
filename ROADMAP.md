@@ -164,7 +164,7 @@ clusters like vanilla's fancy oak. Still to do:
 
 ## Combat
 Technology tops out around the early age of gunpowder: nothing past a muzzle-loader.
-- **Old combat**: no attack cooldown, as in 1.8 and before.
+- ~~**Old combat**~~ (built): no attack cooldown, as in 1.8 and before; spears keep their own charge. Config `oldCombat`.
 - **Cannons**, with different shot:
   - **Round shot** (a lead or iron cannonball): long range, smashes blocks.
   - **Grapeshot** (a canvas bag of lead balls): a short-range spray, deadly to mobs, gentle on blocks.

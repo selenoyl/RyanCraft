@@ -47,6 +47,10 @@ public final class RyanConfig {
     /** A thirst bar: drink from water (sneak-free, empty hand) or bottles; some foods give a little water. */
     public boolean thirst = true;
 
+    // ---- Combat ----
+    /** Old combat: no attack cooldown, every swing hits at full strength, as before 1.9. Spears keep their own charge. */
+    public boolean oldCombat = true;
+
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static RyanConfig instance;
 

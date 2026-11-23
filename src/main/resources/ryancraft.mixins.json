@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "DedicatedServerMixin",
+    "OldCombatMixin",
     "MinecraftServerMixin",
     "ServerPlayerMixin",
     "BundleItemMixin",
