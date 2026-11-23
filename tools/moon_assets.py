@@ -457,7 +457,12 @@ def textures():
     meteor_slab(60).save(os.path.join(b, "meteor_iron_block.png"))
     meteor_crust(61).save(os.path.join(b, "raw_meteor_iron_block.png"))
     lump_sprite(62).save(os.path.join(i, "raw_meteor_iron.png"))
-    bar_sprite().save(os.path.join(i, "meteor_iron_ingot.png"))
+    # the ingot keeps vanilla's ingot shape (so it reads as an ingot), in dark gunmetal with a faint etch of the bands
+    ingot = item_map(os.path.join(CLASSIC, "item", "iron_ingot.png"), *IRON); pi = ingot.load()
+    for y in range(16):
+        for x in range(16):
+            if pi[x, y][3] and (x + 2 * y) % 6 == 0 and sum(pi[x, y][:3]) > 150: pi[x, y] = tuple(min(255, c + 30) for c in pi[x, y][:3]) + (255,)
+    ingot.save(os.path.join(i, "meteor_iron_ingot.png"))
 
 # --------------------------------------------------------------------------------------------- json
 def w(rel, obj):
