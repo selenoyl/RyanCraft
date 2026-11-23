@@ -42,6 +42,8 @@ public final class MoonBlocks {
     public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT, JADE;
     /** The jade portal's surface (no item: you light a jade frame with an eye of ender). */
     public static final Block MOON_PORTAL;
+    /** Moon herb: the moon rabbit's food. */
+    public static final Block MOON_HERB, POTTED_MOON_HERB;
 
     static {
         MOON_DUST = block("moon_dust", p -> new ColoredFallingBlock(new ColorRGBA(0xFFB9B8B2), p),
@@ -80,6 +82,10 @@ public final class MoonBlocks {
         JADE_BLOCK = block("jade_block", Block::new,
                 BlockBehaviour.Properties.of().mapColor(MapColor.EMERALD).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0f, 3.0f));
         JADE = item("jade");
+        MOON_HERB = block("moon_herb", MoonHerbBlock::new, BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.SHORT_GRASS)
+                .mapColor(MapColor.QUARTZ));
+        POTTED_MOON_HERB = blockNoItem("potted_moon_herb", p -> new net.minecraft.world.level.block.FlowerPotBlock(MOON_HERB, p),
+                net.minecraft.world.level.block.Blocks.flowerPotProperties());
         MOON_PORTAL = blockNoItem("moon_portal", MoonPortalBlock::new, BlockBehaviour.Properties.of().noCollision().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(st -> 9).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK));
         RAW_METEOR_IRON = item("raw_meteor_iron");

@@ -38,7 +38,8 @@ public class RyanCraftClient implements ClientModInitializer {
                 com.ryancraft.metal.Silver.GRATES.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.sky.Skylands.FLOWERS.toArray(new net.minecraft.world.level.block.Block[0]));
-        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.sky.Skylands.ROC_EGG);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.sky.Skylands.ROC_EGG,
+                com.ryancraft.moon.MoonBlocks.MOON_HERB, com.ryancraft.moon.MoonBlocks.POTTED_MOON_HERB);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.TRANSLUCENT, com.ryancraft.moon.MoonBlocks.MOON_PORTAL);
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.JOIN.register((handler, sender, mc) ->
                 com.ryancraft.season.Seasons.learnExempt(handler.registryAccess()));
@@ -143,6 +144,10 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.RIVER_OTTER, c -> new CritterRenderer<>(c, "river_otter", 0.35f, 1.0f, false, "river_otter"));
         EntityRendererRegistry.register(RyanEntities.GROUNDHOG, c -> new CritterRenderer<>(c, "groundhog", 0.4f, 1.0f, false, "groundhog"));
         EntityRendererRegistry.register(RyanEntities.PORCUPINE, c -> new CritterRenderer<>(c, "porcupine", 0.4f, 1.0f, false, "porcupine"));
+        EntityRendererRegistry.register(RyanEntities.MOON_RABBIT, c -> new net.minecraft.client.renderer.entity.RabbitRenderer(c) {
+            private final net.minecraft.resources.Identifier tex = com.ryancraft.RyanCraft.id("textures/entity/moon_rabbit.png");
+            @Override public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.RabbitRenderState s) { return tex; }
+        });
         EntityRendererRegistry.register(RyanEntities.SKY_ROC, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 2.8f, false, "sky_roc"));
         EntityRendererRegistry.register(RyanEntities.BALD_EAGLE, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 1.0f, false, "bald_eagle"));
         EntityRendererRegistry.register(RyanEntities.GOLDEN_EAGLE, c -> new CritterRenderer<>(c, "golden_eagle", 0.5f, 1.0f, false, "golden_eagle"));

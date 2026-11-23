@@ -284,7 +284,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - the real Earth hanging huge in a black sky, drawn Minecraft-style: blocky blue oceans, green and tan
       continents, white cloud bands, slowly turning and lit from one side like the moon is in ours
   - **Creatures:**
-    - **Moon rabbits:** long-eared, silvery, and they hop very high. They're shy. Tame one with moon herbs and it
+    - **Moon rabbits:** *(built, with moon herbs in the dust)* long-eared, silvery, and they hop very high. They're shy. Tame one with moon herbs and it
       follows you home, or scoop it up in a bundle (4 to a bundle) and keep it in a cage like the chipmunks.
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.

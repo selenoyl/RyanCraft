@@ -25,7 +25,9 @@
     ],
     [],
     [],
-    [],
+    [
+      "ryancraft:patch_moon_herb"
+    ],
     []
   ],
   "has_precipitation": false,
@@ -33,7 +35,14 @@
   "spawners": {
     "ambient": [],
     "axolotls": [],
-    "creature": [],
+    "creature": [
+      {
+        "type": "ryancraft:moon_rabbit",
+        "weight": 10,
+        "minCount": 2,
+        "maxCount": 3
+      }
+    ],
     "misc": [],
     "monster": [],
     "underground_water_creature": [],

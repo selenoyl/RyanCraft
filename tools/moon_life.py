@@ -1,0 +1,84 @@
+"""Moon life (entity/MoonRabbit.java, moon/MoonHerbBlock.java): the moon rabbit's silvery coat (vanilla's white rabbit,
+cooled to moon silver with lavender shading, deep blue eyes; pink nose kept), the moon herb's sprite and models, loot, the
+herb patches and rabbit spawns in the moon biome, spawn egg and lang.
+  python3 tools/moon_life.py"""
+import colorsys, json, os
+from PIL import Image
+import moon_assets as M
+from critters import egg_icon, save_item
+
+HERE = os.path.dirname(os.path.abspath(__file__)); TPL = os.path.join(HERE, "templates", "moon_life")
+ENT, BLOCK = os.path.join(M.A, "textures", "entity"), os.path.join(M.A, "textures", "block")
+SILVER = [(92, 94, 128), (150, 152, 182), (204, 206, 226), (240, 242, 252)]
+EYE = (54, 82, 176)
+LANG = {"entity.ryancraft.moon_rabbit": "Moon Rabbit", "item.ryancraft.moon_rabbit_spawn_egg": "Moon Rabbit Spawn Egg",
+        "block.ryancraft.moon_herb": "Moon Herb", "block.ryancraft.potted_moon_herb": "Potted Moon Herb"}
+
+def grad(t, pal):
+    t = min(1, max(0, t)); i = min(len(pal) - 2, int(t * (len(pal) - 1))); f = t * (len(pal) - 1) - i
+    return tuple(int(pal[i][k] + (pal[i + 1][k] - pal[i][k]) * f) for k in range(3))
+
+def rabbit():
+    im = Image.open(os.path.join(TPL, "white.png")).convert("RGBA"); px = im.load()
+    vals = [sum(px[x, y][:3]) / 3 for y in range(im.height) for x in range(im.width) if px[x, y][3]]
+    lo, hi = min(vals), max(vals)
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if not a: continue
+            h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            if r > 130 and g < 110 and b < 120 and r - g > 50: px[x, y] = (EYE if r > 180 else tuple(c - 24 for c in EYE)) + (a,); continue   # red eyes -> deep moon blue
+            if s > 0.2 and (h < 0.05 or h > 0.85): continue                     # pink nose, inner ears
+            if v < 0.15: continue
+            px[x, y] = grad((sum((r, g, b)) / 3 - lo) / max(1, hi - lo), SILVER) + (a,)
+    return im
+
+HERB = ["................", "................", "................", "......c..c......", ".....cLc.Lc.....", "......L..L......", "..c...Ll.L...c..",
+        ".cLc..lL.Ll.cLc.", "..L....LlL....L.", "..lL...lLl..Ll..", "...Ll..lL..lL...", "....LlllLllL....", ".....lLLLLl.....", "......lLLl......",
+        ".......ll.......", "................"]
+def herb():
+    pal = {"L": (176, 196, 186), "l": (122, 146, 138), "c": (196, 214, 255)}
+    im = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = im.load()
+    for y, row in enumerate(HERB):
+        for x, ch in enumerate(row):
+            if ch in pal: px[x, y] = pal[ch] + (255,)
+    return im
+
+def build():
+    rabbit().save(os.path.join(ENT, "moon_rabbit.png")); herb().save(os.path.join(BLOCK, "moon_herb.png"))
+    W = M.w
+    W("assets/ryancraft/blockstates/moon_herb.json", {"variants": {"": {"model": "ryancraft:block/moon_herb"}}})
+    W("assets/ryancraft/models/block/moon_herb.json", {"parent": "minecraft:block/cross", "textures": {"cross": "ryancraft:block/moon_herb"}})
+    W("assets/ryancraft/blockstates/potted_moon_herb.json", {"variants": {"": {"model": "ryancraft:block/potted_moon_herb"}}})
+    W("assets/ryancraft/models/block/potted_moon_herb.json", {"parent": "minecraft:block/flower_pot_cross", "textures": {"plant": "ryancraft:block/moon_herb"}})
+    W("assets/ryancraft/models/item/moon_herb.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:block/moon_herb"}})
+    W("assets/ryancraft/items/moon_herb.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/moon_herb"}})
+    surv = [{"condition": "minecraft:survives_explosion"}]
+    W("data/ryancraft/loot_table/blocks/moon_herb.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:moon_herb"}], "conditions": surv}]})
+    W("data/ryancraft/loot_table/blocks/potted_moon_herb.json", {"type": "minecraft:block", "pools": [
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:flower_pot"}], "conditions": surv},
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:moon_herb"}], "conditions": surv}]})
+    M.add_tag("data/minecraft/tags/block/flower_pots.json", ["ryancraft:potted_moon_herb"])
+    W("data/ryancraft/loot_table/entities/moon_rabbit.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item",
+        "name": "minecraft:rabbit_hide", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}]}]}]})
+    save_item("moon_rabbit_spawn_egg", egg_icon("#dcdeea", "#a8a0c8"))
+    W("assets/ryancraft/models/item/moon_rabbit_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/moon_rabbit_spawn_egg"}})
+    W("assets/ryancraft/items/moon_rabbit_spawn_egg.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/moon_rabbit_spawn_egg"}})
+    # herb patches on the dust, and rabbits, in the moon biome
+    D = "data/ryancraft/worldgen/"
+    W(D + "configured_feature/patch_moon_herb.json", {"type": "minecraft:random_patch", "config": {"tries": 24, "xz_spread": 5, "y_spread": 2,
+        "feature": {"feature": {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:simple_state_provider", "state": {"Name": "ryancraft:moon_herb"}}}},
+                    "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+                        {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"},
+                        {"type": "minecraft:matching_blocks", "offset": [0, -1, 0], "blocks": "ryancraft:moon_dust"}]}}]}}})
+    W(D + "placed_feature/patch_moon_herb.json", {"feature": "ryancraft:patch_moon_herb", "placement": [
+        {"type": "minecraft:rarity_filter", "chance": 3}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"},
+        {"type": "minecraft:biome"}]})
+    p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
+    if "ryancraft:patch_moon_herb" not in b["features"][9]: b["features"][9].append("ryancraft:patch_moon_herb")
+    b["spawners"]["creature"] = [{"type": "ryancraft:moon_rabbit", "weight": 10, "minCount": 2, "maxCount": 3}]
+    json.dump(b, open(p, "w"), indent=2)
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d.update(LANG); json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    build(); print("moon life ok")
