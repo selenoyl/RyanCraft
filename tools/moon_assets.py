@@ -729,7 +729,8 @@ def worldgen():
         "attributes": {"minecraft:visual/fog_color": "#000000", "minecraft:visual/sky_color": "#000000"}, "downfall": 0.0,
         "effects": {"water_color": "#3f76e4"}, "features": features, "has_precipitation": False, "spawn_costs": {},
         "spawners": dict({k: [] for k in ("ambient", "axolotls", "creature", "misc", "monster", "underground_water_creature", "water_ambient", "water_creature")},
-                         creature=[{"type": "ryancraft:moon_rabbit", "weight": 10, "minCount": 2, "maxCount": 3}]),
+                         creature=[{"type": "ryancraft:moon_rabbit", "weight": 10, "minCount": 2, "maxCount": 3}],
+                         monster=[{"type": "ryancraft:lost_spaceman", "weight": 8, "minCount": 1, "maxCount": 2}]),
         "temperature": 0.5})
 
 if __name__ == "__main__":

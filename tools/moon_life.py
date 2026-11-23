@@ -82,3 +82,30 @@ def build():
 
 if __name__ == "__main__":
     build(); print("moon life ok")
+
+
+# ---------------------------------------------------------------- lost spacemen (entity/LostSpaceman.java)
+import shutil
+SUITS = ["lavender", "white", "blue", "red", "orange", "green"]
+def spacemen():
+    out = os.path.join(ENT, "lost_spaceman"); os.makedirs(out, exist_ok=True)
+    docs = os.path.join(HERE, "..", "docs")
+    for s in SUITS: shutil.copy(os.path.join(docs, f"lost_spaceman_{s}.png"), os.path.join(out, f"{s}.png"))   # skins from tools/spaceman_skin.py
+    looting = {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}
+    M.w("data/ryancraft/loot_table/entities/lost_spaceman.json", {"type": "minecraft:entity", "pools": [
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:rotten_flesh", "functions": [
+            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 2}}, looting]}]},
+        {"rolls": 1, "conditions": [{"condition": "minecraft:killed_by_player"}, {"condition": "minecraft:random_chance", "chance": 0.1}],
+         "entries": [{"type": "minecraft:item", "name": "minecraft:tinted_glass"}]}]})            # a piece of the old visor
+    save_item("lost_spaceman_spawn_egg", egg_icon("#b4a6d8", "#2a2a36"))
+    M.w("assets/ryancraft/models/item/lost_spaceman_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/lost_spaceman_spawn_egg"}})
+    M.w("assets/ryancraft/items/lost_spaceman_spawn_egg.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/lost_spaceman_spawn_egg"}})
+    p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
+    b["spawners"]["monster"] = [{"type": "ryancraft:lost_spaceman", "weight": 8, "minCount": 1, "maxCount": 2}]
+    json.dump(b, open(p, "w"), indent=2)
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p))
+    d.update({"entity.ryancraft.lost_spaceman": "Lost Spaceman", "item.ryancraft.lost_spaceman_spawn_egg": "Lost Spaceman Spawn Egg"})
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    spacemen(); print("spacemen ok")

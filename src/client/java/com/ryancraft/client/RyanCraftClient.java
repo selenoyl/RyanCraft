@@ -148,6 +148,7 @@ public class RyanCraftClient implements ClientModInitializer {
             private final net.minecraft.resources.Identifier tex = com.ryancraft.RyanCraft.id("textures/entity/moon_rabbit.png");
             @Override public net.minecraft.resources.Identifier getTextureLocation(net.minecraft.client.renderer.entity.state.RabbitRenderState s) { return tex; }
         });
+        EntityRendererRegistry.register(RyanEntities.LOST_SPACEMAN, com.ryancraft.client.render.LostSpacemanRenderer::new);
         EntityRendererRegistry.register(RyanEntities.SKY_ROC, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 2.8f, false, "sky_roc"));
         EntityRendererRegistry.register(RyanEntities.BALD_EAGLE, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 1.0f, false, "bald_eagle"));
         EntityRendererRegistry.register(RyanEntities.GOLDEN_EAGLE, c -> new CritterRenderer<>(c, "golden_eagle", 0.5f, 1.0f, false, "golden_eagle"));
