@@ -187,7 +187,7 @@ def pattern(sp, r):
     if sp == "red_oak": return furrows(r, (1, 6, 11), wobble=0.5)                               # long flat pale ridges
     if sp == "sugar_maple": return merge(plates(r, 4, 8, jitter=2), furrows(r, (2, 10), wobble=0.4, light_side=False))
     if sp == "red_maple": return merge(flecks(r, 5, "D", (3, 6)), flecks(r, 6, "L", (2, 4)))     # smooth, a few cracks
-    if sp == "tulip_poplar": return braided(r, 2, seg=(8, 8), wide=0.25, ridge=0.9)                      # long, neat diamonds, pale ridges
+    if sp == "tulip_poplar": return braided(r, 4, seg=(2, 6), wide=0.0, ridge=0.85, broken=0.08, tight=True)   # a loose net, some furrows broken
     if sp == "shagbark_hickory": return strips(r, (0, 5, 9, 13), peel=5)
     if sp == "black_walnut": return braided(r, 4, seg=(2, 6), wide=0.35, ridge=0.75, broken=0.05, tight=True)   # dark bands, small tight diamonds
     if sp == "american_beech": return merge(flecks(r, 4, "L", (2, 3), horizontal=True), flecks(r, 3, "D", (2, 2), horizontal=True))
