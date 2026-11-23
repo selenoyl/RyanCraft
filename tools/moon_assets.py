@@ -48,53 +48,158 @@ def sparkle(im, n, seed, mask=None):
         px[x, y] = (196, 214, 255, 255) if placed % 2 == 0 else (150, 170, 220, 255); placed += 1
     return im
 
+# Each block keeps a vanilla template's structure (stone grain, cobbles, bricks, deepslate layers, ore spots), mapped
+# onto its own moon palette, with lunar detail on top. Everything wraps, so blocks tile without seams.
+def mapped(src, dark, light, contrast=1.0):
+    """The template's shading gradient-mapped from dark to light (contrast < 1 quiets the grain)."""
+    im = Image.open(src).convert("RGBA").crop((0, 0, 16, 16)); px = im.load()
+    vals = sorted((r + g + b) / 3 for r, g, b, a in im.get_flattened_data() if a); lo, hi = vals[4], vals[-4]
+    out = Image.new("RGBA", (16, 16)); po = out.load()
+    for y in range(16):
+        for x in range(16):
+            r, g, b, a = px[x, y]
+            t = min(1, max(0, ((r + g + b) / 3 - lo) / max(1, hi - lo))); t = 0.5 + (t - 0.5) * contrast
+            po[x, y] = tuple(int(dark[k] + (light[k] - dark[k]) * t) for k in range(3)) + (a,)
+    return out
+
+def dots(img, r, n, col, size=1, avoid=None):
+    """Small specks (grit, crystal flecks, olivine): single pixels or little two-pixel clusters."""
+    px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16)
+        if avoid and (x, y) in avoid: continue
+        px[x, y] = col + (255,)
+        if size > 1: px[(x + r.choice((-1, 1))) % 16, (y + r.choice((0, 1))) % 16] = tuple(min(255, c + 8) for c in col) + (255,)
+    return img
+
+def pits(img, r, n, deep, rim):
+    """Pockmarks: a dark hollow with a lit lower rim (micrometeorite pits in dust, gas pockets in basalt)."""
+    px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16)
+        px[x, y] = deep + (255,); px[(x + 1) % 16, y] = tuple((a + b) // 2 for a, b in zip(deep, px[(x + 1) % 16, y][:3])) + (255,)
+        px[x, (y + 1) % 16] = rim + (255,); px[(x + 1) % 16, (y + 1) % 16] = rim + (255,)
+    return img
+
+def ore(base, template_stone, template_ore, shadow, body, shine, glint, seed):
+    """The template ore's spots as dark metal nuggets: shaded body, a lit edge and a star-bright glint or two."""
+    out = base.copy(); po = out.load(); ps = Image.open(template_stone).convert("RGBA").load(); pr = Image.open(template_ore).convert("RGBA").load()
+    spots = []
+    for y in range(16):
+        for x in range(16):
+            if abs(sum(ps[x, y][:3]) - sum(pr[x, y][:3])) > 24:
+                v = sum(pr[x, y][:3]) / 3; spots.append((x, y, v))
+    vs = sorted(v for _, _, v in spots)
+    for x, y, v in spots:
+        t = vs.index(v) / max(1, len(vs) - 1)
+        po[x, y] = (shadow if t < 0.35 else body if t < 0.8 else shine) + (255,)
+    r = random.Random(seed)
+    for x, y, _ in r.sample(spots, 3): po[x, y] = glint + (255,)
+    return out
+
+def crescent(img, groove, edge):
+    """A carved crescent moon (chiseled moonstone bricks)."""
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            a = (x - 7.5) ** 2 + (y - 7.5) ** 2; b = (x - 9.3) ** 2 + (y - 6.4) ** 2
+            if a <= 25 and b > 16: px[x, y] = groove + (255,)
+            elif a <= 30 and b > 20 and x < 8: px[x, y] = edge + (255,)
+    return img
+
+def frame(img, light, dark):
+    """A vanilla metal-block bevel: lit top and left edge, shadowed bottom and right."""
+    px = img.load()
+    for k in range(16):
+        px[k, 0] = light + (255,); px[0, k] = light + (255,); px[k, 15] = dark + (255,); px[15, k] = dark + (255,)
+    return img
+
+def widmanstatten(img, r, bright, dark):
+    """Cut meteoric iron's crossing bands (kamacite plates) at steep, uneven angles, broken into short runs of
+    different lengths, with a soft shadow beside each, so it reads as metal grown in a crystal, not a fence.
+    Slopes and periods divide 16, so it tiles."""
+    px = img.load()
+    runs = {}
+    for y in range(16):
+        for x in range(16):
+            a, b = (x + 2 * y) % 16, (x - 2 * y) % 16
+            band = a in (0, 1) and (y // 2 + x // 5) % 3 != 2 or b in (8,) and (y // 3 + x // 4) % 3 != 1
+            if band: px[x, y] = tuple(int(c * 0.25 + br * 0.75) for c, br in zip(px[x, y][:3], bright)) + (255,)
+            elif a == 2 or b == 9: px[x, y] = tuple(int(c * 0.4 + d * 0.6) for c, d in zip(px[x, y][:3], dark)) + (255,)
+    return img
+
+def rust(img, r, n, cols):
+    px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16)
+        if px[x, y][3] == 0: continue
+        for dx, dy in ((0, 0), (1, 0), (0, 1)):
+            if r.random() < 0.7 and px[(x + dx) % 16, (y + dy) % 16][3]: px[(x + dx) % 16, (y + dy) % 16] = r.choice(cols) + (255,)
+    return img
+
+def item_map(src, dark, light):
+    """An item sprite (ingot, raw lump) gradient-mapped, keeping its outline and transparency."""
+    im = Image.open(src).convert("RGBA"); px = im.load()
+    vals = [(r + g + b) / 3 for r, g, b, a in im.get_flattened_data() if a]; lo, hi = min(vals), max(vals)
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if a: t = ((r + g + b) / 3 - lo) / max(1, hi - lo); px[x, y] = tuple(int(dark[k] + (light[k] - dark[k]) * t) for k in range(3)) + (a,)
+    return im
+
+# palettes
+DUST = ((150, 148, 142), (206, 204, 198))                     # pale, faintly warm regolith
+STONE = ((128, 126, 122), (190, 188, 182))                    # anorthosite: the light highland rock
+FELDSPAR = (226, 226, 220)
+BASALT = ((46, 48, 56), (102, 104, 114))                      # mare basalt: dark, a little blue
+OLIVINE = (98, 122, 72)
+IRON = ((30, 32, 40), (120, 126, 140))                        # dark gunmetal
+
 def textures():
     b, i = os.path.join(TEX, "block"), os.path.join(TEX, "item")
     cb = lambda n: os.path.join(CLASSIC, "block", n + ".png")
-    recolour(cb("sand"), 184, 0.9, DUST_TINT).save(os.path.join(b, "moon_dust.png"))
-    moonstone = recolour(cb("stone"), 158, 1.05, STONE_TINT); moonstone.save(os.path.join(b, "moonstone.png"))
-    recolour(cb("cobblestone"), 150, 1.0, STONE_TINT).save(os.path.join(b, "cobbled_moonstone.png"))
-    recolour(cb("smooth_stone"), 166, 1.0, STONE_TINT).save(os.path.join(b, "polished_moonstone.png"))
-    for src, dst in (("stone_bricks", "moonstone_bricks"), ("cracked_stone_bricks", "cracked_moonstone_bricks"), ("chiseled_stone_bricks", "chiseled_moonstone_bricks")):
-        recolour(cb(src), 156, 1.0, STONE_TINT).save(os.path.join(b, dst + ".png"))
-    # ore: the classic iron ore's spots, laid on moonstone, in dark star-flecked meteor iron
-    stone, ore = Image.open(cb("stone")).convert("RGBA"), Image.open(cb("iron_ore")).convert("RGBA")
-    out = moonstone.copy(); po, ps, pr = out.load(), stone.load(), ore.load(); spots = set()
-    for y in range(16):
-        for x in range(16):
-            if ps[x, y] != pr[x, y]:
-                v = sum(pr[x, y][:3]) / 3; k = 0.38 if v > 150 else 0.24
-                po[x, y] = (int(v * k) - 4, int(v * k) - 2, int(v * k) + 10, 255); spots.add((x, y))
-    sparkle(out, 6, 3, spots).save(os.path.join(b, "meteor_iron_ore.png"))
-    # deep moonstone: vanilla deepslate's layered look, recoloured to a dark blue-grey
     dt = lambda n: os.path.join(HERE, "templates", "moon", "textures", n + ".png")
-    deep = recolour(dt("deepslate"), 84, 1.0, STONE_TINT); deep.save(os.path.join(b, "deep_moonstone.png"))
-    recolour(dt("deepslate_top"), 84, 1.0, STONE_TINT).save(os.path.join(b, "deep_moonstone_top.png"))
-    for src, dst in (("cobbled_deepslate", "cobbled_deep_moonstone"), ("polished_deepslate", "polished_deep_moonstone"), ("deepslate_bricks", "deep_moonstone_bricks")):
-        recolour(dt(src), 84, 1.0, STONE_TINT).save(os.path.join(b, dst + ".png"))
-    ds, do = Image.open(dt("deepslate")).convert("RGBA"), Image.open(dt("deepslate_iron_ore")).convert("RGBA")
-    out = deep.copy(); po, ps, pr = out.load(), ds.load(), do.load(); spots = set()
+    r = lambda k: random.Random(k)
+    # moon dust: soft powder, fine dark grit, a few bright grains, tiny impact pits
+    dust = mapped(cb("sand"), *DUST, contrast=0.55)
+    dots(dust, r(1), 12, (124, 122, 116)); dots(dust, r(2), 6, (224, 222, 216)); pits(dust, r(3), 2, (112, 110, 106), (214, 212, 206))
+    dust.save(os.path.join(b, "moon_dust.png"))
+    # moonstone: pale stone with white feldspar crystals and pockmarks
+    ms = mapped(cb("stone"), *STONE, contrast=0.8)
+    dots(ms, r(4), 7, FELDSPAR, size=2); pits(ms, r(5), 3, (96, 94, 92), (200, 198, 192))
+    ms.save(os.path.join(b, "moonstone.png"))
+    dots(mapped(cb("cobblestone"), *STONE), r(6), 5, FELDSPAR, size=2).save(os.path.join(b, "cobbled_moonstone.png"))
+    dots(mapped(cb("smooth_stone"), STONE[0], (204, 202, 196)), r(7), 3, FELDSPAR).save(os.path.join(b, "polished_moonstone.png"))
+    for src, dst, k in (("stone_bricks", "moonstone_bricks", 8), ("cracked_stone_bricks", "cracked_moonstone_bricks", 9)):
+        dots(mapped(cb(src), *STONE), r(k), 4, FELDSPAR).save(os.path.join(b, dst + ".png"))
+    chis = frame(mapped(cb("smooth_stone"), STONE[0], (204, 202, 196), contrast=0.6), (210, 208, 202), (112, 110, 106))
+    crescent(chis, (110, 108, 104), (214, 212, 206)).save(os.path.join(b, "chiseled_moonstone_bricks.png"))
+    # meteor iron ore: dark metal nuggets in moonstone
+    ore(ms, cb("stone"), cb("iron_ore"), (34, 34, 40), (70, 72, 82), (146, 152, 166), (222, 232, 255), 10).save(os.path.join(b, "meteor_iron_ore.png"))
+    # deep moonstone: dark basalt in vanilla deepslate's layers, with gas pockets and a little olivine
+    deep = mapped(dt("deepslate"), *BASALT); pits(deep, r(11), 4, (28, 28, 34), (112, 114, 124)); dots(deep, r(12), 3, OLIVINE)
+    deep.save(os.path.join(b, "deep_moonstone.png"))
+    dots(mapped(dt("deepslate_top"), *BASALT), r(13), 3, OLIVINE).save(os.path.join(b, "deep_moonstone_top.png"))
+    for src, dst, k in (("cobbled_deepslate", "cobbled_deep_moonstone", 14), ("polished_deepslate", "polished_deep_moonstone", 15),
+                        ("deepslate_bricks", "deep_moonstone_bricks", 16)):
+        pits(mapped(dt(src), *BASALT), r(k), 2, (28, 28, 34), (112, 114, 124)).save(os.path.join(b, dst + ".png"))
+    ore(deep, dt("deepslate"), dt("deepslate_iron_ore"), (60, 62, 70), (118, 122, 134), (190, 196, 212), (232, 240, 255), 17).save(os.path.join(b, "deep_meteor_iron_ore.png"))
+    # meteor iron: cut-meteorite Widmanstatten bands in a bevelled block; raw is black fusion crust with rust
+    blk = mapped(cb("iron_block"), (70, 72, 82), (104, 108, 120), contrast=0.4)
+    frame(widmanstatten(blk, r(18), (146, 152, 168), (50, 52, 60)), (124, 128, 140), (38, 40, 46)).save(os.path.join(b, "meteor_iron_block.png"))
+    raw = mapped(os.path.join(TPL, "textures", "block", "raw_iron_block.png"), (26, 24, 24), (84, 80, 78))
+    rust(raw, r(19), 6, [(118, 70, 40), (148, 94, 54)]); dots(raw, r(20), 3, (196, 206, 226))
+    raw.save(os.path.join(b, "raw_meteor_iron_block.png"))
+    ingot = item_map(os.path.join(CLASSIC, "item", "iron_ingot.png"), *IRON); pi = ingot.load()
     for y in range(16):
         for x in range(16):
-            if abs(sum(ps[x, y][:3]) - sum(pr[x, y][:3])) > 30:
-                v = sum(pr[x, y][:3]) / 3; k = 0.3 if v > 120 else 0.2
-                po[x, y] = (int(v * k) - 4, int(v * k) - 2, int(v * k) + 12, 255); spots.add((x, y))
-    sparkle(out, 6, 13, spots).save(os.path.join(b, "deep_meteor_iron_ore.png"))
-    # metal: iron recoloured to a dark blue-black gunmetal, with flecks
-    sparkle(recolour(cb("iron_block"), 74, 0.75, METEOR_TINT), 7, 5).save(os.path.join(b, "meteor_iron_block.png"))
-    sparkle(recolour(os.path.join(TPL, "textures", "block", "raw_iron_block.png"), 62, 0.9, METEOR_TINT), 6, 7).save(os.path.join(b, "raw_meteor_iron_block.png"))
-    ingot = Image.open(os.path.join(CLASSIC, "item", "iron_ingot.png")).convert("RGBA"); pi = ingot.load()
-    for y in range(16):
-        for x in range(16):
-            r, g, bb, a = pi[x, y]
-            if a: v = (r + g + bb) / 3 * 0.5; pi[x, y] = (max(0, int(v - 6)), max(0, int(v - 2)), min(255, int(v + 14)), a)
-    sparkle(ingot, 3, 9).save(os.path.join(i, "meteor_iron_ingot.png"))
-    raw = Image.open(os.path.join(TPL, "textures", "item", "raw_iron.png")).convert("RGBA"); pr = raw.load()
-    for y in range(16):
-        for x in range(16):
-            r, g, bb, a = pr[x, y]
-            if a: v = (r + g + bb) / 3 * 0.48; pr[x, y] = (max(0, int(v - 6)), max(0, int(v - 2)), min(255, int(v + 12)), a)
-    sparkle(raw, 3, 11).save(os.path.join(i, "raw_meteor_iron.png"))
+            if pi[x, y][3] and (x + 2 * y) % 6 == 0 and sum(pi[x, y][:3]) > 150: pi[x, y] = tuple(min(255, c + 30) for c in pi[x, y][:3]) + (255,)   # a hint of the bands
+    ingot.save(os.path.join(i, "meteor_iron_ingot.png"))
+    lump = item_map(os.path.join(TPL, "textures", "item", "raw_iron.png"), (22, 20, 20), (96, 92, 90))
+    rust(lump, r(21), 3, [(118, 70, 40), (148, 94, 54)]); lp = lump.load()
+    for x, y in ((6, 5), (9, 8)):
+        if lp[x, y][3]: lp[x, y] = (210, 220, 240, 255)
+    lump.save(os.path.join(i, "raw_meteor_iron.png"))
 
 # --------------------------------------------------------------------------------------------- json
 def w(rel, obj):
