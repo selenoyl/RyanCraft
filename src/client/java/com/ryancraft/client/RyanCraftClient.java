@@ -23,8 +23,11 @@ public class RyanCraftClient implements ClientModInitializer {
     public void onInitializeClient() {
         ThirstHud.init();
         // winter: our leaves go drab (they can't fall), a dull tint over their colours
-        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->
-                level == null ? 0xFFFFFFFF : com.ryancraft.season.Seasons.leafTint(),
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) -> {
+                    var mcLevel = net.minecraft.client.Minecraft.getInstance().level;
+                    if (level == null || pos == null || mcLevel == null) return 0xFFFFFFFF;
+                    return com.ryancraft.season.Seasons.temperate(mcLevel.getBiome(pos).value()) ? com.ryancraft.season.Seasons.leafTint() : 0xFFFFFFFF;
+                },
                 com.ryancraft.trees.RyanWood.seasonalLeaves().toArray(new net.minecraft.world.level.block.Block[0]));
         DustStormClient.init();
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
@@ -35,6 +38,8 @@ public class RyanCraftClient implements ClientModInitializer {
                 com.ryancraft.metal.Silver.GRATES.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.sky.Skylands.FLOWERS.toArray(new net.minecraft.world.level.block.Block[0]));
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.JOIN.register((handler, sender, mc) ->
+                com.ryancraft.season.Seasons.learnExempt(handler.registryAccess()));
         // seasons: follow the year on this side too, and re-colour the world when the season moves on
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             if (mc.level == null) { seasonSeen = -1; return; }

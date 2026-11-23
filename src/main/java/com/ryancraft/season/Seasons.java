@@ -26,7 +26,8 @@ import net.minecraft.world.level.biome.Biome;
 /**
  * Seasons, Serene Seasons style. The year runs from world time: four seasons of three parts (early, mid, late),
  * {@link #SUB_DAYS} days each, starting in early spring. Temperate biomes get colder in winter (snow, frozen ponds,
- * crops stall outside greenhouses), their grass and leaves change colour, and our trees turn in autumn.
+ * crops stall outside greenhouses), their grass and leaves change colour, and our trees turn in autumn. Other worlds
+ * (biome tag ryancraft:no_seasons: the Skylands, the moon) have no seasons.
  */
 public final class Seasons {
     public static final int SUB_DAYS = 8, YEAR = 12;
@@ -43,8 +44,20 @@ public final class Seasons {
     public static String name(int sub) { return PHASE[sub % 3] + " " + season(sub).title(); }
     public static int dayOf(long dayTime) { return (int) Math.floorMod(Math.floorDiv(dayTime, 24000L), (long) SUB_DAYS) + 1; }
 
-    /** Temperate biomes feel the seasons; deserts, jungles and frozen places keep their climate. */
-    public static boolean temperate(Biome b) { float t = b.getBaseTemperature(); return t > 0.15f && t <= 0.95f; }
+    /** Biomes outside the year altogether (the Skylands, the moon): tag ryancraft:no_seasons. */
+    public static final net.minecraft.tags.TagKey<Biome> NO_SEASONS = net.minecraft.tags.TagKey.create(Registries.BIOME, RyanCraft.id("no_seasons"));
+    private static final java.util.Set<Biome> EXEMPT = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+    /** Learns which biome objects are exempt; called on each side once its registries are loaded. */
+    public static void learnExempt(net.minecraft.core.RegistryAccess access) {
+        access.lookupOrThrow(Registries.BIOME).getTagOrEmpty(NO_SEASONS).forEach(h -> EXEMPT.add(h.value()));
+    }
+
+    /** Temperate biomes feel the seasons; deserts, jungles, frozen places and other worlds keep their climate. */
+    public static boolean temperate(Biome b) {
+        if (EXEMPT.contains(b)) return false;
+        float t = b.getBaseTemperature(); return t > 0.15f && t <= 0.95f;
+    }
 
     private static final float[] TEMP = {-0.25f, -0.15f, -0.05f, 0f, 0.1f, 0.05f, -0.05f, -0.2f, -0.4f, -0.7f, -0.8f, -0.6f};
     public static float temperatureOffset(Biome b) { return temperate(b) ? TEMP[current] : 0f; }
@@ -95,6 +108,7 @@ public final class Seasons {
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(e -> e.accept(CALENDAR));
 
+        ServerLifecycleEvents.SERVER_STARTING.register(s -> learnExempt(s.registryAccess()));
         ServerLifecycleEvents.SERVER_STARTED.register(s -> current = sub(s.overworld()));
         ServerTickEvents.END_SERVER_TICK.register(Seasons::tick);
         CommandRegistrationCallback.EVENT.register((d, ctx, env) -> d.register(Commands.literal("season")
