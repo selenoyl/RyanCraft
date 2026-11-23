@@ -454,9 +454,19 @@ def textures():
     vesicles(tiles(rock(57, *BASALT, 0.2), 8, (124, 126, 136), (34, 34, 40), (22, 22, 28)), 58, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_bricks.png"))
     ore(deep, dt("deepslate"), dt("deepslate_iron_ore"), (60, 62, 70), (118, 122, 134), (190, 196, 212), (232, 240, 255), 17).save(os.path.join(b, "deep_meteor_iron_ore.png"))
     # meteor iron, all original: an etched meteorite slab, thumbprinted fusion crust, a meteorite lump and a bar
-    meteor_slab(60).save(os.path.join(b, "meteor_iron_block.png"))
+    # the block follows vanilla's iron block (bevelled plate), in the ingot's gunmetal with the same faint band etch
+    blk = mapped(cb("iron_block"), (44, 46, 54), (132, 138, 154)); pb = blk.load()
+    for y in range(16):
+        for x in range(16):
+            if 1 <= x <= 14 and 1 <= y <= 14 and (x + 2 * y) % 6 == 0: pb[x, y] = tuple(min(255, c + 22) for c in pb[x, y][:3]) + (255,)
+    blk.save(os.path.join(b, "meteor_iron_block.png"))
     meteor_crust(61).save(os.path.join(b, "raw_meteor_iron_block.png"))
-    lump_sprite(62).save(os.path.join(i, "raw_meteor_iron.png"))
+    # raw meteor iron follows vanilla's raw iron shape: dark meteorite tones, rust spots and a glint
+    lump = item_map(os.path.join(TPL, "textures", "item", "raw_iron.png"), (20, 18, 18), (104, 100, 98))
+    rust(lump, random.Random(62), 3, [(122, 72, 40), (152, 96, 54)]); lp = lump.load()
+    best = max(((x, y) for y in range(16) for x in range(16) if lp[x, y][3]), key=lambda p: sum(lp[p[0], p[1]][:3]))
+    lp[best[0], best[1]] = (218, 228, 248, 255)
+    lump.save(os.path.join(i, "raw_meteor_iron.png"))
     # the ingot keeps vanilla's ingot shape (so it reads as an ingot), in dark gunmetal with a faint etch of the bands
     ingot = item_map(os.path.join(CLASSIC, "item", "iron_ingot.png"), *IRON); pi = ingot.load()
     for y in range(16):
