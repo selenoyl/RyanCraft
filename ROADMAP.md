@@ -158,7 +158,8 @@ clusters like vanilla's fancy oak. Still to do:
   campfires burn fuel.
 - ~~**More crops**~~ (built): tomatoes, peppers, corn, squash, cabbage, onions, beans and rice, each growing only in
   its own seasons outdoors in temperate lands (greenhouses get round it). Seeds turn up when breaking grass.
-- **More foods** to go with them: stews, soups, pies, roasts, sandwiches, plus dishes built on our game (venison,
+- **More foods** to go with them (started: roasted corn, baked squash, stuffed peppers, cabbage rolls, sandwiches,
+  garden salad, cornbread): stews, soups, pies, roasts, sandwiches, plus dishes built on our game (venison,
   turkey, duck, fish fillets) and orchard fruit (cherries, walnuts).
 
 ## Weather

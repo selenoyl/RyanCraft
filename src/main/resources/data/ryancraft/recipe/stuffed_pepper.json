@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:pepper",
+    "ryancraft:rice",
+    "#ryancraft:cooked_meats"
+  ],
+  "result": {
+    "id": "ryancraft:stuffed_pepper",
+    "count": 1
+  }
+}

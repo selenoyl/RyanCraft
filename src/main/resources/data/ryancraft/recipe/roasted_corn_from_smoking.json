@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "ingredient": "ryancraft:corn",
+  "result": {
+    "id": "ryancraft:roasted_corn"
+  },
+  "experience": 0.35,
+  "cookingtime": 100
+}

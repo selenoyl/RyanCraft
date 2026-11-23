@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bread",
+    "#ryancraft:cooked_meats",
+    [
+      "ryancraft:cabbage",
+      "ryancraft:tomato"
+    ]
+  ],
+  "result": {
+    "id": "ryancraft:sandwich",
+    "count": 1
+  }
+}

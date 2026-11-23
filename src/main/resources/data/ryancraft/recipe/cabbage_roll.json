@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:cabbage",
+    "ryancraft:rice",
+    "#ryancraft:cooked_meats"
+  ],
+  "result": {
+    "id": "ryancraft:cabbage_roll",
+    "count": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:corn",
+    "ryancraft:corn",
+    "ryancraft:corn",
+    "minecraft:egg"
+  ],
+  "result": {
+    "id": "ryancraft:cornbread",
+    "count": 2
+  }
+}

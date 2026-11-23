@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "ryancraft:cabbage",
+    "ryancraft:tomato",
+    "ryancraft:onion"
+  ],
+  "result": {
+    "id": "ryancraft:garden_salad",
+    "count": 1
+  }
+}
