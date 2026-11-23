@@ -12,6 +12,14 @@
     "ryancraft:deep_moonstone_jade_ore",
     "ryancraft:jade_block",
     "ryancraft:zephyrite_ore",
-    "ryancraft:zephyrite_block"
+    "ryancraft:zephyrite_block",
+    "ryancraft:silver_ore",
+    "ryancraft:deepslate_silver_ore",
+    "ryancraft:raw_silver_block",
+    "ryancraft:silver_block",
+    "ryancraft:uranium_ore",
+    "ryancraft:deepslate_uranium_ore",
+    "ryancraft:raw_uranium_block",
+    "ryancraft:uranium_block"
   ]
 }

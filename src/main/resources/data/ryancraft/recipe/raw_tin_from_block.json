@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:raw_tin_block"
+  ],
+  "result": {
+    "id": "ryancraft:raw_tin",
+    "count": 9
+  }
+}

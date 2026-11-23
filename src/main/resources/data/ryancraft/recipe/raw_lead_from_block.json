@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:raw_lead_block"
+  ],
+  "result": {
+    "id": "ryancraft:raw_lead",
+    "count": 9
+  }
+}

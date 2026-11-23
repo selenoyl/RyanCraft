@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "ryancraft:deepslate_tin_ore",
+  "result": {
+    "id": "ryancraft:tin_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 200
+}

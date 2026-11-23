@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:uranium_nugget"
+  },
+  "result": {
+    "id": "ryancraft:uranium_ingot",
+    "count": 1
+  }
+}

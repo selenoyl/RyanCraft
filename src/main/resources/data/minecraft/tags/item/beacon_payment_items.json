@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "ryancraft:steel_ingot",
-    "ryancraft:meteor_iron_ingot"
+    "ryancraft:meteor_iron_ingot",
+    "ryancraft:silver_ingot"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:lead_ingot"
+  },
+  "result": {
+    "id": "ryancraft:lead_block",
+    "count": 1
+  }
+}

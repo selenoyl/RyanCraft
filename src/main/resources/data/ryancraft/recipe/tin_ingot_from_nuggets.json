@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:tin_nugget"
+  },
+  "result": {
+    "id": "ryancraft:tin_ingot",
+    "count": 1
+  }
+}

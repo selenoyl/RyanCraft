@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": "ryancraft:raw_zinc",
+  "result": {
+    "id": "ryancraft:zinc_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 100
+}

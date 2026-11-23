@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:raw_silver_block"
+  ],
+  "result": {
+    "id": "ryancraft:raw_silver",
+    "count": 9
+  }
+}

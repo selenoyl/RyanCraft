@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:raw_silver"
+  },
+  "result": {
+    "id": "ryancraft:raw_silver_block",
+    "count": 1
+  }
+}

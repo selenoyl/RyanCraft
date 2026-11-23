@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:zinc_nugget"
+  },
+  "result": {
+    "id": "ryancraft:zinc_ingot",
+    "count": 1
+  }
+}

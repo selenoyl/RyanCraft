@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:tin_ingot"
+  },
+  "result": {
+    "id": "ryancraft:tin_block",
+    "count": 1
+  }
+}

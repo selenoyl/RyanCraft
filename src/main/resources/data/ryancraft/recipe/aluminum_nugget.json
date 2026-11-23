@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:aluminum_ingot"
+  ],
+  "result": {
+    "id": "ryancraft:aluminum_nugget",
+    "count": 9
+  }
+}

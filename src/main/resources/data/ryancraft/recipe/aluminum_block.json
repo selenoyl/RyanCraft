@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:aluminum_ingot"
+  },
+  "result": {
+    "id": "ryancraft:aluminum_block",
+    "count": 1
+  }
+}

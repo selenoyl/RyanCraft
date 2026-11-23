@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:silver_nugget"
+  },
+  "result": {
+    "id": "ryancraft:silver_ingot",
+    "count": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:uranium_ingot"
+  ],
+  "result": {
+    "id": "ryancraft:uranium_nugget",
+    "count": 9
+  }
+}

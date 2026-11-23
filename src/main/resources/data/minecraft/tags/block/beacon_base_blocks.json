@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "ryancraft:steel_block",
-    "ryancraft:meteor_iron_block"
+    "ryancraft:meteor_iron_block",
+    "ryancraft:silver_block"
   ]
 }

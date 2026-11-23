@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:raw_aluminum_block"
+  ],
+  "result": {
+    "id": "ryancraft:raw_aluminum",
+    "count": 9
+  }
+}

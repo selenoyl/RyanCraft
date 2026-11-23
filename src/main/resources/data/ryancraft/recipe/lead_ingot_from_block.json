@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:lead_block"
+  ],
+  "result": {
+    "id": "ryancraft:lead_ingot",
+    "count": 9
+  }
+}

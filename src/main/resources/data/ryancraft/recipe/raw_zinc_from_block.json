@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:raw_zinc_block"
+  ],
+  "result": {
+    "id": "ryancraft:raw_zinc",
+    "count": 9
+  }
+}
