@@ -46,6 +46,13 @@ public class Pegasus extends Horse {
         if (jump != null) jump.addOrReplacePermanentModifier(WINGS);
     }
 
+    /** On the ground or just about to land: a solid block right underfoot (works even when onGround isn't synced). */
+    private boolean grounded() {
+        if (onGround()) return true;
+        BlockPos below = BlockPos.containing(getX(), getY() - 0.2, getZ());
+        return !level().getBlockState(below).getCollisionShape(level(), below).isEmpty();
+    }
+
     public boolean gliding() { return !onGround() && !isInWater() && getDeltaMovement().y < 0; }
 
     @Override
@@ -53,7 +60,7 @@ public class Pegasus extends Horse {
         super.tick();
         if (level().isClientSide()) {
             prevWingSpread = wingSpread;
-            float target = onGround() || isInWater() ? 0f : 1f;
+            float target = grounded() || isInWater() ? 0f : 1f;
             wingSpread += (target - wingSpread) * 0.3f;
         }
     }
