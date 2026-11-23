@@ -36,9 +36,12 @@ public final class MoonPhysics {
 
     public static boolean onMoon(Entity e) { return e.level().dimension().equals(MoonPortalBlock.MOON); }
 
-    /** Gravity scale for this entity where it is now (1 off the moon). */
+    /** On the moon, or in a gravity well's field. */
+    public static boolean lowGravity(Entity e) { return onMoon(e) || GravityWell.inField(e.level(), e.position()); }
+
+    /** Gravity scale for this entity where it is now (1 in Earth's gravity). */
     public static double gravityScale(Entity e) {
-        if (!onMoon(e)) return 1.0;
+        if (!lowGravity(e)) return 1.0;
         return e instanceof LivingEntity ? LIVING_GRAVITY : THROWN_GRAVITY;
     }
 

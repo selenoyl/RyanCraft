@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "DMD",
+    "MSM",
+    "DMD"
+  ],
+  "key": {
+    "D": "ryancraft:moon_dust",
+    "M": "ryancraft:meteor_iron_ingot",
+    "S": "ryancraft:chiseled_moonstone_bricks"
+  },
+  "result": {
+    "id": "ryancraft:gravity_well",
+    "count": 1
+  }
+}

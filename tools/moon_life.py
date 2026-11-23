@@ -265,3 +265,30 @@ def force_field():
 
 if __name__ == "__main__":
     force_field(); print("force field ok")
+
+
+# ---------------------------------------------------------------- gravity well (moon/GravityWell.java)
+def gravity_well():
+    B = os.path.join(M.A, "textures", "block")
+    im = Image.open(os.path.join(B, "chiseled_moonstone_bricks.png")).convert("RGBA"); px = im.load()
+    for y in range(16):
+        for x in range(16):
+            d = ((x - 7.5) ** 2 + (y - 7.5) ** 2) ** 0.5
+            if x in (0, 15) or y in (0, 15): px[x, y] = (54, 56, 68, 255)            # a meteor-iron rim
+            elif d < 2.2: px[x, y] = (226, 230, 255, 255)                               # the pale, weightless core
+            elif d < 3.4: px[x, y] = (150, 160, 210, 255)
+    im.save(os.path.join(B, "gravity_well.png"))
+    M.w("assets/ryancraft/blockstates/gravity_well.json", {"variants": {"powered=false": {"model": "ryancraft:block/gravity_well"}, "powered=true": {"model": "ryancraft:block/gravity_well"}}})
+    M.w("assets/ryancraft/models/block/gravity_well.json", {"parent": "minecraft:block/cube_all", "textures": {"all": "ryancraft:block/gravity_well"}})
+    M.w("assets/ryancraft/items/gravity_well.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/gravity_well"}})
+    M.w("data/ryancraft/loot_table/blocks/gravity_well.json", {"type": "minecraft:block", "pools": [{"rolls": 1,
+        "entries": [{"type": "minecraft:item", "name": "ryancraft:gravity_well"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+    M.w("data/ryancraft/recipe/gravity_well.json", {"type": "minecraft:crafting_shaped", "category": "redstone", "pattern": ["DMD", "MSM", "DMD"],
+        "key": {"D": "ryancraft:moon_dust", "M": "ryancraft:meteor_iron_ingot", "S": "ryancraft:chiseled_moonstone_bricks"},
+        "result": {"id": "ryancraft:gravity_well", "count": 1}})
+    M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:gravity_well"])
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d["block.ryancraft.gravity_well"] = "Gravity Well"
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    gravity_well(); print("gravity well ok")

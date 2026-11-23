@@ -33,6 +33,6 @@ public abstract class MoonAirMixin {
 
     @Inject(method = "calculateFallDamage", at = @At("RETURN"), cancellable = true)
     private void ryancraft$softLanding(double distance, float multiplier, CallbackInfoReturnable<Integer> cir) {
-        if (MoonPhysics.onMoon((LivingEntity) (Object) this)) cir.setReturnValue((int) Math.floor(cir.getReturnValue() * MoonPhysics.LIVING_GRAVITY));
+        if (MoonPhysics.lowGravity((LivingEntity) (Object) this)) cir.setReturnValue((int) Math.floor(cir.getReturnValue() * MoonPhysics.LIVING_GRAVITY));
     }
 }

@@ -227,6 +227,7 @@
     "ryancraft:chiseled_aluminum",
     "ryancraft:chiseled_uranium",
     "ryancraft:zephyr_vent",
-    "ryancraft:force_field_generator"
+    "ryancraft:force_field_generator",
+    "ryancraft:gravity_well"
   ]
 }

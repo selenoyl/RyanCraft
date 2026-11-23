@@ -46,6 +46,8 @@ public final class MoonBlocks {
     public static final Block MOON_HERB, POTTED_MOON_HERB;
     /** The moon base's shield: catches meteors and holds air. */
     public static final Block FORCE_FIELD_GENERATOR;
+    /** Moonstone gravity, for Earth: a sphere of moon gravity. */
+    public static final Block GRAVITY_WELL;
 
     static {
         MOON_DUST = block("moon_dust", p -> new ColoredFallingBlock(new ColorRGBA(0xFFB9B8B2), p),
@@ -91,6 +93,9 @@ public final class MoonBlocks {
         FORCE_FIELD_GENERATOR = block("force_field_generator", ForceField.GeneratorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
                 .requiresCorrectToolForDrops().strength(5.0f, 1200.0f).sound(SoundType.METAL).lightLevel(st -> st.getValue(ForceField.ACTIVE) ? 12 : 2));
         ForceField.init(FORCE_FIELD_GENERATOR);
+        GRAVITY_WELL = block("gravity_well", GravityWell.WellBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.QUARTZ)
+                .requiresCorrectToolForDrops().strength(3.0f, 6.0f).sound(SoundType.STONE).lightLevel(st -> st.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED) ? 0 : 6));
+        GravityWell.init(GRAVITY_WELL);
         MOON_PORTAL = blockNoItem("moon_portal", MoonPortalBlock::new, BlockBehaviour.Properties.of().noCollision().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(st -> 9).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK));
         RAW_METEOR_IRON = item("raw_meteor_iron");

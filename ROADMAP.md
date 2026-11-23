@@ -310,7 +310,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools, armour
       and cannon barrels, and it shimmers faintly at night. *(Built: meteor iron tools and armour at diamond's tier.)*
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
-  - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust,
+  - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** *(Built: the gravity well, radius 6, switched off by redstone.)* Moonstone dust,
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
