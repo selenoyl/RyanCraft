@@ -214,7 +214,9 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 ## The Skylands: our sky dimension (our own, not the Aether)
 **Built (first step):** the dimension (floating islands of grassy meadow over pale **skystone**, a bright sky, and
 vanilla's clouds drifting just below the islands); **sky flowers** (cloudbloom, sky bell, windflower and sunpetal,
-scattered through the meadows with a few vanilla flowers); and the **portal**: a glowstone
+scattered through the meadows with a few vanilla flowers); **pegasi** (winged horses that jump twice as high as a
+horse and glide down from any height, breeding true) and **cloud sheep** (extra-puffy sheep that shear for more wool
+and drift down gently); and the **portal**: a glowstone
 frame lit by pouring a water bucket into it. The far end finds a portal nearby or builds one (on an island, or on a
 little skystone ledge). Also built: the **sky willow** (the islands' own tree, with a full wood set) and
 **zephyrite**, a light cyan crystal in the skystone, which makes the **glider**: hold it while falling and you

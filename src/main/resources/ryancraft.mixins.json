@@ -24,7 +24,8 @@
     "OverworldBiomeBuilderMixin",
     "StableWorldgenMixin",
     "StableLevelSummaryMixin",
-    "SilverTarnishMixin"
+    "SilverTarnishMixin",
+    "HorseVariantInvoker"
   ],
   "injectors": {
     "defaultRequire": 0

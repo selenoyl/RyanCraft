@@ -167,6 +167,20 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.MUDLING, com.ryancraft.client.mudling.MudlingRenderer::new);
         EntityRendererRegistry.register(RyanEntities.REINDEER, com.ryancraft.client.render.ReindeerRenderer::new);
         EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);
+        // Skylands: the pegasus is a vanilla horse with wings; the cloud sheep a vanilla sheep with an extra puff of wool
+        EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.sky.PegasusWingsModel.LAYER, com.ryancraft.client.sky.PegasusWingsModel::create);
+        EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.sky.PegasusWingsModel.BABY_LAYER, com.ryancraft.client.sky.PegasusWingsModel::createBaby);
+        EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.sky.CloudSheepPuffLayer.LAYER, com.ryancraft.client.sky.CloudSheepPuffLayer::create);
+        EntityRendererRegistry.register(RyanEntities.PEGASUS, c -> {
+            var r = new net.minecraft.client.renderer.entity.HorseRenderer(c);
+            ((com.ryancraft.client.mixin.LivingEntityRendererInvoker) (Object) r).ryancraft$addLayer(new com.ryancraft.client.sky.PegasusWingsLayer(r, c.getModelSet()));
+            return r;
+        });
+        EntityRendererRegistry.register(RyanEntities.CLOUD_SHEEP, c -> {
+            var r = new net.minecraft.client.renderer.entity.SheepRenderer(c);
+            ((com.ryancraft.client.mixin.LivingEntityRendererInvoker) (Object) r).ryancraft$addLayer(new com.ryancraft.client.sky.CloudSheepPuffLayer(r, c.getModelSet()));
+            return r;
+        });
         EntityRendererRegistry.register(RyanEntities.CROW, c -> new CritterRenderer<>(c, "crow", 0.3f, 1.0f, false, "crow"));
         net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) -> {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.AvatarRenderer<?> avatar) {

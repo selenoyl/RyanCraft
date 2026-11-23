@@ -11,7 +11,8 @@
     "AvatarRendererCrowMixin",
     "HorseRendererZebraMixin",
     "DustFogMixin",
-    "StableWorldCreationMixin"
+    "StableWorldCreationMixin",
+    "LivingEntityRendererInvoker"
   ],
   "injectors": {
     "defaultRequire": 0
