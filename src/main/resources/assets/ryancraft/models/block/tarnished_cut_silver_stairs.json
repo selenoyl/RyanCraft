@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "ryancraft:block/tarnished_cut_silver",
+    "side": "ryancraft:block/tarnished_cut_silver",
+    "top": "ryancraft:block/tarnished_cut_silver"
+  }
+}

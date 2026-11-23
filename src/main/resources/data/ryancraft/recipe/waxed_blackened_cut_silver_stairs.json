@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:waxed_blackened_cut_silver"
+  },
+  "result": {
+    "id": "ryancraft:waxed_blackened_cut_silver_stairs",
+    "count": 4
+  }
+}

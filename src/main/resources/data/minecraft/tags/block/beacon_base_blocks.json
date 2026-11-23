@@ -3,6 +3,13 @@
   "values": [
     "ryancraft:steel_block",
     "ryancraft:meteor_iron_block",
-    "ryancraft:silver_block"
+    "ryancraft:silver_block",
+    "ryancraft:waxed_silver_block",
+    "ryancraft:dulled_silver_block",
+    "ryancraft:waxed_dulled_silver_block",
+    "ryancraft:tarnished_silver_block",
+    "ryancraft:waxed_tarnished_silver_block",
+    "ryancraft:blackened_silver_block",
+    "ryancraft:waxed_blackened_silver_block"
   ]
 }

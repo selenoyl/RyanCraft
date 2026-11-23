@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:tarnished_chiseled_silver",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_tarnished_chiseled_silver",
+  "result": {
+    "id": "ryancraft:waxed_tarnished_chiseled_silver",
+    "count": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:waxed_dulled_cut_silver",
+  "result": {
+    "id": "ryancraft:waxed_dulled_cut_silver_stairs",
+    "count": 1
+  }
+}

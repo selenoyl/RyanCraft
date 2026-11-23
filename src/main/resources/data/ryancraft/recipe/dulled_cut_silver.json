@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:dulled_silver_block"
+  },
+  "result": {
+    "id": "ryancraft:dulled_cut_silver",
+    "count": 4
+  }
+}

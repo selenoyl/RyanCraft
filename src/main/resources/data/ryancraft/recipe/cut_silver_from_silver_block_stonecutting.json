@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:silver_block",
+  "result": {
+    "id": "ryancraft:cut_silver",
+    "count": 4
+  }
+}

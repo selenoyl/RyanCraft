@@ -23,7 +23,8 @@
     "WeatherClearMixin",
     "OverworldBiomeBuilderMixin",
     "StableWorldgenMixin",
-    "StableLevelSummaryMixin"
+    "StableLevelSummaryMixin",
+    "SilverTarnishMixin"
   ],
   "injectors": {
     "defaultRequire": 0

@@ -100,3 +100,7 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 ## Release
 - [ ] **Bump `mod_version` and add a changelog section** after a round of changes. The Release workflow builds the jar and
       publishes a GitHub Release (tag v<version>) with that section as notes. Never commit jars to the repo.
+
+## Test harness
+- 1.21.11 renamed gamerules to snake_case (`random_tick_speed`, not `randomTickSpeed`). A function with one bad line fails to load at all, and a tick function that calls it fails too, so the test silently never starts. Grep the log for "Failed to load function" in the waiting loop.
+- Random-tick speed in the thousands stalls a software-rendered test client; a few hundred ages blocks fast enough.

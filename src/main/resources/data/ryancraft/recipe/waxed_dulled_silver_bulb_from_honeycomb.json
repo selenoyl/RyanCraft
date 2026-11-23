@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:dulled_silver_bulb",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_dulled_silver_bulb",
+  "result": {
+    "id": "ryancraft:waxed_dulled_silver_bulb",
+    "count": 1
+  }
+}

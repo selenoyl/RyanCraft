@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:steel_trapdoor"
+    "ryancraft:steel_trapdoor",
+    "ryancraft:silver_trapdoor",
+    "ryancraft:waxed_silver_trapdoor",
+    "ryancraft:dulled_silver_trapdoor",
+    "ryancraft:waxed_dulled_silver_trapdoor",
+    "ryancraft:tarnished_silver_trapdoor",
+    "ryancraft:waxed_tarnished_silver_trapdoor",
+    "ryancraft:blackened_silver_trapdoor",
+    "ryancraft:waxed_blackened_silver_trapdoor"
   ]
 }

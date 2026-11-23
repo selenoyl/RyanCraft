@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:tarnished_silver_trapdoor",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_tarnished_silver_trapdoor",
+  "result": {
+    "id": "ryancraft:waxed_tarnished_silver_trapdoor",
+    "count": 1
+  }
+}

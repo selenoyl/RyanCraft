@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:dulled_silver_block",
+  "result": {
+    "id": "ryancraft:dulled_silver_grate",
+    "count": 4
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": "ryancraft:silver_block"
+  },
+  "result": {
+    "id": "ryancraft:silver_grate",
+    "count": 4
+  }
+}

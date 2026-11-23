@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:silver_block",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_silver_block",
+  "result": {
+    "id": "ryancraft:waxed_silver_block",
+    "count": 1
+  }
+}

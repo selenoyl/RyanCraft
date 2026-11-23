@@ -5,6 +5,14 @@
     "ryancraft:cobbled_moonstone_slab",
     "ryancraft:moonstone_brick_slab",
     "ryancraft:jade_brick_slab",
-    "ryancraft:lapis_brick_slab"
+    "ryancraft:lapis_brick_slab",
+    "ryancraft:cut_silver_slab",
+    "ryancraft:waxed_cut_silver_slab",
+    "ryancraft:dulled_cut_silver_slab",
+    "ryancraft:waxed_dulled_cut_silver_slab",
+    "ryancraft:tarnished_cut_silver_slab",
+    "ryancraft:waxed_tarnished_cut_silver_slab",
+    "ryancraft:blackened_cut_silver_slab",
+    "ryancraft:waxed_blackened_cut_silver_slab"
   ]
 }

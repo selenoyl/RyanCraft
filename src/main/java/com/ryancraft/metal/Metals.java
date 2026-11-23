@@ -48,8 +48,10 @@ public final class Metals {
         Block deep = block("deepslate_" + n + "_ore", p -> new DropExperienceBlock(UniformInt.of(0, 2), p), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE)
                 .requiresCorrectToolForDrops().strength(4.5f, 3.0f).sound(SoundType.DEEPSLATE).lightLevel(s -> light));
         Block rawBlock = block("raw_" + n + "_block", Block::new, BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f));
-        Block block = block(n + "_block", Block::new, BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f)
-                .sound(SoundType.METAL).lightLevel(s -> light));
+        BlockBehaviour.Properties bp = BlockBehaviour.Properties.of();
+        if (n.equals("silver")) bp.randomTicks();
+        Block block = block(n + "_block", Block::new, bp.mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f)
+                .sound(SoundType.METAL).lightLevel(s -> light));     // silver's block tarnishes (Silver)
         ALL.put(n, new Metal(n, colour, light, ore, deep, rawBlock, block, item("raw_" + n), item(n + "_ingot"), item(n + "_nugget")));
     }
 

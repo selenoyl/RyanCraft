@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:dulled_silver_door",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_dulled_silver_door",
+  "result": {
+    "id": "ryancraft:waxed_dulled_silver_door",
+    "count": 1
+  }
+}

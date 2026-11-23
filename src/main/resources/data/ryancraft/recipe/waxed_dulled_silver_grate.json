@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " # ",
+    "# #",
+    " # "
+  ],
+  "key": {
+    "#": "ryancraft:waxed_dulled_silver_block"
+  },
+  "result": {
+    "id": "ryancraft:waxed_dulled_silver_grate",
+    "count": 4
+  }
+}

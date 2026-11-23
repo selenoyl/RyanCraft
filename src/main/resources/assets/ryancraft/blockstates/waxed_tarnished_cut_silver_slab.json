@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/tarnished_cut_silver_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/tarnished_cut_silver"
+    },
+    "type=top": {
+      "model": "ryancraft:block/tarnished_cut_silver_slab_top"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "ryancraft:block/dulled_cut_silver",
+    "side": "ryancraft:block/dulled_cut_silver",
+    "top": "ryancraft:block/dulled_cut_silver"
+  }
+}

@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:steel_door"
+    "ryancraft:steel_door",
+    "ryancraft:silver_door",
+    "ryancraft:waxed_silver_door",
+    "ryancraft:dulled_silver_door",
+    "ryancraft:waxed_dulled_silver_door",
+    "ryancraft:tarnished_silver_door",
+    "ryancraft:waxed_tarnished_silver_door",
+    "ryancraft:blackened_silver_door",
+    "ryancraft:waxed_blackened_silver_door"
   ]
 }

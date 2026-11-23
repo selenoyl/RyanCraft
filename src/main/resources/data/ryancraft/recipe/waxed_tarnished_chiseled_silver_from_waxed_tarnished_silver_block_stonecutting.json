@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:waxed_tarnished_silver_block",
+  "result": {
+    "id": "ryancraft:waxed_tarnished_chiseled_silver",
+    "count": 4
+  }
+}

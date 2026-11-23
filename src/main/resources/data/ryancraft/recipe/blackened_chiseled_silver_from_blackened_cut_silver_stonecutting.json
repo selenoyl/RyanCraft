@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:blackened_cut_silver",
+  "result": {
+    "id": "ryancraft:blackened_chiseled_silver",
+    "count": 1
+  }
+}

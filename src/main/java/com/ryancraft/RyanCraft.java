@@ -35,6 +35,7 @@ public class RyanCraft implements ModInitializer {
         com.ryancraft.thirst.Thirst.init();
         com.ryancraft.metal.Steel.init();
         com.ryancraft.metal.Metals.init();
+        com.ryancraft.metal.Silver.init();
         com.ryancraft.moon.MoonBlocks.init();
         com.ryancraft.deco.GemBlocks.init();
         com.ryancraft.sky.Skylands.init();

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:tarnished_cut_silver_slab",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_tarnished_cut_silver_slab",
+  "result": {
+    "id": "ryancraft:waxed_tarnished_cut_silver_slab",
+    "count": 1
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "ryancraft:blackened_cut_silver_slab"
+  },
+  "result": {
+    "id": "ryancraft:blackened_chiseled_silver",
+    "count": 1
+  }
+}

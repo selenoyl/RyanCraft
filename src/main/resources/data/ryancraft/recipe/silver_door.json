@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:silver_ingot"
+  },
+  "result": {
+    "id": "ryancraft:silver_door",
+    "count": 3
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_right_open",
+  "textures": {
+    "bottom": "ryancraft:block/dulled_silver_door_bottom",
+    "top": "ryancraft:block/dulled_silver_door_top"
+  }
+}

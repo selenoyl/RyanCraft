@@ -5,6 +5,14 @@
     "ryancraft:cobbled_moonstone_stairs",
     "ryancraft:moonstone_brick_stairs",
     "ryancraft:jade_brick_stairs",
-    "ryancraft:lapis_brick_stairs"
+    "ryancraft:lapis_brick_stairs",
+    "ryancraft:cut_silver_stairs",
+    "ryancraft:waxed_cut_silver_stairs",
+    "ryancraft:dulled_cut_silver_stairs",
+    "ryancraft:waxed_dulled_cut_silver_stairs",
+    "ryancraft:tarnished_cut_silver_stairs",
+    "ryancraft:waxed_tarnished_cut_silver_stairs",
+    "ryancraft:blackened_cut_silver_stairs",
+    "ryancraft:waxed_blackened_cut_silver_stairs"
   ]
 }

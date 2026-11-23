@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:dulled_silver_grate",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_dulled_silver_grate",
+  "result": {
+    "id": "ryancraft:waxed_dulled_silver_grate",
+    "count": 1
+  }
+}

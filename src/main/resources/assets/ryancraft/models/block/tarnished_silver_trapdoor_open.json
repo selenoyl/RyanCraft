@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_open",
+  "textures": {
+    "texture": "ryancraft:block/tarnished_silver_trapdoor"
+  }
+}

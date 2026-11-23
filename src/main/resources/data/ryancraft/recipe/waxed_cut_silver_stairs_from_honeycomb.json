@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:cut_silver_stairs",
+    "minecraft:honeycomb"
+  ],
+  "group": "waxed_cut_silver_stairs",
+  "result": {
+    "id": "ryancraft:waxed_cut_silver_stairs",
+    "count": 1
+  }
+}
