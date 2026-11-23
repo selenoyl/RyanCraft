@@ -49,7 +49,7 @@ public final class AmbienceEngine {
         Surroundings e = env;
         if (e == null || !e.surface || !(e.night || e.dusk) || e.rainHere || e.snowy || e.desert || e.temperature < 0.5f) return;
         if (e.grass < 6 && e.leaves < 5) return;
-        if (random.nextFloat() > 0.6f * Math.max(0f, Math.min(1f, amount))) return;
+        if (random.nextFloat() > 0.25f * Math.max(0f, Math.min(1f, amount))) return;      // a thin scatter by default
         var player = mc.player;
         double x = player.getX() + (random.nextDouble() - 0.5) * 28, z = player.getZ() + (random.nextDouble() - 0.5) * 28;
         int ground = mc.level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(x), (int) Math.floor(z));

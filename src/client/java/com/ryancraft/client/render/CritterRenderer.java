@@ -76,7 +76,7 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
                 pose.mulPose(Axis.ZP.rotationDegrees(90.0f));
             }
         } else if (state.climbing && !state.playingDead) {
-            pose.mulPose(Axis.XP.rotationDegrees(-75.0f));
+            pose.mulPose(Axis.XP.rotationDegrees(75.0f));                   // nose up the trunk, belly to the bark
             pose.translate(0.0f, -0.15f, 0.0f);
         }
     }
