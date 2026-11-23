@@ -79,7 +79,11 @@ public final class Skylands {
     public static final SkyCloudFeature SKY_CLOUD = Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("sky_cloud"),
             new SkyCloudFeature(net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration.CODEC));
 
+    /** Zephyrite gear: iron's tier, a little easier to enchant. */
+    public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);
+
     public static void init() {
+        ZEPHYRITE_GEAR.addToTabs();
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         // Pour a water bucket into a glowstone frame to light the portal (instead of placing the water)
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {

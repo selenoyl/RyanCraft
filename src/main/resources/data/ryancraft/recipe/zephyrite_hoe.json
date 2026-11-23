@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "##",
+    " S",
+    " S"
+  ],
+  "key": {
+    "#": "ryancraft:zephyrite",
+    "S": "minecraft:stick"
+  },
+  "result": {
+    "id": "ryancraft:zephyrite_hoe",
+    "count": 1
+  }
+}

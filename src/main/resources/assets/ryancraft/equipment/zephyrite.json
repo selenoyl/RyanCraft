@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "ryancraft:zephyrite"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "ryancraft:zephyrite"
+      }
+    ]
+  }
+}

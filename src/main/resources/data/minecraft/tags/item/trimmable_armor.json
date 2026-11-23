@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:zephyrite_helmet",
+    "ryancraft:zephyrite_chestplate",
+    "ryancraft:zephyrite_leggings",
+    "ryancraft:zephyrite_boots"
+  ]
+}

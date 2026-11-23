@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "# #",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:zephyrite"
+  },
+  "result": {
+    "id": "ryancraft:zephyrite_chestplate",
+    "count": 1
+  }
+}
