@@ -372,6 +372,56 @@ def bar_sprite():
             px[x, y] = c + (255,)
     return img
 
+
+def basketweave(img, light, dark, mortar, seed):
+    """Basketweave bricks: four 8x8 squares, each holding a pair of 8x4 bricks, horizontal and vertical pairs in a
+    checkerboard. Every brick is bevelled (lit top-left, shadowed bottom-right) and gets its own slight tone."""
+    px = img.load(); r = random.Random(seed)
+    tone = {}
+    for y in range(16):
+        for x in range(16):
+            sq = (x // 8 + y // 8) % 2; lx, ly = x % 8, y % 8
+            if sq == 0: bi, bx, by, bw, bh = (x // 8, y // 8, ly // 4), lx, ly % 4, 8, 4      # two horizontal bricks
+            else: bi, bx, by, bw, bh = (x // 8, y // 8, lx // 4, 9), lx % 4, ly, 4, 8         # two vertical bricks
+            if bi not in tone: tone[bi] = r.uniform(0.94, 1.06)
+            c = shade_px(px[x, y], tone[bi])
+            if bx == bw - 1 or by == bh - 1: c = mortar + (255,)
+            elif bx == 0 or by == 0: c = tuple(int((a + b) / 2) for a, b in zip(c[:3], light)) + (255,)
+            elif bx == bw - 2 or by == bh - 2: c = tuple(int((a + b) / 2) for a, b in zip(c[:3], dark)) + (255,)
+            px[x, y] = c
+    return img
+
+def moon_roundel(img, groove, lit, shadow):
+    """A carved moon: a round groove, the moon's face inside lit on the right and in shadow on the left like a phase,
+    with two little craters."""
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            d = ((x - 7.5) ** 2 + (y - 7.5) ** 2) ** 0.5
+            if 5.6 <= d < 6.6: px[x, y] = groove + (255,)
+            elif d < 5.6:
+                t = (x - 4.0) / 7.0                                              # the terminator, a little left of centre
+                base = shadow if t < 0.25 else lit
+                px[x, y] = tuple(int((a + b) / 2) for a, b in zip(px[x, y][:3], base)) + (255,)
+            elif 6.6 <= d < 7.3 and x + y > 15: px[x, y] = shade_px(px[x, y], 1.12)   # the groove's lit lower lip
+    for cx, cy in ((9, 6), (8, 10)):
+        px[cx, cy] = shade_px(px[cx, cy], 0.8); px[cx + 1, cy + 1] = shade_px(px[cx + 1, cy + 1], 1.12)
+    return img
+
+def flow_basalt(seed, dark, light):
+    """Lava-flow basalt: faint horizontal flow layers, with gas bubbles stretched sideways by the flow."""
+    r = random.Random(seed); img = rock(seed, dark, light, 0.2); px = img.load()
+    bands = [0.86, 1.0, 1.12, 0.94, 1.06, 0.9, 1.1, 0.98]
+    for y in range(16):
+        for x in range(16):
+            k = bands[(y // 2 + (1 if (x // 5) % 3 == 0 and y % 2 else 0)) % 8]
+            px[x, y] = shade_px(px[x, y], k)
+    for _ in range(5):                                                            # stretched vesicles
+        x, y, l = r.randrange(16), r.randrange(16), r.choice((2, 3, 3, 4))
+        for k in range(l): px[(x + k) % 16, y] = shade_px(px[(x + k) % 16, y], 0.55)
+        for k in range(1, l - 1): px[(x + k) % 16, (y + 1) % 16] = shade_px(px[(x + k) % 16, (y + 1) % 16], 1.3)
+    return img
+
 def textures():
     b, i = os.path.join(TEX, "block"), os.path.join(TEX, "item")
     cb = lambda n: os.path.join(CLASSIC, "block", n + ".png")
@@ -387,16 +437,17 @@ def textures():
     ms.save(os.path.join(b, "moonstone.png"))
     breccia(41, STONE[0], (110, 108, 104), (216, 214, 208)).save(os.path.join(b, "cobbled_moonstone.png"))
     laths(rock(42, (166, 164, 158), (206, 204, 198), 0.15), 43, (230, 230, 226)).save(os.path.join(b, "polished_moonstone.png"))
-    bricks = tiles(rock(44, (150, 148, 142), (198, 196, 190), 0.2), 8, (220, 218, 212), (120, 118, 112), (96, 94, 90))
-    craters(bricks, ((11, 4, 2),)); bricks.save(os.path.join(b, "moonstone_bricks.png"))
-    cracks(bricks.copy(), 45, (100, 98, 94), 3).save(os.path.join(b, "cracked_moonstone_bricks.png"))
+    bricks = basketweave(rock(44, (150, 148, 142), (198, 196, 190), 0.2), (220, 218, 212), (118, 116, 110), (96, 94, 90), 44)
+    pits(bricks, r(47), 2, (106, 104, 100), (206, 204, 198)); bricks.save(os.path.join(b, "moonstone_bricks.png"))
+    cr = cracks(bricks.copy(), 45, (100, 98, 94), 3); cp = cr.load()
+    for x, y in ((14, 8), (13, 8), (14, 9)): cp[x, y] = (96, 94, 90, 255)                   # a chipped corner
+    cr.save(os.path.join(b, "cracked_moonstone_bricks.png"))
     chis = frame(rock(46, (160, 158, 152), (204, 202, 196), 0.15), (220, 218, 212), (104, 102, 98))
-    crescent(chis, (110, 108, 104), (222, 220, 214)).save(os.path.join(b, "chiseled_moonstone_bricks.png"))
+    moon_roundel(chis, (104, 102, 98), (222, 220, 214), (140, 138, 132)).save(os.path.join(b, "chiseled_moonstone_bricks.png"))
     # meteor iron ore: dark metal nuggets in moonstone
     ore(ms, cb("stone"), cb("iron_ore"), (34, 34, 40), (70, 72, 82), (146, 152, 166), (222, 232, 255), 10).save(os.path.join(b, "meteor_iron_ore.png"))
     # deep moonstone: dark basalt in vanilla deepslate's layers, with gas pockets and a little olivine
-    deep = vesicles(columns_side(rock(50, *BASALT), (30, 30, 36), (118, 120, 130)), 51, 6, (24, 24, 30), (116, 118, 128))
-    dots(deep, r(12), 2, OLIVINE); deep.save(os.path.join(b, "deep_moonstone.png"))
+    deep = flow_basalt(50, *BASALT); dots(deep, r(12), 2, OLIVINE); deep.save(os.path.join(b, "deep_moonstone.png"))
     vesicles(hex_top(rock(52, *BASALT), (30, 30, 36), (118, 120, 130)), 53, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_top.png"))
     breccia(54, BASALT[0], (40, 42, 50), (118, 120, 132)).save(os.path.join(b, "cobbled_deep_moonstone.png"))
     laths(rock(55, (56, 58, 68), (92, 94, 106), 0.12), 56, (140, 146, 162), 5).save(os.path.join(b, "polished_deep_moonstone.png"))
