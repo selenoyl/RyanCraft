@@ -69,6 +69,7 @@ public class RyanChestRenderer implements BlockEntityRenderer<RyanChestBlockEnti
         pose.translate(0.5f, 0.5f, 0.5f);
         pose.mulPose(Axis.YP.rotationDegrees(-s.angle));
         pose.translate(-0.5f, -0.5f, -0.5f);
+        if (s.kind.seeThrough) pose.translate(0f, 0.002f, 0f);           // drawn double-sided: lift it off the floor so the bottom doesn't flicker
         if (!s.shown.isEmpty()) {                                   // the contents, in a 3 x 3 on the chest floor
             for (int i = 0; i < s.shown.size(); i++) {
                 pose.pushPose();

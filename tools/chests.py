@@ -58,10 +58,11 @@ def textures():
     style([(14, 10, 22), (40, 30, 58), (78, 62, 104)], obs, lambda *a: (10, 8, 16, 255),
           [(40, 40, 44), (120, 120, 128), (200, 200, 208)]).save(os.path.join(OUT, "obsidian_chest.png"))
     diamond = [(18, 70, 74), (48, 160, 160), (120, 226, 222), (220, 255, 252)]
-    style(diamond, glass((226, 250, 252)), glass((200, 236, 240)), diamond).save(os.path.join(OUT, "diamond_chest.png"))
+    empty = lambda *a: (0, 0, 0, 0)                                       # see-through chests: no inside floor or lid lining
+    style(diamond, glass((226, 250, 252)), empty, diamond).save(os.path.join(OUT, "diamond_chest.png"))
     lead = [(26, 26, 34), (62, 62, 76), (110, 112, 128)]
     lg = cutout(tile(os.path.join(M.TEX, "block", "leaded_glass.png")))
-    style(lead, lg, lg, lead + [(170, 172, 186)]).save(os.path.join(OUT, "lead_glass_chest.png"))
+    style(lead, lg, empty, lead + [(170, 172, 186)]).save(os.path.join(OUT, "lead_glass_chest.png"))
 
 KINDS = {"obsidian_chest": ("Obsidian Chest", "minecraft:block/obsidian"), "diamond_chest": ("Diamond Chest", "minecraft:block/diamond_block"),
          "lead_glass_chest": ("Lead Glass Chest", "ryancraft:block/leaded_glass")}
