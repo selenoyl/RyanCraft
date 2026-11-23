@@ -218,8 +218,10 @@ never hurts to land on, bouncy blue cloud, and storm cloud you sink slowly throu
 frame lit by pouring a water bucket into it. The far end finds a portal nearby or builds one (on an island, or on a
 little skystone ledge). Also built: the **sky willow** (the islands' own tree, with a full wood set) and
 **zephyrite**, a light cyan crystal in the skystone, which makes the **glider**: hold it while falling and you
-sink slowly and drift where you look, with no fall damage (it wears with use). Still to come: the great winged
-creatures, updrafts, waterfalls, ambience, more zephyrite gear, and the cloud kite mudling.
+sink slowly and drift where you look, with no fall damage (it wears with use). The first of the great winged
+creatures is in too: **sky rays**, great pale rays that glide in wide, slow circles over the islands (harmless).
+Still to come: the huge soaring birds and their nests, updrafts, waterfalls, ambience, more zephyrite gear, and the
+cloud kite mudling.
 
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
 creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.

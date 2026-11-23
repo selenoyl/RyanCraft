@@ -79,6 +79,9 @@ public final class RyanEntities {
             EntityType.Builder.of(Porcupine::new, MobCategory.CREATURE).sized(0.6f, 0.6f).clientTrackingRange(10));
     public static final EntityType<BaldEagle> BALD_EAGLE = register("bald_eagle",
             EntityType.Builder.of(BaldEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
+    /** The Skylands' great gliding ray. */
+    public static final EntityType<SkyRay> SKY_RAY = register("sky_ray",
+            EntityType.Builder.of(SkyRay::new, MobCategory.CREATURE).sized(1.6f, 0.5f).clientTrackingRange(12));
     public static final EntityType<GoldenEagle> GOLDEN_EAGLE = register("golden_eagle",
             EntityType.Builder.of(GoldenEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
     public static final EntityType<RedTailedHawk> RED_TAILED_HAWK = register("red_tailed_hawk",
@@ -168,6 +171,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(GROUNDHOG, Groundhog.createAttributes());
         FabricDefaultAttributeRegistry.register(PORCUPINE, Porcupine.createAttributes());
         FabricDefaultAttributeRegistry.register(BALD_EAGLE, BaldEagle.createAttributes());
+        FabricDefaultAttributeRegistry.register(SKY_RAY, SkyRay.createAttributes());
         FabricDefaultAttributeRegistry.register(GOLDEN_EAGLE, GoldenEagle.createAttributes());
         FabricDefaultAttributeRegistry.register(RED_TAILED_HAWK, RedTailedHawk.createAttributes());
         FabricDefaultAttributeRegistry.register(TURKEY_VULTURE, TurkeyVulture.createAttributes());

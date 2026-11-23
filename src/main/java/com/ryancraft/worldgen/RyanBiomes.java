@@ -213,6 +213,9 @@ public final class RyanBiomes {
                 Biomes.TAIGA, Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, SEASONAL_FOREST, AUTUMN_FOREST, RAINFOREST), MobCategory.CREATURE, EntityType.FROG, 4, 1, 3);
         // Swans: pairs on rivers and the ponds of open country
         spawn(keys(Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, Biomes.SWAMP, Biomes.FLOWER_FOREST), MobCategory.CREATURE, RyanEntities.SWAN, 3, 2, 2);
+        // The Skylands: sky rays over the islands, and a few ordinary meadow animals on them
+        var skyMeadow = net.fabricmc.fabric.api.biome.v1.BiomeSelectors.includeByKey(ResourceKey.create(net.minecraft.core.registries.Registries.BIOME, RyanCraft.id("sky_meadow")));
+        spawn(skyMeadow, MobCategory.CREATURE, RyanEntities.SKY_RAY, 6, 1, 3);
         // Mooblooms: herds among the flowers (as common as cows there)
         spawn(keys(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS), MobCategory.CREATURE, RyanEntities.MOOBLOOM, 9, 2, 4);   // (and the Redbud-Dogwood Glade, via its parent)
         // Zebras: herds on the savanna
