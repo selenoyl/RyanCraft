@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "block/nether_portal",
-    "portal": "block/nether_portal"
+    "particle": "ryancraft:block/sky_portal",
+    "portal": "ryancraft:block/sky_portal"
   },
   "elements": [
     {

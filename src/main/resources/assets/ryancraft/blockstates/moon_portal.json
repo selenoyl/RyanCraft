@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "ryancraft:block/moon_portal_ns"
+    },
+    "axis=z": {
+      "model": "ryancraft:block/moon_portal_ew"
+    }
+  }
+}

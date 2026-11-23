@@ -8,17 +8,30 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-/** A glowstone frame (like a nether portal's, 2x3 to 21x21 inside) and its inside, for lighting the Skylands portal. */
-public record SkyPortalShape(BlockPos bottomLeft, Direction.Axis axis, int width, int height) {
-    private static boolean frame(BlockState s) { return s.is(Blocks.GLOWSTONE); }
-    private static boolean open(BlockState s) { return s.isAir() || s.is(Blocks.WATER) || s.is(Skylands.SKY_PORTAL); }
+/**
+ * A portal frame (like a nether portal's, 2x3 to 21x21 inside) and its inside: glowstone for the Skylands portal, jade
+ * for the moon portal (moon/MoonPortalBlock).
+ */
+public record SkyPortalShape(BlockPos bottomLeft, Direction.Axis axis, int width, int height, Block portalBlock) {
+    private static final ThreadLocal<Block[]> KIND = ThreadLocal.withInitial(() -> new Block[]{Blocks.GLOWSTONE, null});
+    private static boolean frame(BlockState s) { return s.is(KIND.get()[0]); }
+    private static boolean open(BlockState s) { Block p = KIND.get()[1]; return s.isAir() || s.is(Blocks.WATER) || (p != null && s.is(p)); }
 
-    static boolean nearGlowstone(Level level, BlockPos p) {
-        for (Direction d : Direction.values()) if (frame(level.getBlockState(p.relative(d)))) return true;
+    static boolean nearGlowstone(Level level, BlockPos p) { return nearFrame(level, p, Blocks.GLOWSTONE); }
+
+    public static boolean nearFrame(Level level, BlockPos p, Block frameBlock) {
+        for (Direction d : Direction.values()) if (level.getBlockState(p.relative(d)).is(frameBlock)) return true;
         return false;
     }
 
-    public static SkyPortalShape find(Level level, BlockPos inside, Direction.Axis axis) {
+    public static SkyPortalShape find(Level level, BlockPos inside, Direction.Axis axis) { return find(level, inside, axis, Blocks.GLOWSTONE, Skylands.SKY_PORTAL); }
+
+    public static SkyPortalShape find(Level level, BlockPos inside, Direction.Axis axis, Block frameBlock, Block portalBlock) {
+        KIND.set(new Block[]{frameBlock, portalBlock});
+        return search(level, inside, axis, portalBlock);
+    }
+
+    private static SkyPortalShape search(Level level, BlockPos inside, Direction.Axis axis, Block portalBlock) {
         if (!open(level.getBlockState(inside))) return null;
         Direction right = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH, left = right.getOpposite();
         BlockPos p = inside;
@@ -40,12 +53,12 @@ public record SkyPortalShape(BlockPos bottomLeft, Direction.Axis axis, int width
         }
         for (int y = 0; y < h; y++)
             if (!frame(level.getBlockState(p.relative(left).above(y))) || !frame(level.getBlockState(p.relative(right, w).above(y)))) return null;
-        return new SkyPortalShape(p, axis, w, h);
+        return new SkyPortalShape(p, axis, w, h, portalBlock);
     }
 
     public void fill(Level level) {
         Direction right = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
-        BlockState portal = Skylands.SKY_PORTAL.defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
+        BlockState portal = portalBlock.defaultBlockState().setValue(NetherPortalBlock.AXIS, axis);
         for (int x = 0; x < width; x++) for (int y = 0; y < height; y++)
             level.setBlock(bottomLeft.relative(right, x).above(y), portal, Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
     }

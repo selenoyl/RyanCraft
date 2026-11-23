@@ -147,7 +147,7 @@ def blocks():
     for f in ("nether_portal_ns", "nether_portal_ew"):
         m = json.load(open(os.path.join(T, "assets", "minecraft", "models", "block", f + ".json")))
         M.w(f"assets/ryancraft/models/block/{f.replace('nether_portal', 'sky_portal')}.json",
-            json.loads(json.dumps(m).replace("minecraft:block/nether_portal", "ryancraft:block/sky_portal")))
+            json.loads(json.dumps(m).replace("minecraft:block/nether_portal", "block/nether_portal").replace("block/nether_portal", "ryancraft:block/sky_portal")))   # vanilla writes these without "minecraft:"
     M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:skystone"])
 
 def dimension():

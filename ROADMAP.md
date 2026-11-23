@@ -224,7 +224,7 @@ sink slowly and drift where you look, with no fall damage (it wears with use). T
 creatures is in too: **sky rays**, great pale rays that glide in wide, slow circles over the islands (harmless).
 Also built: the **cloud kite mudling** (white cloud body, skystone limbs and a sky-blue sail; it drifts down instead of
 falling, hops high, strikes sod, pebble and snowpack mudlings from above, and loses to cinder and gravel; camps of
-skystone on the islands). Also built: **sky rocs** (huge cloud-white soaring birds that circle wide and high; peaceful unless struck; breed with mutton) and their **nests** on the high islands (hay ringed with sky willow, one to three **roc eggs** that crack and hatch chicks; silk touch carries an egg home). **Rideable rocs**: hatch an egg, win the chick over with mutton, saddle it once grown, and fly where you look (hold forward; let go to hover). **Ambience**: a high wind that never quite drops, gusts, the slow creak and groan of floating rock somewhere below, and distant roc cries. **Zephyrite gear for the sky**: the boots stop fall damage; the full set lets you drift down slowly while you hold sneak. Next: the Skylands' own dungeon or boss (ideas below), and the jade moon portal.
+skystone on the islands). Also built: **sky rocs** (huge cloud-white soaring birds that circle wide and high; peaceful unless struck; breed with mutton) and their **nests** on the high islands (hay ringed with sky willow, one to three **roc eggs** that crack and hatch chicks; silk touch carries an egg home). **Rideable rocs**: hatch an egg, win the chick over with mutton, saddle it once grown, and fly where you look (hold forward; let go to hover). **Ambience**: a high wind that never quite drops, gusts, the slow creak and groan of floating rock somewhere below, and distant roc cries. **Zephyrite gear for the sky**: the boots stop fall damage; the full set lets you drift down slowly while you hold sneak. Next: the Skylands' own dungeon or boss.
 
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
 creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.
@@ -257,7 +257,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   ![Hollow Moon concept art](docs/moon_concept.png)
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves (and in the moon's own stone). Nine jade make a Block of Jade, a green cousin of the lapis block. *(Jade, its ores and its block are in.)*
-    Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through.
+    Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through. *(Built: the jade portal with its night-sky surface. Until the Great Moon Rabbit exists, a jade portal lit on the moon leads home.)*
     The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
     a nether portal.
   - **No air.** The moon has no air, so your air bar drains as if you were underwater, and when it runs out you

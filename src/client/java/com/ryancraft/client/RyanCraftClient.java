@@ -39,6 +39,7 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.sky.Skylands.FLOWERS.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT, com.ryancraft.sky.Skylands.ROC_EGG);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.TRANSLUCENT, com.ryancraft.moon.MoonBlocks.MOON_PORTAL);
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents.JOIN.register((handler, sender, mc) ->
                 com.ryancraft.season.Seasons.learnExempt(handler.registryAccess()));
         // seasons: follow the year on this side too, and re-colour the world when the season moves on

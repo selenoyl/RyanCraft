@@ -40,6 +40,8 @@ public final class MoonBlocks {
             DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE,
             JADE_ORE, DEEPSLATE_JADE_ORE, MOONSTONE_JADE_ORE, DEEP_MOONSTONE_JADE_ORE, JADE_BLOCK;
     public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT, JADE;
+    /** The jade portal's surface (no item: you light a jade frame with an eye of ender). */
+    public static final Block MOON_PORTAL;
 
     static {
         MOON_DUST = block("moon_dust", p -> new ColoredFallingBlock(new ColorRGBA(0xFFB9B8B2), p),
@@ -78,6 +80,8 @@ public final class MoonBlocks {
         JADE_BLOCK = block("jade_block", Block::new,
                 BlockBehaviour.Properties.of().mapColor(MapColor.EMERALD).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3.0f, 3.0f));
         JADE = item("jade");
+        MOON_PORTAL = blockNoItem("moon_portal", MoonPortalBlock::new, BlockBehaviour.Properties.of().noCollision().strength(-1.0f)
+                .sound(SoundType.GLASS).lightLevel(st -> 9).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK));
         RAW_METEOR_IRON = item("raw_meteor_iron");
         METEOR_IRON_INGOT = item("meteor_iron_ingot");
     }
@@ -88,6 +92,11 @@ public final class MoonBlocks {
 
     private static BlockBehaviour.Properties deep() {
         return BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().sound(SoundType.DEEPSLATE);
+    }
+
+    private static Block blockNoItem(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {
+        ResourceKey<Block> bk = ResourceKey.create(Registries.BLOCK, RyanCraft.id(name));
+        return Registry.register(BuiltInRegistries.BLOCK, bk, f.apply(props.setId(bk)));
     }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {
@@ -110,6 +119,7 @@ public final class MoonBlocks {
 
     public static void init() {
         METEOR_IRON_GEAR.addToTabs();
+        MoonPortalBlock.init();
         // jade ore in Earth's mountains and lush caves (the moon's comes with its own biome)
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addFeature(
                 net.fabricmc.fabric.api.biome.v1.BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_MOUNTAIN)

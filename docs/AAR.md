@@ -102,5 +102,8 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
       publishes a GitHub Release (tag v<version>) with that section as notes. Never commit jars to the repo.
 
 ## Test harness
+- Vanilla models often name textures without the namespace ("block/nether_portal", not "minecraft:block/nether_portal"). When renaming a copied vanilla model, replace both spellings, or it quietly keeps vanilla's texture (the Skylands portal showed vanilla purple for weeks).
+- `execute if entity @e[...]` counts across every dimension; add `distance=0..` (with `execute in`) to count one dimension.
+- Commands in scheduled functions don't move a spectator camera reliably; teleport the camera in the first (tick-run) function.
 - 1.21.11 renamed gamerules to snake_case (`random_tick_speed`, not `randomTickSpeed`). A function with one bad line fails to load at all, and a tick function that calls it fails too, so the test silently never starts. Grep the log for "Failed to load function" in the waiting loop.
 - Random-tick speed in the thousands stalls a software-rendered test client; a few hundred ages blocks fast enough.
