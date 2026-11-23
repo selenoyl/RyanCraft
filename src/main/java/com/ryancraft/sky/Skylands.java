@@ -38,6 +38,9 @@ public final class Skylands {
 
     public static final Block SKYSTONE, SKY_PORTAL, ZEPHYRITE_ORE, ZEPHYRITE_BLOCK;
     public static final Item ZEPHYRITE;
+    /** Skylands flowers and their potted forms (cut-out rendered). */
+    public static final List<Block> FLOWERS = new ArrayList<>();
+    public static final Block CLOUDBLOOM, SKY_BELL, WINDFLOWER, SUNPETAL;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
@@ -47,8 +50,21 @@ public final class Skylands {
         ZEPHYRITE_BLOCK = block("zephyrite_block", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops()
                 .strength(3.0f, 4.0f).sound(SoundType.AMETHYST), true);
         ZEPHYRITE = item("zephyrite", new Item.Properties());
+        CLOUDBLOOM = flower("cloudbloom", net.minecraft.world.effect.MobEffects.SLOW_FALLING, 7.0f);
+        SKY_BELL = flower("sky_bell", net.minecraft.world.effect.MobEffects.JUMP_BOOST, 6.0f);
+        WINDFLOWER = flower("windflower", net.minecraft.world.effect.MobEffects.SPEED, 6.0f);
+        SUNPETAL = flower("sunpetal", net.minecraft.world.effect.MobEffects.SATURATION, 0.35f);
         SKY_PORTAL = block("sky_portal", SkyPortalBlock::new, BlockBehaviour.Properties.of().noCollision().randomTicks().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(s -> 11).pushReaction(PushReaction.BLOCK), false);
+    }
+
+    private static Block flower(String name, net.minecraft.core.Holder<net.minecraft.world.effect.MobEffect> effect, float seconds) {
+        Block f = block(name, p -> new net.minecraft.world.level.block.FlowerBlock(effect, seconds, p),
+                BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.POPPY), true);
+        Block pot = block("potted_" + name, p -> new net.minecraft.world.level.block.FlowerPotBlock(f, p),
+                net.minecraft.world.level.block.Blocks.flowerPotProperties(), false);
+        FLOWERS.add(f); FLOWERS.add(pot);
+        return f;
     }
 
     private static Item item(String name, Item.Properties props) {

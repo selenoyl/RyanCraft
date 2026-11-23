@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "white_dye",
+  "ingredients": [
+    "ryancraft:cloudbloom"
+  ],
+  "result": {
+    "id": "minecraft:white_dye",
+    "count": 1
+  }
+}

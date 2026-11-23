@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:rose"
+    "ryancraft:rose",
+    "ryancraft:cloudbloom",
+    "ryancraft:sky_bell",
+    "ryancraft:windflower",
+    "ryancraft:sunpetal"
   ]
 }

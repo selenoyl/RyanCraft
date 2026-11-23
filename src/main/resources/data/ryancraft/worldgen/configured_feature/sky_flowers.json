@@ -1,0 +1,77 @@
+{
+  "type": "minecraft:flower",
+  "config": {
+    "tries": 64,
+    "xz_spread": 6,
+    "y_spread": 2,
+    "feature": {
+      "feature": {
+        "type": "minecraft:simple_block",
+        "config": {
+          "to_place": {
+            "type": "minecraft:weighted_state_provider",
+            "entries": [
+              {
+                "weight": 4,
+                "data": {
+                  "Name": "ryancraft:cloudbloom"
+                }
+              },
+              {
+                "weight": 4,
+                "data": {
+                  "Name": "ryancraft:sky_bell"
+                }
+              },
+              {
+                "weight": 4,
+                "data": {
+                  "Name": "ryancraft:windflower"
+                }
+              },
+              {
+                "weight": 4,
+                "data": {
+                  "Name": "ryancraft:sunpetal"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:oxeye_daisy"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:cornflower"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:allium"
+                }
+              },
+              {
+                "weight": 1,
+                "data": {
+                  "Name": "minecraft:azure_bluet"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "placement": [
+        {
+          "type": "minecraft:block_predicate_filter",
+          "predicate": {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air"
+          }
+        }
+      ]
+    }
+  }
+}

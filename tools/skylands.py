@@ -153,7 +153,7 @@ def dimension():
     b["carvers"] = []
     b["features"] = [[] for _ in range(11)]
     b["features"][6] = ["ryancraft:ore_zephyrite"]
-    b["features"][9] = ["ryancraft:sky_willow_islands", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
+    b["features"][9] = ["ryancraft:sky_willow_islands", "ryancraft:sky_flowers", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}
     M.w(D + "worldgen/biome/sky_meadow.json", b)

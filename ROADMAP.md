@@ -212,9 +212,9 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 - Other simple vehicles in the same style.
 
 ## The Skylands: our sky dimension (our own, not the Aether)
-**Built (first step):** the dimension (floating islands of grassy meadow over pale **skystone**, a bright sky with
-the clouds below you, drifting cloud patches between the islands); **clouds** (white cloud you can stand on that
-never hurts to land on, bouncy blue cloud, and storm cloud you sink slowly through); and the **portal**: a glowstone
+**Built (first step):** the dimension (floating islands of grassy meadow over pale **skystone**, a bright sky, and
+vanilla's clouds drifting just below the islands); **sky flowers** (cloudbloom, sky bell, windflower and sunpetal,
+scattered through the meadows with a few vanilla flowers); and the **portal**: a glowstone
 frame lit by pouring a water bucket into it. The far end finds a portal nearby or builds one (on an island, or on a
 little skystone ledge). Also built: the **sky willow** (the islands' own tree, with a full wood set) and
 **zephyrite**, a light cyan crystal in the skystone, which makes the **glider**: hold it while falling and you
