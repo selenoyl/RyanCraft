@@ -46,3 +46,4 @@ if __name__ == "__main__":
     build()
     p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d.update(LANG); json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
     print("moon portal ok")
+# (the Potion of Air's names and icon are written by hand in assets: effect.ryancraft.air, textures/mob_effect/air.png)

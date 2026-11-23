@@ -260,7 +260,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through. *(Built: the jade portal with its night-sky surface. Until the Great Moon Rabbit exists, a jade portal lit on the moon leads home.)*
     The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
     a nether portal.
-  - **No air.** The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
+  - **No air.** *(Built, with the Potion of Air; force fields and the crown to come.)* The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
     start to suffocate. To breathe up there you need one of:
     - a **Potion of Air**, brewed from an awkward potion and a wind charge (the breeze's bottled wind, from trial
       chambers). It works like water breathing, but only for thin air: 3 minutes, 8 with redstone.
@@ -272,8 +272,8 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Dying still sends you back to your bed, as anywhere, but everything you carried stays on the moon.
     - Once you've beaten a rabbit, its temple's portal home stays open, so later trips can be two-way.
   - **The land:**
-    - low gravity (big floaty jumps, slow falls)
-    - **Arrows fly flat.** On the moon, arrows, tridents, snowballs and other thrown things barely drop, so a bow
+    - low gravity (big floaty jumps, slow falls) *(built: 30% gravity for living things, with fall damage to match)*
+    - **Arrows fly flat.** *(Built: thrown things fall at about a sixth.)* On the moon, arrows, tridents, snowballs and other thrown things barely drop, so a bow
       shot carries almost straight and far past where it would land on Earth. Long shots get easy, missed shots
       sail off into the distance, and skeletons become sharpshooters.
       (How: in 1.21 every projectile has a gravity value, 0.05 per tick for arrows. A mixin scales it to about a

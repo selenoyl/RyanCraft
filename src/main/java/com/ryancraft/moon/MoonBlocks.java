@@ -120,6 +120,7 @@ public final class MoonBlocks {
     public static void init() {
         METEOR_IRON_GEAR.addToTabs();
         MoonPortalBlock.init();
+        MoonPhysics.init();
         // jade ore in Earth's mountains and lush caves (the moon's comes with its own biome)
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addFeature(
                 net.fabricmc.fabric.api.biome.v1.BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_MOUNTAIN)
