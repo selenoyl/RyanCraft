@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:jade_block",
+  "result": {
+    "id": "ryancraft:jade_brick_stairs",
+    "count": 1
+  }
+}

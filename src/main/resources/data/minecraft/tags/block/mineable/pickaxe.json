@@ -50,6 +50,16 @@
     "ryancraft:deepslate_jade_ore",
     "ryancraft:moonstone_jade_ore",
     "ryancraft:deep_moonstone_jade_ore",
-    "ryancraft:jade_block"
+    "ryancraft:jade_block",
+    "ryancraft:jade_bricks",
+    "ryancraft:chiseled_jade",
+    "ryancraft:jade_brick_stairs",
+    "ryancraft:jade_brick_slab",
+    "ryancraft:jade_brick_wall",
+    "ryancraft:lapis_bricks",
+    "ryancraft:chiseled_lapis",
+    "ryancraft:lapis_brick_stairs",
+    "ryancraft:lapis_brick_slab",
+    "ryancraft:lapis_brick_wall"
   ]
 }

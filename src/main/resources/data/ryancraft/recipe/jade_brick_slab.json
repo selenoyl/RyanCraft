@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:jade_bricks"
+  },
+  "result": {
+    "id": "ryancraft:jade_brick_slab",
+    "count": 6
+  }
+}

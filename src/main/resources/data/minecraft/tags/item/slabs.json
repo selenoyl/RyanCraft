@@ -3,6 +3,8 @@
   "values": [
     "ryancraft:cut_steel_slab",
     "ryancraft:cobbled_moonstone_slab",
-    "ryancraft:moonstone_brick_slab"
+    "ryancraft:moonstone_brick_slab",
+    "ryancraft:jade_brick_slab",
+    "ryancraft:lapis_brick_slab"
   ]
 }

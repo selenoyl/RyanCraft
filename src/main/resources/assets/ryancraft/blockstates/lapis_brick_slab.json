@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/lapis_brick_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/lapis_bricks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/lapis_brick_slab_top"
+    }
+  }
+}

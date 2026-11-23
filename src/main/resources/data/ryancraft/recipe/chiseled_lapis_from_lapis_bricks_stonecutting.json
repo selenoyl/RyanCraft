@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:lapis_bricks",
+  "result": {
+    "id": "ryancraft:chiseled_lapis",
+    "count": 1
+  }
+}

@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "ryancraft:cobbled_moonstone_wall",
-    "ryancraft:moonstone_brick_wall"
+    "ryancraft:moonstone_brick_wall",
+    "ryancraft:jade_brick_wall",
+    "ryancraft:lapis_brick_wall"
   ]
 }

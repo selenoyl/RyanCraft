@@ -9,6 +9,16 @@
     "ryancraft:steel_grate",
     "ryancraft:steel_bars",
     "ryancraft:steel_door",
-    "ryancraft:steel_trapdoor"
+    "ryancraft:steel_trapdoor",
+    "ryancraft:jade_bricks",
+    "ryancraft:chiseled_jade",
+    "ryancraft:jade_brick_stairs",
+    "ryancraft:jade_brick_slab",
+    "ryancraft:jade_brick_wall",
+    "ryancraft:lapis_bricks",
+    "ryancraft:chiseled_lapis",
+    "ryancraft:lapis_brick_stairs",
+    "ryancraft:lapis_brick_slab",
+    "ryancraft:lapis_brick_wall"
   ]
 }

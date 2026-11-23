@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:lapis_bricks"
+  },
+  "result": {
+    "id": "ryancraft:lapis_brick_stairs",
+    "count": 4
+  }
+}

@@ -3,6 +3,8 @@
   "values": [
     "ryancraft:cut_steel_stairs",
     "ryancraft:cobbled_moonstone_stairs",
-    "ryancraft:moonstone_brick_stairs"
+    "ryancraft:moonstone_brick_stairs",
+    "ryancraft:jade_brick_stairs",
+    "ryancraft:lapis_brick_stairs"
   ]
 }

@@ -213,8 +213,8 @@ public final class RyanBiomes {
                 Biomes.TAIGA, Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, SEASONAL_FOREST, AUTUMN_FOREST, RAINFOREST), MobCategory.CREATURE, EntityType.FROG, 4, 1, 3);
         // Swans: pairs on rivers and the ponds of open country
         spawn(keys(Biomes.RIVER, Biomes.PLAINS, Biomes.MEADOW, Biomes.SWAMP, Biomes.FLOWER_FOREST), MobCategory.CREATURE, RyanEntities.SWAN, 3, 2, 2);
-        // Mooblooms: a rare few among the flowers
-        spawn(keys(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS), MobCategory.CREATURE, RyanEntities.MOOBLOOM, 4, 2, 4);
+        // Mooblooms: herds among the flowers (as common as cows there)
+        spawn(keys(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS), MobCategory.CREATURE, RyanEntities.MOOBLOOM, 9, 2, 4);   // (and the Redbud-Dogwood Glade, via its parent)
         // Zebras: herds on the savanna
         spawn(keys(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU), MobCategory.CREATURE, RyanEntities.ZEBRA, 6, 3, 6);
         // Crows: fields, farmland edges and open woods, in small groups

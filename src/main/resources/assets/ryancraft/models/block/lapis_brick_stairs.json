@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "ryancraft:block/lapis_bricks",
+    "side": "ryancraft:block/lapis_bricks",
+    "top": "ryancraft:block/lapis_bricks"
+  }
+}

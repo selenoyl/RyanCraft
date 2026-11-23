@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:jade_bricks",
+  "result": {
+    "id": "ryancraft:chiseled_jade",
+    "count": 1
+  }
+}

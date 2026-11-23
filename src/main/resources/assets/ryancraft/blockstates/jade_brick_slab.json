@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/jade_brick_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/jade_bricks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/jade_brick_slab_top"
+    }
+  }
+}
