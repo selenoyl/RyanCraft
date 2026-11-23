@@ -33,7 +33,7 @@ public class CloudSheepPuffLayer extends RenderLayer<SheepRenderState, SheepMode
     /** Vanilla's fleece boxes, puffed out much further. */
     public static LayerDefinition create() {
         MeshDefinition mesh = new MeshDefinition(); PartDefinition root = mesh.getRoot();
-        root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3f, -4f, -4f, 6f, 6f, 6f, new CubeDeformation(1.8f)), PartPose.offset(0f, 6f, -8f));
+        root.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-3f, -4f, -2.8f, 6f, 6f, 6f, new CubeDeformation(1.8f)), PartPose.offset(0f, 6f, -8f));   // set back so the face shows
         root.addOrReplaceChild("body", CubeListBuilder.create().texOffs(28, 8).addBox(-4f, -10f, -7f, 8f, 16f, 6f, new CubeDeformation(4.4f)),
                 PartPose.offsetAndRotation(0f, 5f, 2f, (float) Math.PI / 2f, 0f, 0f));
         CubeListBuilder leg = CubeListBuilder.create().texOffs(0, 16).addBox(-2f, 0f, -2f, 4f, 6f, 4f, new CubeDeformation(1.1f));

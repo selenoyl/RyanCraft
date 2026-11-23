@@ -44,27 +44,22 @@ def wings():
     return tex
 
 def puff():
-    """The classic fleece, whitened, with soft cloud lumps (light tops, faint blue-grey hollows)."""
-    src = Image.open(CLASSIC_WOOL).convert("RGBA"); px = src.load()
-    r = random.Random(91); out = Image.new("RGBA", src.size); po = out.load()
-    lumps = [(r.uniform(0, 64), r.uniform(0, 32), r.uniform(1.8, 3.4)) for _ in range(70)]
+    """The classic 1.2.5 fleece curls, brightened and cooled to a cloud white (draft B)."""
+    src = Image.open(CLASSIC_WOOL).convert("RGBA"); px = src.load(); out = Image.new("RGBA", src.size); po = out.load()
     for y in range(src.height):
         for x in range(src.width):
             c = px[x, y]
             if not c[3]: continue
-            best = min(((x - lx) ** 2 + (y - ly) ** 2) / (rr * rr) for lx, ly, rr in lumps)
-            t = 1.0 - min(1.0, best) * 0.16 + (r.random() - 0.5) * 0.03
-            base = (sum(c[:3]) / 3) / 255
-            v = 0.86 + 0.14 * base
-            po[x, y] = (min(255, int(250 * t * v)), min(255, int(252 * t * v)), min(255, int(255 * t * v + 4)), 255)
+            v = 0.80 + 0.22 * (sum(c[:3]) / 3 / 255)
+            po[x, y] = (min(255, int(246 * v)), min(255, int(249 * v)), min(255, int(255 * v)), 255)
     return out
 
 def loot():
     looting = {"function": "minecraft:enchanted_count_increase", "enchantment": "minecraft:looting", "count": {"type": "minecraft:uniform", "min": 0, "max": 1}}
     MA.w("data/ryancraft/loot_table/entities/pegasus.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item",
         "name": "minecraft:leather", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 2}}, looting]}]},
-        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:feather", "functions": [
-            {"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 3}}, looting]}]}]})
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:feather", "functions": [      # and a couple of feathers
+            {"function": "minecraft:set_count", "count": 2}, looting]}]}]})
     MA.w("data/ryancraft/loot_table/entities/cloud_sheep.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item",
         "name": "minecraft:mutton", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 1, "max": 2}},
         {"function": "minecraft:furnace_smelt", "conditions": [{"condition": "minecraft:entity_properties", "entity": "this",
