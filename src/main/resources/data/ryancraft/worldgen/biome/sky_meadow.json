@@ -20,7 +20,9 @@
       "ryancraft:ore_zephyrite"
     ],
     [],
-    [],
+    [
+      "ryancraft:sky_spring"
+    ],
     [
       "ryancraft:sky_willow_islands",
       "ryancraft:sky_flowers",

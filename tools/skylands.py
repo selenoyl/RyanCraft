@@ -1,6 +1,6 @@
 """The Skylands: block textures and models (skystone, the portal), loot, lang, and the dimension
 (vanilla's floating-islands terrain with skystone cores under grass, a bright sky, vanilla clouds drifting just
-below the islands, a meadow biome).
+below the islands, a meadow biome with waterfalls spilling off the island cliffs).
   python3 tools/skylands.py      (tools/resources.py merges the lang)"""
 import json, os, random, copy
 from PIL import Image
@@ -149,10 +149,19 @@ def dimension():
         {"type": "minecraft:count", "count": 10}, {"type": "minecraft:in_square"},
         {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 20}, "max_inclusive": {"absolute": 220}}},
         {"type": "minecraft:biome"}]})
+    # waterfalls: springs in the island cliffs, spilling off the edges into the open sky
+    M.w(D + "worldgen/configured_feature/sky_spring.json", {"type": "minecraft:spring_feature", "config": {"hole_count": 1, "requires_block_below": True,
+        "rock_count": 4, "state": {"Name": "minecraft:water", "Properties": {"falling": "true"}},
+        "valid_blocks": ["ryancraft:skystone", "minecraft:dirt", "minecraft:grass_block"]}})
+    M.w(D + "worldgen/placed_feature/sky_spring.json", {"feature": "ryancraft:sky_spring", "placement": [
+        {"type": "minecraft:count", "count": 40}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 30}, "max_inclusive": {"absolute": 220}}},
+        {"type": "minecraft:biome"}]})
     b = copy.deepcopy(json.load(open(os.path.join(T, "meadow.json"))))
     b["carvers"] = []
     b["features"] = [[] for _ in range(11)]
     b["features"][6] = ["ryancraft:ore_zephyrite"]
+    b["features"][8] = ["ryancraft:sky_spring"]                                                              # fluid springs step
     b["features"][9] = ["ryancraft:sky_willow_islands", "ryancraft:sky_flowers", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}
