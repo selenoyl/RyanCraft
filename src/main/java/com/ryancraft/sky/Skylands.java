@@ -99,11 +99,28 @@ public final class Skylands {
     public static final com.ryancraft.worldgen.RocNestFeature ROC_NEST = Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("roc_nest"),
             new com.ryancraft.worldgen.RocNestFeature());
 
-    /** Zephyrite gear: iron's tier, a little easier to enchant. */
+    public static boolean fullZephyrite(net.minecraft.world.entity.LivingEntity e) {
+        return e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ZEPHYRITE_GEAR.helmet)
+                && e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ZEPHYRITE_GEAR.chestplate)
+                && e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ZEPHYRITE_GEAR.leggings)
+                && e.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ZEPHYRITE_GEAR.boots);
+    }
+
+    /** Zephyrite gear: iron's tier, a little easier to enchant; the boots stop fall damage, the full set glides (init). */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);
 
     public static void init() {
         ZEPHYRITE_GEAR.addToTabs();
+        // zephyrite boots: you land like a feather; a full set lets you drift down slowly while you hold sneak
+        net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) ->
+                !(source.is(net.minecraft.tags.DamageTypeTags.IS_FALL)
+                        && entity.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ZEPHYRITE_GEAR.boots)));
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (net.minecraft.server.level.ServerPlayer p : server.getPlayerList().getPlayers()) {
+                if (!p.isShiftKeyDown() || p.onGround() || p.getDeltaMovement().y > -0.1 || !fullZephyrite(p)) continue;
+                p.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.SLOW_FALLING, 10, 0, true, false, false));
+            }
+        });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         // Pour a water bucket into a glowstone frame to light the portal (instead of placing the water)
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
