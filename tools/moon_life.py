@@ -337,3 +337,34 @@ def drifters():
 
 if __name__ == "__main__":
     drifters(); print("drifters ok")
+
+
+# ---------------------------------------------------------------- crater crabs (entity/CraterCrab.java)
+def crabs():
+    from critters import box, part, emit_model, emit_textures
+    from prototypes import pack
+    parts = [part("body", (0, 21, 0), [box("shell", (-4, -1.5, -3), (8, 3, 6), "shell"),
+                                        box("eye_r", (-2, -3.5, -3), (1, 2, 1), "eye"), box("eye_l", (1, -3.5, -3), (1, 2, 1), "eye", mirror=True)], "body"),
+             part("claw_r", (-4, 21, -3), [box("claw", (-3, -1, -3), (3, 2, 3), "claw")], "leg_rf"),
+             part("claw_l", (4, 21, -3), [box("claw", (0, -1, -3), (3, 2, 3), "claw", mirror=True)], "leg_lf")]
+    for i, z in enumerate((-1.5, 0.5, 2.5)):
+        parts.append(part(f"leg_r{i}", (-4, 22, z), [box("leg", (-3, 0, -0.5), (3, 1, 1), "leg")], "leg_rb" if i % 2 else "leg_lb"))
+        parts.append(part(f"leg_l{i}", (4, 22, z), [box("leg", (0, 0, -0.5), (3, 1, 1), "leg", mirror=True)], "leg_lb" if i % 2 else "leg_rb"))
+    size = pack(parts); emit_model("crater_crab", parts, size)
+    emit_textures(parts, size, {"crater_crab": {"shell": {"c": "#a8a49a", "noise": 10, "speckle": {"c": "#6e6a62", "p": 0.25}},
+        "claw": {"c": "#b8b2a4", "noise": 8, "speckle": {"c": "#5a5650", "p": 0.2}}, "leg": {"c": "#8e8a80", "noise": 6}, "eye": {"c": "#1e1c22"}}})
+    M.w("data/ryancraft/loot_table/entities/crater_crab.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item",
+        "name": "ryancraft:moon_dust", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 2}}]}]}]})
+    save_item("crater_crab_spawn_egg", egg_icon("#a8a49a", "#5a5650"))
+    M.w("assets/ryancraft/models/item/crater_crab_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/crater_crab_spawn_egg"}})
+    M.w("assets/ryancraft/items/crater_crab_spawn_egg.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/crater_crab_spawn_egg"}})
+    p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
+    if not any(e["type"] == "ryancraft:crater_crab" for e in b["spawners"]["creature"]):
+        b["spawners"]["creature"].append({"type": "ryancraft:crater_crab", "weight": 6, "minCount": 1, "maxCount": 3})
+    json.dump(b, open(p, "w"), indent=2)
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p))
+    d.update({"entity.ryancraft.crater_crab": "Crater Crab", "item.ryancraft.crater_crab_spawn_egg": "Crater Crab Spawn Egg"})
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    crabs(); print("crabs ok")

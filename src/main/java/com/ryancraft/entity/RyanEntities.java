@@ -103,6 +103,8 @@ public final class RyanEntities {
             EntityType.Builder.<BossMeteor>of(BossMeteor::new, MobCategory.MISC).sized(1.0f, 1.0f).clientTrackingRange(6).updateInterval(10));
     public static final EntityType<DustDrifter> DUST_DRIFTER = register("dust_drifter",
             EntityType.Builder.of(DustDrifter::new, MobCategory.AMBIENT).sized(0.7f, 0.9f).clientTrackingRange(8));
+    public static final EntityType<CraterCrab> CRATER_CRAB = register("crater_crab",
+            EntityType.Builder.of(CraterCrab::new, MobCategory.CREATURE).sized(0.7f, 0.4f).clientTrackingRange(8));
     public static final EntityType<GoldenEagle> GOLDEN_EAGLE = register("golden_eagle",
             EntityType.Builder.of(GoldenEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
     public static final EntityType<RedTailedHawk> RED_TAILED_HAWK = register("red_tailed_hawk",
@@ -197,6 +199,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(GREAT_MOON_RABBIT, GreatMoonRabbit.createAttributes());
         FabricDefaultAttributeRegistry.register(ANGRY_MOON_RABBIT, AngryMoonRabbit.createAttributes());
         FabricDefaultAttributeRegistry.register(DUST_DRIFTER, DustDrifter.createAttributes());
+        FabricDefaultAttributeRegistry.register(CRATER_CRAB, CraterCrab.createAttributes());
         FabricDefaultAttributeRegistry.register(MOON_RABBIT, net.minecraft.world.entity.animal.rabbit.Rabbit.createAttributes());
         FabricDefaultAttributeRegistry.register(SKY_ROC, SkyRoc.createAttributes());
         FabricDefaultAttributeRegistry.register(PEGASUS, net.minecraft.world.entity.animal.equine.AbstractHorse.createBaseHorseAttributes());

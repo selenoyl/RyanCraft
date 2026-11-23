@@ -120,7 +120,7 @@ public class RyanCraftClient implements ClientModInitializer {
 
         for (String m : new String[]{"black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel", "songbird",
                 "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge", "chipmunk", "coyote",
-                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine", "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose", "orca", "blue_whale", "shark", "manta_ray", "jellyfish", "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator", "swan"}) {
+                "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine", "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose", "orca", "blue_whale", "shark", "manta_ray", "jellyfish", "butterfly", "hummingbird", "pileated_woodpecker", "bobwhite", "box_turtle", "rattlesnake", "bullfrog", "alligator", "swan", "crater_crab"}) {
             EntityModelLayerRegistry.registerModelLayer(CritterModel.layer(m), () -> CritterModel.createLayer(m));
         }
         EntityRendererRegistry.register(RyanEntities.BLACK_BEAR, c -> new CritterRenderer<>(c, "black_bear", 0.9f, 1.0f, false, "black", "cinnamon"));
@@ -152,6 +152,7 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.GREAT_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Boss::new);
         EntityRendererRegistry.register(RyanEntities.ANGRY_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Minion::new);
         EntityRendererRegistry.register(RyanEntities.BOSS_METEOR, c -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(c, 2.5f, true));
+        EntityRendererRegistry.register(RyanEntities.CRATER_CRAB, c -> new CritterRenderer<>(c, "crater_crab", 0.3f, 1.0f, false, "crater_crab"));
         EntityRendererRegistry.register(RyanEntities.DUST_DRIFTER, c -> new CritterRenderer<>(c, "jellyfish", 0.0f, 1.1f, true, "dust_drifter"));
         EntityRendererRegistry.register(RyanEntities.LOST_SPACEMAN, com.ryancraft.client.render.LostSpacemanRenderer::new);
         EntityRendererRegistry.register(RyanEntities.SKY_ROC, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 2.8f, false, "sky_roc"));

@@ -1,0 +1,348 @@
+{
+ "texture": [
+  32,
+  32
+ ],
+ "parts": [
+  {
+   "name": "body",
+   "parent": null,
+   "pivot": [
+    0,
+    21,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "body",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      0
+     ],
+     "from": [
+      -4,
+      -1.5,
+      -3
+     ],
+     "size": [
+      8,
+      3,
+      6
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      24,
+      9
+     ],
+     "from": [
+      -2,
+      -3.5,
+      -3
+     ],
+     "size": [
+      1,
+      2,
+      1
+     ],
+     "mirror": false
+    },
+    {
+     "uv": [
+      28,
+      9
+     ],
+     "from": [
+      1,
+      -3.5,
+      -3
+     ],
+     "size": [
+      1,
+      2,
+      1
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "claw_r",
+   "parent": null,
+   "pivot": [
+    -4,
+    21,
+    -3
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rf",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      9
+     ],
+     "from": [
+      -3,
+      -1,
+      -3
+     ],
+     "size": [
+      3,
+      2,
+      3
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "claw_l",
+   "parent": null,
+   "pivot": [
+    4,
+    21,
+    -3
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lf",
+   "boxes": [
+    {
+     "uv": [
+      12,
+      9
+     ],
+     "from": [
+      0,
+      -1,
+      -3
+     ],
+     "size": [
+      3,
+      2,
+      3
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "leg_r0",
+   "parent": null,
+   "pivot": [
+    -4,
+    22,
+    -1.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lb",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      14
+     ],
+     "from": [
+      -3,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_l0",
+   "parent": null,
+   "pivot": [
+    4,
+    22,
+    -1.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rb",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      14
+     ],
+     "from": [
+      0,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "leg_r1",
+   "parent": null,
+   "pivot": [
+    -4,
+    22,
+    0.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rb",
+   "boxes": [
+    {
+     "uv": [
+      16,
+      14
+     ],
+     "from": [
+      -3,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_l1",
+   "parent": null,
+   "pivot": [
+    4,
+    22,
+    0.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lb",
+   "boxes": [
+    {
+     "uv": [
+      24,
+      14
+     ],
+     "from": [
+      0,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": true
+    }
+   ]
+  },
+  {
+   "name": "leg_r2",
+   "parent": null,
+   "pivot": [
+    -4,
+    22,
+    2.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_lb",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      16
+     ],
+     "from": [
+      -3,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "leg_l2",
+   "parent": null,
+   "pivot": [
+    4,
+    22,
+    2.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "leg_rb",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      16
+     ],
+     "from": [
+      0,
+      0,
+      -0.5
+     ],
+     "size": [
+      3,
+      1,
+      1
+     ],
+     "mirror": true
+    }
+   ]
+  }
+ ]
+}
