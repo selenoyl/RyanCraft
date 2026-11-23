@@ -26,6 +26,15 @@ def fill_tex(name):
             k = 0.92 + 0.12 * r.random(); px[x, y] = tuple(min(255, int(v * k)) for v in c) + (255,)
     im.save(os.path.join(B, f"cooking_pot_{name}.png"))
 
+def liquid_tex():
+    """A pale, flecked surface for the block colour to tint."""
+    r = random.Random(11); im = Image.new("RGBA", (16, 16)); px = im.load()
+    for y in range(16):
+        for x in range(16):
+            v = 200 + r.randrange(26) + (24 if r.random() < 0.12 else 0)
+            px[x, y] = (min(255, v), min(255, v), min(255, v), 255)
+    im.save(os.path.join(B, "cooking_pot_liquid.png"))
+
 def iron_tex():
     """Cast iron: dark, faintly mottled, with a few bright grains."""
     r = random.Random(7); im = Image.new("RGBA", (16, 16)); px = im.load()
@@ -52,9 +61,9 @@ def pot_model(support, fill):
            box([2.5, 9, 3.5], [3.5, 11, 12.5]), box([12.5, 9, 3.5], [13.5, 11, 12.5]),
            box([4, 0, 4], [5, 1, 5]), box([11, 0, 4], [12, 1, 5]), box([7.5, 0, 11], [8.5, 1, 12])]   # feet
     tex = {"particle": "ryancraft:block/cooking_pot", "iron": "ryancraft:block/cooking_pot"}
-    if fill != "empty":
-        els.append({"from": [3.5, 8.5, 3.5], "to": [12.5, 8.5, 12.5], "faces": {"up": {"texture": "#fill"}}})
-        tex["fill"] = f"ryancraft:block/cooking_pot_{fill}"
+    if fill != "empty":                                                 # one neutral surface, tinted to what's cooking (food/PotColour)
+        els.append({"from": [3.5, 8.5, 3.5], "to": [12.5, 8.5, 12.5], "faces": {"up": {"texture": "#fill", "tintindex": 0}}})
+        tex["fill"] = "ryancraft:block/cooking_pot_liquid"
     else:
         els.append({"from": [3.5, 2, 3.5], "to": [12.5, 2, 12.5], "faces": {"up": {"texture": "#iron"}}})
     if support in ("tripod", "bar_x", "bar_z"):
@@ -124,6 +133,8 @@ def lang_entries():
            "block.ryancraft.cooking_pot.simmering_water": "Simmering in water: %s (%s%%)", "block.ryancraft.cooking_pot.simmering_milk": "Simmering in milk: %s (%s%%)",
            "block.ryancraft.cooking_pot.cold_water": "In cold water: %s (set it on a lit campfire)", "block.ryancraft.cooking_pot.cold_milk": "In cold milk: %s (set it on a lit campfire)",
            "block.ryancraft.cooking_pot.meal": "%s: %s bowls left",
+           "block.ryancraft.cooking_pot.heating_water": "Coming to the boil: %s (%s%%)", "block.ryancraft.cooking_pot.heating_milk": "Warming the milk: %s (%s%%)",
+           "subtitles.ryancraft.block.cooking_pot.simmer": "Pot simmers",
            "container.ryancraft.campfire": "Campfire", "container.ryancraft.campfire.time_left": "Burning: %s left on this piece",
            "container.ryancraft.campfire.no_fire": "Not burning", "container.ryancraft.campfire.no_fuel": "no fuel left",
            "container.ryancraft.campfire.burning": "Fire: %s, then %s", "container.ryancraft.campfire.out": "The fire is out (%s)"}
@@ -135,7 +146,7 @@ def lang_entries():
 
 def build():
     W = M.w
-    for f in FILLS: fill_tex(f)
+    liquid_tex()
     for k in KINDS: meal_tex(k)
     iron_tex()
     for sup in SUPPORTS:

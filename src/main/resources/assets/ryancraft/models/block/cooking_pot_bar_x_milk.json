@@ -4,7 +4,7 @@
   "textures": {
     "particle": "ryancraft:block/cooking_pot",
     "iron": "ryancraft:block/cooking_pot",
-    "fill": "ryancraft:block/cooking_pot_milk"
+    "fill": "ryancraft:block/cooking_pot_liquid"
   },
   "elements": [
     {
@@ -433,7 +433,8 @@
       ],
       "faces": {
         "up": {
-          "texture": "#fill"
+          "texture": "#fill",
+          "tintindex": 0
         }
       }
     },

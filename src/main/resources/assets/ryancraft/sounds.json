@@ -824,5 +824,22 @@
       }
     ],
     "subtitle": "subtitles.ryancraft.entity.bobcat.growl"
+  },
+  "block.cooking_pot.simmer": {
+    "sounds": [
+      {
+        "name": "ryancraft:block/cooking_pot/simmer1",
+        "volume": 0.7
+      },
+      {
+        "name": "ryancraft:block/cooking_pot/simmer2",
+        "volume": 0.7
+      },
+      {
+        "name": "ryancraft:block/cooking_pot/simmer3",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.ryancraft.block.cooking_pot.simmer"
   }
 }

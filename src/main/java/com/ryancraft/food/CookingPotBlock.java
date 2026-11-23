@@ -57,7 +57,11 @@ public class CookingPotBlock extends BaseEntityBlock {
         @Override public String getSerializedName() { return name().toLowerCase(); }
     }
     public static final EnumProperty<Support> SUPPORT = EnumProperty.create("support", Support.class);
+    /** Boiling: the pot has been on the fire long enough (30 seconds) to bubble, and only then does it cook. */
     public static final BooleanProperty COOKING = BooleanProperty.create("cooking");
+    /** The colour of what's in it (food/PotColour), tinted onto the liquid. */
+    public static final net.minecraft.world.level.block.state.properties.IntegerProperty TINT =
+            net.minecraft.world.level.block.state.properties.IntegerProperty.create("tint", 0, 15);
     /** For a pot in the fire: whether the fire is burning. */
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Fill> FILL = EnumProperty.create("fill", Fill.class);
@@ -65,11 +69,11 @@ public class CookingPotBlock extends BaseEntityBlock {
 
     public CookingPotBlock(Properties p) {
         super(p);
-        registerDefaultState(stateDefinition.any().setValue(SUPPORT, Support.NONE).setValue(LIT, false).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
+        registerDefaultState(stateDefinition.any().setValue(SUPPORT, Support.NONE).setValue(LIT, false).setValue(TINT, 0).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
     }
 
     @Override protected MapCodec<? extends BaseEntityBlock> codec() { return simpleCodec(CookingPotBlock::new); }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SUPPORT, LIT, COOKING, FILL); }
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SUPPORT, LIT, TINT, COOKING, FILL); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
     @Override protected VoxelShape getShape(BlockState s, BlockGetter l, BlockPos p, CollisionContext c) { return s.getValue(SUPPORT) == Support.FIRE ? IN_FIRE : SHAPE; }
     @Override public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new CookingPotBlockEntity(pos, state); }
@@ -184,10 +188,12 @@ public class CookingPotBlock extends BaseEntityBlock {
             if (r.nextInt(3) == 0) level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, pos.getX() + 0.5 + r.nextDouble() / 3 * (r.nextBoolean() ? 1 : -1),
                     pos.getY() + 1.2, pos.getZ() + 0.5 + r.nextDouble() / 3 * (r.nextBoolean() ? 1 : -1), 0, 0.07, 0);
         }
-        if (!state.getValue(COOKING)) return;
-        double y = pos.getY() + (state.getValue(SUPPORT) == Support.FIRE ? 1.15 : 0.75);
-        level.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5 + (r.nextDouble() - 0.5) * 0.4, y, pos.getZ() + 0.5 + (r.nextDouble() - 0.5) * 0.4, 0, 0.04, 0);
-        if (r.nextInt(8) == 0) level.playLocalSound(pos, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS, 0.3f, 1.2f, false);
+        if (!state.getValue(COOKING)) return;                                                        // boiling: bubbles, steam and a low simmer
+        double y = pos.getY() + (state.getValue(SUPPORT) == Support.FIRE ? 0.92 : 0.55);
+        for (int i = 0; i < 3; i++)
+            level.addParticle(ParticleTypes.BUBBLE_POP, pos.getX() + 0.5 + (r.nextDouble() - 0.5) * 0.45, y, pos.getZ() + 0.5 + (r.nextDouble() - 0.5) * 0.45, 0, 0.01, 0);
+        if (r.nextInt(2) == 0) level.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5 + (r.nextDouble() - 0.5) * 0.3, y + 0.2, pos.getZ() + 0.5 + (r.nextDouble() - 0.5) * 0.3, 0, 0.03, 0);
+        if (r.nextInt(2) == 0) level.playLocalSound(pos, com.ryancraft.RyanSounds.POT_SIMMER, SoundSource.BLOCKS, 0.5f + r.nextFloat() * 0.2f, 0.9f + r.nextFloat() * 0.2f, false);
     }
 
     @Override

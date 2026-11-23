@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundEvent;
 /** Sound events. The files are original synths in assets/ryancraft/sounds; any resource pack can swap them. */
 public final class RyanSounds {
     // Ambience loops
+    public static final SoundEvent POT_SIMMER = reg("block.cooking_pot.simmer");
     public static final SoundEvent WIND = reg("ambience.wind");
     public static final SoundEvent WIND_HOWL = reg("ambience.wind_howl");
     public static final SoundEvent FOREST = reg("ambience.forest");
