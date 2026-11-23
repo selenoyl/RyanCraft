@@ -6,6 +6,8 @@
   "mixins": [
     "DedicatedServerMixin",
     "OldCombatMixin",
+    "CampfireFuelMixin",
+    "CampfireMenuMixin",
     "RegionalCurrencyMixin",
     "MinecraftServerMixin",
     "ServerPlayerMixin",

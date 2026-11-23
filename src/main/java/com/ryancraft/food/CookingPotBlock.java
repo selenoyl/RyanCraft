@@ -39,8 +39,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * A cast-iron cooking pot. Set it over a campfire and it stands on an iron tripod, or, with solid blocks on two
  * opposite sides (a fireplace), hangs from a crane bar between them. Use it on the campfire itself and it sits right in
- * the fire, one block that is both (a shovel puts the fire out, flint and steel relights it; sneak with an empty hand on
- * an empty pot to lift it off). Pour in water or milk, add up to six
+ * the fire, one block that is both: it keeps the campfire's fuel burning (feed it more by right-clicking with logs or
+ * other fuel), a shovel puts the fire out, flint and steel relights it, and sneaking with an empty hand on an empty pot
+ * lifts it off, leaving the campfire burning as it was. Pour in water or milk, add up to six
  * ingredients and let it simmer; then ladle portions out with bowls. Sneak with an empty hand to take back the last
  * thing you put in; an empty hand alone tells you what's in it.
  */
@@ -115,6 +116,13 @@ public class CookingPotBlock extends BaseEntityBlock {
                 }
                 return InteractionResult.SUCCESS;
             }
+            if (!Meal.isIngredient(stack) && level.fuelValues().isFuel(stack)) {                 // feed the fire
+                if (!level.isClientSide()) {
+                    if (CampfireFuel.addFuel(level, pot, stack)) level.playSound(null, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 0.7f, 1f);
+                    player.displayClientMessage(CampfireFuel.describe(pot, state.getValue(LIT)), true);
+                }
+                return InteractionResult.SUCCESS;
+            }
             if (!state.getValue(LIT) && (stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE))) {
                 if (!level.isClientSide()) {
                     level.setBlock(pos, state.setValue(LIT, true), 3);
@@ -157,6 +165,7 @@ public class CookingPotBlock extends BaseEntityBlock {
         if (!level.isClientSide()) {
             if (player.isSecondaryUseActive() && state.getValue(SUPPORT) == Support.FIRE && state.getValue(FILL) == Fill.EMPTY && pot.ingredientCount() == 0) {
                 level.setBlock(pos, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, state.getValue(LIT)), 3);    // lift the pot off
+                if (level.getBlockEntity(pos) instanceof FuelHolder camp) camp.ryancraft$copyFireFrom(pot);                       // the fire stays
                 ItemStack p = new ItemStack(Cooking.COOKING_POT_ITEM);
                 if (!player.addItem(p)) player.drop(p, false);
                 level.playSound(null, pos, SoundEvents.LANTERN_BREAK, SoundSource.BLOCKS, 0.8f, 1f);

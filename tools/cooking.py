@@ -66,13 +66,20 @@ def pot_model(support, fill):
         camp = json.load(open(os.path.join(HERE, "templates", "campfire", "template_campfire.json" if support == "fire_lit" else "campfire_off.json")))
         for e in els: e["from"][1] += 6; e["to"][1] += 6
         logs = camp["elements"]
-        if support == "fire_lit":                                            # flames a little short, licking up round the pot
+        if support == "fire_lit":                                            # the campfire's own flames, cut short under the pot
             for e in logs[5:]:
                 e["to"][1] = 14
                 for f in e["faces"].values(): f["uv"] = [0, 3, 16, 16]
-            sheet = lambda f, t, a, b: {"from": f, "to": t, "shade": False, "faces": {a: {"uv": [2, 6, 14, 16], "texture": "#fire"}, b: {"uv": [2, 6, 14, 16], "texture": "#fire"}}}
-            logs += [sheet([3, 4, 1.5], [13, 13, 1.5], "north", "south"), sheet([3, 4, 14.5], [13, 13, 14.5], "north", "south"),   # flames up its sides
-                     sheet([1.5, 4, 3], [1.5, 13, 13], "west", "east"), sheet([14.5, 4, 3], [14.5, 13, 13], "west", "east")]
+            def tongue(x, z, w, y0, y1, ang, uv):                         # a small upright flame, turned about its own middle
+                return {"from": [x - w / 2, y0, z], "to": [x + w / 2, y1, z], "shade": False,
+                        "rotation": {"origin": [x, y0, z], "axis": "y", "angle": ang},
+                        "faces": {"north": {"uv": uv, "texture": "#fire"}, "south": {"uv": uv, "texture": "#fire"}}}
+            for cx, cz in ((1.8, 1.8), (14.2, 1.8), (1.8, 14.2), (14.2, 14.2)):          # crossed flames at each corner
+                logs += [tongue(cx, cz, 5, 3, 12, 45, [3, 4, 13, 16]), tongue(cx, cz, 5, 3, 12, -45, [3, 4, 13, 16])]
+            for cx, cz, ang in ((8, 1.2, 0), (8, 14.8, 0), (1.2, 8, 90), (14.8, 8, 90)):  # lower licks up the middle of each side
+                logs.append(tongue(cx, cz, 6, 4, 10, 0, [5, 8, 11, 16]) if ang == 0 else
+                            {"from": [cx, 4, cz - 3], "to": [cx, 10, cz + 3], "shade": False,
+                             "faces": {"west": {"uv": [5, 8, 11, 16], "texture": "#fire"}, "east": {"uv": [5, 8, 11, 16], "texture": "#fire"}}})
         els = logs + els
         tex.update({"log": "minecraft:block/campfire_log", "lit_log": "minecraft:block/campfire_log_lit", "fire": "minecraft:block/campfire_fire"})
         if support == "fire_off": tex["particle"] = "minecraft:block/campfire_log"
@@ -116,7 +123,10 @@ def lang_entries():
            "block.ryancraft.cooking_pot.base_water": "Water, ready for ingredients", "block.ryancraft.cooking_pot.base_milk": "Milk, ready for ingredients",
            "block.ryancraft.cooking_pot.simmering_water": "Simmering in water: %s (%s%%)", "block.ryancraft.cooking_pot.simmering_milk": "Simmering in milk: %s (%s%%)",
            "block.ryancraft.cooking_pot.cold_water": "In cold water: %s (set it on a lit campfire)", "block.ryancraft.cooking_pot.cold_milk": "In cold milk: %s (set it on a lit campfire)",
-           "block.ryancraft.cooking_pot.meal": "%s: %s bowls left"}
+           "block.ryancraft.cooking_pot.meal": "%s: %s bowls left",
+           "container.ryancraft.campfire": "Campfire", "container.ryancraft.campfire.time_left": "Burning: %s left on this piece",
+           "container.ryancraft.campfire.no_fire": "Not burning", "container.ryancraft.campfire.no_fuel": "no fuel left",
+           "container.ryancraft.campfire.burning": "Fire: %s, then %s", "container.ryancraft.campfire.out": "The fire is out (%s)"}
     for k, v in VANILLA.items(): out[f"meal.ryancraft.ingredient.minecraft.{k}"] = v
     d = json.load(open(os.path.join(M.A, "lang", "en_us.json")))
     for k, v in d.items():

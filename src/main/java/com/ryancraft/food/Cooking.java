@@ -12,6 +12,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -52,8 +53,15 @@ public final class Cooking {
             if (!stack.is(COOKING_POT_ITEM) || !state.is(net.minecraft.world.level.block.Blocks.CAMPFIRE) || player.isSpectator())
                 return net.minecraft.world.InteractionResult.PASS;
             if (!level.isClientSide()) {
+                FuelHolder camp = level.getBlockEntity(hit.getBlockPos()) instanceof FuelHolder f ? f : null;
+                var fire = new java.util.ArrayList<ItemStack>(); int burn = -1, total = 0;
+                if (camp != null) { fire.add(camp.ryancraft$fuel().get(0).copy()); burn = camp.ryancraft$burn(); total = camp.ryancraft$total(); camp.ryancraft$fuel().set(0, ItemStack.EMPTY); }
                 level.setBlock(hit.getBlockPos(), COOKING_POT.defaultBlockState().setValue(CookingPotBlock.SUPPORT, CookingPotBlock.Support.FIRE)
                         .setValue(CookingPotBlock.LIT, state.getValue(net.minecraft.world.level.block.CampfireBlock.LIT)), 3);
+                if (level.getBlockEntity(hit.getBlockPos()) instanceof CookingPotBlockEntity pot) {          // the fire carries on under the pot
+                    if (!fire.isEmpty()) pot.ryancraft$fuel().set(0, fire.get(0));
+                    pot.ryancraft$setBurn(burn); pot.ryancraft$setTotal(total); pot.setChanged();
+                }
                 level.playSound(null, hit.getBlockPos(), net.minecraft.sounds.SoundEvents.LANTERN_PLACE, net.minecraft.sounds.SoundSource.BLOCKS, 1f, 0.8f);
                 stack.consume(1, player);
             }

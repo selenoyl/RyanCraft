@@ -16,11 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** What's in a cooking pot: its base, the raw ingredients, how far along they are, and once done the meal and portions left. */
-public class CookingPotBlockEntity extends BlockEntity {
+public class CookingPotBlockEntity extends BlockEntity implements FuelHolder {
     public static final int COOK_TICKS = 600;
     private final List<ItemStack> ingredients = new ArrayList<>();
     private int progress, portions;
     private Meal meal;
+    /** A pot sitting right in a campfire keeps that fire going (food/CampfireFuel). */
+    private final net.minecraft.core.NonNullList<ItemStack> fuel = net.minecraft.core.NonNullList.withSize(1, ItemStack.EMPTY);
+    private int burn = -1, burnTotal;
+
+    @Override public net.minecraft.core.NonNullList<ItemStack> ryancraft$fuel() { return fuel; }
+    @Override public int ryancraft$burn() { return burn; }
+    @Override public void ryancraft$setBurn(int b) { burn = b; }
+    @Override public int ryancraft$total() { return burnTotal; }
+    @Override public void ryancraft$setTotal(int t) { burnTotal = t; }
+    @Override public void ryancraft$changed() { setChanged(); }
+    boolean inFire() { return getBlockState().getValue(CookingPotBlock.SUPPORT) == CookingPotBlock.Support.FIRE; }
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) { super(Cooking.POT_ENTITY, pos, state); }
 
@@ -34,6 +45,10 @@ public class CookingPotBlockEntity extends BlockEntity {
     ItemStack takeLast() { ItemStack s = ingredients.remove(ingredients.size() - 1); progress = 0; setChanged(); return s; }
 
     void tick() {
+        if (inFire() && getBlockState().getValue(CookingPotBlock.LIT) && level instanceof net.minecraft.server.level.ServerLevel sl && !CampfireFuel.burn(sl, this)) {
+            level.setBlock(worldPosition, getBlockState().setValue(CookingPotBlock.LIT, false), 3);
+            CampfireFuel.goOut(level, worldPosition);
+        }
         boolean milk = fill() == CookingPotBlock.Fill.MILK;
         boolean can = (milk || fill() == CookingPotBlock.Fill.WATER) && !ingredients.isEmpty() && CookingPotBlock.heated(level, worldPosition);
         if (can != getBlockState().getValue(CookingPotBlock.COOKING)) level.setBlock(worldPosition, getBlockState().setValue(CookingPotBlock.COOKING, can), 3);
@@ -59,6 +74,11 @@ public class CookingPotBlockEntity extends BlockEntity {
     }
 
     Component describe() {
+        Component pot = potLine();
+        return inFire() ? pot.copy().append(Component.literal("  |  ")).append(CampfireFuel.describe(this, getBlockState().getValue(CookingPotBlock.LIT))) : pot;
+    }
+
+    private Component potLine() {
         if (meal != null) return Component.translatable("block.ryancraft.cooking_pot.meal", meal.name(), portions);
         CookingPotBlock.Fill f = fill();
         if (f == CookingPotBlock.Fill.EMPTY) return Component.translatable("block.ryancraft.cooking_pot.empty");
@@ -74,6 +94,8 @@ public class CookingPotBlockEntity extends BlockEntity {
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) for (ItemStack s : ingredients) Containers.dropItemStack(level, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, s);
         ingredients.clear();
+        if (level != null && !fuel.get(0).isEmpty()) Containers.dropItemStack(level, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, fuel.get(0));
+        fuel.set(0, ItemStack.EMPTY);
     }
 
     @Override
@@ -82,6 +104,8 @@ public class CookingPotBlockEntity extends BlockEntity {
         out.store("Ingredients", ItemStack.CODEC.listOf(), ingredients);
         out.putInt("Progress", progress); out.putInt("Portions", portions);
         if (meal != null) out.store("Meal", Meal.CODEC, meal);
+        net.minecraft.world.ContainerHelper.saveAllItems(out.child("Fuel"), fuel);
+        out.putInt("Burn", burn); out.putInt("BurnTotal", burnTotal);
     }
 
     @Override
@@ -90,5 +114,7 @@ public class CookingPotBlockEntity extends BlockEntity {
         ingredients.clear(); in.read("Ingredients", ItemStack.CODEC.listOf()).ifPresent(ingredients::addAll);
         progress = in.getIntOr("Progress", 0); portions = in.getIntOr("Portions", 0);
         meal = in.read("Meal", Meal.CODEC).orElse(null);
+        fuel.set(0, ItemStack.EMPTY); in.child("Fuel").ifPresent(c -> net.minecraft.world.ContainerHelper.loadAllItems(c, fuel));
+        burn = in.getIntOr("Burn", -1); burnTotal = in.getIntOr("BurnTotal", 0);
     }
 }

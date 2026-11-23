@@ -55,6 +55,7 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.bag.Cages.BIRD_CAGE, com.ryancraft.bag.Cages.CHIPMUNK_CAGE);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.storage.RyanStorage.POT_MENU, com.ryancraft.client.screen.PotScreen::new);
+        net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.food.CampfireFuel.MENU, com.ryancraft.client.screen.CampfireScreen::new);
         // Pipes, engines, tanks and the Ender Terminal
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.DIAMOND_MENU, com.ryancraft.client.pipes.DiamondPipeScreen::new);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.TERMINAL_MENU, com.ryancraft.client.pipes.EnderTerminalScreen::new);
