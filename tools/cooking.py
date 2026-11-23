@@ -44,7 +44,9 @@ def pot_model(support, fill):
     """A little cast-iron cauldron on three stub feet. Over a campfire it hangs by its bail from a chain: from the top of
     an iron tripod (legs splayed out over the fire), or from a crane bar spanning to the blocks either side."""
     els = [box([3, 1, 3], [13, 9, 13], SIDES + ("down",)),                     # the belly
-           box([2, 3, 2], [14, 8, 14], SIDES),                                 # its bulge
+           box([2, 3, 2], [14, 8, 14], SIDES + ("up", "down")),                # its bulge
+           box([3, 2, 3], [13, 9, 3.5]), box([3, 2, 12.5], [13, 9, 13]),       # the inside walls (a box's faces only face
+           box([3, 2, 3.5], [3.5, 9, 12.5]), box([12.5, 2, 3.5], [13, 9, 12.5]),   # outward, so the belly can't show them)
            box([2.5, 9, 2.5], [13.5, 11, 3.5]), box([2.5, 9, 12.5], [13.5, 11, 13.5]),      # the rim
            box([2.5, 9, 3.5], [3.5, 11, 12.5]), box([12.5, 9, 3.5], [13.5, 11, 12.5]),
            box([4, 0, 4], [5, 1, 5]), box([11, 0, 4], [12, 1, 5]), box([7.5, 0, 11], [8.5, 1, 12])]   # feet
