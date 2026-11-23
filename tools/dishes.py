@@ -73,10 +73,10 @@ def garden_salad():
     pb, ps = bowl.load(), stew.load(); r = random.Random(50)
     inside = {(x, y) for y in range(16) for x in range(16) if ps[x, y][3] and ps[x, y] != pb[x, y]}
     top = min(y for _, y in inside)
-    heap = {(x, y) for x, y in inside if y <= top + 2} | {(x, y) for y in (top - 1, top - 2) for x in range(5 + (top - y), 11 - (top - y))}
+    heap = {(x, y) for x, y in inside if y <= top + 2} | {(x, y) for x in range(5, 11) for y in (top - 1,)} | {(x, top - 2) for x in range(7, 10)}
     out = bowl.copy(); po = out.load()
     for x, y in sorted(heap, key=lambda p: p[1]):
-        if (x, y) in inside or not pb[x, y][3]:
+        if (x, y) in inside or y < top:                                   # the mound rises in front of the back rim
             edge = (x, y - 1) not in heap
             po[x, y] = (F.LEAF[r.randint(3, 4)] if edge else F.LEAF[r.randint(1, 3)]) + (255,)
     for x, y in inside:                                                   # the far side of the bowl, in its shadow
