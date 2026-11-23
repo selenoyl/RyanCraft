@@ -20,6 +20,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,7 +38,9 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * A cast-iron cooking pot. Set it over a campfire and it stands on an iron tripod, or, with solid blocks on two
- * opposite sides (a fireplace), hangs from a crane bar between them. Pour in water or milk, add up to six
+ * opposite sides (a fireplace), hangs from a crane bar between them. Use it on the campfire itself and it sits right in
+ * the fire, one block that is both (a shovel puts the fire out, flint and steel relights it; sneak with an empty hand on
+ * an empty pot to lift it off). Pour in water or milk, add up to six
  * ingredients and let it simmer; then ladle portions out with bowls. Sneak with an empty hand to take back the last
  * thing you put in; an empty hand alone tells you what's in it.
  */
@@ -45,25 +49,28 @@ public class CookingPotBlock extends BaseEntityBlock {
         EMPTY, WATER, MILK, STEW, SOUP, CHOWDER, PORRIDGE;
         @Override public String getSerializedName() { return name().toLowerCase(); }
     }
-    /** How the pot is held over a campfire: not at all, on a tripod, or hung from a bar between two blocks (a fireplace). */
+    /** How the pot is held over a campfire: not at all, on a tripod, hung from a bar between two blocks (a fireplace), or
+     *  sitting right in the campfire (FIRE: the pot was put on the campfire itself, and this block is both). */
     public enum Support implements StringRepresentable {
-        NONE, TRIPOD, BAR_X, BAR_Z;
+        NONE, TRIPOD, BAR_X, BAR_Z, FIRE;
         @Override public String getSerializedName() { return name().toLowerCase(); }
     }
     public static final EnumProperty<Support> SUPPORT = EnumProperty.create("support", Support.class);
     public static final BooleanProperty COOKING = BooleanProperty.create("cooking");
+    /** For a pot in the fire: whether the fire is burning. */
+    public static final BooleanProperty LIT = BlockStateProperties.LIT;
     public static final EnumProperty<Fill> FILL = EnumProperty.create("fill", Fill.class);
-    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 12, 14);
+    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 12, 14), IN_FIRE = Block.box(0, 0, 0, 16, 16, 16);
 
     public CookingPotBlock(Properties p) {
         super(p);
-        registerDefaultState(stateDefinition.any().setValue(SUPPORT, Support.NONE).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
+        registerDefaultState(stateDefinition.any().setValue(SUPPORT, Support.NONE).setValue(LIT, false).setValue(COOKING, false).setValue(FILL, Fill.EMPTY));
     }
 
     @Override protected MapCodec<? extends BaseEntityBlock> codec() { return simpleCodec(CookingPotBlock::new); }
-    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SUPPORT, COOKING, FILL); }
+    @Override protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> b) { b.add(SUPPORT, LIT, COOKING, FILL); }
     @Override protected RenderShape getRenderShape(BlockState s) { return RenderShape.MODEL; }
-    @Override protected VoxelShape getShape(BlockState s, BlockGetter l, BlockPos p, CollisionContext c) { return SHAPE; }
+    @Override protected VoxelShape getShape(BlockState s, BlockGetter l, BlockPos p, CollisionContext c) { return s.getValue(SUPPORT) == Support.FIRE ? IN_FIRE : SHAPE; }
     @Override public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) { return new CookingPotBlockEntity(pos, state); }
 
     static boolean onCampfire(LevelReader level, BlockPos pos) { return level.getBlockState(pos.below()).getBlock() instanceof CampfireBlock; }
@@ -79,6 +86,8 @@ public class CookingPotBlock extends BaseEntityBlock {
         BlockPos n = pos.relative(d); return level.getBlockState(n).isFaceSturdy(level, n, d.getOpposite());
     }
     static boolean heated(LevelReader level, BlockPos pos) {
+        BlockState self = level.getBlockState(pos);
+        if (self.hasProperty(SUPPORT) && self.getValue(SUPPORT) == Support.FIRE) return self.getValue(LIT);
         BlockState b = level.getBlockState(pos.below());
         return b.getBlock() instanceof CampfireBlock && b.getValue(CampfireBlock.LIT);
     }
@@ -90,13 +99,31 @@ public class CookingPotBlock extends BaseEntityBlock {
 
     @Override
     protected BlockState updateShape(BlockState s, LevelReader level, ScheduledTickAccess t, BlockPos pos, Direction dir, BlockPos np, BlockState ns, RandomSource r) {
-        return s.setValue(SUPPORT, supportFor(level, pos));
+        return s.getValue(SUPPORT) == Support.FIRE ? s : s.setValue(SUPPORT, supportFor(level, pos));
     }
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (!(level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot)) return InteractionResult.PASS;
         Fill fill = state.getValue(FILL);
+        if (state.getValue(SUPPORT) == Support.FIRE) {
+            if (state.getValue(LIT) && stack.is(net.minecraft.tags.ItemTags.SHOVELS)) {
+                if (!level.isClientSide()) {
+                    level.setBlock(pos, state.setValue(LIT, false), 3);
+                    level.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1f, 1f);
+                    stack.hurtAndBreak(1, player, hand);
+                }
+                return InteractionResult.SUCCESS;
+            }
+            if (!state.getValue(LIT) && (stack.is(Items.FLINT_AND_STEEL) || stack.is(Items.FIRE_CHARGE))) {
+                if (!level.isClientSide()) {
+                    level.setBlock(pos, state.setValue(LIT, true), 3);
+                    level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1f, 1f);
+                    if (stack.is(Items.FIRE_CHARGE)) stack.consume(1, player); else stack.hurtAndBreak(1, player, hand);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
         if (fill == Fill.EMPTY && (stack.is(Items.WATER_BUCKET) || stack.is(Items.MILK_BUCKET))) {
             if (!level.isClientSide()) {
                 pot.setBase(stack.is(Items.MILK_BUCKET) ? Fill.MILK : Fill.WATER);
@@ -128,7 +155,12 @@ public class CookingPotBlock extends BaseEntityBlock {
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!(level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot)) return InteractionResult.PASS;
         if (!level.isClientSide()) {
-            if (player.isSecondaryUseActive() && pot.portions() == 0 && pot.ingredientCount() > 0) {
+            if (player.isSecondaryUseActive() && state.getValue(SUPPORT) == Support.FIRE && state.getValue(FILL) == Fill.EMPTY && pot.ingredientCount() == 0) {
+                level.setBlock(pos, Blocks.CAMPFIRE.defaultBlockState().setValue(CampfireBlock.LIT, state.getValue(LIT)), 3);    // lift the pot off
+                ItemStack p = new ItemStack(Cooking.COOKING_POT_ITEM);
+                if (!player.addItem(p)) player.drop(p, false);
+                level.playSound(null, pos, SoundEvents.LANTERN_BREAK, SoundSource.BLOCKS, 0.8f, 1f);
+            } else if (player.isSecondaryUseActive() && pot.portions() == 0 && pot.ingredientCount() > 0) {
                 ItemStack back = pot.takeLast();
                 if (!player.addItem(back)) player.drop(back, false);
             } else player.displayClientMessage(pot.describe(), true);
@@ -138,8 +170,13 @@ public class CookingPotBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource r) {
+        if (state.getValue(SUPPORT) == Support.FIRE && state.getValue(LIT)) {                   // the campfire's own smoke and crackle
+            if (r.nextInt(10) == 0) level.playLocalSound(pos, SoundEvents.CAMPFIRE_CRACKLE, SoundSource.BLOCKS, 0.5f + r.nextFloat(), r.nextFloat() * 0.7f + 0.6f, false);
+            if (r.nextInt(3) == 0) level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, pos.getX() + 0.5 + r.nextDouble() / 3 * (r.nextBoolean() ? 1 : -1),
+                    pos.getY() + 1.2, pos.getZ() + 0.5 + r.nextDouble() / 3 * (r.nextBoolean() ? 1 : -1), 0, 0.07, 0);
+        }
         if (!state.getValue(COOKING)) return;
-        double y = pos.getY() + 0.75;
+        double y = pos.getY() + (state.getValue(SUPPORT) == Support.FIRE ? 1.15 : 0.75);
         level.addParticle(ParticleTypes.CLOUD, pos.getX() + 0.5 + (r.nextDouble() - 0.5) * 0.4, y, pos.getZ() + 0.5 + (r.nextDouble() - 0.5) * 0.4, 0, 0.04, 0);
         if (r.nextInt(8) == 0) level.playLocalSound(pos, SoundEvents.BUBBLE_COLUMN_UPWARDS_AMBIENT, SoundSource.BLOCKS, 0.3f, 1.2f, false);
     }

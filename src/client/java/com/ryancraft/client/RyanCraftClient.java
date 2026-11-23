@@ -31,7 +31,8 @@ public class RyanCraftClient implements ClientModInitializer {
                 com.ryancraft.trees.RyanWood.seasonalLeaves().toArray(new net.minecraft.world.level.block.Block[0]));
         DustStormClient.init();
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
-                com.ryancraft.metal.Steel.STEEL_GRATE, com.ryancraft.metal.Steel.STEEL_BARS, com.ryancraft.metal.Steel.STEEL_DOOR, com.ryancraft.metal.Steel.STEEL_TRAPDOOR);
+                com.ryancraft.metal.Steel.STEEL_GRATE, com.ryancraft.metal.Steel.STEEL_BARS, com.ryancraft.metal.Steel.STEEL_DOOR, com.ryancraft.metal.Steel.STEEL_TRAPDOOR,
+                com.ryancraft.food.Cooking.COOKING_POT);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.TRANSLUCENT,
                 com.ryancraft.metal.LeadedGlass.ALL.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,

@@ -31,7 +31,8 @@ public final class Cooking {
     static {
         ResourceKey<Block> bk = ResourceKey.create(Registries.BLOCK, RyanCraft.id("cooking_pot"));
         COOKING_POT = Registry.register(BuiltInRegistries.BLOCK, bk, new CookingPotBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL)
-                .requiresCorrectToolForDrops().strength(2.0f).sound(SoundType.LANTERN).noOcclusion().pushReaction(PushReaction.DESTROY).setId(bk)));
+                .requiresCorrectToolForDrops().strength(2.0f).sound(SoundType.LANTERN)
+                .lightLevel(st -> st.getValue(CookingPotBlock.SUPPORT) == CookingPotBlock.Support.FIRE && st.getValue(CookingPotBlock.LIT) ? 15 : 0).noOcclusion().pushReaction(PushReaction.DESTROY).setId(bk)));
         COOKING_POT_ITEM = item("cooking_pot", p -> new BlockItem(COOKING_POT, p), new Item.Properties().stacksTo(16).useBlockDescriptionPrefix());
         MEAL = item("meal", MealItem::new, new Item.Properties().stacksTo(1).food(new FoodProperties(6, 7.2f, false)).usingConvertsTo(Items.BOWL));
         POT_ENTITY = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("cooking_pot"),
@@ -44,6 +45,20 @@ public final class Cooking {
     }
 
     public static void init() {
+        // use the pot on a campfire and it goes right into the fire: the two become one block
+        net.fabricmc.fabric.api.event.player.UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
+            var stack = player.getItemInHand(hand);
+            var state = level.getBlockState(hit.getBlockPos());
+            if (!stack.is(COOKING_POT_ITEM) || !state.is(net.minecraft.world.level.block.Blocks.CAMPFIRE) || player.isSpectator())
+                return net.minecraft.world.InteractionResult.PASS;
+            if (!level.isClientSide()) {
+                level.setBlock(hit.getBlockPos(), COOKING_POT.defaultBlockState().setValue(CookingPotBlock.SUPPORT, CookingPotBlock.Support.FIRE)
+                        .setValue(CookingPotBlock.LIT, state.getValue(net.minecraft.world.level.block.CampfireBlock.LIT)), 3);
+                level.playSound(null, hit.getBlockPos(), net.minecraft.sounds.SoundEvents.LANTERN_PLACE, net.minecraft.sounds.SoundSource.BLOCKS, 1f, 0.8f);
+                stack.consume(1, player);
+            }
+            return net.minecraft.world.InteractionResult.SUCCESS;
+        });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(e -> e.accept(COOKING_POT_ITEM));
     }
 

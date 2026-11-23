@@ -1,172 +1,424 @@
 {
   "variants": {
-    "cooking=false,fill=empty,support=none": {
+    "cooking=false,fill=empty,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_empty"
     },
-    "cooking=false,fill=empty,support=tripod": {
+    "cooking=false,fill=empty,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_empty"
     },
-    "cooking=false,fill=empty,support=bar_x": {
+    "cooking=false,fill=empty,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_empty"
     },
-    "cooking=false,fill=empty,support=bar_z": {
+    "cooking=false,fill=empty,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_empty"
     },
-    "cooking=false,fill=water,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_water"
+    "cooking=false,fill=empty,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_empty"
     },
-    "cooking=false,fill=water,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_water"
-    },
-    "cooking=false,fill=water,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_water"
-    },
-    "cooking=false,fill=water,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_water"
-    },
-    "cooking=false,fill=milk,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_milk"
-    },
-    "cooking=false,fill=milk,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_milk"
-    },
-    "cooking=false,fill=milk,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_milk"
-    },
-    "cooking=false,fill=milk,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_milk"
-    },
-    "cooking=false,fill=stew,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_stew"
-    },
-    "cooking=false,fill=stew,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_stew"
-    },
-    "cooking=false,fill=stew,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_stew"
-    },
-    "cooking=false,fill=stew,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_stew"
-    },
-    "cooking=false,fill=soup,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_soup"
-    },
-    "cooking=false,fill=soup,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_soup"
-    },
-    "cooking=false,fill=soup,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_soup"
-    },
-    "cooking=false,fill=soup,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_soup"
-    },
-    "cooking=false,fill=chowder,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_chowder"
-    },
-    "cooking=false,fill=chowder,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_chowder"
-    },
-    "cooking=false,fill=chowder,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_chowder"
-    },
-    "cooking=false,fill=chowder,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_chowder"
-    },
-    "cooking=false,fill=porridge,support=none": {
-      "model": "ryancraft:block/cooking_pot_none_porridge"
-    },
-    "cooking=false,fill=porridge,support=tripod": {
-      "model": "ryancraft:block/cooking_pot_tripod_porridge"
-    },
-    "cooking=false,fill=porridge,support=bar_x": {
-      "model": "ryancraft:block/cooking_pot_bar_x_porridge"
-    },
-    "cooking=false,fill=porridge,support=bar_z": {
-      "model": "ryancraft:block/cooking_pot_bar_z_porridge"
-    },
-    "cooking=true,fill=empty,support=none": {
+    "cooking=false,fill=empty,lit=true,support=none": {
       "model": "ryancraft:block/cooking_pot_none_empty"
     },
-    "cooking=true,fill=empty,support=tripod": {
+    "cooking=false,fill=empty,lit=true,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_empty"
     },
-    "cooking=true,fill=empty,support=bar_x": {
+    "cooking=false,fill=empty,lit=true,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_empty"
     },
-    "cooking=true,fill=empty,support=bar_z": {
+    "cooking=false,fill=empty,lit=true,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_empty"
     },
-    "cooking=true,fill=water,support=none": {
+    "cooking=false,fill=empty,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_empty"
+    },
+    "cooking=false,fill=water,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_water"
     },
-    "cooking=true,fill=water,support=tripod": {
+    "cooking=false,fill=water,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_water"
     },
-    "cooking=true,fill=water,support=bar_x": {
+    "cooking=false,fill=water,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_water"
     },
-    "cooking=true,fill=water,support=bar_z": {
+    "cooking=false,fill=water,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_water"
     },
-    "cooking=true,fill=milk,support=none": {
+    "cooking=false,fill=water,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_water"
+    },
+    "cooking=false,fill=water,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_water"
+    },
+    "cooking=false,fill=water,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_water"
+    },
+    "cooking=false,fill=water,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_water"
+    },
+    "cooking=false,fill=water,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_water"
+    },
+    "cooking=false,fill=water,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_water"
+    },
+    "cooking=false,fill=milk,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_milk"
     },
-    "cooking=true,fill=milk,support=tripod": {
+    "cooking=false,fill=milk,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_milk"
     },
-    "cooking=true,fill=milk,support=bar_x": {
+    "cooking=false,fill=milk,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_milk"
     },
-    "cooking=true,fill=milk,support=bar_z": {
+    "cooking=false,fill=milk,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_milk"
     },
-    "cooking=true,fill=stew,support=none": {
+    "cooking=false,fill=milk,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_milk"
+    },
+    "cooking=false,fill=milk,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_milk"
+    },
+    "cooking=false,fill=milk,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_milk"
+    },
+    "cooking=false,fill=milk,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_milk"
+    },
+    "cooking=false,fill=milk,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_milk"
+    },
+    "cooking=false,fill=milk,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_milk"
+    },
+    "cooking=false,fill=stew,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_stew"
     },
-    "cooking=true,fill=stew,support=tripod": {
+    "cooking=false,fill=stew,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_stew"
     },
-    "cooking=true,fill=stew,support=bar_x": {
+    "cooking=false,fill=stew,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_stew"
     },
-    "cooking=true,fill=stew,support=bar_z": {
+    "cooking=false,fill=stew,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_stew"
     },
-    "cooking=true,fill=soup,support=none": {
+    "cooking=false,fill=stew,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_stew"
+    },
+    "cooking=false,fill=stew,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_stew"
+    },
+    "cooking=false,fill=stew,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_stew"
+    },
+    "cooking=false,fill=stew,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_stew"
+    },
+    "cooking=false,fill=stew,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_stew"
+    },
+    "cooking=false,fill=stew,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_stew"
+    },
+    "cooking=false,fill=soup,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_soup"
     },
-    "cooking=true,fill=soup,support=tripod": {
+    "cooking=false,fill=soup,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_soup"
     },
-    "cooking=true,fill=soup,support=bar_x": {
+    "cooking=false,fill=soup,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_soup"
     },
-    "cooking=true,fill=soup,support=bar_z": {
+    "cooking=false,fill=soup,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_soup"
     },
-    "cooking=true,fill=chowder,support=none": {
+    "cooking=false,fill=soup,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_soup"
+    },
+    "cooking=false,fill=soup,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_soup"
+    },
+    "cooking=false,fill=soup,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_soup"
+    },
+    "cooking=false,fill=soup,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_soup"
+    },
+    "cooking=false,fill=soup,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_soup"
+    },
+    "cooking=false,fill=soup,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_soup"
+    },
+    "cooking=false,fill=chowder,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_chowder"
     },
-    "cooking=true,fill=chowder,support=tripod": {
+    "cooking=false,fill=chowder,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_chowder"
     },
-    "cooking=true,fill=chowder,support=bar_x": {
+    "cooking=false,fill=chowder,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_chowder"
     },
-    "cooking=true,fill=chowder,support=bar_z": {
+    "cooking=false,fill=chowder,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_chowder"
     },
-    "cooking=true,fill=porridge,support=none": {
+    "cooking=false,fill=chowder,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_chowder"
+    },
+    "cooking=false,fill=chowder,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_chowder"
+    },
+    "cooking=false,fill=chowder,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_chowder"
+    },
+    "cooking=false,fill=chowder,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_chowder"
+    },
+    "cooking=false,fill=chowder,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_chowder"
+    },
+    "cooking=false,fill=chowder,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_chowder"
+    },
+    "cooking=false,fill=porridge,lit=false,support=none": {
       "model": "ryancraft:block/cooking_pot_none_porridge"
     },
-    "cooking=true,fill=porridge,support=tripod": {
+    "cooking=false,fill=porridge,lit=false,support=tripod": {
       "model": "ryancraft:block/cooking_pot_tripod_porridge"
     },
-    "cooking=true,fill=porridge,support=bar_x": {
+    "cooking=false,fill=porridge,lit=false,support=bar_x": {
       "model": "ryancraft:block/cooking_pot_bar_x_porridge"
     },
-    "cooking=true,fill=porridge,support=bar_z": {
+    "cooking=false,fill=porridge,lit=false,support=bar_z": {
       "model": "ryancraft:block/cooking_pot_bar_z_porridge"
+    },
+    "cooking=false,fill=porridge,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_porridge"
+    },
+    "cooking=false,fill=porridge,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_porridge"
+    },
+    "cooking=false,fill=porridge,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_porridge"
+    },
+    "cooking=false,fill=porridge,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_porridge"
+    },
+    "cooking=false,fill=porridge,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_porridge"
+    },
+    "cooking=false,fill=porridge,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_porridge"
+    },
+    "cooking=true,fill=empty,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_empty"
+    },
+    "cooking=true,fill=empty,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_empty"
+    },
+    "cooking=true,fill=empty,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_empty"
+    },
+    "cooking=true,fill=empty,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_empty"
+    },
+    "cooking=true,fill=empty,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_empty"
+    },
+    "cooking=true,fill=empty,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_empty"
+    },
+    "cooking=true,fill=empty,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_empty"
+    },
+    "cooking=true,fill=empty,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_empty"
+    },
+    "cooking=true,fill=empty,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_empty"
+    },
+    "cooking=true,fill=empty,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_empty"
+    },
+    "cooking=true,fill=water,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_water"
+    },
+    "cooking=true,fill=water,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_water"
+    },
+    "cooking=true,fill=water,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_water"
+    },
+    "cooking=true,fill=water,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_water"
+    },
+    "cooking=true,fill=water,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_water"
+    },
+    "cooking=true,fill=water,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_water"
+    },
+    "cooking=true,fill=water,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_water"
+    },
+    "cooking=true,fill=water,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_water"
+    },
+    "cooking=true,fill=water,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_water"
+    },
+    "cooking=true,fill=water,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_water"
+    },
+    "cooking=true,fill=milk,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_milk"
+    },
+    "cooking=true,fill=milk,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_milk"
+    },
+    "cooking=true,fill=milk,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_milk"
+    },
+    "cooking=true,fill=milk,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_milk"
+    },
+    "cooking=true,fill=milk,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_milk"
+    },
+    "cooking=true,fill=milk,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_milk"
+    },
+    "cooking=true,fill=milk,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_milk"
+    },
+    "cooking=true,fill=milk,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_milk"
+    },
+    "cooking=true,fill=milk,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_milk"
+    },
+    "cooking=true,fill=milk,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_milk"
+    },
+    "cooking=true,fill=stew,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_stew"
+    },
+    "cooking=true,fill=stew,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_stew"
+    },
+    "cooking=true,fill=stew,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_stew"
+    },
+    "cooking=true,fill=stew,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_stew"
+    },
+    "cooking=true,fill=stew,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_stew"
+    },
+    "cooking=true,fill=stew,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_stew"
+    },
+    "cooking=true,fill=stew,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_stew"
+    },
+    "cooking=true,fill=stew,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_stew"
+    },
+    "cooking=true,fill=stew,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_stew"
+    },
+    "cooking=true,fill=stew,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_stew"
+    },
+    "cooking=true,fill=soup,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_soup"
+    },
+    "cooking=true,fill=soup,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_soup"
+    },
+    "cooking=true,fill=soup,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_soup"
+    },
+    "cooking=true,fill=soup,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_soup"
+    },
+    "cooking=true,fill=soup,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_soup"
+    },
+    "cooking=true,fill=soup,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_soup"
+    },
+    "cooking=true,fill=soup,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_soup"
+    },
+    "cooking=true,fill=soup,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_soup"
+    },
+    "cooking=true,fill=soup,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_soup"
+    },
+    "cooking=true,fill=soup,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_soup"
+    },
+    "cooking=true,fill=chowder,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_chowder"
+    },
+    "cooking=true,fill=chowder,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_chowder"
+    },
+    "cooking=true,fill=chowder,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_chowder"
+    },
+    "cooking=true,fill=chowder,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_chowder"
+    },
+    "cooking=true,fill=chowder,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_chowder"
+    },
+    "cooking=true,fill=chowder,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_chowder"
+    },
+    "cooking=true,fill=chowder,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_chowder"
+    },
+    "cooking=true,fill=chowder,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_chowder"
+    },
+    "cooking=true,fill=chowder,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_chowder"
+    },
+    "cooking=true,fill=chowder,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_chowder"
+    },
+    "cooking=true,fill=porridge,lit=false,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_porridge"
+    },
+    "cooking=true,fill=porridge,lit=false,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_porridge"
+    },
+    "cooking=true,fill=porridge,lit=false,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_porridge"
+    },
+    "cooking=true,fill=porridge,lit=false,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_porridge"
+    },
+    "cooking=true,fill=porridge,lit=false,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_off_porridge"
+    },
+    "cooking=true,fill=porridge,lit=true,support=none": {
+      "model": "ryancraft:block/cooking_pot_none_porridge"
+    },
+    "cooking=true,fill=porridge,lit=true,support=tripod": {
+      "model": "ryancraft:block/cooking_pot_tripod_porridge"
+    },
+    "cooking=true,fill=porridge,lit=true,support=bar_x": {
+      "model": "ryancraft:block/cooking_pot_bar_x_porridge"
+    },
+    "cooking=true,fill=porridge,lit=true,support=bar_z": {
+      "model": "ryancraft:block/cooking_pot_bar_z_porridge"
+    },
+    "cooking=true,fill=porridge,lit=true,support=fire": {
+      "model": "ryancraft:block/cooking_pot_fire_lit_porridge"
     }
   }
 }

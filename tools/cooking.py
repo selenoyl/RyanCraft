@@ -15,7 +15,8 @@ FILLS = {   # base colour, fleck colour
     "stew": ((112, 64, 34), (168, 104, 52)), "soup": ((106, 140, 52), (170, 196, 80)),
     "chowder": ((222, 206, 162), (246, 232, 190)), "porridge": ((198, 170, 112), (232, 208, 150))}
 KINDS = ["stew", "soup", "chowder", "porridge"]
-SUPPORTS = ["none", "tripod", "bar_x", "bar_z"]
+SUPPORTS = ["none", "tripod", "bar_x", "bar_z", "fire_lit", "fire_off"]
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 def fill_tex(name):
     base, fleck = FILLS[name]; r = random.Random(name); im = Image.new("RGBA", (16, 16)); px = im.load()
@@ -56,11 +57,25 @@ def pot_model(support, fill):
         tex["fill"] = f"ryancraft:block/cooking_pot_{fill}"
     else:
         els.append({"from": [3.5, 2, 3.5], "to": [12.5, 2, 12.5], "faces": {"up": {"texture": "#iron"}}})
-    if support != "none":
+    if support in ("tripod", "bar_x", "bar_z"):
         els += [box([2, 10, 7.75], [2.5, 13.5, 8.25]), box([13.5, 10, 7.75], [14, 13.5, 8.25]),   # the bail
                 box([2, 13.5, 7.75], [14, 14, 8.25])]
         top = 18 if support == "tripod" else 17
         els.append(box([7.6, 14, 7.6], [8.4, top, 8.4]))                                          # the chain
+    if support in ("fire_lit", "fire_off"):                                  # sitting in a campfire: vanilla's logs (and flames) under it
+        camp = json.load(open(os.path.join(HERE, "templates", "campfire", "template_campfire.json" if support == "fire_lit" else "campfire_off.json")))
+        for e in els: e["from"][1] += 6; e["to"][1] += 6
+        logs = camp["elements"]
+        if support == "fire_lit":                                            # flames a little short, licking up round the pot
+            for e in logs[5:]:
+                e["to"][1] = 14
+                for f in e["faces"].values(): f["uv"] = [0, 3, 16, 16]
+            sheet = lambda f, t, a, b: {"from": f, "to": t, "shade": False, "faces": {a: {"uv": [2, 6, 14, 16], "texture": "#fire"}, b: {"uv": [2, 6, 14, 16], "texture": "#fire"}}}
+            logs += [sheet([3, 4, 1.5], [13, 13, 1.5], "north", "south"), sheet([3, 4, 14.5], [13, 13, 14.5], "north", "south"),   # flames up its sides
+                     sheet([1.5, 4, 3], [1.5, 13, 13], "west", "east"), sheet([14.5, 4, 3], [14.5, 13, 13], "west", "east")]
+        els = logs + els
+        tex.update({"log": "minecraft:block/campfire_log", "lit_log": "minecraft:block/campfire_log_lit", "fire": "minecraft:block/campfire_fire"})
+        if support == "fire_off": tex["particle"] = "minecraft:block/campfire_log"
     if support == "tripod":
         leg = lambda axis, ang: box([7.5, -16, 7.5], [8.5, 18, 8.5], rot={"origin": [8, 18, 8], "axis": axis, "angle": ang})
         els += [leg("z", 22.5), leg("z", -22.5), leg("x", 22.5)]
@@ -116,14 +131,19 @@ def build():
     for sup in SUPPORTS:
         for f in ["empty"] + list(FILLS):
             W(f"assets/ryancraft/models/block/cooking_pot_{sup}_{f}.json", pot_model(sup, f))
-    W("assets/ryancraft/blockstates/cooking_pot.json", {"variants": {f"cooking={c},fill={f},support={sup}": {"model": f"ryancraft:block/cooking_pot_{sup}_{f}"}
-        for c in ("false", "true") for f in ["empty"] + list(FILLS) for sup in SUPPORTS}})
+    def model_for(sup, lit):
+        return ("fire_lit" if lit == "true" else "fire_off") if sup == "fire" else sup
+    W("assets/ryancraft/blockstates/cooking_pot.json", {"variants": {f"cooking={c},fill={f},lit={lit},support={sup}": {"model": f"ryancraft:block/cooking_pot_{model_for(sup, lit)}_{f}"}
+        for c in ("false", "true") for f in ["empty"] + list(FILLS) for lit in ("false", "true") for sup in ("none", "tripod", "bar_x", "bar_z", "fire")}})
     W("assets/ryancraft/items/cooking_pot.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/cooking_pot_none_empty"}})
     for k in KINDS: W(f"assets/ryancraft/models/item/meal_{k}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/meal_{k}"}})
     W("assets/ryancraft/items/meal.json", {"model": {"type": "minecraft:select", "property": "minecraft:custom_model_data", "index": 0,
         "cases": [{"when": k, "model": {"type": "minecraft:model", "model": f"ryancraft:item/meal_{k}"}} for k in KINDS],
         "fallback": {"type": "minecraft:model", "model": "ryancraft:item/meal_stew"}}})
-    W("data/ryancraft/loot_table/blocks/cooking_pot.json", M.drops("cooking_pot"))
+    loot = M.drops("cooking_pot")                                              # a pot in the fire gives back the campfire too
+    loot["pools"].append({"rolls": 1, "entries": [{"type": "minecraft:item", "name": "minecraft:campfire"}], "conditions": [
+        {"condition": "minecraft:block_state_property", "block": "ryancraft:cooking_pot", "properties": {"support": "fire"}}]})
+    W("data/ryancraft/loot_table/blocks/cooking_pot.json", loot)
     W("data/ryancraft/recipe/cooking_pot.json", {"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["I I", "I I", "III"],
         "key": {"I": "minecraft:iron_ingot"}, "result": {"id": "ryancraft:cooking_pot", "count": 1}})
     M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:cooking_pot"])
