@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "#L#",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:red_stained_glass",
+    "L": "ryancraft:lead_ingot"
+  },
+  "result": {
+    "id": "ryancraft:red_leaded_glass",
+    "count": 8
+  }
+}

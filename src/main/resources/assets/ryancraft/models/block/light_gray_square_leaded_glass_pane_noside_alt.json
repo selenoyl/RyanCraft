@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_glass_pane_noside_alt",
+  "textures": {
+    "pane": "ryancraft:block/light_gray_square_leaded_glass"
+  }
+}

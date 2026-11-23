@@ -29,6 +29,10 @@ public class RyanCraftClient implements ClientModInitializer {
         DustStormClient.init();
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.metal.Steel.STEEL_GRATE, com.ryancraft.metal.Steel.STEEL_BARS, com.ryancraft.metal.Steel.STEEL_DOOR, com.ryancraft.metal.Steel.STEEL_TRAPDOOR);
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.TRANSLUCENT,
+                com.ryancraft.metal.LeadedGlass.ALL.toArray(new net.minecraft.world.level.block.Block[0]));
+        net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
+                com.ryancraft.metal.Silver.GRATES.toArray(new net.minecraft.world.level.block.Block[0]));
         // seasons: follow the year on this side too, and re-colour the world when the season moves on
         net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.END_CLIENT_TICK.register(mc -> {
             if (mc.level == null) { seasonSeen = -1; return; }

@@ -57,6 +57,7 @@ public final class Silver {
 
     public static final Map<Block, Block> NEXT = new HashMap<>(), PREV = new HashMap<>(), WAX = new HashMap<>(), UNWAX = new HashMap<>();
     private static final List<Item> ITEMS = new ArrayList<>();
+    public static final List<Block> GRATES = new ArrayList<>();   // also the doors, trapdoors: cut-out see-through
 
     static {
         Block[][] plain = new Block[STAGES.length][], waxed = new Block[STAGES.length][];
@@ -85,6 +86,7 @@ public final class Silver {
         int light = BULB_LIGHT[s];
         out[8] = block(name(s, waxed, "silver_bulb"), CopperBulbBlock::new, metal(s, waxed).strength(3.0f).sound(SoundType.COPPER_BULB)
                 .isRedstoneConductor((a, b, c) -> false).lightLevel(st -> st.getValue(BlockStateProperties.LIT) ? light : 0));
+        GRATES.add(out[5]); GRATES.add(out[6]); GRATES.add(out[7]);
         return out;
     }
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:leaded_glass"
+  },
+  "result": {
+    "id": "ryancraft:leaded_glass_door",
+    "count": 3
+  }
+}

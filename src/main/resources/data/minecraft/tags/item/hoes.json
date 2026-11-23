@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:zephyrite_hoe"
+    "ryancraft:zephyrite_hoe",
+    "ryancraft:lead_hoe"
   ]
 }

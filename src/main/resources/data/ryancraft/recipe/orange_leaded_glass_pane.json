@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:orange_leaded_glass"
+  },
+  "result": {
+    "id": "ryancraft:orange_leaded_glass_pane",
+    "count": 16
+  }
+}

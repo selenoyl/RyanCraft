@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side",
+  "textures": {
+    "pane": "ryancraft:block/magenta_square_leaded_glass",
+    "edge": "ryancraft:block/magenta_square_leaded_glass_pane_top"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:zephyrite_axe"
+    "ryancraft:zephyrite_axe",
+    "ryancraft:lead_axe"
   ]
 }

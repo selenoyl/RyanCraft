@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "ryancraft:item/lead_pickaxe"
+  }
+}

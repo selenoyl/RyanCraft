@@ -40,6 +40,8 @@ public final class Metals {
         metal("zinc", MapColor.METAL, 0); metal("aluminum", MapColor.SNOW, 0); metal("uranium", MapColor.COLOR_LIGHT_GREEN, 3);
     }
 
+    public static final GearSet LEAD_GEAR = GearSet.leadTier("lead");
+
     public static Metal get(String n) { return ALL.get(n); }
 
     private static void metal(String n, MapColor colour, int light) {
@@ -70,6 +72,7 @@ public final class Metals {
     }
 
     public static void init() {
+        LEAD_GEAR.addToTabs();
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> BLOCK_ITEMS.forEach(e::accept));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(e -> ITEMS.forEach(e::accept));
         for (String n : ALL.keySet())

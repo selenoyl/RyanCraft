@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:light_gray_square_leaded_glass_pane",
+  "result": {
+    "id": "ryancraft:light_gray_leaded_glass_pane",
+    "count": 1
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:zephyrite_shovel"
+    "ryancraft:zephyrite_shovel",
+    "ryancraft:lead_shovel"
   ]
 }

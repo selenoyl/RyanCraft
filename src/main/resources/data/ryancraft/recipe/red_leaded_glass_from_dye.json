@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "leaded_glass",
+  "pattern": [
+    "###",
+    "#D#",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:leaded_glass",
+    "D": "minecraft:red_dye"
+  },
+  "result": {
+    "id": "ryancraft:red_leaded_glass",
+    "count": 8
+  }
+}

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:zephyrite_pickaxe"
+    "ryancraft:zephyrite_pickaxe",
+    "ryancraft:lead_pickaxe"
   ]
 }

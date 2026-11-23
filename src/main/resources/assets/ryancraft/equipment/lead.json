@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "ryancraft:lead"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "ryancraft:lead"
+      }
+    ]
+  }
+}

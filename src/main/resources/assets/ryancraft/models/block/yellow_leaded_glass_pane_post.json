@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_post",
+  "textures": {
+    "pane": "ryancraft:block/yellow_leaded_glass",
+    "edge": "ryancraft:block/yellow_leaded_glass_pane_top"
+  }
+}

@@ -37,15 +37,25 @@ public final class GearSet {
         return new GearSet(name, BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0f, 2.0f, enchantability, 15, new int[]{2, 5, 6, 2}, 0f);
     }
 
+    /** Lead: iron's tier, duller to enchant, and heavy armour that shrugs off a little knockback. */
+    public static GearSet leadTier(String name) {
+        return new GearSet(name, BlockTags.INCORRECT_FOR_IRON_TOOL, 220, 5.5f, 2.0f, 7, 15, new int[]{2, 5, 6, 2}, 0f, 0.05f);
+    }
+
     public GearSet(String name, TagKey<net.minecraft.world.level.block.Block> incorrect, int durability, float speed, float damage, int ench,
-                   int armourDurability, int[] defence /* boots, legs, chest, helmet */, float toughness) {
+                   int armourDurability, int[] defence, float toughness) {
+        this(name, incorrect, durability, speed, damage, ench, armourDurability, defence, toughness, 0f);
+    }
+
+    public GearSet(String name, TagKey<net.minecraft.world.level.block.Block> incorrect, int durability, float speed, float damage, int ench,
+                   int armourDurability, int[] defence /* boots, legs, chest, helmet */, float toughness, float knockbackResistance) {
         this.name = name;
         TagKey<Item> repair = TagKey.create(Registries.ITEM, RyanCraft.id(name + "_tool_materials"));
         ToolMaterial tm = new ToolMaterial(incorrect, durability, speed, damage, ench, repair);
         ResourceKey<EquipmentAsset> asset = ResourceKey.create(EquipmentAssets.ROOT_ID, RyanCraft.id(name));
         ArmorMaterial am = new ArmorMaterial(armourDurability, Map.of(ArmorType.BOOTS, defence[0], ArmorType.LEGGINGS, defence[1],
                 ArmorType.CHESTPLATE, defence[2], ArmorType.HELMET, defence[3], ArmorType.BODY, defence[2]), ench, SoundEvents.ARMOR_EQUIP_IRON,
-                toughness, 0f, repair, asset);
+                toughness, knockbackResistance, repair, asset);
         sword = tool("sword", p -> new Item(p.sword(tm, 3.0f, -2.4f)));
         pickaxe = tool("pickaxe", p -> new Item(p.pickaxe(tm, 1.0f, -2.8f)));
         axe = tool("axe", p -> new AxeItem(tm, 6.0f, -3.1f, p));

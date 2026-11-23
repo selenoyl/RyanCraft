@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:black_leaded_glass",
+  "result": {
+    "id": "ryancraft:black_square_leaded_glass",
+    "count": 1
+  }
+}
