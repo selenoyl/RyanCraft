@@ -59,7 +59,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         SOD("sod", 8, 2.0, 0.28), TWIG("twig", 6, 1.5, 0.34), BARK("bark", 12, 2.0, 0.24), MUD("mud", 9, 1.5, 0.22),
         SANDSTONE("sandstone", 11, 2.0, 0.24), TERRACOTTA("terracotta", 10, 3.0, 0.25), SNOWPACK("snowpack", 6, 1.0, 0.30),
         VINE("vine", 7, 2.0, 0.32), GRAVEL("gravel", 9, 2.0, 0.26), SHELL("shell", 10, 1.5, 0.24), PEBBLE("pebble", 10, 2.0, 0.25),
-        CINDER("cinder", 7, 2.0, 0.30);
+        CINDER("cinder", 7, 2.0, 0.30), KITE("kite", 6, 1.5, 0.32);
         public final String id; public final double health, damage, speed;
         Kind(String id, double health, double damage, double speed) { this.id = id; this.health = health; this.damage = damage; this.speed = speed; }
         public static Kind of(int i) { return values()[Math.floorMod(i, values().length)]; }
@@ -70,14 +70,15 @@ public class Mudling extends PathfinderMob implements Baggable {
                 case SANDSTONE -> o == SNOWPACK || o == VINE;
                 case SNOWPACK -> o == TWIG || o == CINDER;
                 case TWIG -> o == MUD || o == SHELL;
-                case CINDER -> o == TWIG || o == BARK || o == VINE;
+                case CINDER -> o == TWIG || o == BARK || o == VINE || o == KITE;
                 case SHELL -> o == CINDER || o == PEBBLE;
                 case BARK -> o == GRAVEL || o == SOD;
-                case GRAVEL -> o == SANDSTONE || o == TERRACOTTA;
+                case GRAVEL -> o == SANDSTONE || o == TERRACOTTA || o == KITE;
                 case TERRACOTTA -> o == SHELL || o == SOD;
                 case PEBBLE -> o == GRAVEL || o == SNOWPACK;
                 case VINE -> o == MUD || o == PEBBLE;
                 case SOD -> o == MUD || o == TWIG;
+                case KITE -> o == SOD || o == PEBBLE || o == SNOWPACK;          // strikes from above
             };
         }
     }
@@ -158,6 +159,20 @@ public class Mudling extends PathfinderMob implements Baggable {
         }
     }
 
+    /** The cloud kite rides the air: it drifts down instead of falling and never takes fall damage. */
+    @Override
+    public void travel(net.minecraft.world.phys.Vec3 input) {
+        super.travel(input);
+        if (kind() != Kind.KITE || onGround() || isInWater()) return;
+        net.minecraft.world.phys.Vec3 v = getDeltaMovement();
+        if (v.y < -0.08) setDeltaMovement(v.x * 1.02, -0.08, v.z * 1.02);
+        resetFallDistance();
+    }
+
+    /** Kites hop high into the air when they charge. */
+    @Override
+    protected float getJumpPower() { return super.getJumpPower() * (kind() == Kind.KITE ? 1.6f : 1f); }
+
     private float matchup(Entity target) { return target instanceof Mudling m && kind().beats(m.kind()) ? 1.5f : 1.0f; }
 
     @Override
@@ -209,6 +224,7 @@ public class Mudling extends PathfinderMob implements Baggable {
             case SHELL -> new net.minecraft.world.item.Item[]{Items.SAND, Items.NAUTILUS_SHELL, Items.KELP};
             case PEBBLE -> new net.minecraft.world.item.Item[]{Items.COBBLESTONE, Items.COAL, Items.IRON_NUGGET};
             case CINDER -> new net.minecraft.world.item.Item[]{Items.NETHERRACK, Items.QUARTZ, Items.BLAZE_POWDER};
+            case KITE -> new net.minecraft.world.item.Item[]{com.ryancraft.sky.Skylands.SKYSTONE.asItem(), Items.FEATHER, Items.STRING};
         };
         spawnAtLocation(level, new ItemStack(mats[0], 1 + random.nextInt(2)));
         spawnAtLocation(level, new ItemStack(mats[1]));

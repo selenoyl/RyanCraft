@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 public final class MudlingKinds {
     public static Mudling.Kind forBiome(Holder<Biome> b) {
         if (b.is(BiomeTags.IS_NETHER)) return Mudling.Kind.CINDER;
+        if (b.unwrapKey().map(k -> k.identifier().equals(com.ryancraft.RyanCraft.id("sky_meadow"))).orElse(false)) return Mudling.Kind.KITE;
         if (b.is(BiomeTags.IS_BADLANDS)) return Mudling.Kind.TERRACOTTA;
         if (b.is(Biomes.DESERT)) return Mudling.Kind.SANDSTONE;
         if (b.is(BiomeTags.IS_JUNGLE)) return Mudling.Kind.VINE;
@@ -33,7 +34,7 @@ public final class MudlingKinds {
             case SOD -> Blocks.COARSE_DIRT; case TWIG -> Blocks.OAK_PLANKS; case BARK -> Blocks.SPRUCE_LOG; case MUD -> Blocks.MUD;
             case SANDSTONE -> Blocks.CUT_SANDSTONE; case TERRACOTTA -> Blocks.TERRACOTTA; case SNOWPACK -> Blocks.PACKED_ICE;
             case VINE -> Blocks.MOSSY_COBBLESTONE; case GRAVEL -> Blocks.GRAVEL; case SHELL -> Blocks.SMOOTH_SANDSTONE;
-            case PEBBLE -> Blocks.COBBLESTONE; case CINDER -> Blocks.BLACKSTONE;
+            case PEBBLE -> Blocks.COBBLESTONE; case CINDER -> Blocks.BLACKSTONE; case KITE -> com.ryancraft.sky.Skylands.SKYSTONE;
         };
     }
 

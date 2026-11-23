@@ -206,7 +206,8 @@ def dimension():
     b["features"] = [[] for _ in range(11)]
     b["features"][6] = ["ryancraft:ore_zephyrite"]
     b["features"][8] = ["ryancraft:sky_spring"]
-    b["features"][2] = ["ryancraft:zephyr_vent"]                                                             # local modifications step                                                              # fluid springs step
+    b["features"][2] = ["ryancraft:zephyr_vent"]
+    b["features"][4] = ["ryancraft:mudling_camp"]                                                            # cloud kite camps                                                             # local modifications step                                                              # fluid springs step
     b["features"][9] = ["ryancraft:sky_willow_islands", "ryancraft:sky_flowers", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}

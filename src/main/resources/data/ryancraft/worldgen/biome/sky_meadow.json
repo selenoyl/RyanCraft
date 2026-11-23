@@ -16,7 +16,9 @@
       "ryancraft:zephyr_vent"
     ],
     [],
-    [],
+    [
+      "ryancraft:mudling_camp"
+    ],
     [],
     [
       "ryancraft:ore_zephyrite"

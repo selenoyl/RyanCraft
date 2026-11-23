@@ -70,7 +70,7 @@ with its own stats and special (snowballs, slowing mud, knockback gravel, fiery 
 guards' tougher hides); camps in every biome (a ring of the biome's blocks and a flag, 3-6 mudlings, never refilled);
 scooping into bundles, 4 to a bundle; teams by dye (right-click with a dye: different colours fight on their own, the
 team colour shows as a sash); type matchups; losers crumble into their biome's materials; winners level up (up to 5
-victories: more health, harder hits, a little taller). Still to come: gear, a battle table, the cloud kite (sky).
+victories: more health, harder hits, a little taller). The cloud kite lives in the Skylands. Still to come: gear, a battle table.
 
 ![Mudling concept art](docs/mudlings_concept.png)
 
@@ -222,8 +222,9 @@ little skystone ledge). Also built: the **sky willow** (the islands' own tree, w
 **zephyrite**, a light cyan crystal in the skystone, which makes the **glider**: hold it while falling and you
 sink slowly and drift where you look, with no fall damage (it wears with use). The first of the great winged
 creatures is in too: **sky rays**, great pale rays that glide in wide, slow circles over the islands (harmless).
-Still to come: the huge soaring birds and their nests, updrafts, waterfalls, ambience, more zephyrite gear, and the
-cloud kite mudling.
+Also built: the **cloud kite mudling** (white cloud body, skystone limbs and a sky-blue sail; it drifts down instead of
+falling, hops high, strikes sod, pebble and snowpack mudlings from above, and loses to cinder and gravel; camps of
+skystone on the islands). Still to come: the huge soaring birds and their nests, ambience, more zephyrite gear.
 
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
 creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.

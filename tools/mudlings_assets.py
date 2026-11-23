@@ -29,10 +29,11 @@ KINDS = {
     "shell":      ("sand", "sand", "sand", "calcite", None, (40, 30, 18)),
     "pebble":     ("cobblestone", "cobblestone", "cobblestone", "iron_block", None, (16, 16, 18)),
     "cinder":     ("netherrack", "netherrack", "netherrack", "magma", None, (255, 200, 90)),
+    "kite":       ("white_wool", "white_wool", "skystone", "light_blue_wool", None, (40, 60, 110)),   # cloud body, skystone limbs, a sky-blue sail
 }
 
 def tex(name):
-    for d in (CLASSIC, VANILLA):
+    for d in (CLASSIC, VANILLA, os.path.join(RES, "assets", "ryancraft", "textures", "block")):
         p = os.path.join(d, name + ".png")
         if os.path.exists(p): return Image.open(p).convert("RGBA").crop((0, 0, 16, 16))
     raise FileNotFoundError(name)
