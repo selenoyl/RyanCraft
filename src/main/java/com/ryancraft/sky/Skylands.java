@@ -109,8 +109,29 @@ public final class Skylands {
     /** Zephyrite gear: iron's tier, a little easier to enchant; the boots stop fall damage, the full set glides (init). */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);
 
+    /** Fall out of the bottom of the Skylands and you drop into the overworld's sky at the same spot (as in the Aether). */
+    public static final int FALL_OUT_Y = -24, ARRIVE_Y = 300;
+
+    private static void fallOut(net.minecraft.server.level.ServerLevel sky) {
+        var overworld = sky.getServer().getLevel(Level.OVERWORLD);
+        if (overworld == null) return;
+        var falling = new java.util.ArrayList<net.minecraft.world.entity.Entity>();
+        for (var e : sky.getAllEntities())
+            if (e.getY() < FALL_OUT_Y && !e.isPassenger() && (e instanceof net.minecraft.world.entity.LivingEntity || e instanceof net.minecraft.world.entity.item.ItemEntity)) falling.add(e);
+        for (var e : falling) {
+            var v = e.getDeltaMovement();
+            e.teleport(new net.minecraft.world.level.portal.TeleportTransition(overworld, new net.minecraft.world.phys.Vec3(e.getX(), ARRIVE_Y, e.getZ()),
+                    new net.minecraft.world.phys.Vec3(v.x, Math.min(v.y, 0), v.z), e.getYRot(), e.getXRot(), net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
+            if (e instanceof net.minecraft.world.entity.LivingEntity le)                       // a long way down: drift the last of it
+                le.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.SLOW_FALLING, 20 * 40, 0));   // about 25 s from y 300 to the ground
+        }
+    }
+
     public static void init() {
         ZEPHYRITE_GEAR.addToTabs();
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_WORLD_TICK.register(level -> {
+            if (level.dimension().equals(LEVEL) && level.getGameTime() % 5 == 0) fallOut(level);
+        });
         // zephyrite boots: you land like a feather; a full set lets you drift down slowly while you hold sneak
         net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) ->
                 !(source.is(net.minecraft.tags.DamageTypeTags.IS_FALL)

@@ -190,6 +190,10 @@ def blocks():
 def dimension():
     D = "data/ryancraft/"
     ns = json.load(open(os.path.join(T, "floating_islands.json")))
+    # islands about 30% thinner than vanilla's floating islands: the End's base noise with its vertical scale compressed
+    thin = {"type": "minecraft:old_blended_noise", "smear_scale_multiplier": 4.0, "xz_factor": 80.0, "xz_scale": 0.25,
+            "y_factor": 160.0 * 0.7, "y_scale": 0.25 / 0.7}
+    ns = json.loads(json.dumps(ns).replace('"minecraft:end/base_3d_noise"', json.dumps(thin)))
     ns["default_block"] = {"Name": "ryancraft:skystone"}
     ns["default_fluid"] = {"Name": "minecraft:air"}
     ns["surface_rule"] = {"type": "minecraft:sequence", "sequence": [

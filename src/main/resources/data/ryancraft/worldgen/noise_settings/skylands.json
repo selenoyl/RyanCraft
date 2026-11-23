@@ -58,7 +58,14 @@
                       "argument2": {
                         "type": "minecraft:add",
                         "argument1": 23.4375,
-                        "argument2": "minecraft:end/base_3d_noise"
+                        "argument2": {
+                          "type": "minecraft:old_blended_noise",
+                          "smear_scale_multiplier": 4.0,
+                          "xz_factor": 80.0,
+                          "xz_scale": 0.25,
+                          "y_factor": 112.0,
+                          "y_scale": 0.35714285714285715
+                        }
                       }
                     }
                   }
