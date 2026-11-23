@@ -1,6 +1,6 @@
 """The Skylands: block textures and models (skystone, the portal), loot, lang, and the dimension
-(vanilla's floating-islands terrain with skystone cores under grass, a bright sky, vanilla clouds drifting at
-treetop height, a meadow biome).
+(vanilla's floating-islands terrain with skystone cores under grass, a bright sky, vanilla clouds drifting just
+below the islands, a meadow biome).
   python3 tools/skylands.py      (tools/resources.py merges the lang)"""
 import json, os, random, copy
 from PIL import Image
@@ -129,7 +129,7 @@ def dimension():
         "ambient_light": 0.1, "coordinate_scale": 1.0, "has_ceiling": False, "has_skylight": True, "height": 256, "logical_height": 256, "min_y": 0,
         "infiniburn": "#minecraft:infiniburn_overworld", "monster_spawn_block_light_limit": 0,
         "monster_spawn_light_level": {"type": "minecraft:uniform", "max_inclusive": 7, "min_inclusive": 0},
-        "attributes": {"minecraft:visual/sky_color": "#8cc8ff", "minecraft:visual/fog_color": "#d4ecff", "minecraft:visual/cloud_height": 120.0,
+        "attributes": {"minecraft:visual/sky_color": "#8cc8ff", "minecraft:visual/fog_color": "#d4ecff", "minecraft:visual/cloud_height": 64.0,
                        "minecraft:visual/cloud_color": "#f0ffffff",
                        "minecraft:gameplay/bed_rule": {"can_set_spawn": "always", "can_sleep": "when_dark", "error_message": {"translate": "block.minecraft.bed.no_sleep"}},
                        "minecraft:audio/background_music": {"default": {"max_delay": 24000, "min_delay": 12000, "sound": "minecraft:music.game"}}},
