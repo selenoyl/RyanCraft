@@ -141,7 +141,7 @@ clusters like vanilla's fancy oak. Still to do:
 - **Bowls**: a little smaller, and up to 4 per block (Vintage Story style).
 - **Buckets**: can be placed diagonally (rotated 45 degrees).
 - **Wooden bucket**: crafted from 3 planks and 1 iron ingot; holds water/milk and looks good set down in a house.
-- **Special chests**: diamond, obsidian and lead glass.
+- ~~**Special chests**~~ (built): obsidian (blast- and wither-proof), diamond (54 slots, see-through) and lead glass (contents on show).
 
 ## Blocks and backports
 - ~~**Concrete slabs and stairs**~~ (built): all sixteen colours, crafted or stonecut from concrete.

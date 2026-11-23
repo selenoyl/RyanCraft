@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "ryancraft:item/lead_glass_chest",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "ryancraft:lead_glass_chest"
+    }
+  }
+}

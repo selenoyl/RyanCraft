@@ -109,3 +109,6 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - Commands in scheduled functions don't move a spectator camera reliably; teleport the camera in the first (tick-run) function.
 - 1.21.11 renamed gamerules to snake_case (`random_tick_speed`, not `randomTickSpeed`). A function with one bad line fails to load at all, and a tick function that calls it fails too, so the test silently never starts. Grep the log for "Failed to load function" in the waiting loop.
 - Random-tick speed in the thousands stalls a software-rendered test client; a few hundred ages blocks fast enough.
+- A block entity renderer that draws see-through glass with a translucent render type writes depth, so items it draws "inside" vanish behind the glass (submit order and `order(n)` didn't help). Draw such glass cutout and double-sided (`entityCutoutNoCull`) with clear panes and solid glints, the way vanilla glass works.
+- Mod chest textures go in `assets/<ns>/textures/entity/chest/`: the chest atlas reads that folder in every namespace, so `Sheets.CHEST_MAPPER.apply(id)` and the `minecraft:chest` special item model both find them, and vanilla's ChestModel draws them, lid and all.
+- The test wait loop must not grep for "error:": ALSA prints it at startup and the screenshot catches the loading screen.

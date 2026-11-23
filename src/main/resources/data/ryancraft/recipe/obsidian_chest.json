@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "OOO",
+    "OCO",
+    "OOO"
+  ],
+  "key": {
+    "O": "minecraft:obsidian",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "ryancraft:obsidian_chest",
+    "count": 1
+  }
+}

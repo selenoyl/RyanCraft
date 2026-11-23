@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "ryancraft:item/diamond_chest",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "ryancraft:diamond_chest"
+    }
+  }
+}

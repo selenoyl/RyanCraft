@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GDG",
+    "DCD",
+    "GDG"
+  ],
+  "key": {
+    "G": "minecraft:glass",
+    "D": "minecraft:diamond",
+    "C": "minecraft:chest"
+  },
+  "result": {
+    "id": "ryancraft:diamond_chest",
+    "count": 1
+  }
+}

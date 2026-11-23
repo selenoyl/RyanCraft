@@ -1,0 +1,10 @@
+{
+  "model": {
+    "type": "minecraft:special",
+    "base": "ryancraft:item/obsidian_chest",
+    "model": {
+      "type": "minecraft:chest",
+      "texture": "ryancraft:obsidian_chest"
+    }
+  }
+}

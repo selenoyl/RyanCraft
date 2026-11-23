@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:obsidian_chest",
+    "ryancraft:diamond_chest",
+    "ryancraft:lead_glass_chest"
+  ]
+}
