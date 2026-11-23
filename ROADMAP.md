@@ -153,9 +153,10 @@ clusters like vanilla's fancy oak. Still to do:
   else in emeralds. The Money Changer (job site: Coin Scale) swaps one gem for another, five for four.
 
 ## Food
-- **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals.
-- **More crops**: tomatoes, onions, cabbage, corn, peppers, rice, beans, squash and the like, growing with the
-  seasons (some only in spring or summer).
+- **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals. Built so far: the cast-iron
+  cooking pot (campfire, tripod or fireplace) and free-form meals; campfires burn fuel.
+- ~~**More crops**~~ (built): tomatoes, peppers, corn, squash, cabbage, onions, beans and rice, each growing only in
+  its own seasons outdoors in temperate lands (greenhouses get round it). Seeds turn up when breaking grass.
 - **More foods** to go with them: stews, soups, pies, roasts, sandwiches, plus dishes built on our game (venison,
   turkey, duck, fish fillets) and orchard fruit (cherries, walnuts).
 

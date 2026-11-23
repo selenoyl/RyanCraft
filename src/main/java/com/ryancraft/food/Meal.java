@@ -38,6 +38,8 @@ public record Meal(String kind, List<Item> ingredients) {
         EXTRAS.put(Items.BROWN_MUSHROOM, new float[]{2, 1.2f}); EXTRAS.put(Items.RED_MUSHROOM, new float[]{2, 1.2f});
         EXTRAS.put(Items.WHEAT, new float[]{2, 1.0f}); EXTRAS.put(Items.EGG, new float[]{3, 2.0f}); EXTRAS.put(Items.SUGAR, new float[]{1, 0.2f});
         EXTRAS.put(Items.PUMPKIN, new float[]{3, 1.5f}); EXTRAS.put(Items.KELP, new float[]{1, 0.4f});
+        EXTRAS.put(Crops.get("rice"), new float[]{3, 2.0f}); EXTRAS.put(Crops.get("beans"), new float[]{3, 2.4f});   // raw, only good cooked
+        EXTRAS.put(Crops.get("squash"), new float[]{3, 2.0f});
     }
 
     public static boolean isIngredient(ItemStack s) {
@@ -46,7 +48,7 @@ public record Meal(String kind, List<Item> ingredients) {
     }
 
     static boolean meaty(Item i) { ItemStack s = new ItemStack(i); return s.is(ItemTags.MEAT) || s.is(ItemTags.FISHES); }
-    static boolean grain(Item i) { return i == Items.WHEAT || i == Items.BREAD; }
+    static boolean grain(Item i) { return i == Items.WHEAT || i == Items.BREAD || i == Crops.get("rice") || i == Crops.get("corn"); }
 
     /** The kind of meal these make in this base (true for milk). */
     public static String kindFor(boolean milk, List<Item> ings) {

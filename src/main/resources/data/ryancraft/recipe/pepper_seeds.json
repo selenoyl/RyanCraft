@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:pepper"
+  ],
+  "result": {
+    "id": "ryancraft:pepper_seeds",
+    "count": 2
+  }
+}

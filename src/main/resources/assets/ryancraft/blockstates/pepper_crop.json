@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "ryancraft:block/pepper_stage0"
+    },
+    "age=1": {
+      "model": "ryancraft:block/pepper_stage1"
+    },
+    "age=2": {
+      "model": "ryancraft:block/pepper_stage2"
+    },
+    "age=3": {
+      "model": "ryancraft:block/pepper_stage3"
+    }
+  }
+}

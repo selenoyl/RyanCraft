@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:corn"
+  ],
+  "result": {
+    "id": "ryancraft:corn_seeds",
+    "count": 2
+  }
+}

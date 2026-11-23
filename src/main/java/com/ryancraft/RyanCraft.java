@@ -33,6 +33,7 @@ public class RyanCraft implements ModInitializer {
         com.ryancraft.trade.Currency.init();
         com.ryancraft.food.CampfireFuel.init();
         com.ryancraft.food.Cooking.init();
+        com.ryancraft.food.Crops.init();
         com.ryancraft.flora.RyanFlora.init();
         com.ryancraft.fish.FishSize.init();
         com.ryancraft.pipes.RyanPipes.init();

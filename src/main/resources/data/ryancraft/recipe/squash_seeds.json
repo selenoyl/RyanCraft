@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:squash"
+  ],
+  "result": {
+    "id": "ryancraft:squash_seeds",
+    "count": 4
+  }
+}

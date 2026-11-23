@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:tomato"
+  ],
+  "result": {
+    "id": "ryancraft:tomato_seeds",
+    "count": 2
+  }
+}

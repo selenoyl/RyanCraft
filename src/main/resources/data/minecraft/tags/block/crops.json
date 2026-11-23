@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:tomato_crop",
+    "ryancraft:pepper_crop",
+    "ryancraft:corn_crop",
+    "ryancraft:squash_crop",
+    "ryancraft:cabbage_crop",
+    "ryancraft:onion_crop",
+    "ryancraft:beans_crop",
+    "ryancraft:rice_crop"
+  ]
+}
