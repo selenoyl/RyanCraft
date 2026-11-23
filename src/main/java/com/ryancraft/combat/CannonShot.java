@@ -34,12 +34,12 @@ public class CannonShot extends ThrowableItemProjectile {
     }
 
     @Override protected Item getDefaultItem() { return Cannons.item(ShotType.ROUND); }
-    @Override protected double getDefaultGravity() { return type == ShotType.PELLET ? 0.03 : 0.025; }
+    @Override protected double getDefaultGravity() { return type == ShotType.PELLET || type == ShotType.MUSKET ? 0.03 : 0.025; }
 
     @Override
     public void tick() {
         super.tick();
-        if (level().isClientSide() && type != ShotType.PELLET) {
+        if (level().isClientSide() && type != ShotType.PELLET && type != ShotType.MUSKET) {
             level().addParticle(type == ShotType.HEATED ? ParticleTypes.FLAME : ParticleTypes.SMOKE, getX(), getY(), getZ(), 0, 0, 0);
             if (type == ShotType.CHAIN) setXRot(getXRot() + 40);                       // spinning
         }

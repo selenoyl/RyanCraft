@@ -1,4 +1,4 @@
-"""Cannons (combat/Cannons.java): the entity texture (carriage of dark classic oak, gunmetal barrel), hand-drawn item
+"""Cannons and the musket (combat/Cannons.java, combat/MusketItem.java): the entity texture (carriage of dark classic oak, gunmetal barrel), hand-drawn item
 sprites for the cannon and every shot, item models, recipes and lang.
   python3 tools/cannons.py      (tools/resources.py merges the lang)"""
 import json, os, random
@@ -50,11 +50,14 @@ ART = {
     "musket_ball": ["................", "................", "................", "................", "................", "......kkk.......",
                     ".....kmwmk......", ".....kmmmk......", ".....kdmdk......", "......kkk.......", "................", "................",
                     "................", "................", "................", "................"],
+    "musket": ["................", "..............k.", ".............kmk", "............kmk.", "...........kmk..", "..........kmk...",
+               ".........kmk....", "........kmk.....", ".......kdkB.....", "......kdBBb.....", ".....BBBbbk.....", "....bBBbsk......",
+               "...bBBbs.k......", "..bBBbs.........", "..bbbs..........", "...s............"],
     "cannon": ["................", "................", "................", "................", "...........kk...", ".........kkmmk..",
                ".......kkmmddk..", ".....kkmmddkk...", "..kkkmmddkk.....", ".kmdkddkkBBb....", ".kkkkkkBBBBbb...", "...bbBBBBbbBBbs.",
                "..bkkkb..bbBbs..", "..kbbbk...ssbs..", "..kbBbk.........", "...kkk.........."],
 }
-TITLES = {"cannon": "Cannon", "cannonball": "Cannonball", "heated_shot": "Heated Shot", "chain_shot": "Chain Shot", "grapeshot": "Grapeshot",
+TITLES = {"musket": "Musket", "cannon": "Cannon", "cannonball": "Cannonball", "heated_shot": "Heated Shot", "chain_shot": "Chain Shot", "grapeshot": "Grapeshot",
           "canister_shot": "Canister Shot", "explosive_shell": "Explosive Shell", "musket_ball": "Musket Ball"}
 
 def sprite(rows):
@@ -76,11 +79,13 @@ def build():
         sprite(rows).save(os.path.join(I, k + ".png"))
         W(f"assets/ryancraft/models/item/{k}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{k}"}})
         W(f"assets/ryancraft/items/{k}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{k}"}})
+    W("assets/ryancraft/models/item/musket.json", {"parent": "minecraft:item/handheld", "textures": {"layer0": "ryancraft:item/musket"}})
     sh = lambda name, pat, key, n=1, suffix="": W(f"{R}{name}{suffix}.json", {"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": pat,
         "key": key, "result": {"id": f"ryancraft:{name}", "count": n}})
     sl = lambda name, ing, n=1, suffix="": W(f"{R}{name}{suffix}.json", {"type": "minecraft:crafting_shapeless", "category": "equipment",
         "ingredients": ing, "result": {"id": f"ryancraft:{name}", "count": n}})
     sh("cannon", ["III", "LGL", "S S"], {"I": "minecraft:iron_block", "L": "#minecraft:logs", "G": "minecraft:gunpowder", "S": "#minecraft:wooden_slabs"})
+    sh("musket", ["  I", " IF", "PS "], {"I": "minecraft:iron_ingot", "F": "minecraft:flint", "P": "#minecraft:planks", "S": "minecraft:stick"})
     sh("cannonball", ["##", "##"], {"#": "ryancraft:lead_ingot"}, 2, "_from_lead")
     sh("cannonball", ["##", "##"], {"#": "minecraft:iron_ingot"}, 2, "_from_iron")
     sl("musket_ball", ["ryancraft:lead_ingot"], 4)

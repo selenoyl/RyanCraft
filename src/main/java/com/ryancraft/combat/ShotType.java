@@ -11,7 +11,8 @@ public enum ShotType {
     GRAPE("grapeshot", 2.3f, 0f, 0f, false, 9, 7f),
     CANISTER("canister_shot", 2.1f, 0f, 0f, false, 16, 13f),
     SHELL("explosive_shell", 2.6f, 12f, 3.2f, false, 0, 0),
-    PELLET("musket_ball", 2.3f, 6f, 0f, false, 0, 0);
+    PELLET("musket_ball", 2.3f, 6f, 0f, false, 0, 0),
+    MUSKET("musket_ball", 4.0f, 12f, 0f, false, 0, 0);
 
     public final String item; public final float speed, damage, blast, spread; public final boolean fire; public final int pellets;
     ShotType(String item, float speed, float damage, float blast, boolean fire, int pellets, float spread) {

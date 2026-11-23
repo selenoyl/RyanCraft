@@ -48,14 +48,17 @@ public final class Cannons {
         }
     }, new Item.Properties().stacksTo(1));
 
+    public static final Item MUSKET = item("musket", MusketItem::new, new Item.Properties().durability(250));
+
     static {
-        for (ShotType t : ShotType.values()) AMMO.put(t, item(t.item, Item::new, new Item.Properties().stacksTo(t == ShotType.PELLET ? 64 : 16)));
+        for (ShotType t : ShotType.values()) if (t != ShotType.MUSKET) AMMO.put(t, item(t.item, Item::new, new Item.Properties().stacksTo(t == ShotType.PELLET ? 64 : 16)));
+        AMMO.put(ShotType.MUSKET, AMMO.get(ShotType.PELLET));                 // a musket fires the same lead ball
     }
 
     public static Item item(ShotType t) { return AMMO.get(t); }
 
     public static @Nullable ShotType shotOf(ItemStack s) {
-        for (var e : AMMO.entrySet()) if (e.getKey() != ShotType.PELLET && s.is(e.getValue())) return e.getKey();
+        for (var e : AMMO.entrySet()) if (e.getKey() != ShotType.PELLET && e.getKey() != ShotType.MUSKET && s.is(e.getValue())) return e.getKey();
         return null;
     }
 
@@ -76,7 +79,8 @@ public final class Cannons {
         });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COMBAT).register(e -> {
             e.accept(CANNON);
-            for (ShotType t : ShotType.values()) e.accept(AMMO.get(t));
+            e.accept(MUSKET);
+            for (ShotType t : ShotType.values()) if (t != ShotType.MUSKET) e.accept(AMMO.get(t));
         });
     }
 

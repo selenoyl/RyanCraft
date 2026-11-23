@@ -172,7 +172,7 @@ Technology tops out around the early age of gunpowder: nothing past a muzzle-loa
   - **Canister**: a tin of musket balls, a wider, weaker spray than grapeshot.
   - **Heated shot**: a ball heated in a furnace first, which sets wood alight where it lands.
   - **Explosive shell**: a hollow ball packed with gunpowder, which bursts on impact. The top tier, still nothing past a muzzle-loader.
-- **Muskets**: very rudimentary guns, slow to load (powder, ball, ramrod), loud and smoky, inaccurate past close
+- ~~**Muskets**~~ (built; hold use about 3 s to load, use to fire): very rudimentary guns, slow to load (powder, ball, ramrod), loud and smoky, inaccurate past close
   range. They fire lead balls.
 - ~~**Lead finally gets a use**~~ (built): cast lead into musket balls and cannonballs.
 
