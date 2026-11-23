@@ -22,6 +22,12 @@
     "ryancraft:raw_uranium_block",
     "ryancraft:uranium_block",
     "ryancraft:chiseled_uranium",
-    "ryancraft:force_field_generator"
+    "ryancraft:force_field_generator",
+    "ryancraft:ruby_ore",
+    "ryancraft:deepslate_ruby_ore",
+    "ryancraft:sapphire_ore",
+    "ryancraft:deepslate_sapphire_ore",
+    "ryancraft:ruby_block",
+    "ryancraft:sapphire_block"
   ]
 }

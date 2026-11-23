@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:pink_concrete",
+  "result": {
+    "id": "ryancraft:pink_concrete_stairs",
+    "count": 1
+  }
+}

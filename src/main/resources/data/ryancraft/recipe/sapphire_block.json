@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:sapphire"
+  },
+  "result": {
+    "id": "ryancraft:sapphire_block",
+    "count": 1
+  }
+}

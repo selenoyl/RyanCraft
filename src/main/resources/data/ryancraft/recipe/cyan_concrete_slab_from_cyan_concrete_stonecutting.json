@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "minecraft:cyan_concrete",
+  "result": {
+    "id": "ryancraft:cyan_concrete_slab",
+    "count": 2
+  }
+}

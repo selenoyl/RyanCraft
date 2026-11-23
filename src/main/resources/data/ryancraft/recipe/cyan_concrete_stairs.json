@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "concrete_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:cyan_concrete"
+  },
+  "result": {
+    "id": "ryancraft:cyan_concrete_stairs",
+    "count": 4
+  }
+}

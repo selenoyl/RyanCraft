@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "group": "ruby",
+  "ingredient": "ryancraft:deepslate_ruby_ore",
+  "result": {
+    "id": "ryancraft:ruby"
+  },
+  "experience": 1.0,
+  "cookingtime": 200
+}

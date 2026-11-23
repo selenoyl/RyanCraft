@@ -144,9 +144,9 @@ clusters like vanilla's fancy oak. Still to do:
 - **Special chests**: diamond, obsidian and lead glass.
 
 ## Blocks and backports
-- **Concrete slabs and stairs**, backported from newer versions.
+- ~~**Concrete slabs and stairs**~~ (built): all sixteen colours, crafted or stonecut from concrete.
 - **Shelf mushrooms** (the newer shelf fungus that grows on tree trunks).
-- **Ruby and sapphire blocks**, alongside the emerald block.
+- ~~**Ruby and sapphire**~~ (built): ore, gem and block. Rubies under deserts, badlands and savannas; sapphires under snowy lands.
 
 ## Villagers
 - **Trade rework around emeralds, rubies and sapphires**: give the new gems a real use as currency tiers, each

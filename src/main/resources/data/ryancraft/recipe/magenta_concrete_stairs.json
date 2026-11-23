@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "concrete_stairs",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:magenta_concrete"
+  },
+  "result": {
+    "id": "ryancraft:magenta_concrete_stairs",
+    "count": 4
+  }
+}
