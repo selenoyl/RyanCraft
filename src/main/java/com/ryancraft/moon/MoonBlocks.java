@@ -44,6 +44,8 @@ public final class MoonBlocks {
     public static final Block MOON_PORTAL;
     /** Moon herb: the moon rabbit's food. */
     public static final Block MOON_HERB, POTTED_MOON_HERB;
+    /** The moon base's shield: catches meteors and holds air. */
+    public static final Block FORCE_FIELD_GENERATOR;
 
     static {
         MOON_DUST = block("moon_dust", p -> new ColoredFallingBlock(new ColorRGBA(0xFFB9B8B2), p),
@@ -86,6 +88,9 @@ public final class MoonBlocks {
                 .mapColor(MapColor.QUARTZ));
         POTTED_MOON_HERB = blockNoItem("potted_moon_herb", p -> new net.minecraft.world.level.block.FlowerPotBlock(MOON_HERB, p),
                 net.minecraft.world.level.block.Blocks.flowerPotProperties());
+        FORCE_FIELD_GENERATOR = block("force_field_generator", ForceField.GeneratorBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GRAY)
+                .requiresCorrectToolForDrops().strength(5.0f, 1200.0f).sound(SoundType.METAL).lightLevel(st -> st.getValue(ForceField.ACTIVE) ? 12 : 2));
+        ForceField.init(FORCE_FIELD_GENERATOR);
         MOON_PORTAL = blockNoItem("moon_portal", MoonPortalBlock::new, BlockBehaviour.Properties.of().noCollision().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(st -> 9).pushReaction(net.minecraft.world.level.material.PushReaction.BLOCK));
         RAW_METEOR_IRON = item("raw_meteor_iron");

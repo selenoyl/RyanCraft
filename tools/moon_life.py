@@ -219,3 +219,49 @@ def temples():
 
 if __name__ == "__main__":
     temples(); print("temples ok")
+
+
+# ---------------------------------------------------------------- force field generator (moon/ForceField.java)
+def force_field():
+    B = os.path.join(M.A, "textures", "block")
+    iron = Image.open(os.path.join(B, "meteor_iron_block.png")).convert("RGBA")
+    def face(core, active):
+        im = iron.copy(); px = im.load()
+        for y in range(16):
+            for x in range(16):
+                if x in (0, 15) or y in (0, 15): px[x, y] = (40, 42, 52, 255)
+        for y in range(4, 12):
+            for x in range(4, 12):
+                edge = x in (4, 11) or y in (4, 11)
+                c = (30, 34, 44) if edge else core[0] if (x + y) % 3 else core[1]
+                if active and not edge and 6 <= x <= 9 and 6 <= y <= 9: c = core[2]
+                px[x, y] = c + (255,)
+        return im
+    dim = [(46, 110, 74), (36, 90, 60), (60, 140, 96)]
+    lit = [(84, 196, 122), (64, 170, 104), (200, 255, 220)]
+    for active in (False, True):
+        k = "_on" if active else ""
+        face(lit if active else dim, active).save(os.path.join(B, f"force_field_generator_side{k}.png"))
+        top = iron.copy(); px = top.load()
+        for i in range(16): px[i, i] = px[15 - i, i] = ((120, 230, 160) if active else (60, 120, 84)) + (255,)
+        top.save(os.path.join(B, f"force_field_generator_top{k}.png"))
+        M.w(f"assets/ryancraft/models/block/force_field_generator{k}.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
+            "side": f"ryancraft:block/force_field_generator_side{k}", "top": f"ryancraft:block/force_field_generator_top{k}", "bottom": "ryancraft:block/meteor_iron_block"}})
+    M.w("assets/ryancraft/blockstates/force_field_generator.json", {"variants": {"active=false": {"model": "ryancraft:block/force_field_generator"},
+                                                                              "active=true": {"model": "ryancraft:block/force_field_generator_on"}}})
+    M.w("assets/ryancraft/items/force_field_generator.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/force_field_generator"}})
+    M.w("data/ryancraft/loot_table/blocks/force_field_generator.json", {"type": "minecraft:block", "pools": [{"rolls": 1,
+        "entries": [{"type": "minecraft:item", "name": "ryancraft:force_field_generator"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+    M.w("data/ryancraft/recipe/force_field_generator.json", {"type": "minecraft:crafting_shaped", "category": "redstone", "pattern": ["IGI", "GDG", "IRI"],
+        "key": {"I": "ryancraft:meteor_iron_ingot", "G": "minecraft:glass", "D": "minecraft:diamond_block", "R": "minecraft:redstone_block"},
+        "result": {"id": "ryancraft:force_field_generator", "count": 1}})
+    M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:force_field_generator"])
+    M.add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:force_field_generator"])
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p))
+    d.update({"block.ryancraft.force_field_generator": "Force Field Generator",
+              "message.ryancraft.force_field": "Field radius %s blocks, %s%% charged, about %s minutes left",
+              "message.ryancraft.force_field_full": "The generator can't hold any more charge"})
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    force_field(); print("force field ok")

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "active=false": {
+      "model": "ryancraft:block/force_field_generator"
+    },
+    "active=true": {
+      "model": "ryancraft:block/force_field_generator_on"
+    }
+  }
+}

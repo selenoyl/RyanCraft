@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    "IGI",
+    "GDG",
+    "IRI"
+  ],
+  "key": {
+    "I": "ryancraft:meteor_iron_ingot",
+    "G": "minecraft:glass",
+    "D": "minecraft:diamond_block",
+    "R": "minecraft:redstone_block"
+  },
+  "result": {
+    "id": "ryancraft:force_field_generator",
+    "count": 1
+  }
+}

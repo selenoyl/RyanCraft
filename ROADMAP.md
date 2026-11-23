@@ -260,7 +260,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through. *(Built: the jade portal with its night-sky surface; one way, home only through a temple's portal once its rabbit falls.)*
     The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
     a nether portal.
-  - **No air.** *(Built, with the Potion of Air; force fields and the crown to come.)* The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
+  - **No air.** *(Built, with the Potion of Air, force fields and the jade crown.)* The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
     start to suffocate. To breathe up there you need one of:
     - a **Potion of Air**, brewed from an awkward potion and a wind charge (the breeze's bottled wind, from trial
       chambers). It works like water breathing, but only for thin air: 3 minutes, 8 with redstone.
@@ -298,13 +298,13 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore. *(Built: open-roofed moonstone arenas with glowing jade pillars and two chests; lore to come.)*
-    - **Meteors fall all the time** *(built; force fields to come)* (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
+    - **Meteors fall all the time** *(built, and force fields stop them)* (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
       "night" and in showers. They never break blocks, so your builds and the landscape are safe, but they're
       dangerous to you:
       - A meteor that lands near you bursts with a small blast, like a creeper's but weaker. One that hits you
         directly blows up right on you.
       - Out in the open you have to keep an eye on the sky, and a roof or a cave keeps you safe.
-    - **Build a moon base.** A **force field generator** around your base catches meteors before they reach you
+    - **Build a moon base.** *(Built: the generator, fuelled by nether stars or meteor iron blocks.)* A **force field generator** around your base catches meteors before they reach you
       and holds in air you can breathe, so you can live up there. Switch it off, or run out of fuel, and the meteors come through again.
     - **Dig out meteor iron** from the old craters (the moon's surface is pocked with them, made long ago): a rare,
       dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools, armour
