@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:custom_model_data",
+    "index": 0,
+    "cases": [
+      {
+        "when": "stew",
+        "model": {
+          "type": "minecraft:model",
+          "model": "ryancraft:item/meal_stew"
+        }
+      },
+      {
+        "when": "soup",
+        "model": {
+          "type": "minecraft:model",
+          "model": "ryancraft:item/meal_soup"
+        }
+      },
+      {
+        "when": "chowder",
+        "model": {
+          "type": "minecraft:model",
+          "model": "ryancraft:item/meal_chowder"
+        }
+      },
+      {
+        "when": "porridge",
+        "model": {
+          "type": "minecraft:model",
+          "model": "ryancraft:item/meal_porridge"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "ryancraft:item/meal_stew"
+    }
+  }
+}

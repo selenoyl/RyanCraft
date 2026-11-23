@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "ryancraft:unfired_cooking_pot",
+  "result": {
+    "id": "ryancraft:cooking_pot"
+  },
+  "experience": 0.3,
+  "cookingtime": 200
+}

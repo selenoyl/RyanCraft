@@ -1,0 +1,94 @@
+package com.ryancraft.food;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** What's in a cooking pot: its base, the raw ingredients, how far along they are, and once done the meal and portions left. */
+public class CookingPotBlockEntity extends BlockEntity {
+    public static final int COOK_TICKS = 600;
+    private final List<ItemStack> ingredients = new ArrayList<>();
+    private int progress, portions;
+    private Meal meal;
+
+    public CookingPotBlockEntity(BlockPos pos, BlockState state) { super(Cooking.POT_ENTITY, pos, state); }
+
+    private CookingPotBlock.Fill fill() { return getBlockState().getValue(CookingPotBlock.FILL); }
+    private void setFill(CookingPotBlock.Fill f) { if (level != null) level.setBlock(worldPosition, getBlockState().setValue(CookingPotBlock.FILL, f), 3); }
+    int ingredientCount() { return ingredients.size(); }
+    int portions() { return portions; }
+
+    void setBase(CookingPotBlock.Fill base) { setFill(base); progress = 0; setChanged(); }
+    void add(ItemStack s) { ingredients.add(s); progress = 0; setChanged(); }
+    ItemStack takeLast() { ItemStack s = ingredients.remove(ingredients.size() - 1); progress = 0; setChanged(); return s; }
+
+    void tick() {
+        boolean milk = fill() == CookingPotBlock.Fill.MILK;
+        boolean can = (milk || fill() == CookingPotBlock.Fill.WATER) && !ingredients.isEmpty() && CookingPotBlock.heated(level, worldPosition);
+        if (can != getBlockState().getValue(CookingPotBlock.COOKING)) level.setBlock(worldPosition, getBlockState().setValue(CookingPotBlock.COOKING, can), 3);
+        if (!can) return;
+        if (++progress < COOK_TICKS) return;
+        List<Item> items = ingredients.stream().map(ItemStack::getItem).toList();
+        meal = new Meal(Meal.kindFor(milk, items), new ArrayList<>(items));
+        portions = items.size();
+        ingredients.clear(); progress = 0;
+        setFill(CookingPotBlock.Fill.valueOf(meal.kind().toUpperCase()));
+        level.setBlock(worldPosition, getBlockState().setValue(CookingPotBlock.COOKING, false), 3);
+        setChanged();
+    }
+
+    ItemStack serve() {
+        ItemStack out = new ItemStack(Cooking.MEAL);
+        out.set(Cooking.MEAL_DATA, meal);
+        out.set(DataComponents.FOOD, meal.portion(meal.ingredients().size()));
+        out.set(DataComponents.CUSTOM_MODEL_DATA, new CustomModelData(List.of(), List.of(), List.of(meal.kind()), List.of()));
+        if (--portions <= 0) { portions = 0; meal = null; setFill(CookingPotBlock.Fill.EMPTY); }
+        setChanged();
+        return out;
+    }
+
+    Component describe() {
+        if (meal != null) return Component.translatable("block.ryancraft.cooking_pot.meal", meal.name(), portions);
+        CookingPotBlock.Fill f = fill();
+        if (f == CookingPotBlock.Fill.EMPTY) return Component.translatable("block.ryancraft.cooking_pot.empty");
+        String base = f == CookingPotBlock.Fill.MILK ? "milk" : "water";
+        if (ingredients.isEmpty()) return Component.translatable("block.ryancraft.cooking_pot.base_" + base);
+        Component list = Component.empty();
+        for (int i = 0; i < ingredients.size(); i++) { if (i > 0) list = list.copy().append(", "); list = list.copy().append(ingredients.get(i).getHoverName()); }
+        boolean hot = CookingPotBlock.heated(level, worldPosition);
+        return Component.translatable("block.ryancraft.cooking_pot." + (hot ? "simmering_" : "cold_") + base, list, progress * 100 / COOK_TICKS);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        if (level != null) for (ItemStack s : ingredients) Containers.dropItemStack(level, pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5, s);
+        ingredients.clear();
+    }
+
+    @Override
+    protected void saveAdditional(ValueOutput out) {
+        super.saveAdditional(out);
+        out.store("Ingredients", ItemStack.CODEC.listOf(), ingredients);
+        out.putInt("Progress", progress); out.putInt("Portions", portions);
+        if (meal != null) out.store("Meal", Meal.CODEC, meal);
+    }
+
+    @Override
+    protected void loadAdditional(ValueInput in) {
+        super.loadAdditional(in);
+        ingredients.clear(); in.read("Ingredients", ItemStack.CODEC.listOf()).ifPresent(ingredients::addAll);
+        progress = in.getIntOr("Progress", 0); portions = in.getIntOr("Portions", 0);
+        meal = in.read("Meal", Meal.CODEC).orElse(null);
+    }
+}

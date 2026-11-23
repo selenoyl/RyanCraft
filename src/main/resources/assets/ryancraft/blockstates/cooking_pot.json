@@ -1,0 +1,88 @@
+{
+  "variants": {
+    "cooking=false,fill=empty,seated=false": {
+      "model": "ryancraft:block/cooking_pot_empty"
+    },
+    "cooking=false,fill=empty,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_empty"
+    },
+    "cooking=false,fill=water,seated=false": {
+      "model": "ryancraft:block/cooking_pot_water"
+    },
+    "cooking=false,fill=water,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_water"
+    },
+    "cooking=false,fill=milk,seated=false": {
+      "model": "ryancraft:block/cooking_pot_milk"
+    },
+    "cooking=false,fill=milk,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_milk"
+    },
+    "cooking=false,fill=stew,seated=false": {
+      "model": "ryancraft:block/cooking_pot_stew"
+    },
+    "cooking=false,fill=stew,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_stew"
+    },
+    "cooking=false,fill=soup,seated=false": {
+      "model": "ryancraft:block/cooking_pot_soup"
+    },
+    "cooking=false,fill=soup,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_soup"
+    },
+    "cooking=false,fill=chowder,seated=false": {
+      "model": "ryancraft:block/cooking_pot_chowder"
+    },
+    "cooking=false,fill=chowder,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_chowder"
+    },
+    "cooking=false,fill=porridge,seated=false": {
+      "model": "ryancraft:block/cooking_pot_porridge"
+    },
+    "cooking=false,fill=porridge,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_porridge"
+    },
+    "cooking=true,fill=empty,seated=false": {
+      "model": "ryancraft:block/cooking_pot_empty"
+    },
+    "cooking=true,fill=empty,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_empty"
+    },
+    "cooking=true,fill=water,seated=false": {
+      "model": "ryancraft:block/cooking_pot_water"
+    },
+    "cooking=true,fill=water,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_water"
+    },
+    "cooking=true,fill=milk,seated=false": {
+      "model": "ryancraft:block/cooking_pot_milk"
+    },
+    "cooking=true,fill=milk,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_milk"
+    },
+    "cooking=true,fill=stew,seated=false": {
+      "model": "ryancraft:block/cooking_pot_stew"
+    },
+    "cooking=true,fill=stew,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_stew"
+    },
+    "cooking=true,fill=soup,seated=false": {
+      "model": "ryancraft:block/cooking_pot_soup"
+    },
+    "cooking=true,fill=soup,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_soup"
+    },
+    "cooking=true,fill=chowder,seated=false": {
+      "model": "ryancraft:block/cooking_pot_chowder"
+    },
+    "cooking=true,fill=chowder,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_chowder"
+    },
+    "cooking=true,fill=porridge,seated=false": {
+      "model": "ryancraft:block/cooking_pot_porridge"
+    },
+    "cooking=true,fill=porridge,seated=true": {
+      "model": "ryancraft:block/cooking_pot_seated_porridge"
+    }
+  }
+}
