@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:tin_block",
+  "result": {
+    "id": "ryancraft:chiseled_tin",
+    "count": 1
+  }
+}

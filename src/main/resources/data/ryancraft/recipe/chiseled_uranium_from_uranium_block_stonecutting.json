@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:uranium_block",
+  "result": {
+    "id": "ryancraft:chiseled_uranium",
+    "count": 1
+  }
+}

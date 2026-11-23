@@ -16,7 +16,7 @@
   "attributes": {
     "minecraft:visual/sky_color": "#8cc8ff",
     "minecraft:visual/fog_color": "#d4ecff",
-    "minecraft:visual/cloud_height": 48.0,
+    "minecraft:visual/cloud_height": 120.0,
     "minecraft:visual/cloud_color": "#f0ffffff",
     "minecraft:gameplay/bed_rule": {
       "can_set_spawn": "always",

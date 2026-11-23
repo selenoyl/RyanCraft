@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:chiseled_aluminum"
+  ],
+  "result": {
+    "id": "ryancraft:aluminum_block",
+    "count": 1
+  }
+}

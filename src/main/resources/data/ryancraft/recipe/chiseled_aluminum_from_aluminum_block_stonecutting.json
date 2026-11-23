@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:aluminum_block",
+  "result": {
+    "id": "ryancraft:chiseled_aluminum",
+    "count": 1
+  }
+}

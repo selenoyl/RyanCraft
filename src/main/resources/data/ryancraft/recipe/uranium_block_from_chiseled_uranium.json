@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:chiseled_uranium"
+  ],
+  "result": {
+    "id": "ryancraft:uranium_block",
+    "count": 1
+  }
+}

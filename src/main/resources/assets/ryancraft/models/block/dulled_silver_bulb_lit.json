@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "ryancraft:block/dulled_silver_bulb_lit"
-  }
-}

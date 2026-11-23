@@ -305,7 +305,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       and holds in air you can breathe, so you can live up there. Switch it off, or run out of fuel, and the meteors come through again.
     - **Dig out meteor iron** from the old craters (the moon's surface is pocked with them, made long ago): a rare,
       dark, star-flecked metal that's stronger than steel and lighter than iron. It's for the best tools, armour
-      and cannon barrels, and it shimmers faintly at night.
+      and cannon barrels, and it shimmers faintly at night. *(Built: meteor iron tools and armour at diamond's tier.)*
     - Grow moon herbs and bake moon cakes (food, and the rabbit's favourite).
   - **The new thing it unlocks** (as shulkers gave us shulker boxes): **moonstone gravity.** Moonstone dust,
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
@@ -353,7 +353,9 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 - **Aluminum, tin, zinc, lead, silver, uranium** *(built: ores, raw metal, ingots, nuggets and blocks; uses for aluminum
   and uranium come later)*
 - **Silver and lead ages** *(built)*:
-  - silver tarnishes through four stages (block, cut silver, stairs, slab, chiseled, grate, door, trapdoor and bulb);
+  - each metal's raw ore and ore spots follow its real mineral (galena, cassiterite, sphalerite, bauxite,
+    pitchblende); every metal has a chiseled block with its own motif
+  - silver tarnishes through four stages (block, cut silver, stairs, slab, chiseled, grate, door and trapdoor);
     honeycomb waxes it, an axe scrapes it; silverfish drop silver nuggets
   - leaded glass in 17 colours and two patterns, with panes, a door and a trapdoor
   - lead tools and armour at iron's tier (the armour resists a little knockback)

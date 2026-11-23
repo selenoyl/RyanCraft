@@ -36,14 +36,11 @@ public final class Skylands {
     public static final ResourceKey<Level> LEVEL = ResourceKey.create(Registries.DIMENSION, RyanCraft.id("skylands"));
     public static final List<Item> ITEMS = new ArrayList<>();
 
-    public static final Block SKYSTONE, CLOUD, BLUE_CLOUD, STORM_CLOUD, SKY_PORTAL, ZEPHYRITE_ORE, ZEPHYRITE_BLOCK;
+    public static final Block SKYSTONE, SKY_PORTAL, ZEPHYRITE_ORE, ZEPHYRITE_BLOCK;
     public static final Item ZEPHYRITE;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
-        CLOUD = block("cloud", CloudBlock::new, cloud(MapColor.SNOW), true);
-        BLUE_CLOUD = block("blue_cloud", CloudBlock.Bouncy::new, cloud(MapColor.COLOR_LIGHT_BLUE), true);
-        STORM_CLOUD = block("storm_cloud", CloudBlock.Storm::new, cloud(MapColor.COLOR_LIGHT_GRAY).noCollision(), true);
         // zephyrite: a light, wind-touched crystal in the skystone, for gear suited to falling and gliding
         ZEPHYRITE_ORE = block("zephyrite_ore", p -> new net.minecraft.world.level.block.DropExperienceBlock(net.minecraft.util.valueproviders.UniformInt.of(2, 5), p),
                 BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(s -> 3), true);
@@ -52,11 +49,6 @@ public final class Skylands {
         ZEPHYRITE = item("zephyrite", new Item.Properties());
         SKY_PORTAL = block("sky_portal", SkyPortalBlock::new, BlockBehaviour.Properties.of().noCollision().randomTicks().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(s -> 11).pushReaction(PushReaction.BLOCK), false);
-    }
-
-    private static BlockBehaviour.Properties cloud(MapColor c) {
-        return BlockBehaviour.Properties.of().mapColor(c).strength(0.2f).sound(SoundType.WOOL).noOcclusion()
-                .isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).isValidSpawn((s, l, p, t) -> false);
     }
 
     private static Item item(String name, Item.Properties props) {
@@ -75,9 +67,6 @@ public final class Skylands {
         }
         return b;
     }
-
-    public static final SkyCloudFeature SKY_CLOUD = Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("sky_cloud"),
-            new SkyCloudFeature(net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration.CODEC));
 
     /** Zephyrite gear: iron's tier, a little easier to enchant. */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:zinc_block",
+  "result": {
+    "id": "ryancraft:chiseled_zinc",
+    "count": 1
+  }
+}

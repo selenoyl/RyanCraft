@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "ryancraft:meteor_iron"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "ryancraft:meteor_iron"
+      }
+    ]
+  }
+}

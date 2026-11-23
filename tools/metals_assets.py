@@ -1,9 +1,11 @@
-"""The new metals (metal/Metals.java): silver, lead, tin, zinc, aluminum, uranium. Textures recoloured from the classic
-1.2.5 iron ore, ingot and block (and vanilla's raw iron, nugget and deepslate ore, which 1.2.5 lacks); models, loot,
+"""The new metals (metal/Metals.java): silver, lead, tin, zinc, aluminum, uranium. Ingots, nuggets and blocks are
+recoloured from the classic iron set; ores and raw metal come from each metal's real ore mineral (raw_ores.py); models, loot,
 smelting and crafting, tags, ore veins and lang.
   python3 tools/metals_assets.py      (tools/resources.py merges the lang)"""
 import json, os
 from PIL import Image
+import raw_ores as RO
+import chiseled_metals as CM
 
 HERE = os.path.dirname(os.path.abspath(__file__)); RES = os.path.join(HERE, "..", "src", "main", "resources")
 A = os.path.join(RES, "assets", "ryancraft"); TEX = os.path.join(A, "textures")
@@ -54,21 +56,23 @@ def lang_entries():
     for m, (t, *_r) in METALS.items():
         out.update({f"block.ryancraft.{m}_ore": f"{t} Ore", f"block.ryancraft.deepslate_{m}_ore": f"Deepslate {t} Ore",
                     f"block.ryancraft.raw_{m}_block": f"Block of Raw {t}", f"block.ryancraft.{m}_block": f"Block of {t}",
-                    f"item.ryancraft.raw_{m}": f"Raw {t}", f"item.ryancraft.{m}_ingot": f"{t} Ingot", f"item.ryancraft.{m}_nugget": f"{t} Nugget"})
+                    f"block.ryancraft.chiseled_{m}": f"Chiseled {t}", f"item.ryancraft.raw_{m}": f"Raw {t}", f"item.ryancraft.{m}_ingot": f"{t} Ingot", f"item.ryancraft.{m}_nugget": f"{t} Nugget"})
     return out
 
 def build(m):
     title, pal, iron_tool, (count, size, lo, hi, shape) = METALS[m]
-    raw_pal = [tuple(int(c * 0.82) for c in p) for p in pal]
     B, I = os.path.join(TEX, "block"), os.path.join(TEX, "item")
-    ore(os.path.join(CLASSIC, "block", "stone.png"), os.path.join(CLASSIC, "block", "iron_ore.png"), pal).save(os.path.join(B, f"{m}_ore.png"))
-    ore(os.path.join(TPL, "deepslate.png"), os.path.join(TPL, "deepslate_iron_ore.png"), pal).save(os.path.join(B, f"deepslate_{m}_ore.png"))
-    recolour(os.path.join(TPL, "raw_iron_block.png"), raw_pal).save(os.path.join(B, f"raw_{m}_block.png"))
+    RO.ore(m, CLASSIC, False).save(os.path.join(B, f"{m}_ore.png"))
+    RO.ore(m, CLASSIC, True).save(os.path.join(B, f"deepslate_{m}_ore.png"))
+    RO.raw_block(m).save(os.path.join(B, f"raw_{m}_block.png"))
     recolour(os.path.join(CLASSIC, "block", "iron_block.png"), pal).save(os.path.join(B, f"{m}_block.png"))
-    recolour(os.path.join(TPL, "raw_iron.png"), raw_pal).save(os.path.join(I, f"raw_{m}.png"))
+    RO.raw_item(m).save(os.path.join(I, f"raw_{m}.png"))
     recolour(os.path.join(CLASSIC, "item", "iron_ingot.png"), pal).save(os.path.join(I, f"{m}_ingot.png"))
     recolour(os.path.join(TPL, "iron_nugget.png"), pal).save(os.path.join(I, f"{m}_nugget.png"))
     blocks = [f"{m}_ore", f"deepslate_{m}_ore", f"raw_{m}_block", f"{m}_block"]
+    if m != "silver":                                  # silver's chiseled block is part of its tarnish set (silver_assets.py)
+        CM.chiseled(m, pal, (220, 255, 120) if m == "uranium" else None).save(os.path.join(B, f"chiseled_{m}.png"))
+        blocks.append(f"chiseled_{m}")
     for b in blocks:
         w(f"assets/ryancraft/blockstates/{b}.json", {"variants": {"": {"model": f"ryancraft:block/{b}"}}})
         w(f"assets/ryancraft/models/block/{b}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{b}"}})
@@ -83,7 +87,7 @@ def build(m):
             {"type": "minecraft:item", "name": f"ryancraft:{o}", "conditions": [silk]},
             {"type": "minecraft:item", "name": f"ryancraft:raw_{m}", "functions": [{"function": "minecraft:apply_bonus", "enchantment": "minecraft:fortune",
              "formula": "minecraft:ore_drops"}, {"function": "minecraft:explosion_decay"}]}]}]}]})
-    for b in (f"raw_{m}_block", f"{m}_block"):
+    for b in blocks[2:]:
         w(L + b + ".json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": f"ryancraft:{b}"}],
             "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
     R = "data/ryancraft/recipe/"
@@ -95,6 +99,11 @@ def build(m):
         "key": {"#": f"ryancraft:{inp}"}, "result": {"id": f"ryancraft:{n}", "count": 1}})
     back = lambda out, inp, n, cnt: w(f"{R}{out}.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [f"ryancraft:{inp}"],
         "result": {"id": f"ryancraft:{n}", "count": cnt}})
+    if m != "silver":
+        w(f"{R}chiseled_{m}_from_{m}_block_stonecutting.json", {"type": "minecraft:stonecutting", "ingredient": f"ryancraft:{m}_block",
+          "result": {"id": f"ryancraft:chiseled_{m}", "count": 1}})
+        w(f"{R}{m}_block_from_chiseled_{m}.json", {"type": "minecraft:crafting_shapeless", "category": "building", "ingredients": [f"ryancraft:chiseled_{m}"],
+          "result": {"id": f"ryancraft:{m}_block", "count": 1}})
     nine(f"{m}_block", f"{m}_ingot", f"{m}_block"); back(f"{m}_ingot_from_block", f"{m}_block", f"{m}_ingot", 9)
     nine(f"raw_{m}_block", f"raw_{m}", f"raw_{m}_block"); back(f"raw_{m}_from_block", f"raw_{m}_block", f"raw_{m}", 9)
     nine(f"{m}_ingot_from_nuggets", f"{m}_nugget", f"{m}_ingot"); back(f"{m}_nugget", f"{m}_ingot", f"{m}_nugget", 9)

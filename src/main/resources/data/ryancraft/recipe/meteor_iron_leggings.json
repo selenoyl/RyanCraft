@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "###",
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": "ryancraft:meteor_iron_ingot"
+  },
+  "result": {
+    "id": "ryancraft:meteor_iron_leggings",
+    "count": 1
+  }
+}

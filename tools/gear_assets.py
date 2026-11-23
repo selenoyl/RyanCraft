@@ -10,6 +10,7 @@ A = os.path.join(RES, "assets", "ryancraft"); CLASSIC = os.path.join(RES, "resou
 # material: (title, ingredient item, palette dark -> light)
 SETS = {
     "zephyrite": ("Zephyrite", "ryancraft:zephyrite", [(28, 84, 100), (64, 150, 168), (120, 212, 224), (200, 248, 250)]),
+    "meteor_iron": ("Meteor Iron", "ryancraft:meteor_iron_ingot", [(30, 32, 40), (64, 67, 78), (102, 107, 120), (150, 156, 170)]),
     "lead": ("Lead", "ryancraft:lead_ingot", [(40, 42, 58), (74, 78, 100), (114, 118, 142), (162, 166, 190)]),
 }
 TOOLS = ("sword", "pickaxe", "axe", "shovel", "hoe"); ARMOUR = ("helmet", "chestplate", "leggings", "boots")

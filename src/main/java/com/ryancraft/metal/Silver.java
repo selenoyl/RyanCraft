@@ -43,17 +43,16 @@ import java.util.Map;
 
 /**
  * Silver tarnishes like copper weathers: silver, dulled, tarnished, blackened. Each stage has a block, cut silver with
- * stairs and slab, chiseled silver, a grate, a door, a trapdoor and a bulb, and a waxed twin of each. Honeycomb waxes,
+ * stairs and slab, chiseled silver, a grate, a door and a trapdoor, and a waxed twin of each. Honeycomb waxes,
  * an axe scrapes one stage back (or the wax off). Tarnishing runs on random ticks (mixin/SilverTarnishMixin). Silverfish
  * drop silver nuggets now and then.
  */
 public final class Silver {
     public static final String[] STAGES = {"", "dulled_", "tarnished_", "blackened_"};
     public static final String[] SHAPES = {"silver_block", "cut_silver", "cut_silver_stairs", "cut_silver_slab", "chiseled_silver",
-            "silver_grate", "silver_door", "silver_trapdoor", "silver_bulb"};
+            "silver_grate", "silver_door", "silver_trapdoor"};
     static final float CHANCE = 0.05688889f;                     // copper's weathering chance per random tick
     private static final MapColor[] COLOURS = {MapColor.METAL, MapColor.COLOR_LIGHT_GRAY, MapColor.TERRACOTTA_BROWN, MapColor.COLOR_BLACK};
-    private static final int[] BULB_LIGHT = {15, 12, 8, 4};
 
     public static final Map<Block, Block> NEXT = new HashMap<>(), PREV = new HashMap<>(), WAX = new HashMap<>(), UNWAX = new HashMap<>();
     private static final List<Item> ITEMS = new ArrayList<>();
@@ -83,9 +82,6 @@ public final class Silver {
         out[6] = door(name(s, waxed, "silver_door"), metal(s, waxed).strength(3.0f).noOcclusion().pushReaction(PushReaction.DESTROY));
         out[7] = block(name(s, waxed, "silver_trapdoor"), p -> new TrapDoorBlock(BlockSetType.COPPER, p), metal(s, waxed).strength(3.0f).noOcclusion()
                 .isValidSpawn(Blocks::never));
-        int light = BULB_LIGHT[s];
-        out[8] = block(name(s, waxed, "silver_bulb"), CopperBulbBlock::new, metal(s, waxed).strength(3.0f).sound(SoundType.COPPER_BULB)
-                .isRedstoneConductor((a, b, c) -> false).lightLevel(st -> st.getValue(BlockStateProperties.LIT) ? light : 0));
         GRATES.add(out[5]); GRATES.add(out[6]); GRATES.add(out[7]);
         return out;
     }

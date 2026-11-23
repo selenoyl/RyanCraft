@@ -1,8 +1,0 @@
-{
-  "type": "ryancraft:sky_cloud",
-  "config": {
-    "state": {
-      "Name": "ryancraft:storm_cloud"
-    }
-  }
-}

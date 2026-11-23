@@ -1,11 +1,12 @@
 """The silver tarnish set (metal/Silver.java): four stages (silver, dulled, tarnished, blackened) of the block, cut silver,
-its stairs and slab, chiseled silver, grate, door, trapdoor and bulb, plus waxed twins. Textures gradient-map vanilla's
+its stairs and slab, chiseled silver, grate, door and trapdoor, plus waxed twins. Textures gradient-map vanilla's
 copper set (templates/silver) onto each stage's palette; blockstates, models, item definitions and loot are vanilla's
 copper files renamed. Waxed blocks reuse the plain models.
   python3 tools/silver_assets.py      (tools/resources.py merges the lang)"""
 import json, os, re
 from PIL import Image
 import metals_assets as MA
+import chiseled_metals as CM
 
 HERE = os.path.dirname(os.path.abspath(__file__)); RES = MA.RES; A = MA.A; TEX = MA.TEX
 TPL = os.path.join(HERE, "templates", "silver"); VA = os.path.join(TPL, "assets", "minecraft"); VD = os.path.join(TPL, "data", "minecraft")
@@ -16,9 +17,9 @@ PALS = [
     [(58, 46, 44), (104, 84, 74), (148, 124, 100), (186, 166, 136)],        # tarnished: bronze-brown
     [(24, 24, 34), (46, 46, 64), (76, 78, 100), (116, 120, 142)],           # blackened: blue-black
 ]
-SHAPES = ["silver_block", "cut_silver", "cut_silver_stairs", "cut_silver_slab", "chiseled_silver", "silver_grate", "silver_door", "silver_trapdoor", "silver_bulb"]
+SHAPES = ["silver_block", "cut_silver", "cut_silver_stairs", "cut_silver_slab", "chiseled_silver", "silver_grate", "silver_door", "silver_trapdoor"]
 COPPER = {"cut_silver": "cut_copper", "cut_silver_stairs": "cut_copper_stairs", "cut_silver_slab": "cut_copper_slab", "chiseled_silver": "chiseled_copper",
-          "silver_grate": "copper_grate", "silver_door": "copper_door", "silver_trapdoor": "copper_trapdoor", "silver_bulb": "copper_bulb"}
+          "silver_grate": "copper_grate", "silver_door": "copper_door", "silver_trapdoor": "copper_trapdoor"}
 TOKEN = re.compile(r"minecraft:((?:block/|item/)?)(cut_copper\w*|chiseled_copper\w*|copper_(?:door|trapdoor|bulb|grate)\w*)")
 
 def rename(name, st):
@@ -49,7 +50,9 @@ def textures():
         pal = PALS[s]
         if s: MA.recolour(os.path.join(MA.CLASSIC, "block", "iron_block.png"), pal).save(os.path.join(TEX, "block", f"{st}silver_block.png"))
         for f in os.listdir(B):
+            if "bulb" in f: continue
             tint(os.path.join(B, f), pal, "bulb" in f).save(os.path.join(TEX, "block", rename(f, st)))
+        CM.chiseled("silver", pal).save(os.path.join(TEX, "block", f"{st}chiseled_silver.png"))      # our own motif, not copper's
         tint(os.path.join(I, "copper_door.png"), pal).save(os.path.join(TEX, "item", f"{st}silver_door.png"))
 
 def lang_entries():
@@ -88,6 +91,7 @@ def json_files():
                 elif k == "cut_silver_slab": W(L + n + ".json", renamed(ld(os.path.join(VD, "loot_table", "blocks", "cut_copper_slab.json")), st, ids))
                 else: W(L + n + ".json", MA_drop(n))
         for f in os.listdir(os.path.join(VA, "models", "block")):     # models once per stage (waxed share them)
+            if "bulb" in f: continue
             W(f"assets/ryancraft/models/block/{rename(f, st)}", renamed(ld(os.path.join(VA, "models", "block", f)), st))
         W(f"assets/ryancraft/models/item/{st}silver_door.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{st}silver_door"}})
         # recipes, for plain and waxed alike
@@ -114,7 +118,6 @@ def json_files():
                 "key": key, "result": {"id": f"ryancraft:{name}", "count": cnt}})
             sh0("silver_door", ["##", "##", "##"], {"#": I}, 3, "redstone")
             sh0("silver_trapdoor", ["##", "##"], {"#": I}, 1, "redstone")
-            sh0("silver_bulb", [" S ", "SBS", " R "], {"S": "ryancraft:silver_block", "B": "minecraft:blaze_rod", "R": "minecraft:redstone"}, 4, "redstone")
     names = [f"ryancraft:{n}" for n in every]
     MA.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", names)
     MA.add_tag("data/minecraft/tags/block/needs_stone_tool.json", names)

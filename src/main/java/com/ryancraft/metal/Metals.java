@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * The new metals: silver, lead, tin, zinc, aluminum and uranium. Each has stone and deepslate ore, raw metal and its
- * block, ingot, nugget and block. Ore veins: data/ryancraft/worldgen/placed_feature/ore_<metal>.json (lead also gets
+ * block, ingot, nugget, block and a chiseled block with its own motif. Ore veins: data/ryancraft/worldgen/placed_feature/ore_<metal>.json (lead also gets
  * extra veins in swamps).
  */
 public final class Metals {
@@ -54,6 +54,9 @@ public final class Metals {
         if (n.equals("silver")) bp.randomTicks();
         Block block = block(n + "_block", Block::new, bp.mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f)
                 .sound(SoundType.METAL).lightLevel(s -> light));     // silver's block tarnishes (Silver)
+        if (!n.equals("silver"))                     // silver's chiseled block tarnishes with the rest of its set (Silver)
+            block("chiseled_" + n, Block::new, BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f)
+                    .sound(SoundType.METAL).lightLevel(s -> light));
         ALL.put(n, new Metal(n, colour, light, ore, deep, rawBlock, block, item("raw_" + n), item(n + "_ingot"), item(n + "_nugget")));
     }
 

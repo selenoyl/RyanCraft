@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:lead_block",
+  "result": {
+    "id": "ryancraft:chiseled_lead",
+    "count": 1
+  }
+}

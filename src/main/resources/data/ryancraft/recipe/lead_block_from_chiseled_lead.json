@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "ryancraft:chiseled_lead"
+  ],
+  "result": {
+    "id": "ryancraft:lead_block",
+    "count": 1
+  }
+}

@@ -37,6 +37,11 @@ public final class GearSet {
         return new GearSet(name, BlockTags.INCORRECT_FOR_IRON_TOOL, 250, 6.0f, 2.0f, enchantability, 15, new int[]{2, 5, 6, 2}, 0f);
     }
 
+    /** Diamond's tier: durability 1561, speed 8, +3 damage; armour 3/6/8/3 with toughness 2. */
+    public static GearSet diamondTier(String name, int enchantability) {
+        return new GearSet(name, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 8.0f, 3.0f, enchantability, 33, new int[]{3, 6, 8, 3}, 2.0f);
+    }
+
     /** Lead: iron's tier, duller to enchant, and heavy armour that shrugs off a little knockback. */
     public static GearSet leadTier(String name) {
         return new GearSet(name, BlockTags.INCORRECT_FOR_IRON_TOOL, 220, 5.5f, 2.0f, 7, 15, new int[]{2, 5, 6, 2}, 0f, 0.05f);
