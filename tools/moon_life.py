@@ -306,7 +306,7 @@ def moon_cake():
     M.w("assets/ryancraft/items/moon_cake.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/moon_cake"}})
     M.w("data/ryancraft/recipe/moon_cake.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [
         "ryancraft:moon_herb", "ryancraft:moon_herb", "minecraft:wheat", "minecraft:wheat", "minecraft:sugar", "minecraft:egg"],
-        "result": {"id": "ryancraft:moon_cake", "count": 4}})
+        "result": {"id": "ryancraft:moon_cake", "count": 1}})
     p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d["item.ryancraft.moon_cake"] = "Moon Cake"
     json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
 
