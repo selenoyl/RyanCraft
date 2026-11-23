@@ -350,8 +350,13 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
 
 ## Ores and the world underground (very Tekkit)
 - **Salt**, found in **salt caves**
-- **Aluminum, tin, zinc, lead, silver, uranium**
-- **Silver and lead ages**: tool and gear tiers built on the new metals.
+- **Aluminum, tin, zinc, lead, silver, uranium** *(built: ores, raw metal, ingots, nuggets and blocks; uses for aluminum
+  and uranium come later)*
+- **Silver and lead ages** *(built)*:
+  - silver tarnishes through four stages (block, cut silver, stairs, slab, chiseled, grate, door, trapdoor and bulb);
+    honeycomb waxes it, an axe scrapes it; silverfish drop silver nuggets
+  - leaded glass in 17 colours and two patterns, with panes, a door and a trapdoor
+  - lead tools and armour at iron's tier (the armour resists a little knockback)
 - **Ruby and sapphire**
 
 ## NPCs beyond villagers
