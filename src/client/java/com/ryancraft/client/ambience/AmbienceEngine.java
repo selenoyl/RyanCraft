@@ -44,10 +44,12 @@ public final class AmbienceEngine {
         if (cfg.fireflies) fireflies(mc, cfg.fireflyAmount);
     }
 
-    /** Fireflies blinking over fields and through the woods on warm, dry nights (config fireflies, fireflyAmount). */
+    /** Fireflies blinking over fields and through the woods on warm, dry nights, only once it's fully dark (config fireflies, fireflyAmount). */
     private void fireflies(Minecraft mc, float amount) {
         Surroundings e = env;
-        if (e == null || !e.surface || !(e.night || e.dusk) || e.rainHere || e.snowy || e.desert || e.temperature < 0.5f) return;
+        if (e == null || !e.surface || !e.night || e.rainHere || e.snowy || e.desert || e.temperature < 0.5f) return;
+        long t = Math.floorMod(mc.level.getDayTime(), 24000L);
+        if (t < 13500 || t > 22500) return;                              // only once it's properly dark, not at dusk or dawn
         if (e.grass < 6 && e.leaves < 5) return;
         if (random.nextFloat() > 0.25f * Math.max(0f, Math.min(1f, amount))) return;      // a thin scatter by default
         var player = mc.player;
