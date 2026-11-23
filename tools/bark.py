@@ -77,7 +77,7 @@ def diamonds(period=8, slope=2, light=True):
             elif light and (a == 1 or b == period - 1): g[y][x] = "L"
     return g
 
-def braided(r, n, seg=(3, 5), wide=0.0, ridge=0.7, broken=0.0):
+def braided(r, n, seg=(3, 5), wide=0.0, ridge=0.7, broken=0.0, tight=False):
     """Interlacing furrows. Neighbours swing toward each other and apart in opposite phase, so between them the bark
     rises into long lens-shaped ridges that meet and part like a stretched net (no neat lattice). Each furrow steps
     sideways only every other row, runs out and back by the same amount, and so returns to where it started (no seam).
@@ -88,14 +88,16 @@ def braided(r, n, seg=(3, 5), wide=0.0, ridge=0.7, broken=0.0):
     for i in range(n):
         runs = [(a, 1), (a, -1), (b, 1), (b, -1)] if b else [(a, 1), (a, -1)]
         moves = [d if k % 2 == 0 else 0 for length, d in runs for k in range(length)]
-        phase = r.randrange(2)                                         # neighbours mirror each other (below): they meet
+        # neighbours mirror each other (below): they meet. "tight" (walnut) also shifts every other furrow half a turn,
+        # which packs the net into small diamonds in dark vertical bands
+        phase = ((8 if i % 2 else 0) if tight else 0) + r.randrange(2)
         moves = moves[phase:] + moves[:phase]
         if i % 2: moves = [-m for m in moves]
         x = i * spacing
         for y in range(16):
             if r.random() >= broken:
                 g[y][x % 16] = "D"
-                if r.random() < wide: g[y][(x + (moves[y] or (1 if i % 2 == 0 else -1))) % 16] = "D"   # thicken outward
+                if r.random() < wide: g[y][(x + (1 if tight else (moves[y] or (1 if i % 2 == 0 else -1)))) % 16] = "D"
             x += moves[y]
     for y in range(16):                                                 # crests: halfway between furrows, lit
         row = [x for x in range(16) if g[y][x] == "D"]
@@ -187,8 +189,7 @@ def pattern(sp, r):
     if sp == "red_maple": return merge(flecks(r, 5, "D", (3, 6)), flecks(r, 6, "L", (2, 4)))     # smooth, a few cracks
     if sp == "tulip_poplar": return braided(r, 2, seg=(8, 8), wide=0.25, ridge=0.9)                      # long, neat diamonds, pale ridges
     if sp == "shagbark_hickory": return strips(r, (0, 5, 9, 13), peel=5)
-    if sp == "black_walnut": return merge(braided(r, 2, seg=(8, 8), wide=0.85, ridge=0.7, broken=0.04),
-                                          flecks(r, 6, "D", (2, 3)))                                       # deep, wide, rugged furrows
+    if sp == "black_walnut": return braided(r, 4, seg=(2, 6), wide=0.35, ridge=0.75, broken=0.05, tight=True)   # dark bands, small tight diamonds
     if sp == "american_beech": return merge(flecks(r, 4, "L", (2, 3), horizontal=True), flecks(r, 3, "D", (2, 2), horizontal=True))
     if sp == "sycamore": return blotches(r, ((3, 2, 2.3, "A"), (11, 6, 1.8, "B"), (6, 11, 2.6, "A"), (13, 13, 1.4, "A"), (1, 8, 1.2, "B")))
     if sp == "eastern_redbud": return merge(plates(r, 3, 3, jitter=4, edge=None), flecks(r, 7, "A"))   # fine scales, orange in the cracks
