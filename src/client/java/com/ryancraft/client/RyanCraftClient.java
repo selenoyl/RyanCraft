@@ -152,6 +152,7 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.GREAT_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Boss::new);
         EntityRendererRegistry.register(RyanEntities.ANGRY_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Minion::new);
         EntityRendererRegistry.register(RyanEntities.BOSS_METEOR, c -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(c, 2.5f, true));
+        EntityRendererRegistry.register(RyanEntities.DUST_DRIFTER, c -> new CritterRenderer<>(c, "jellyfish", 0.0f, 1.1f, true, "dust_drifter"));
         EntityRendererRegistry.register(RyanEntities.LOST_SPACEMAN, com.ryancraft.client.render.LostSpacemanRenderer::new);
         EntityRendererRegistry.register(RyanEntities.SKY_ROC, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 2.8f, false, "sky_roc"));
         EntityRendererRegistry.register(RyanEntities.BALD_EAGLE, c -> new CritterRenderer<>(c, "bald_eagle", 0.5f, 1.0f, false, "bald_eagle"));

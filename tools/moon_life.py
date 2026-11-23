@@ -312,3 +312,28 @@ def moon_cake():
 
 if __name__ == "__main__":
     moon_cake(); print("moon cake ok")
+
+
+# ---------------------------------------------------------------- dust drifters (entity/DustDrifter.java)
+def drifters():
+    src = Image.open(os.path.join(ENT, "jellyfish_white.png")).convert("RGBA"); px = src.load()
+    pal = [(120, 120, 168), (176, 180, 222), (218, 222, 246), (246, 248, 255)]
+    vals = [sum(px[x, y][:3]) / 3 for y in range(src.height) for x in range(src.width) if px[x, y][3]]; lo, hi = min(vals), max(vals)
+    for y in range(src.height):
+        for x in range(src.width):
+            c = px[x, y]
+            if c[3]: px[x, y] = grad((sum(c[:3]) / 3 - lo) / max(1, hi - lo), pal) + (c[3],)
+    src.save(os.path.join(ENT, "dust_drifter.png"))
+    M.w("data/ryancraft/loot_table/entities/dust_drifter.json", {"type": "minecraft:entity", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item",
+        "name": "minecraft:glowstone_dust", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 0, "max": 2}}]}]}]})
+    save_item("dust_drifter_spawn_egg", egg_icon("#dcdef4", "#9a90d0"))
+    M.w("assets/ryancraft/models/item/dust_drifter_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/dust_drifter_spawn_egg"}})
+    M.w("assets/ryancraft/items/dust_drifter_spawn_egg.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/dust_drifter_spawn_egg"}})
+    p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
+    b["spawners"]["ambient"] = [{"type": "ryancraft:dust_drifter", "weight": 6, "minCount": 1, "maxCount": 3}]; json.dump(b, open(p, "w"), indent=2)
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p))
+    d.update({"entity.ryancraft.dust_drifter": "Dust Drifter", "item.ryancraft.dust_drifter_spawn_egg": "Dust Drifter Spawn Egg"})
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    drifters(); print("drifters ok")
