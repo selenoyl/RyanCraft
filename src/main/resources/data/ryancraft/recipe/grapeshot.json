@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "MWM",
+    "MMM"
+  ],
+  "key": {
+    "M": "ryancraft:musket_ball",
+    "W": "#minecraft:wool"
+  },
+  "result": {
+    "id": "ryancraft:grapeshot",
+    "count": 2
+  }
+}

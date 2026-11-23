@@ -286,6 +286,7 @@ from concrete_shapes import lang_entries as concrete_lang; lang.update(concrete_
 from gems import lang_entries as gems_lang; lang.update(gems_lang())
 from shelf_mushrooms import lang_entries as shelf_lang; lang.update(shelf_lang())
 from chests import lang_entries as chests_lang; lang.update(chests_lang())
+from cannons import lang_entries as cannons_lang; lang.update(cannons_lang())
 from moon_portal import lang_entries as moonportal_lang; lang.update(moonportal_lang())
 w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")

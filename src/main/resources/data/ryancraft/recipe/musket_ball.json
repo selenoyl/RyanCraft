@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "ryancraft:lead_ingot"
+  ],
+  "result": {
+    "id": "ryancraft:musket_ball",
+    "count": 4
+  }
+}

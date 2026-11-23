@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "ryancraft:cannonball",
+    "minecraft:gunpowder",
+    "minecraft:gunpowder",
+    "minecraft:string"
+  ],
+  "result": {
+    "id": "ryancraft:explosive_shell",
+    "count": 1
+  }
+}

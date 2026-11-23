@@ -66,6 +66,7 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.HAND_PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.PumpRenderer.LAYER, com.ryancraft.client.pipes.PumpRenderer::createLayer);
+        net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.combat.CannonRenderer.LAYER, com.ryancraft.client.combat.CannonRenderer.Model::create);
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.EngineRenderer.LAYER, com.ryancraft.client.pipes.EngineRenderer::createLayer);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.pipes.RyanPipes.PIPES.values().toArray(net.minecraft.world.level.block.Block[]::new));
@@ -152,6 +153,8 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.moon.MoonBossRenderers.GearModel.LAYER, com.ryancraft.client.moon.MoonBossRenderers.GearModel::create);
         EntityRendererRegistry.register(RyanEntities.GREAT_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Boss::new);
         EntityRendererRegistry.register(RyanEntities.ANGRY_MOON_RABBIT, com.ryancraft.client.moon.MoonBossRenderers.Minion::new);
+        EntityRendererRegistry.register(com.ryancraft.combat.Cannons.CANNON_ENTITY, com.ryancraft.client.combat.CannonRenderer::new);
+        EntityRendererRegistry.register(com.ryancraft.combat.Cannons.SHOT, c -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(c, 0.9f, false));
         EntityRendererRegistry.register(RyanEntities.BOSS_METEOR, c -> new net.minecraft.client.renderer.entity.ThrownItemRenderer<>(c, 2.5f, true));
         EntityRendererRegistry.register(RyanEntities.CRATER_CRAB, c -> new CritterRenderer<>(c, "crater_crab", 0.3f, 1.0f, false, "crater_crab"));
         EntityRendererRegistry.register(RyanEntities.DUST_DRIFTER, c -> new CritterRenderer<>(c, "jellyfish", 0.0f, 1.1f, true, "dust_drifter"));

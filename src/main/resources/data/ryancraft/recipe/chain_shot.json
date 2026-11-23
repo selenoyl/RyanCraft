@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "ryancraft:cannonball",
+    "minecraft:iron_chain",
+    "ryancraft:cannonball"
+  ],
+  "result": {
+    "id": "ryancraft:chain_shot",
+    "count": 1
+  }
+}

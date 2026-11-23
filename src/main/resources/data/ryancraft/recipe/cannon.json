@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "III",
+    "LGL",
+    "S S"
+  ],
+  "key": {
+    "I": "minecraft:iron_block",
+    "L": "#minecraft:logs",
+    "G": "minecraft:gunpowder",
+    "S": "#minecraft:wooden_slabs"
+  },
+  "result": {
+    "id": "ryancraft:cannon",
+    "count": 1
+  }
+}

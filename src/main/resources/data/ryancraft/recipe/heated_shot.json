@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "ingredient": "ryancraft:cannonball",
+  "result": {
+    "id": "ryancraft:heated_shot"
+  },
+  "experience": 0.1,
+  "cookingtime": 200
+}

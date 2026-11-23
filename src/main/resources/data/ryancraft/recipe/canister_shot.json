@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "MTM",
+    "MMM"
+  ],
+  "key": {
+    "M": "ryancraft:musket_ball",
+    "T": "ryancraft:tin_ingot"
+  },
+  "result": {
+    "id": "ryancraft:canister_shot",
+    "count": 2
+  }
+}

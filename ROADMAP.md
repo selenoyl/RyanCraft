@@ -165,7 +165,7 @@ clusters like vanilla's fancy oak. Still to do:
 ## Combat
 Technology tops out around the early age of gunpowder: nothing past a muzzle-loader.
 - ~~**Old combat**~~ (built): no attack cooldown, as in 1.8 and before; spears keep their own charge. Config `oldCombat`.
-- **Cannons**, with different shot:
+- ~~**Cannons**~~ (built): load gunpowder then shot, light with flint and steel; ride one to aim it; 8 s to cool between shots. The shot:
   - **Round shot** (a lead or iron cannonball): long range, smashes blocks.
   - **Grapeshot** (a canvas bag of lead balls): a short-range spray, deadly to mobs, gentle on blocks.
   - **Chain shot** (two balls on a chain): spins through the air, tears through wood, sails and fences.
@@ -174,7 +174,7 @@ Technology tops out around the early age of gunpowder: nothing past a muzzle-loa
   - **Explosive shell**: a hollow ball packed with gunpowder, which bursts on impact. The top tier, still nothing past a muzzle-loader.
 - **Muskets**: very rudimentary guns, slow to load (powder, ball, ramrod), loud and smoky, inaccurate past close
   range. They fire lead balls.
-- **Lead finally gets a use**: cast lead into musket balls and cannonballs.
+- ~~**Lead finally gets a use**~~ (built): cast lead into musket balls and cannonballs.
 
 ## Rotational power (Vintage Story style, vanilla look)
 Turning power from wind, water, muscle or engines, carried by axles and cogs to machines like the millstone.
