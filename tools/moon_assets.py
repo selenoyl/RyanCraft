@@ -155,6 +155,138 @@ BASALT = ((46, 48, 56), (102, 104, 114))                      # mare basalt: dar
 OLIVINE = (98, 122, 72)
 IRON = ((30, 32, 40), (120, 126, 140))                        # dark gunmetal
 
+
+# ---------------------------------------------------------------- original moon stone (no vanilla template)
+def vnoise(seed, scale=4):
+    """Smooth value noise, 0..1, wrapping at 16 px (a coarse grid of random heights, blended)."""
+    r = random.Random(seed); n = 16 // scale
+    g = [[r.random() for _ in range(n)] for _ in range(n)]
+    out = [[0.0] * 16 for _ in range(16)]
+    for y in range(16):
+        for x in range(16):
+            gx, gy = x / scale, y / scale; x0, y0 = int(gx) % n, int(gy) % n; x1, y1 = (x0 + 1) % n, (y0 + 1) % n
+            fx, fy = gx - int(gx), gy - int(gy); fx, fy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
+            a = g[y0][x0] + (g[y0][x1] - g[y0][x0]) * fx; b = g[y1][x0] + (g[y1][x1] - g[y1][x0]) * fx
+            out[y][x] = a + (b - a) * fy
+    return out
+
+def rock(seed, dark, light, grain=0.35):
+    """A stone surface: soft value noise for broad tone, plus per-pixel grain."""
+    r = random.Random(seed); n1, n2 = vnoise(seed, 8), vnoise(seed + 1, 4)
+    img = Image.new("RGBA", (16, 16)); px = img.load()
+    for y in range(16):
+        for x in range(16):
+            t = 0.55 * n1[y][x] + 0.45 * n2[y][x] + (r.random() - 0.5) * grain
+            t = min(1, max(0, t))
+            px[x, y] = tuple(int(dark[k] + (light[k] - dark[k]) * t) for k in range(3)) + (255,)
+    return img
+
+def shade_px(c, k): return tuple(max(0, min(255, int(v * k))) for v in c[:3]) + (255,)
+
+def craters(img, spots):
+    """Impact craters: a bowl shaded from dark (top-left, in shadow) to light (bottom-right, catching the sun), and a
+    raised rim lit on the top-left and shadowed on the bottom-right."""
+    px = img.load()
+    for cx, cy, rad in spots:
+        for dy in range(-rad - 2, rad + 3):
+            for dx in range(-rad - 2, rad + 3):
+                d = (dx * dx + dy * dy) ** 0.5; x, y = int(cx + dx) % 16, int(cy + dy) % 16
+                lean = (dx + dy) / (rad * 2.0)                                       # -1 top-left .. +1 bottom-right
+                if d <= rad - 0.5: px[x, y] = shade_px(px[x, y], 0.82 + 0.16 * lean)
+                elif d <= rad + 0.7: px[x, y] = shade_px(px[x, y], 1.14 - 0.26 * (lean + 0.5))
+    return img
+
+def breccia(seed, matrix, shard_dark, shard_light, n=8):
+    """Lunar breccia: angular fragments of different tones welded together. Each pixel belongs to its nearest seed
+    point (wrapping), which carves the block into sharp polygons; the seams between them are the dark matrix, and
+    each fragment is lit along its upper edge."""
+    r = random.Random(seed); c = 16 / 3                                    # a jittered 3x3 grid: evenly spread fragments
+    pts = [((i + r.uniform(0.15, 0.85)) * c, (j + r.uniform(0.15, 0.85)) * c) for i in range(3) for j in range(3)]
+    n = len(pts); tones = [0.35 + 0.65 * ((k * 0.618 + r.random() * 0.3) % 1) for k in range(n)]
+    def owner(x, y):
+        best = None
+        for i, (px_, py_) in enumerate(pts):
+            dx = min(abs(x - px_), 16 - abs(x - px_)); dy = min(abs(y - py_), 16 - abs(y - py_))
+            d = dx * dx * 1.0 + dy * dy * 1.3
+            if best is None or d < best[0]: best = (d, i)
+        return best[1]
+    own = [[owner(x + 0.5, y + 0.5) for x in range(16)] for y in range(16)]
+    img = rock(seed, shade_px(matrix, 0.8)[:3], matrix, 0.15); px = img.load(); g = random.Random(seed + 7)
+    for y in range(16):
+        for x in range(16):
+            i = own[y][x]
+            if own[y][(x + 1) % 16] != i or own[(y + 1) % 16][x] != i: continue          # seam: leave the matrix
+            col = tuple(int(shard_dark[k] + (shard_light[k] - shard_dark[k]) * tones[i]) for k in range(3))
+            k = 1.14 if own[(y - 1) % 16][x] != i else 0.88 if own[(y + 2) % 16][x] != i else 1.0
+            px[x, y] = shade_px(col + (255,), k * (0.95 + g.random() * 0.1))
+    return img
+
+def laths(img, seed, col, n=5):
+    """Long thin crystal blades in polished stone (plagioclase laths): faint, all leaning roughly the same way."""
+    r = random.Random(seed); px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16); step = r.choice((1, 2))
+        for k in range(r.randint(3, 5)):
+            xx, yy = (x + k) % 16, (y - k // step) % 16
+            px[xx, yy] = tuple(int(a * 0.55 + b * 0.45) for a, b in zip(px[xx, yy][:3], col)) + (255,)
+    return img
+
+def tiles(img, size, light, dark, mortar):
+    """Square tiles with a bevel: lit top-left edges, shadowed bottom-right, and a thin mortar line."""
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            tx, ty = x % size, y % size
+            if tx == size - 1 or ty == size - 1: px[x, y] = mortar + (255,)
+            elif tx == 0 or ty == 0: px[x, y] = tuple(int((a + b) / 2) for a, b in zip(px[x, y][:3], light)) + (255,)
+            elif tx == size - 2 or ty == size - 2: px[x, y] = tuple(int((a + b) / 2) for a, b in zip(px[x, y][:3], dark)) + (255,)
+    return img
+
+def cracks(img, seed, col, n=3):
+    """Jagged fractures: each wanders mostly one way, with the odd kink and a short branch."""
+    r = random.Random(seed); px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16); dx, dy = r.choice(((1, 0), (0, 1), (1, 1), (1, -1)))
+        for k in range(r.randint(5, 9)):
+            px[x % 16, y % 16] = col + (255,)
+            if r.random() < 0.35: x += dy; y += dx                                   # a kink sideways
+            x += dx; y += dy
+            if k == 3 and r.random() < 0.5: px[(x + dy) % 16, (y + dx) % 16] = col + (255,)
+    return img
+
+def vesicles(img, seed, n, hole, rim):
+    """Vesicular basalt: round gas bubbles, some 1 px, some 2x2, each with a lit lower lip."""
+    r = random.Random(seed); px = img.load()
+    for _ in range(n):
+        x, y = r.randrange(16), r.randrange(16); big = r.random() < 0.4
+        cells = [(0, 0), (1, 0), (0, 1), (1, 1)] if big else [(0, 0)]
+        for dx, dy in cells: px[(x + dx) % 16, (y + dy) % 16] = hole + (255,)
+        lip = 2 if big else 1
+        for dx in range(lip): px[(x + dx) % 16, (y + lip) % 16] = rim + (255,)
+    return img
+
+def columns_side(img, dark, light):
+    """Basalt columns seen from the side: vertical joints every few pixels with a lit face beside each."""
+    px = img.load()
+    for x in (0, 5, 11):
+        for y in range(16):
+            xx = x + (1 if (y // 5) % 2 and x == 5 else 0)
+            px[xx % 16, y] = dark + (255,); px[(xx + 1) % 16, y] = tuple(int((a + b) / 2) for a, b in zip(px[(xx + 1) % 16, y][:3], light)) + (255,)
+    return img
+
+def hex_top(img, dark, light):
+    """Basalt columns seen from the top: a tiling net of hexagons (two per row, offset), with lit inner edges."""
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            # a hex grid with cells 8 wide and 8 tall, odd rows shifted by 4: tiles at 16
+            row = y // 8; ox = 4 if row % 2 else 0; cx = (x + ox) % 8; cy = y % 8
+            edge = cy == 0 or (cy in (1, 2) and cx in (0, 7)) or (cy >= 3 and cx == 0) or (cy in (6, 7) and cx in (0, 7) and False)
+            slant = (cy == 1 and cx in (1, 6)) or (cy == 7 and cx in (1, 6))
+            if edge or slant: px[x, y] = dark + (255,)
+            elif cy == 1 or cx == 1: px[x, y] = tuple(int((a + b) / 2) for a, b in zip(px[x, y][:3], light)) + (255,)
+    return img
+
 def textures():
     b, i = os.path.join(TEX, "block"), os.path.join(TEX, "item")
     cb = lambda n: os.path.join(CLASSIC, "block", n + ".png")
@@ -165,24 +297,25 @@ def textures():
     dots(dust, r(1), 12, (124, 122, 116)); dots(dust, r(2), 6, (224, 222, 216)); pits(dust, r(3), 2, (112, 110, 106), (214, 212, 206))
     dust.save(os.path.join(b, "moon_dust.png"))
     # moonstone: pale stone with white feldspar crystals and pockmarks
-    ms = mapped(cb("stone"), *STONE, contrast=0.8)
-    dots(ms, r(4), 7, FELDSPAR, size=2); pits(ms, r(5), 3, (96, 94, 92), (200, 198, 192))
+    ms = craters(rock(40, *STONE), ((4, 5, 3), (12, 12, 2), (12, 3, 1)))
+    dots(ms, r(4), 5, FELDSPAR)
     ms.save(os.path.join(b, "moonstone.png"))
-    dots(mapped(cb("cobblestone"), *STONE), r(6), 5, FELDSPAR, size=2).save(os.path.join(b, "cobbled_moonstone.png"))
-    dots(mapped(cb("smooth_stone"), STONE[0], (204, 202, 196)), r(7), 3, FELDSPAR).save(os.path.join(b, "polished_moonstone.png"))
-    for src, dst, k in (("stone_bricks", "moonstone_bricks", 8), ("cracked_stone_bricks", "cracked_moonstone_bricks", 9)):
-        dots(mapped(cb(src), *STONE), r(k), 4, FELDSPAR).save(os.path.join(b, dst + ".png"))
-    chis = frame(mapped(cb("smooth_stone"), STONE[0], (204, 202, 196), contrast=0.6), (210, 208, 202), (112, 110, 106))
-    crescent(chis, (110, 108, 104), (214, 212, 206)).save(os.path.join(b, "chiseled_moonstone_bricks.png"))
+    breccia(41, STONE[0], (110, 108, 104), (216, 214, 208)).save(os.path.join(b, "cobbled_moonstone.png"))
+    laths(rock(42, (166, 164, 158), (206, 204, 198), 0.15), 43, (230, 230, 226)).save(os.path.join(b, "polished_moonstone.png"))
+    bricks = tiles(rock(44, (150, 148, 142), (198, 196, 190), 0.2), 8, (220, 218, 212), (120, 118, 112), (96, 94, 90))
+    craters(bricks, ((11, 4, 2),)); bricks.save(os.path.join(b, "moonstone_bricks.png"))
+    cracks(bricks.copy(), 45, (100, 98, 94), 3).save(os.path.join(b, "cracked_moonstone_bricks.png"))
+    chis = frame(rock(46, (160, 158, 152), (204, 202, 196), 0.15), (220, 218, 212), (104, 102, 98))
+    crescent(chis, (110, 108, 104), (222, 220, 214)).save(os.path.join(b, "chiseled_moonstone_bricks.png"))
     # meteor iron ore: dark metal nuggets in moonstone
     ore(ms, cb("stone"), cb("iron_ore"), (34, 34, 40), (70, 72, 82), (146, 152, 166), (222, 232, 255), 10).save(os.path.join(b, "meteor_iron_ore.png"))
     # deep moonstone: dark basalt in vanilla deepslate's layers, with gas pockets and a little olivine
-    deep = mapped(dt("deepslate"), *BASALT); pits(deep, r(11), 4, (28, 28, 34), (112, 114, 124)); dots(deep, r(12), 3, OLIVINE)
-    deep.save(os.path.join(b, "deep_moonstone.png"))
-    dots(mapped(dt("deepslate_top"), *BASALT), r(13), 3, OLIVINE).save(os.path.join(b, "deep_moonstone_top.png"))
-    for src, dst, k in (("cobbled_deepslate", "cobbled_deep_moonstone", 14), ("polished_deepslate", "polished_deep_moonstone", 15),
-                        ("deepslate_bricks", "deep_moonstone_bricks", 16)):
-        pits(mapped(dt(src), *BASALT), r(k), 2, (28, 28, 34), (112, 114, 124)).save(os.path.join(b, dst + ".png"))
+    deep = vesicles(columns_side(rock(50, *BASALT), (30, 30, 36), (118, 120, 130)), 51, 6, (24, 24, 30), (116, 118, 128))
+    dots(deep, r(12), 2, OLIVINE); deep.save(os.path.join(b, "deep_moonstone.png"))
+    vesicles(hex_top(rock(52, *BASALT), (30, 30, 36), (118, 120, 130)), 53, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_top.png"))
+    breccia(54, BASALT[0], (40, 42, 50), (118, 120, 132)).save(os.path.join(b, "cobbled_deep_moonstone.png"))
+    laths(rock(55, (56, 58, 68), (92, 94, 106), 0.12), 56, (140, 146, 162), 5).save(os.path.join(b, "polished_deep_moonstone.png"))
+    vesicles(tiles(rock(57, *BASALT, 0.2), 8, (124, 126, 136), (34, 34, 40), (22, 22, 28)), 58, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_bricks.png"))
     ore(deep, dt("deepslate"), dt("deepslate_iron_ore"), (60, 62, 70), (118, 122, 134), (190, 196, 212), (232, 240, 255), 17).save(os.path.join(b, "deep_meteor_iron_ore.png"))
     # meteor iron: cut-meteorite Widmanstatten bands in a bevelled block; raw is black fusion crust with rust
     blk = mapped(cb("iron_block"), (70, 72, 82), (104, 108, 120), contrast=0.4)
