@@ -156,6 +156,8 @@ public class RyanCraftClient implements ClientModInitializer {
                 com.ryancraft.flora.RyanFlora.ROSE, com.ryancraft.flora.RyanFlora.POTTED_ROSE);
         EntityRendererRegistry.register(RyanEntities.SWAN, c -> new CritterRenderer<>(c, "swan", 0.45f, 1.0f, false, "swan", "black_swan"));
         EntityRendererRegistry.register(RyanEntities.MOOBLOOM, com.ryancraft.client.render.MoobloomRenderer::create);
+        EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.mudling.MudlingModel.LAYER, com.ryancraft.client.mudling.MudlingModel::createLayer);
+        EntityRendererRegistry.register(RyanEntities.MUDLING, com.ryancraft.client.mudling.MudlingRenderer::new);
         EntityRendererRegistry.register(RyanEntities.REINDEER, com.ryancraft.client.render.ReindeerRenderer::new);
         EntityRendererRegistry.register(RyanEntities.ZEBRA, net.minecraft.client.renderer.entity.HorseRenderer::new);
         EntityRendererRegistry.register(RyanEntities.CROW, c -> new CritterRenderer<>(c, "crow", 0.3f, 1.0f, false, "crow"));

@@ -23,6 +23,7 @@ public class RyanCraft implements ModInitializer {
         RyanEntities.init();
         com.ryancraft.worldgen.TemperateSurroundings.init();
         com.ryancraft.worldgen.DevBiomeTp.init();
+        com.ryancraft.worldgen.MudlingCampFeature.init();
         RyanBiomes.init();
         com.ryancraft.trees.RyanWood.init();
         com.ryancraft.bag.Cages.init();

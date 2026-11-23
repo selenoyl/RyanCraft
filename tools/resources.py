@@ -76,7 +76,7 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"] + ['rainbow_trout', 'smallmouth_bass', 'yellow_perch', 'walleye', 'northern_pike', 'muskellunge']
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge",
-            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan",
+            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan", "mudling",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
             "orca", "blue_whale", "shark", "manta_ray", "jellyfish",
@@ -263,6 +263,7 @@ sys.path.insert(0, os.path.dirname(__file__)); from wood import lang_entries; la
 from cages import lang_entries as cage_lang; lang.update(cage_lang())
 from storage_assets import lang_entries as storage_lang; lang.update(storage_lang())
 lang["entity.ryancraft.moobloom"] = "Moobloom"; lang["item.ryancraft.moobloom_spawn_egg"] = "Moobloom Spawn Egg"
+lang["entity.ryancraft.mudling"] = "Mudling"; lang["item.ryancraft.mudling_spawn_egg"] = "Mudling Spawn Egg"
 lang["entity.ryancraft.swan"] = "Mute Swan"; lang["entity.ryancraft.swan.black"] = "Black Swan"; lang["item.ryancraft.swan_spawn_egg"] = "Swan Spawn Egg"
 from flora import lang_entries as flora_lang; lang.update(flora_lang())
 from autumn import lang_entries as autumn_lang; lang.update(autumn_lang())

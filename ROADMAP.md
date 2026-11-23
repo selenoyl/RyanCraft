@@ -65,6 +65,13 @@ ruby-throated hummingbird, pileated woodpecker, northern bobwhite, jellyfish.
 ## Mudlings: biome soldiers you collect and battle
 Our own take on the old Clay Soldiers idea, and the main "fight your friends" game.
 
+**Built (first pass):** the mudling, in all 12 overworld kinds (plus gilded, mossy and charred variants, 1 in 20), each
+with its own stats and special (snowballs, slowing mud, knockback gravel, fiery cinders, the sandstone and shell
+guards' tougher hides); camps in every biome (a ring of the biome's blocks and a flag, 3-6 mudlings, never refilled);
+scooping into bundles, 4 to a bundle; teams by dye (right-click with a dye: different colours fight on their own, the
+team colour shows as a sash); type matchups; losers crumble into their biome's materials; winners level up (up to 5
+victories: more health, harder hits, a little taller). Still to come: gear, a battle table, the cloud kite (sky).
+
 ![Mudling concept art](docs/mudlings_concept.png)
 
 **Finding them**
