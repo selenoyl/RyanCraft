@@ -21,16 +21,6 @@ public class RyanCraftClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // the glider: falling with one in hand, you sink slowly and drift the way you're looking
-        ClientTickEvents.END_CLIENT_TICK.register(mc -> {
-            var p = mc.player;
-            if (p == null || !com.ryancraft.sky.Skylands.gliding(p)) return;
-            var v = p.getDeltaMovement(); var look = p.getLookAngle();
-            double hx = v.x * 0.92 + look.x * 0.05, hz = v.z * 0.92 + look.z * 0.05;
-            double speed = Math.sqrt(hx * hx + hz * hz), max = 0.55;
-            if (speed > max) { hx *= max / speed; hz *= max / speed; }
-            p.setDeltaMovement(hx, Math.max(v.y, -0.12), hz);
-        });
         ThirstHud.init();
         // winter: our leaves go drab (they can't fall), a dull tint over their colours
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->

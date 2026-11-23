@@ -37,7 +37,7 @@ public final class Skylands {
     public static final List<Item> ITEMS = new ArrayList<>();
 
     public static final Block SKYSTONE, CLOUD, BLUE_CLOUD, STORM_CLOUD, SKY_PORTAL, ZEPHYRITE_ORE, ZEPHYRITE_BLOCK;
-    public static final Item ZEPHYRITE, GLIDER;
+    public static final Item ZEPHYRITE;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
@@ -50,7 +50,6 @@ public final class Skylands {
         ZEPHYRITE_BLOCK = block("zephyrite_block", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops()
                 .strength(3.0f, 4.0f).sound(SoundType.AMETHYST), true);
         ZEPHYRITE = item("zephyrite", new Item.Properties());
-        GLIDER = item("glider", new Item.Properties().stacksTo(1).durability(240));
         SKY_PORTAL = block("sky_portal", SkyPortalBlock::new, BlockBehaviour.Properties.of().noCollision().randomTicks().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(s -> 11).pushReaction(PushReaction.BLOCK), false);
     }
@@ -66,11 +65,6 @@ public final class Skylands {
         ITEMS.add(i); return i;
     }
 
-    /** Holding a glider while falling: count fall damage as gone (the client side does the gliding itself). */
-    public static boolean gliding(net.minecraft.world.entity.player.Player p) {
-        return !p.onGround() && !p.isInWater() && !p.getAbilities().flying && p.getDeltaMovement().y < 0
-                && (p.getMainHandItem().is(GLIDER) || p.getOffhandItem().is(GLIDER));
-    }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props, boolean item) {
         ResourceKey<Block> bk = ResourceKey.create(Registries.BLOCK, RyanCraft.id(name));
@@ -86,16 +80,6 @@ public final class Skylands {
             new SkyCloudFeature(net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration.CODEC));
 
     public static void init() {
-        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
-            for (var p : server.getPlayerList().getPlayers()) {
-                if (!gliding(p)) continue;
-                p.resetFallDistance();
-                if (p.tickCount % 20 == 0) {                                                  // a glider wears with use
-                    ItemStack g = p.getMainHandItem().is(GLIDER) ? p.getMainHandItem() : p.getOffhandItem();
-                    g.hurtAndBreak(1, p, p.getMainHandItem().is(GLIDER) ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
-                }
-            }
-        });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         // Pour a water bucket into a glowstone frame to light the portal (instead of placing the water)
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {

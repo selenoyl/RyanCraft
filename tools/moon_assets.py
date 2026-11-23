@@ -490,7 +490,8 @@ def textures():
     ore(deepslate_v, dt("deepslate"), dt("deepslate_lapis_ore"), *jade, 81).save(os.path.join(b, "deepslate_jade_ore.png"))
     ore(ms, cb("stone"), cb("lapis_ore"), *jade, 82).save(os.path.join(b, "moonstone_jade_ore.png"))
     ore(deep, dt("deepslate"), dt("deepslate_lapis_ore"), *jade, 83).save(os.path.join(b, "deep_moonstone_jade_ore.png"))
-    jade_gem().save(os.path.join(i, "jade.png"))
+    # the jade gem is hand-drawn (a cluster of three green crystals): tools/templates/jade/jade_item.png
+    Image.open(os.path.join(HERE, "templates", "jade", "jade_item.png")).save(os.path.join(i, "jade.png"))
     jade_block_tex(cb).save(os.path.join(b, "jade_block.png"))
     # meteor iron, all original: an etched meteorite slab, thumbprinted fusion crust, a meteorite lump and a bar
     # the block follows vanilla's iron block (bevelled plate), in the ingot's gunmetal with the same faint band etch
