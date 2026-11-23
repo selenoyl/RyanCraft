@@ -87,6 +87,8 @@ public final class RyanEntities {
             EntityType.Builder.of(Pegasus::new, MobCategory.CREATURE).sized(1.3964844f, 1.6f).eyeHeight(1.52f).clientTrackingRange(10));
     public static final EntityType<CloudSheep> CLOUD_SHEEP = register("cloud_sheep",
             EntityType.Builder.of(CloudSheep::new, MobCategory.CREATURE).sized(0.9f, 1.3f).eyeHeight(1.235f).clientTrackingRange(10));
+    public static final EntityType<SkyRoc> SKY_ROC = register("sky_roc",
+            EntityType.Builder.of(SkyRoc::new, MobCategory.CREATURE).sized(1.6f, 1.2f).clientTrackingRange(14));
     public static final EntityType<GoldenEagle> GOLDEN_EAGLE = register("golden_eagle",
             EntityType.Builder.of(GoldenEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
     public static final EntityType<RedTailedHawk> RED_TAILED_HAWK = register("red_tailed_hawk",
@@ -177,6 +179,7 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(PORCUPINE, Porcupine.createAttributes());
         FabricDefaultAttributeRegistry.register(BALD_EAGLE, BaldEagle.createAttributes());
         FabricDefaultAttributeRegistry.register(SKY_RAY, SkyRay.createAttributes());
+        FabricDefaultAttributeRegistry.register(SKY_ROC, SkyRoc.createAttributes());
         FabricDefaultAttributeRegistry.register(PEGASUS, net.minecraft.world.entity.animal.equine.AbstractHorse.createBaseHorseAttributes());
         FabricDefaultAttributeRegistry.register(CLOUD_SHEEP, net.minecraft.world.entity.animal.sheep.Sheep.createAttributes());
         FabricDefaultAttributeRegistry.register(GOLDEN_EAGLE, GoldenEagle.createAttributes());

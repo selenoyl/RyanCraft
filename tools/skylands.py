@@ -191,6 +191,11 @@ def dimension():
         {"type": "minecraft:count", "count": 40}, {"type": "minecraft:in_square"},
         {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 30}, "max_inclusive": {"absolute": 220}}},
         {"type": "minecraft:biome"}]})
+    # roc nests on the high islands (the feature itself checks the height and a flat patch of grass)
+    M.w(D + "worldgen/configured_feature/roc_nest.json", {"type": "ryancraft:roc_nest", "config": {}})
+    M.w(D + "worldgen/placed_feature/roc_nest.json", {"feature": "ryancraft:roc_nest", "placement": [
+        {"type": "minecraft:rarity_filter", "chance": 4}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
     # updrafts: zephyr vents set into the island grass now and then
     M.w(D + "worldgen/configured_feature/zephyr_vent.json", {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:simple_state_provider",
         "state": {"Name": "ryancraft:zephyr_vent"}}}})
@@ -207,7 +212,7 @@ def dimension():
     b["features"][6] = ["ryancraft:ore_zephyrite"]
     b["features"][8] = ["ryancraft:sky_spring"]
     b["features"][2] = ["ryancraft:zephyr_vent"]
-    b["features"][4] = ["ryancraft:mudling_camp"]                                                            # cloud kite camps                                                             # local modifications step                                                              # fluid springs step
+    b["features"][4] = ["ryancraft:mudling_camp", "ryancraft:roc_nest"]                                      # kite camps, roc nests                                                             # local modifications step                                                              # fluid springs step
     b["features"][9] = ["ryancraft:sky_willow_islands", "ryancraft:sky_flowers", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}

@@ -76,7 +76,7 @@ FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"] + ['rainbow_trout', 'smallmouth_bass', 'yellow_perch', 'walleye', 'northern_pike', 'muskellunge']
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge",
-            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan", "mudling", "sky_ray", "pegasus", "cloud_sheep",
+            "elk", "moose", "pronghorn", "grizzly_bear", "bobcat", "crow", "zebra", "reindeer", "moobloom", "swan", "mudling", "sky_ray", "pegasus", "cloud_sheep", "sky_roc",
             "black_tailed_deer", "bison", "cougar", "river_otter", "groundhog", "porcupine",
             "bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron", "canada_goose",
             "orca", "blue_whale", "shark", "manta_ray", "jellyfish",

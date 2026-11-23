@@ -218,6 +218,7 @@ public final class RyanBiomes {
         spawn(skyMeadow, MobCategory.CREATURE, RyanEntities.SKY_RAY, 6, 1, 3);
         spawn(skyMeadow, MobCategory.CREATURE, RyanEntities.PEGASUS, 5, 2, 4);
         spawn(skyMeadow, MobCategory.CREATURE, RyanEntities.CLOUD_SHEEP, 10, 3, 5);
+        spawn(skyMeadow, MobCategory.CREATURE, RyanEntities.SKY_ROC, 2, 1, 2);
         // Mooblooms: herds among the flowers (as common as cows there)
         spawn(keys(Biomes.FLOWER_FOREST, Biomes.MEADOW, Biomes.SUNFLOWER_PLAINS), MobCategory.CREATURE, RyanEntities.MOOBLOOM, 9, 2, 4);   // (and the Redbud-Dogwood Glade, via its parent)
         // Zebras: herds on the savanna

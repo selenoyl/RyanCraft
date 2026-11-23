@@ -1,0 +1,136 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "egg": "ryancraft:block/roc_egg_2",
+    "particle": "ryancraft:block/roc_egg_2"
+  },
+  "elements": [
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        10,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#egg"
+        },
+        "south": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#egg"
+        },
+        "east": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#egg"
+        },
+        "west": {
+          "uv": [
+            4,
+            3,
+            12,
+            13
+          ],
+          "texture": "#egg"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#egg"
+        },
+        "down": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#egg"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        5
+      ],
+      "to": [
+        11,
+        12,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            1,
+            11,
+            3
+          ],
+          "texture": "#egg"
+        },
+        "south": {
+          "uv": [
+            5,
+            1,
+            11,
+            3
+          ],
+          "texture": "#egg"
+        },
+        "east": {
+          "uv": [
+            5,
+            1,
+            11,
+            3
+          ],
+          "texture": "#egg"
+        },
+        "west": {
+          "uv": [
+            5,
+            1,
+            11,
+            3
+          ],
+          "texture": "#egg"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#egg"
+        }
+      }
+    }
+  ]
+}

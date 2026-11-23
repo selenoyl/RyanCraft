@@ -43,6 +43,8 @@ public final class Skylands {
     public static final Block CLOUDBLOOM, SKY_BELL, WINDFLOWER, SUNPETAL;
     /** Updrafts: vents of rising air on the islands. */
     public static final Block ZEPHYR_VENT;
+    /** Roc eggs, found in nests on the high islands. */
+    public static final Block ROC_EGG;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
@@ -54,6 +56,8 @@ public final class Skylands {
         ZEPHYRITE = item("zephyrite", new Item.Properties());
         ZEPHYR_VENT = block("zephyr_vent", ZephyrVentBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops()
                 .strength(1.5f, 6.0f).lightLevel(s -> 4), true);
+        ROC_EGG = block("roc_egg", RocEggBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0.5f)
+                .sound(SoundType.METAL).randomTicks().noOcclusion(), true);
         CLOUDBLOOM = flower("cloudbloom", net.minecraft.world.effect.MobEffects.SLOW_FALLING, 7.0f);
         SKY_BELL = flower("sky_bell", net.minecraft.world.effect.MobEffects.JUMP_BOOST, 6.0f);
         WINDFLOWER = flower("windflower", net.minecraft.world.effect.MobEffects.SPEED, 6.0f);
@@ -91,6 +95,9 @@ public final class Skylands {
     public static final net.minecraft.world.level.block.entity.BlockEntityType<ZephyrVentBlock.Entity_> ZEPHYR_VENT_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("zephyr_vent"),
             net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(ZephyrVentBlock.Entity_::new, ZEPHYR_VENT).build());
+
+    public static final com.ryancraft.worldgen.RocNestFeature ROC_NEST = Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("roc_nest"),
+            new com.ryancraft.worldgen.RocNestFeature());
 
     /** Zephyrite gear: iron's tier, a little easier to enchant. */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);
