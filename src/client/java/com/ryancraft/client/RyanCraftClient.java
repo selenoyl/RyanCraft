@@ -32,7 +32,7 @@ public class RyanCraftClient implements ClientModInitializer {
         DustStormClient.init();
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
                 com.ryancraft.metal.Steel.STEEL_GRATE, com.ryancraft.metal.Steel.STEEL_BARS, com.ryancraft.metal.Steel.STEEL_DOOR, com.ryancraft.metal.Steel.STEEL_TRAPDOOR,
-                com.ryancraft.food.Cooking.COOKING_POT);
+                com.ryancraft.food.Cooking.COOKING_POT, com.ryancraft.sky.Skylands.ZEPHYR_VENT);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.TRANSLUCENT,
                 com.ryancraft.metal.LeadedGlass.ALL.toArray(new net.minecraft.world.level.block.Block[0]));
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
@@ -60,6 +60,9 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, view, pos, tint) ->      // each set-down bowl's meal colour
                 view != null && pos != null && view.getBlockEntity(pos) instanceof com.ryancraft.food.MealBowlsBlockEntity be ? 0xFF000000 | be.colour(tint) : -1,
                 com.ryancraft.food.Cooking.MEAL_BOWLS);
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, view, pos, tint) ->      // vents wear the local grass
+                tint != 0 ? -1 : view != null && pos != null ? net.minecraft.client.renderer.BiomeColors.getAverageGrassColor(view, pos)
+                        : net.minecraft.world.level.GrassColor.getDefaultColor(), com.ryancraft.sky.Skylands.ZEPHYR_VENT);
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.food.CampfireFuel.MENU, com.ryancraft.client.screen.CampfireScreen::new);
         // Pipes, engines, tanks and the Ender Terminal
         net.minecraft.client.gui.screens.MenuScreens.register(com.ryancraft.pipes.RyanPipes.DIAMOND_MENU, com.ryancraft.client.pipes.DiamondPipeScreen::new);

@@ -30,8 +30,7 @@ import net.minecraft.world.level.portal.TeleportTransition;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * The jade portal to the Hollow Moon: a nether portal's shape framed in Blocks of Jade, lit with an eye of ender at
- * night under a full moon. Its surface is the night sky, stars drifting through a slow swirl.
+ * The jade portal to the Hollow Moon: a nether portal's shape framed in Blocks of Jade, lit with an eye of ender. Its surface is the night sky, stars drifting through a slow swirl.
  * <p>The trip is one way: you land on the moon with no portal back, and a jade frame won't light up there. The way home
  * is the portal that opens in a jade temple when its Great Moon Rabbit falls (it stays open for later trips), leading
  * to your matching spot on Earth, where a jade portal is built for you. {@link #WAY_HOME_OPEN} would let any jade frame
@@ -61,8 +60,6 @@ public class MoonPortalBlock extends NetherPortalBlock {
     }
 
     /** Full moon: the first night of vanilla's eight-day cycle. */
-    static boolean fullMoonNight(Level level) { return level.isDarkOutside() && Math.floorMod(level.getDayTime() / 24000L, 8L) == 0; }
-
     public static void init() {
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
             ItemStack stack = player.getItemInHand(hand);
@@ -75,7 +72,6 @@ public class MoonPortalBlock extends NetherPortalBlock {
                 if (shape == null) continue;
                 if (level.isClientSide()) return InteractionResult.SUCCESS;
                 if (onMoon && !WAY_HOME_OPEN) { player.displayClientMessage(Component.translatable("message.ryancraft.moon_portal_sealed"), true); return InteractionResult.FAIL; }
-                if (!onMoon && !fullMoonNight(level)) { player.displayClientMessage(Component.translatable("message.ryancraft.moon_portal_wait"), true); return InteractionResult.FAIL; }
                 shape.fill(level);
                 level.playSound(null, at, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 0.6f, 1.4f);
                 stack.consume(1, player);

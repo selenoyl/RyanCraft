@@ -28,6 +28,20 @@ def wing_face(flip=False):
             px[u, v] = c + (255,)
     return f.transpose(Image.FLIP_LEFT_RIGHT) if flip else f
 
+def trim_edges(im):
+    """Each wing is a thin 18x1x11 box (texOffs 0,0 and 0,12): its one-pixel edge faces must follow the outline of the
+    wing face beside them, or a solid border shows past the feathered edge."""
+    px = im.load()
+    for v in (0, 12):
+        top = lambda x, y: px[x, v + y][3] > 0                           # the wing's top face: u 11..28, rows v..v+10
+        for k in range(18):
+            px[11 + k, v + 11] = px[11 + k, v + 11] if top(11 + k, 0) else (0, 0, 0, 0)     # north edge, beside row 0
+            px[40 + k, v + 11] = px[40 + k, v + 11] if top(28 - k, 10) else (0, 0, 0, 0)    # south edge, beside row 10
+        for k in range(11):
+            px[k, v + 11] = px[k, v + 11] if top(11, k) else (0, 0, 0, 0)                   # the two ends
+            px[29 + k, v + 11] = px[29 + k, v + 11] if top(28, 10 - k) else (0, 0, 0, 0)
+    return im
+
 def wings():
     tex = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
     for y0, flip in ((0, False), (12, True)):                         # right wing (tip at u=0), left wing (mirrored)
@@ -69,7 +83,7 @@ LANG = {"entity.ryancraft.pegasus": "Pegasus", "entity.ryancraft.cloud_sheep": "
         "item.ryancraft.pegasus_spawn_egg": "Pegasus Spawn Egg", "item.ryancraft.cloud_sheep_spawn_egg": "Cloud Sheep Spawn Egg"}
 
 if __name__ == "__main__":
-    wings().save(os.path.join(ENT, "pegasus_wings.png")); puff().save(os.path.join(ENT, "cloud_sheep_puff.png"))
+    trim_edges(wings()).save(os.path.join(ENT, "pegasus_wings.png")); puff().save(os.path.join(ENT, "cloud_sheep_puff.png"))
     for mob, (b, s) in EGGS.items():
         save_item(f"{mob}_spawn_egg", egg_icon(b, s))
         MA.w(f"assets/ryancraft/models/item/{mob}_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{mob}_spawn_egg"}})

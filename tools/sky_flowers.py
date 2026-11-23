@@ -63,11 +63,11 @@ def build():
     # the patch: mostly sky flowers, a few meadow flowers among them
     weights = [(n, 4) for n in ART] + [("minecraft:oxeye_daisy", 1), ("minecraft:cornflower", 1), ("minecraft:allium", 1), ("minecraft:azure_bluet", 1)]
     dist = [{"weight": wt, "data": {"Name": n if ":" in n else f"ryancraft:{n}"}} for n, wt in weights]
-    W(f"{D}worldgen/configured_feature/sky_flowers.json", {"type": "minecraft:flower", "config": {"tries": 64, "xz_spread": 6, "y_spread": 2,
+    W(f"{D}worldgen/configured_feature/sky_flowers.json", {"type": "minecraft:flower", "config": {"tries": 54, "xz_spread": 6, "y_spread": 2,
         "feature": {"feature": {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:weighted_state_provider", "entries": dist}}},
                     "placement": [{"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:matching_blocks", "blocks": "minecraft:air"}}]}}})
     W(f"{D}worldgen/placed_feature/sky_flowers.json", {"feature": "ryancraft:sky_flowers", "placement": [
-        {"type": "minecraft:count", "count": 5}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"},
+        {"type": "minecraft:count", "count": 3}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING"},
         {"type": "minecraft:biome"}]})
 
 if __name__ == "__main__":

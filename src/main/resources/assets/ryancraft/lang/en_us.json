@@ -1206,7 +1206,6 @@
   "message.ryancraft.force_field": "Field radius %s blocks, %s%% charged, about %s minutes left",
   "message.ryancraft.force_field_full": "The generator can't hold any more charge",
   "message.ryancraft.moon_portal_sealed": "The jade stays dark. The way home lies through the Great Moon Rabbit.",
-  "message.ryancraft.moon_portal_wait": "The jade stays dark. It wakes only by night, under a full moon.",
   "subtitles.ryancraft.ambience.bird": "Bird sings",
   "subtitles.ryancraft.ambience.bullfrog": "Bullfrog croaks",
   "subtitles.ryancraft.ambience.cicadas": "Cicadas buzz",

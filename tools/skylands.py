@@ -93,6 +93,43 @@ def vent_top():
                 else: px[x, y] = M.shade_px((40, 56, 78), 0.85 + 0.25 * (1 - d / 5.3))
     return img
 
+def vent_hole():
+    """The vent as an opening in the turf: dark earth round a deep mouth, a spiral of pale zephyr light breathing out
+    of it. A grass overlay (vent_grass) covers all but the opening, tinted like the grass around it."""
+    import math
+    img = Image.open(os.path.join(M.CLASSIC, "block", "dirt.png")).convert("RGBA").crop((0, 0, 16, 16)); px = img.load()
+    for y in range(16):
+        for x in range(16):
+            dx, dy = x - 7.5, y - 7.5; d = math.hypot(dx, dy)
+            if d <= 4.8:
+                ang = math.atan2(dy, dx); swirl = (ang / (2 * math.pi) * 3 + d / 2.0) % 1.0
+                if d >= 4.0: px[x, y] = M.shade_px(px[x, y], 0.55 if dy < 0 else 0.75)       # the earth falling away into it
+                elif swirl < 0.3: px[x, y] = (Z_LIGHT if d < 2.0 else Z_MID) + (255,)
+                else: px[x, y] = M.shade_px((34, 48, 66), 0.8 + 0.3 * (1 - d / 4.0))
+    return img
+
+def vent_grass():
+    """The classic grass top (grey, for the biome tint) with a ragged opening cut in the middle."""
+    import math
+    img = Image.open(os.path.join(M.CLASSIC, "block", "grass_block_top.png")).convert("RGBA").crop((0, 0, 16, 16)); px = img.load()
+    r = random.Random(81)
+    for y in range(16):
+        for x in range(16):
+            if math.hypot(x - 7.5, y - 7.5) <= 5.0 + r.uniform(-0.6, 0.5): px[x, y] = (0, 0, 0, 0)
+    return img
+
+def vent_model():
+    """Built like vanilla's grass block: the base cube (opening on top, dirt and grass-block sides), then a tinted
+    overlay cube carrying the grass round the opening and the grass on the sides."""
+    sides = ("north", "south", "east", "west")
+    base = {"from": [0, 0, 0], "to": [16, 16, 16], "faces": dict({"down": {"texture": "#bottom", "cullface": "down"}, "up": {"texture": "#top", "cullface": "up"}},
+            **{d: {"texture": "#side", "cullface": d} for d in sides})}
+    over = {"from": [0, 0, 0], "to": [16, 16, 16], "faces": dict({"up": {"texture": "#grass", "tintindex": 0, "cullface": "up"}},
+            **{d: {"texture": "#overlay", "tintindex": 0, "cullface": d} for d in sides})}
+    return {"parent": "minecraft:block/block", "textures": {"particle": "minecraft:block/dirt", "bottom": "minecraft:block/dirt",
+            "top": "ryancraft:block/zephyr_vent_hole", "grass": "ryancraft:block/zephyr_vent_grass",
+            "side": "minecraft:block/grass_block_side", "overlay": "minecraft:block/grass_block_side_overlay"}, "elements": [base, over]}
+
 def vent_side():
     """Skystone strata with a band of vent slits glowing faintly near the top."""
     img = skystone(); px = img.load()
@@ -126,11 +163,11 @@ def blocks():
     M.add_tag("data/minecraft/tags/item/beacon_payment_items.json", ["ryancraft:zephyrite"])
 
     skystone().save(os.path.join(TEX, "skystone.png"))
-    vent_top().save(os.path.join(TEX, "zephyr_vent_top.png")); vent_side().save(os.path.join(TEX, "zephyr_vent_side.png"))
+    vent_hole().save(os.path.join(TEX, "zephyr_vent_hole.png")); vent_grass().save(os.path.join(TEX, "zephyr_vent_grass.png"))
     M.w("assets/ryancraft/blockstates/zephyr_vent.json", {"variants": {"": {"model": "ryancraft:block/zephyr_vent"}}})
-    M.w("assets/ryancraft/models/block/zephyr_vent.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
-        "top": "ryancraft:block/zephyr_vent_top", "side": "ryancraft:block/zephyr_vent_side", "bottom": "ryancraft:block/skystone"}})
-    M.w("assets/ryancraft/items/zephyr_vent.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/zephyr_vent"}})
+    M.w("assets/ryancraft/models/block/zephyr_vent.json", vent_model())
+    M.w("assets/ryancraft/items/zephyr_vent.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/zephyr_vent",
+        "tints": [{"type": "minecraft:grass", "temperature": 0.7, "downfall": 0.8}]}})
     M.w("data/ryancraft/loot_table/blocks/zephyr_vent.json", M.drops("zephyr_vent"))
     M.w("data/ryancraft/recipe/zephyr_vent.json", {"type": "minecraft:crafting_shaped", "category": "redstone", "pattern": [" S ", "SZS", " S "],
         "key": {"S": "ryancraft:skystone", "Z": "ryancraft:zephyrite"}, "result": {"id": "ryancraft:zephyr_vent", "count": 1}})
@@ -194,7 +231,7 @@ def dimension():
     # roc nests on the high islands (the feature itself checks the height and a flat patch of grass)
     M.w(D + "worldgen/configured_feature/roc_nest.json", {"type": "ryancraft:roc_nest", "config": {}})
     M.w(D + "worldgen/placed_feature/roc_nest.json", {"feature": "ryancraft:roc_nest", "placement": [
-        {"type": "minecraft:rarity_filter", "chance": 4}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:rarity_filter", "chance": 24}, {"type": "minecraft:in_square"},
         {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
     # updrafts: zephyr vents set into the island grass now and then
     M.w(D + "worldgen/configured_feature/zephyr_vent.json", {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:simple_state_provider",

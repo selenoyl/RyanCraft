@@ -1,8 +1,90 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "minecraft:block/block",
   "textures": {
-    "top": "ryancraft:block/zephyr_vent_top",
-    "side": "ryancraft:block/zephyr_vent_side",
-    "bottom": "ryancraft:block/skystone"
-  }
+    "particle": "minecraft:block/dirt",
+    "bottom": "minecraft:block/dirt",
+    "top": "ryancraft:block/zephyr_vent_hole",
+    "grass": "ryancraft:block/zephyr_vent_grass",
+    "side": "minecraft:block/grass_block_side",
+    "overlay": "minecraft:block/grass_block_side_overlay"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#bottom",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#top",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#side",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#side",
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#side",
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#side",
+          "cullface": "west"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#grass",
+          "tintindex": 0,
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#overlay",
+          "tintindex": 0,
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#overlay",
+          "tintindex": 0,
+          "cullface": "south"
+        },
+        "east": {
+          "texture": "#overlay",
+          "tintindex": 0,
+          "cullface": "east"
+        },
+        "west": {
+          "texture": "#overlay",
+          "tintindex": 0,
+          "cullface": "west"
+        }
+      }
+    }
+  ]
 }

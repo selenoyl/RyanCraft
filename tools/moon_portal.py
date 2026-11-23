@@ -10,7 +10,6 @@ HERE = os.path.dirname(os.path.abspath(__file__)); T = os.path.join(HERE, "templ
 TEX = os.path.join(M.A, "textures", "block")
 NIGHT, DUSK = (6, 8, 22), (78, 52, 132)
 LANG = {"block.ryancraft.moon_portal": "Moon Portal",
-        "message.ryancraft.moon_portal_wait": "The jade stays dark. It wakes only by night, under a full moon.",
         "message.ryancraft.moon_portal_sealed": "The jade stays dark. The way home lies through the Great Moon Rabbit."}
 
 def lang_entries(): return dict(LANG)
