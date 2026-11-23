@@ -287,6 +287,91 @@ def hex_top(img, dark, light):
             elif cy == 1 or cx == 1: px[x, y] = tuple(int((a + b) / 2) for a, b in zip(px[x, y][:3], light)) + (255,)
     return img
 
+
+# ---------------------------------------------------------------- original meteor iron (no vanilla template)
+def meteor_slab(seed):
+    """A cut and etched meteorite slab: crossing Widmanstatten bands across the whole face, framed by a rough, dark
+    fusion-crust rind where the slice meets the meteorite's burnt outside."""
+    img = rock(seed, (66, 68, 78), (98, 102, 114), 0.15)
+    widmanstatten(img, random.Random(seed), (150, 156, 172), (48, 50, 58))
+    px = img.load(); r = random.Random(seed + 1)
+    for k in range(16):
+        for (x, y, inner) in ((k, 0, (k, 1)), (k, 15, (k, 14)), (0, k, (1, k)), (15, k, (14, k))):
+            px[x, y] = r.choice(((30, 26, 24), (40, 34, 30), (52, 40, 32))) + (255,)
+            if r.random() < 0.35: px[inner[0], inner[1]] = r.choice(((44, 38, 34), (96, 62, 40))) + (255,)   # crust creeping in, a little rust
+    return img
+
+def thumbprints(img, seed, n, mask=None):
+    """Regmaglypts: the thumbprint-like dimples a meteorite's surface melts into as it falls."""
+    r = random.Random(seed); px = img.load()
+    for _ in range(n):
+        cx, cy, rad = r.randrange(16), r.randrange(16), r.choice((2.3, 2.8, 3.2))
+        for dy in range(-3, 4):
+            for dx in range(-3, 4):
+                x, y = (cx + dx) % 16, (cy + dy) % 16
+                if mask and not mask(x, y): continue
+                d = (dx * dx + dy * dy) ** 0.5
+                if d < rad - 0.6: px[x, y] = shade_px(px[x, y], 0.62 + 0.1 * (dx + dy) / rad)
+                elif d < rad + 0.4 and dx + dy > 0: px[x, y] = shade_px(px[x, y], 1.35)
+    return img
+
+def meteor_crust(seed):
+    """Raw meteor iron in bulk: black fusion crust covered in thumbprints, rust blooms and a few metal glints."""
+    img = rock(seed, (26, 24, 24), (70, 66, 64), 0.25)
+    thumbprints(img, seed + 1, 4)
+    rust(img, random.Random(seed + 2), 5, [(112, 66, 38), (146, 92, 52)])
+    dots(img, random.Random(seed + 3), 3, (200, 210, 232))
+    return img
+
+def lump_sprite(seed):
+    """A meteorite lump: an irregular rounded silhouette, lit from the top left, with thumbprints, rust and a glint."""
+    r = random.Random(seed); n = vnoise(seed, 4)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
+    inside = lambda x, y: ((x - 7.5) / 6.4) ** 2 + ((y - 8.3) / 5.2) ** 2 + (n[y % 16][x % 16] - 0.5) * 0.5 < 1
+    for y in range(16):
+        for x in range(16):
+            if not inside(x, y): continue
+            edge = not all(inside(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+            light = 0.5 - ((x - 7.5) + (y - 8) * 1.2) / 18 + (r.random() - 0.5) * 0.15
+            v = 22 + 70 * max(0, min(1, light))
+            px[x, y] = (18, 16, 16, 255) if edge else (int(v), int(v * 0.95), int(v * 0.92), 255)
+    thumbprints(img, seed + 1, 3, mask=lambda x, y: px[x, y][3] and px[x, y][0] > 20)
+    for x, y in ((10, 10), (5, 11), (11, 6)):
+        if px[x, y][3] and px[x, y][0] > 20: px[x, y] = (128, 78, 44, 255)
+    px[5, 5] = (214, 224, 244, 255); px[6, 5] = (150, 158, 176, 255)
+    return img
+
+BAR = [   # a meteor iron bar, hand-drawn: T top face (lit), F front, S right end, E etched band, O outline, G glint
+    "................",
+    "................",
+    "................",
+    "......OOOOOOOO..",
+    ".....OTGTTETTTO.",
+    "....OTTTETTTTSO.",
+    "...OTTETTTTETSSO",
+    "..OOOOOOOOOOOSSO",
+    "..OFFFEFFFFEFOSO",
+    "..OFFFFFEFFFFOSO",
+    "..OFEFFFFFFEFOO.",
+    "..OFFFFEFFFFFO..",
+    "..OOOOOOOOOOOO..",
+    "................",
+    "................",
+    "................"]
+
+def bar_sprite():
+    """A meteor iron bar (its own shape, not vanilla's ingot): lit top, shaded front and end, etched with the bands."""
+    cols = {"T": (128, 134, 150), "F": (82, 86, 98), "S": (56, 58, 68), "E": (168, 176, 194), "O": (18, 18, 22), "G": (226, 234, 250)}
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load(); r = random.Random(63)
+    for y, row in enumerate(BAR):
+        for x, ch in enumerate(row):
+            if ch == ".": continue
+            c = cols[ch]
+            if ch in "TF": c = tuple(max(0, min(255, v + r.randint(-6, 6))) for v in c)
+            if ch == "E" and BAR[y][x - 1] == "F": c = (118, 124, 140)             # bands are fainter on the shaded front
+            px[x, y] = c + (255,)
+    return img
+
 def textures():
     b, i = os.path.join(TEX, "block"), os.path.join(TEX, "item")
     cb = lambda n: os.path.join(CLASSIC, "block", n + ".png")
@@ -317,22 +402,11 @@ def textures():
     laths(rock(55, (56, 58, 68), (92, 94, 106), 0.12), 56, (140, 146, 162), 5).save(os.path.join(b, "polished_deep_moonstone.png"))
     vesicles(tiles(rock(57, *BASALT, 0.2), 8, (124, 126, 136), (34, 34, 40), (22, 22, 28)), 58, 3, (24, 24, 30), (116, 118, 128)).save(os.path.join(b, "deep_moonstone_bricks.png"))
     ore(deep, dt("deepslate"), dt("deepslate_iron_ore"), (60, 62, 70), (118, 122, 134), (190, 196, 212), (232, 240, 255), 17).save(os.path.join(b, "deep_meteor_iron_ore.png"))
-    # meteor iron: cut-meteorite Widmanstatten bands in a bevelled block; raw is black fusion crust with rust
-    blk = mapped(cb("iron_block"), (70, 72, 82), (104, 108, 120), contrast=0.4)
-    frame(widmanstatten(blk, r(18), (146, 152, 168), (50, 52, 60)), (124, 128, 140), (38, 40, 46)).save(os.path.join(b, "meteor_iron_block.png"))
-    raw = mapped(os.path.join(TPL, "textures", "block", "raw_iron_block.png"), (26, 24, 24), (84, 80, 78))
-    rust(raw, r(19), 6, [(118, 70, 40), (148, 94, 54)]); dots(raw, r(20), 3, (196, 206, 226))
-    raw.save(os.path.join(b, "raw_meteor_iron_block.png"))
-    ingot = item_map(os.path.join(CLASSIC, "item", "iron_ingot.png"), *IRON); pi = ingot.load()
-    for y in range(16):
-        for x in range(16):
-            if pi[x, y][3] and (x + 2 * y) % 6 == 0 and sum(pi[x, y][:3]) > 150: pi[x, y] = tuple(min(255, c + 30) for c in pi[x, y][:3]) + (255,)   # a hint of the bands
-    ingot.save(os.path.join(i, "meteor_iron_ingot.png"))
-    lump = item_map(os.path.join(TPL, "textures", "item", "raw_iron.png"), (22, 20, 20), (96, 92, 90))
-    rust(lump, r(21), 3, [(118, 70, 40), (148, 94, 54)]); lp = lump.load()
-    for x, y in ((6, 5), (9, 8)):
-        if lp[x, y][3]: lp[x, y] = (210, 220, 240, 255)
-    lump.save(os.path.join(i, "raw_meteor_iron.png"))
+    # meteor iron, all original: an etched meteorite slab, thumbprinted fusion crust, a meteorite lump and a bar
+    meteor_slab(60).save(os.path.join(b, "meteor_iron_block.png"))
+    meteor_crust(61).save(os.path.join(b, "raw_meteor_iron_block.png"))
+    lump_sprite(62).save(os.path.join(i, "raw_meteor_iron.png"))
+    bar_sprite().save(os.path.join(i, "meteor_iron_ingot.png"))
 
 # --------------------------------------------------------------------------------------------- json
 def w(rel, obj):
