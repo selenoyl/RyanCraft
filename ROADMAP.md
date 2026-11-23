@@ -149,8 +149,8 @@ clusters like vanilla's fancy oak. Still to do:
 - ~~**Ruby and sapphire**~~ (built): ore, gem and block. Rubies under deserts, badlands and savannas; sapphires under snowy lands.
 
 ## Villagers
-- **Trade rework around emeralds, rubies and sapphires**: give the new gems a real use as currency tiers, each
-  with a storage block.
+- ~~**Regional currency**~~ (built): desert and savanna villagers trade in rubies, snowy villagers in sapphires, everyone
+  else in emeralds. The Money Changer (job site: Coin Scale) swaps one gem for another, five for four.
 
 ## Food
 - **Our own Farmer's Delight**: cooking, with plated foods you can set down as 3D meals.

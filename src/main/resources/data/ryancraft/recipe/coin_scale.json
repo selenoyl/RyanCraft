@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GGG",
+    " G ",
+    "SSS"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "#minecraft:wooden_slabs"
+  },
+  "result": {
+    "id": "ryancraft:coin_scale",
+    "count": 1
+  }
+}

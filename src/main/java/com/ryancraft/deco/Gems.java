@@ -33,24 +33,23 @@ public final class Gems {
     private static final List<Item> BLOCKS = new ArrayList<>(), ITEMS = new ArrayList<>();
     public static final Item RUBY = item("ruby"), SAPPHIRE = item("sapphire");
 
-    static {
-        gem("ruby", MapColor.COLOR_RED);
-        gem("sapphire", MapColor.COLOR_BLUE);
-    }
+    public static final Block RUBY_BLOCK = gem("ruby", MapColor.COLOR_RED), SAPPHIRE_BLOCK = gem("sapphire", MapColor.COLOR_BLUE);
 
-    private static void gem(String g, MapColor c) {
+    /** Registers the gem's ores and block; returns the block. */
+    private static Block gem(String g, MapColor c) {
         block(g + "_ore", p -> new DropExperienceBlock(UniformInt.of(3, 7), p), BlockBehaviour.Properties.of().mapColor(MapColor.STONE)
                 .requiresCorrectToolForDrops().strength(3.0f, 3.0f));
         block("deepslate_" + g + "_ore", p -> new DropExperienceBlock(UniformInt.of(3, 7), p), BlockBehaviour.Properties.of().mapColor(MapColor.DEEPSLATE)
                 .requiresCorrectToolForDrops().strength(4.5f, 3.0f).sound(SoundType.DEEPSLATE));
-        block(g + "_block", Block::new, BlockBehaviour.Properties.of().mapColor(c).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+        return block(g + "_block", Block::new, BlockBehaviour.Properties.of().mapColor(c).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
     }
 
-    private static void block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {
+    private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props) {
         ResourceKey<Block> bk = ResourceKey.create(Registries.BLOCK, RyanCraft.id(name));
         Block b = Registry.register(BuiltInRegistries.BLOCK, bk, f.apply(props.setId(bk)));
         ResourceKey<Item> ik = ResourceKey.create(Registries.ITEM, RyanCraft.id(name));
         BLOCKS.add(Registry.register(BuiltInRegistries.ITEM, ik, new BlockItem(b, new Item.Properties().setId(ik).useBlockDescriptionPrefix())));
+        return b;
     }
 
     private static Item item(String name) {

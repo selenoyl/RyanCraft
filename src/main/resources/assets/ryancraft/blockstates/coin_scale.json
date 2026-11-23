@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "ryancraft:block/coin_scale"
+    },
+    "facing=east": {
+      "model": "ryancraft:block/coin_scale",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "ryancraft:block/coin_scale",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "ryancraft:block/coin_scale",
+      "y": 270
+    }
+  }
+}
