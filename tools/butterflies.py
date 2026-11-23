@@ -69,6 +69,11 @@ def plain(x, z, r):                       # whites, sulphurs, azures: one colour
     if x >= 6 and z <= 1: return "k"
     if x == 4 and z == 2: return "c"
     return "a"
+def lanterns(x, z, r):                    # lantern moth: dusky violet, round moon-gold spots glowing on each wing, dark edges
+    if edge(x, z): return "c"
+    if (x - 3) ** 2 + (z - 2) ** 2 <= 1 or (x - 2) ** 2 + (z - 6) ** 2 <= 1: return "b"
+    return "d" if (x + z) % 4 == 0 else "a"
+
 def eyespots(x, z, r):                    # buckeye / luna: eyespots on fore and hind wing
     for (ex, ez) in ((4, 1), (3, 4)):
         d = abs(x - ex) + abs(z - ez)
@@ -98,6 +103,7 @@ S = [  # (name, pattern, colours, tails)
     ("Common Buckeye", eyespots, {"a": "#8a6040", "b": "#3a5ad8", "c": "#e8781e", "d": "#5a3e28"}, False),
     ("Luna Moth", eyespots, {"a": "#b8e8a0", "b": "#3a2a24", "c": "#e8d07a", "d": "#9ac888"}, True),
     ("Zebra Longwing", zebra, {"a": "#f2e05a"}, False),
+    ("Lantern Moth", lanterns, {"a": "#4a3a6a", "b": "#ffd860", "c": "#2a2238", "d": "#6a5a8a"}, False),   # the moon's moth
 ]
 BASE = {"k": "#141210", "w": "#f4f2ea", "a": "#888888", "b": "#888888", "c": "#888888", "d": "#5a5a5a"}
 

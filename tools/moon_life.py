@@ -76,7 +76,8 @@ def build():
         {"type": "minecraft:biome"}]})
     p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
     if "ryancraft:patch_moon_herb" not in b["features"][9]: b["features"][9].append("ryancraft:patch_moon_herb")
-    b["spawners"]["creature"] = [{"type": "ryancraft:moon_rabbit", "weight": 10, "minCount": 2, "maxCount": 3}]
+    b["spawners"]["creature"] = [{"type": "ryancraft:moon_rabbit", "weight": 10, "minCount": 2, "maxCount": 3},
+                                 {"type": "ryancraft:butterfly", "weight": 4, "minCount": 1, "maxCount": 2}]      # lantern moths
     json.dump(b, open(p, "w"), indent=2)
     p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d.update(LANG); json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
 

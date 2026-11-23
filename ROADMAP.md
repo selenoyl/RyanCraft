@@ -288,7 +288,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
       follows you home, or scoop it up in a bundle (4 to a bundle) and keep it in a cage like the chipmunks.
     - **Dust drifters:** jellyfish-like things that float over the craters.
     - **Crater crabs:** they hide in moon dust and pinch.
-    - **Lantern moths:** a night butterfly variant, dusky violet with glowing moon-gold wing spots. They come to
+    - **Lantern moths:** *(built)* a night butterfly variant, dusky violet with glowing moon-gold wing spots. They come to
       light, and fit in a bundle and the bird cage like the other butterflies.
     - **Lost spacemen:** *(built)* dead Steves in old lavender spacesuits, their skulls grinning behind tinted glass
       visors (skin: docs/lost_spaceman_skin.png). Suits come in lavender, white, blue, red, orange and green

@@ -22,7 +22,9 @@ public class Butterfly extends SmallFlyer implements Baggable {
     public static final String[] SPECIES = {"monarch", "viceroy", "eastern_tiger_swallowtail", "black_swallowtail", "pipevine_swallowtail",
             "spicebush_swallowtail", "zebra_swallowtail", "red_admiral", "painted_lady", "great_spangled_fritillary", "gulf_fritillary",
             "mourning_cloak", "question_mark", "red_spotted_purple", "cabbage_white", "clouded_sulphur", "spring_azure", "common_buckeye",
-            "luna_moth", "zebra_longwing"};
+            "luna_moth", "zebra_longwing", "lantern_moth"};
+    /** The moon's own moth (dusky violet, moon-gold wing spots): only on the moon, and only it there. */
+    public static final int LANTERN_MOTH = 20;
 
     public Butterfly(EntityType<? extends Butterfly> type, Level level) { super(type, level); }
 
@@ -33,12 +35,13 @@ public class Butterfly extends SmallFlyer implements Baggable {
     @Override protected int variantCount() { return SPECIES.length; }
     @Override protected String variantName() { return SPECIES[getVariant()]; }
     @Override protected int chooseVariant(ServerLevelAccessor level, BlockPos pos) {
+        if (level.getLevel().dimension().equals(com.ryancraft.moon.MoonPortalBlock.MOON)) return LANTERN_MOTH;
         // Monarchs and cabbage whites are the commonest; luna moths the rarest
         int r = this.random.nextInt(100);
         if (r < 14) return 0;
         if (r < 26) return 14;
         if (r < 28) return 18;
-        return this.random.nextInt(SPECIES.length);
+        return this.random.nextInt(LANTERN_MOTH);                             // Earth's species only
     }
 
     @Override public int bagCapacity() { return 4; }
