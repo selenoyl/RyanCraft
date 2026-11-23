@@ -36,13 +36,21 @@ public final class Skylands {
     public static final ResourceKey<Level> LEVEL = ResourceKey.create(Registries.DIMENSION, RyanCraft.id("skylands"));
     public static final List<Item> ITEMS = new ArrayList<>();
 
-    public static final Block SKYSTONE, CLOUD, BLUE_CLOUD, STORM_CLOUD, SKY_PORTAL;
+    public static final Block SKYSTONE, CLOUD, BLUE_CLOUD, STORM_CLOUD, SKY_PORTAL, ZEPHYRITE_ORE, ZEPHYRITE_BLOCK;
+    public static final Item ZEPHYRITE, GLIDER;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
         CLOUD = block("cloud", CloudBlock::new, cloud(MapColor.SNOW), true);
         BLUE_CLOUD = block("blue_cloud", CloudBlock.Bouncy::new, cloud(MapColor.COLOR_LIGHT_BLUE), true);
         STORM_CLOUD = block("storm_cloud", CloudBlock.Storm::new, cloud(MapColor.COLOR_LIGHT_GRAY).noCollision(), true);
+        // zephyrite: a light, wind-touched crystal in the skystone, for gear suited to falling and gliding
+        ZEPHYRITE_ORE = block("zephyrite_ore", p -> new net.minecraft.world.level.block.DropExperienceBlock(net.minecraft.util.valueproviders.UniformInt.of(2, 5), p),
+                BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(3.0f, 3.0f).lightLevel(s -> 3), true);
+        ZEPHYRITE_BLOCK = block("zephyrite_block", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops()
+                .strength(3.0f, 4.0f).sound(SoundType.AMETHYST), true);
+        ZEPHYRITE = item("zephyrite", new Item.Properties());
+        GLIDER = item("glider", new Item.Properties().stacksTo(1).durability(240));
         SKY_PORTAL = block("sky_portal", SkyPortalBlock::new, BlockBehaviour.Properties.of().noCollision().randomTicks().strength(-1.0f)
                 .sound(SoundType.GLASS).lightLevel(s -> 11).pushReaction(PushReaction.BLOCK), false);
     }
@@ -50,6 +58,18 @@ public final class Skylands {
     private static BlockBehaviour.Properties cloud(MapColor c) {
         return BlockBehaviour.Properties.of().mapColor(c).strength(0.2f).sound(SoundType.WOOL).noOcclusion()
                 .isSuffocating((s, l, p) -> false).isViewBlocking((s, l, p) -> false).isValidSpawn((s, l, p, t) -> false);
+    }
+
+    private static Item item(String name, Item.Properties props) {
+        ResourceKey<Item> ik = ResourceKey.create(Registries.ITEM, RyanCraft.id(name));
+        Item i = Registry.register(BuiltInRegistries.ITEM, ik, new Item(props.setId(ik)));
+        ITEMS.add(i); return i;
+    }
+
+    /** Holding a glider while falling: count fall damage as gone (the client side does the gliding itself). */
+    public static boolean gliding(net.minecraft.world.entity.player.Player p) {
+        return !p.onGround() && !p.isInWater() && !p.getAbilities().flying && p.getDeltaMovement().y < 0
+                && (p.getMainHandItem().is(GLIDER) || p.getOffhandItem().is(GLIDER));
     }
 
     private static Block block(String name, Function<BlockBehaviour.Properties, Block> f, BlockBehaviour.Properties props, boolean item) {
@@ -66,6 +86,16 @@ public final class Skylands {
             new SkyCloudFeature(net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration.CODEC));
 
     public static void init() {
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
+            for (var p : server.getPlayerList().getPlayers()) {
+                if (!gliding(p)) continue;
+                p.resetFallDistance();
+                if (p.tickCount % 20 == 0) {                                                  // a glider wears with use
+                    ItemStack g = p.getMainHandItem().is(GLIDER) ? p.getMainHandItem() : p.getOffhandItem();
+                    g.hurtAndBreak(1, p, p.getMainHandItem().is(GLIDER) ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
+                }
+            }
+        });
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         // Pour a water bucket into a glowstone frame to light the portal (instead of placing the water)
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {

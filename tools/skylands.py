@@ -8,10 +8,11 @@ import moon_assets as M
 
 HERE = os.path.dirname(os.path.abspath(__file__)); RES = M.RES; T = os.path.join(HERE, "templates", "skylands")
 TEX = os.path.join(M.A, "textures", "block")
-LANG = {"skystone": "Skystone", "cloud": "Cloud", "blue_cloud": "Blue Cloud", "storm_cloud": "Storm Cloud", "sky_portal": "Skylands Portal"}
+ITEM_LANG = {"zephyrite": "Zephyrite", "glider": "Glider"}
+LANG = {"zephyrite_ore": "Zephyrite Ore", "zephyrite_block": "Block of Zephyrite", "skystone": "Skystone", "cloud": "Cloud", "blue_cloud": "Blue Cloud", "storm_cloud": "Storm Cloud", "sky_portal": "Skylands Portal"}
 
 def lang_entries():
-    out = {f"block.ryancraft.{k}": v for k, v in LANG.items()}; out["biome.ryancraft.sky_meadow"] = "Sky Meadow"; return out
+    out = {f"block.ryancraft.{k}": v for k, v in LANG.items()}; out.update({f"item.ryancraft.{k}": v for k, v in ITEM_LANG.items()}); out["biome.ryancraft.sky_meadow"] = "Sky Meadow"; return out
 
 def cloud_tex(base, seed, alpha=200):
     """Soft, slightly lumpy cloud: a pale colour with gentle light and shade, a little see-through."""
@@ -41,7 +42,89 @@ def portal_tex():
             px[x, y] = (int(90 + 140 * v), int(150 + 100 * v), 255, a)
     return im
 
+Z_DARK, Z_MID, Z_LIGHT, Z_GLINT = (60, 150, 170), (110, 210, 222), (180, 244, 246), (244, 255, 255)
+ZEPH = [   # a zephyrite shard: a pale cyan crystal, lit from the top left
+    "................",
+    "..........oo....",
+    ".........olho...",
+    "........olhlmo..",
+    ".......olhlmmo..",
+    "......olhlmmdo..",
+    ".....olllmmdo...",
+    "....olhlmmdo....",
+    "...olhlmmdo.....",
+    "..olllmmdo......",
+    "..ommmddo.......",
+    "...oddoo........",
+    "....oo..........",
+    "................",
+    "................",
+    "................"]
+GLIDE = [  # a little hang glider: a pale cloth wing on a sky-willow frame
+    "................",
+    "................",
+    ".......ff.......",
+    "......fwwf......",
+    ".....fwwwwf.....",
+    "....fwwccwwf....",
+    "...fwwwccwwwf...",
+    "..fwwwwccwwwwf..",
+    ".fffffffffffffff",
+    ".......ff.......",
+    ".......ff.......",
+    "......ffff......",
+    "................",
+    "................",
+    "................",
+    "................"]
+
+def sprite(rows, pal):
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = img.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch in pal: px[x, y] = pal[ch] + (255,)
+    return img
+
+def zephyrite_textures():
+    ore = skystone(); px = ore.load(); r = random.Random(75)
+    for cx, cy in ((4, 4), (11, 6), (6, 11), (12, 12)):                     # crystal clusters poking out of the stone
+        for dx, dy, c in ((0, 0, Z_LIGHT), (1, 0, Z_MID), (0, 1, Z_MID), (1, 1, Z_DARK), (-1, 1, Z_DARK), (0, -1, Z_GLINT)):
+            px[(cx + dx) % 16, (cy + dy) % 16] = c + (255,)
+    ore.save(os.path.join(TEX, "zephyrite_ore.png"))
+    blk = Image.new("RGBA", (16, 16)); pb = blk.load(); n = M.vnoise(76, 4)
+    for y in range(16):                                                        # facets: diagonal bands of light and shade
+        for x in range(16):
+            t = ((x + 2 * y) % 8) / 8 * 0.5 + n[y][x] * 0.5
+            c = Z_DARK if t < 0.35 else Z_MID if t < 0.7 else Z_LIGHT
+            pb[x, y] = c + (255,)
+    M.frame(blk, Z_GLINT, Z_DARK).save(os.path.join(TEX, "zephyrite_block.png"))
+    IT = os.path.join(M.A, "textures", "item")
+    sprite(ZEPH, {"o": (30, 80, 96), "d": Z_DARK, "m": Z_MID, "l": Z_LIGHT, "h": Z_GLINT}).save(os.path.join(IT, "zephyrite.png"))
+    sprite(GLIDE, {"f": (150, 156, 170), "w": (236, 240, 246), "c": Z_MID}).save(os.path.join(IT, "glider.png"))
+
 def blocks():
+    zephyrite_textures()
+    for n in ("zephyrite_ore", "zephyrite_block"):
+        M.w(f"assets/ryancraft/blockstates/{n}.json", {"variants": {"": {"model": f"ryancraft:block/{n}"}}})
+        M.w(f"assets/ryancraft/models/block/{n}.json", {"parent": "minecraft:block/cube_all", "textures": {"all": f"ryancraft:block/{n}"}})
+        M.w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{n}"}})
+    for n in ITEM_LANG:
+        M.w(f"assets/ryancraft/models/item/{n}.json", {"parent": "minecraft:item/handheld" if n == "glider" else "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{n}"}})
+        M.w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{n}"}})
+    M.w("data/ryancraft/loot_table/blocks/zephyrite_ore.json", M.silk_or("zephyrite_ore", "zephyrite", fortune=True))
+    M.w("data/ryancraft/loot_table/blocks/zephyrite_block.json", M.drops("zephyrite_block"))
+    R = "data/ryancraft/recipe/"
+    M.w(R + "zephyrite_block.json", {"type": "minecraft:crafting_shaped", "category": "building", "pattern": ["###", "###", "###"],
+        "key": {"#": "ryancraft:zephyrite"}, "result": {"id": "ryancraft:zephyrite_block", "count": 1}})
+    M.w(R + "zephyrite_from_block.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": ["ryancraft:zephyrite_block"],
+        "result": {"id": "ryancraft:zephyrite", "count": 9}})
+    M.w(R + "glider.json", {"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": ["ZZZ", "LLL", " S "],
+        "key": {"Z": "ryancraft:zephyrite", "L": "minecraft:leather", "S": "ryancraft:sky_willow_planks"}, "result": {"id": "ryancraft:glider", "count": 1}})
+    M.w(R + "zephyrite_from_ore.json", {"type": "minecraft:smelting", "category": "misc", "ingredient": "ryancraft:zephyrite_ore",
+        "result": {"id": "ryancraft:zephyrite"}, "experience": 0.8, "cookingtime": 200})
+    M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:zephyrite_ore", "ryancraft:zephyrite_block"])
+    M.add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:zephyrite_ore", "ryancraft:zephyrite_block"])
+
     skystone().save(os.path.join(TEX, "skystone.png"))
     cloud_tex((246, 248, 252), 72).save(os.path.join(TEX, "cloud.png"))
     cloud_tex((150, 200, 248), 73).save(os.path.join(TEX, "blue_cloud.png"))
@@ -102,9 +185,16 @@ def dimension():
         {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING_NO_LEAVES"}, {"type": "minecraft:biome"},
         {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:would_survive",
          "state": {"Name": "ryancraft:sky_willow_sapling", "Properties": {"stage": "0"}}}}]})
+    M.w(D + "worldgen/configured_feature/ore_zephyrite.json", {"type": "minecraft:ore", "config": {"size": 5, "discard_chance_on_air_exposure": 0.0,
+        "targets": [{"state": {"Name": "ryancraft:zephyrite_ore"}, "target": {"predicate_type": "minecraft:block_match", "block": "ryancraft:skystone"}}]}})
+    M.w(D + "worldgen/placed_feature/ore_zephyrite.json", {"feature": "ryancraft:ore_zephyrite", "placement": [
+        {"type": "minecraft:count", "count": 10}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 20}, "max_inclusive": {"absolute": 220}}},
+        {"type": "minecraft:biome"}]})
     b = copy.deepcopy(json.load(open(os.path.join(T, "meadow.json"))))
     b["carvers"] = []
     b["features"] = [[] for _ in range(11)]
+    b["features"][6] = ["ryancraft:ore_zephyrite"]
     b["features"][4] = ["ryancraft:sky_cloud", "ryancraft:sky_blue_cloud", "ryancraft:sky_storm_cloud"]          # surface structures step
     b["features"][9] = ["ryancraft:sky_willow_islands", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"

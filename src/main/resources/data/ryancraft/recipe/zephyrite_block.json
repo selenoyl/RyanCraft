@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:zephyrite"
+  },
+  "result": {
+    "id": "ryancraft:zephyrite_block",
+    "count": 1
+  }
+}

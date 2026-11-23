@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:zephyrite_block"
+  ],
+  "result": {
+    "id": "ryancraft:zephyrite",
+    "count": 9
+  }
+}
