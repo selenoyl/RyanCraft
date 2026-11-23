@@ -190,6 +190,8 @@ Turning power from wind, water, muscle or engines, carried by axles and cogs to 
   to split a shaft.
 - **Machines:** the **millstone** first. It grinds grain into flour (for the cooking update), cobble into sand and
   bones into bone meal. Later: saw, trip hammer, bellows.
+- **A gear-driven contraption mob** (Vintage Story style): a clockwork creature of cogs and axles. To brainstorm
+  when the gears and mechanics are built.
 
 ## Engineering ideas
 A brainstorm of vanilla-plus machines (waterwheels, windmills, gearboxes, bellows, millstones, a shulker conveyor and
