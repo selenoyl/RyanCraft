@@ -41,6 +41,8 @@ public final class Skylands {
     /** Skylands flowers and their potted forms (cut-out rendered). */
     public static final List<Block> FLOWERS = new ArrayList<>();
     public static final Block CLOUDBLOOM, SKY_BELL, WINDFLOWER, SUNPETAL;
+    /** Updrafts: vents of rising air on the islands. */
+    public static final Block ZEPHYR_VENT;
 
     static {
         SKYSTONE = block("skystone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops().strength(1.5f, 6.0f), true);
@@ -50,6 +52,8 @@ public final class Skylands {
         ZEPHYRITE_BLOCK = block("zephyrite_block", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).requiresCorrectToolForDrops()
                 .strength(3.0f, 4.0f).sound(SoundType.AMETHYST), true);
         ZEPHYRITE = item("zephyrite", new Item.Properties());
+        ZEPHYR_VENT = block("zephyr_vent", ZephyrVentBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.ICE).requiresCorrectToolForDrops()
+                .strength(1.5f, 6.0f).lightLevel(s -> 4), true);
         CLOUDBLOOM = flower("cloudbloom", net.minecraft.world.effect.MobEffects.SLOW_FALLING, 7.0f);
         SKY_BELL = flower("sky_bell", net.minecraft.world.effect.MobEffects.JUMP_BOOST, 6.0f);
         WINDFLOWER = flower("windflower", net.minecraft.world.effect.MobEffects.SPEED, 6.0f);
@@ -83,6 +87,10 @@ public final class Skylands {
         }
         return b;
     }
+
+    public static final net.minecraft.world.level.block.entity.BlockEntityType<ZephyrVentBlock.Entity_> ZEPHYR_VENT_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, RyanCraft.id("zephyr_vent"),
+            net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder.create(ZephyrVentBlock.Entity_::new, ZEPHYR_VENT).build());
 
     /** Zephyrite gear: iron's tier, a little easier to enchant. */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);

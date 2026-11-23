@@ -12,7 +12,9 @@
   "features": [
     [],
     [],
-    [],
+    [
+      "ryancraft:zephyr_vent"
+    ],
     [],
     [],
     [],

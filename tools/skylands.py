@@ -9,7 +9,7 @@ import moon_assets as M
 HERE = os.path.dirname(os.path.abspath(__file__)); RES = M.RES; T = os.path.join(HERE, "templates", "skylands")
 TEX = os.path.join(M.A, "textures", "block")
 ITEM_LANG = {"zephyrite": "Zephyrite"}
-LANG = {"zephyrite_ore": "Zephyrite Ore", "zephyrite_block": "Block of Zephyrite", "skystone": "Skystone", "sky_portal": "Skylands Portal"}
+LANG = {"zephyrite_ore": "Zephyrite Ore", "zephyrite_block": "Block of Zephyrite", "skystone": "Skystone", "sky_portal": "Skylands Portal", "zephyr_vent": "Zephyr Vent"}
 
 def lang_entries():
     out = {f"block.ryancraft.{k}": v for k, v in LANG.items()}; out.update({f"item.ryancraft.{k}": v for k, v in ITEM_LANG.items()}); out["biome.ryancraft.sky_meadow"] = "Sky Meadow"; return out
@@ -79,6 +79,29 @@ def zephyrite_textures():
     IT = os.path.join(M.A, "textures", "item")
     sprite(ZEPH, {"o": (30, 80, 96), "d": Z_DARK, "m": Z_MID, "l": Z_LIGHT, "h": Z_GLINT}).save(os.path.join(IT, "zephyrite.png"))
 
+def vent_top():
+    """Skystone round a dark vent mouth, a spiral of pale zephyr light breathing out of it."""
+    import math
+    img = skystone(); px = img.load()
+    for y in range(16):
+        for x in range(16):
+            dx, dy = x - 7.5, y - 7.5; d = math.hypot(dx, dy)
+            if d <= 6.2:
+                ang = math.atan2(dy, dx); swirl = (ang / (2 * math.pi) * 3 + d / 2.2) % 1.0
+                if d >= 5.3: px[x, y] = M.shade_px((120, 132, 156), 1.0 if dy > 0 else 1.15)     # the rim
+                elif swirl < 0.28: px[x, y] = (Z_LIGHT if d < 2.5 else Z_MID) + (255,)
+                else: px[x, y] = M.shade_px((40, 56, 78), 0.85 + 0.25 * (1 - d / 5.3))
+    return img
+
+def vent_side():
+    """Skystone strata with a band of vent slits glowing faintly near the top."""
+    img = skystone(); px = img.load()
+    for x in range(1, 15):
+        if x % 3 == 0: continue
+        px[x, 2] = M.shade_px((40, 56, 78), 1.0); px[x, 3] = Z_MID + (255,) if x % 3 == 1 else M.shade_px((40, 56, 78), 1.1)
+    for x in range(16): px[x, 4] = M.shade_px(px[x, 4][:3], 0.85)
+    return img
+
 def blocks():
     zephyrite_textures()
     for n in ("zephyrite_ore", "zephyrite_block"):
@@ -103,6 +126,15 @@ def blocks():
     M.add_tag("data/minecraft/tags/item/beacon_payment_items.json", ["ryancraft:zephyrite"])
 
     skystone().save(os.path.join(TEX, "skystone.png"))
+    vent_top().save(os.path.join(TEX, "zephyr_vent_top.png")); vent_side().save(os.path.join(TEX, "zephyr_vent_side.png"))
+    M.w("assets/ryancraft/blockstates/zephyr_vent.json", {"variants": {"": {"model": "ryancraft:block/zephyr_vent"}}})
+    M.w("assets/ryancraft/models/block/zephyr_vent.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
+        "top": "ryancraft:block/zephyr_vent_top", "side": "ryancraft:block/zephyr_vent_side", "bottom": "ryancraft:block/skystone"}})
+    M.w("assets/ryancraft/items/zephyr_vent.json", {"model": {"type": "minecraft:model", "model": "ryancraft:block/zephyr_vent"}})
+    M.w("data/ryancraft/loot_table/blocks/zephyr_vent.json", M.drops("zephyr_vent"))
+    M.w("data/ryancraft/recipe/zephyr_vent.json", {"type": "minecraft:crafting_shaped", "category": "redstone", "pattern": [" S ", "SZS", " S "],
+        "key": {"S": "ryancraft:skystone", "Z": "ryancraft:zephyrite"}, "result": {"id": "ryancraft:zephyr_vent", "count": 1}})
+    M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:zephyr_vent"])
     portal_tex().save(os.path.join(TEX, "sky_portal.png"))
     mc = json.load(open(os.path.join(T, "assets", "minecraft", "textures", "block", "nether_portal.png.mcmeta")))
     json.dump(mc, open(os.path.join(TEX, "sky_portal.png.mcmeta"), "w"))
@@ -159,11 +191,22 @@ def dimension():
         {"type": "minecraft:count", "count": 40}, {"type": "minecraft:in_square"},
         {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 30}, "max_inclusive": {"absolute": 220}}},
         {"type": "minecraft:biome"}]})
+    # updrafts: zephyr vents set into the island grass now and then
+    M.w(D + "worldgen/configured_feature/zephyr_vent.json", {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:simple_state_provider",
+        "state": {"Name": "ryancraft:zephyr_vent"}}}})
+    M.w(D + "worldgen/placed_feature/zephyr_vent.json", {"feature": "ryancraft:zephyr_vent", "placement": [
+        {"type": "minecraft:count", "count": 3}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+        {"type": "minecraft:random_offset", "xz_spread": 0, "y_spread": -1},
+        {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+            {"type": "minecraft:matching_blocks", "blocks": "minecraft:grass_block"},
+            {"type": "minecraft:matching_blocks", "offset": [0, 1, 0], "blocks": "minecraft:air"}]}},
+        {"type": "minecraft:biome"}]})
     b = copy.deepcopy(json.load(open(os.path.join(T, "meadow.json"))))
     b["carvers"] = []
     b["features"] = [[] for _ in range(11)]
     b["features"][6] = ["ryancraft:ore_zephyrite"]
-    b["features"][8] = ["ryancraft:sky_spring"]                                                              # fluid springs step
+    b["features"][8] = ["ryancraft:sky_spring"]
+    b["features"][2] = ["ryancraft:zephyr_vent"]                                                             # local modifications step                                                              # fluid springs step
     b["features"][9] = ["ryancraft:sky_willow_islands", "ryancraft:sky_flowers", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}

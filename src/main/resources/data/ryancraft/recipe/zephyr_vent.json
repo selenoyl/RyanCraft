@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "pattern": [
+    " S ",
+    "SZS",
+    " S "
+  ],
+  "key": {
+    "S": "ryancraft:skystone",
+    "Z": "ryancraft:zephyrite"
+  },
+  "result": {
+    "id": "ryancraft:zephyr_vent",
+    "count": 1
+  }
+}
