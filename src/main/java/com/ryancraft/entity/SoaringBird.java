@@ -31,6 +31,8 @@ public abstract class SoaringBird extends CritterAnimal implements FlyingAnimal 
     protected double soarRadius() { return 14; }
     /** Whether it's the time of day to be up and about (owls only at night). */
     protected boolean active() { return true; }
+    /** Whether it may go off soaring at all (a tame roc stays with its rider). */
+    protected boolean canSoar() { return true; }
     /** How long a soaring spell lasts, in ticks. */
     protected int soarTime() { return 600 + this.random.nextInt(1200); }
 
@@ -83,11 +85,11 @@ public abstract class SoaringBird extends CritterAnimal implements FlyingAnimal 
         SoarGoal() { this.setFlags(EnumSet.of(Flag.MOVE)); }
 
         @Override public boolean canUse() {
-            if (SoaringBird.this.getTarget() != null || !active() && !playerNear()) return false;
+            if (!canSoar() || SoaringBird.this.getTarget() != null || !active() && !playerNear()) return false;
             return playerNear() || SoaringBird.this.random.nextInt(SoaringBird.this.onGround() ? 400 : 20) == 0;
         }
 
-        @Override public boolean canContinueToUse() { return time > 0 && SoaringBird.this.getTarget() == null && (active() || playerNear()); }
+        @Override public boolean canContinueToUse() { return canSoar() && time > 0 && SoaringBird.this.getTarget() == null && (active() || playerNear()); }
 
         @Override public void start() {
             soaring = true;

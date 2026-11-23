@@ -224,7 +224,7 @@ sink slowly and drift where you look, with no fall damage (it wears with use). T
 creatures is in too: **sky rays**, great pale rays that glide in wide, slow circles over the islands (harmless).
 Also built: the **cloud kite mudling** (white cloud body, skystone limbs and a sky-blue sail; it drifts down instead of
 falling, hops high, strikes sod, pebble and snowpack mudlings from above, and loses to cinder and gravel; camps of
-skystone on the islands). Also built: **sky rocs** (huge cloud-white soaring birds that circle wide and high; peaceful unless struck; breed with mutton) and their **nests** on the high islands (hay ringed with sky willow, one to three **roc eggs** that crack and hatch chicks; silk touch carries an egg home). Still to come: a rideable roc raised from an egg, ambience, more zephyrite gear.
+skystone on the islands). Also built: **sky rocs** (huge cloud-white soaring birds that circle wide and high; peaceful unless struck; breed with mutton) and their **nests** on the high islands (hay ringed with sky willow, one to three **roc eggs** that crack and hatch chicks; silk touch carries an egg home). **Rideable rocs**: hatch an egg, win the chick over with mutton, saddle it once grown, and fly where you look (hold forward; let go to hover). Still to come: ambience, more zephyrite gear.
 
 A dimension of floating islands above the clouds, in the spirit of the old Aether mod but with its own blocks,
 creatures (no holystone, skyroot, moas or aerwhales), reached through the classic glowstone portal.
