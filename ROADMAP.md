@@ -298,7 +298,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
     - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore. *(Built: open-roofed moonstone arenas with glowing jade pillars and two chests; lore to come.)*
-    - **Meteors fall all the time** (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
+    - **Meteors fall all the time** *(built; force fields to come)* (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
       "night" and in showers. They never break blocks, so your builds and the landscape are safe, but they're
       dangerous to you:
       - A meteor that lands near you bursts with a small blast, like a creeper's but weaker. One that hits you
