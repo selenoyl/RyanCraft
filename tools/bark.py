@@ -186,7 +186,8 @@ def pattern(sp, r):
     """Each species' own bark, drawn on the template grain."""
     if sp == "white_oak": return scales(r, 4)                                                    # pale, shallow scales
     if sp == "red_oak": return furrows(r, (1, 6, 11), wobble=0.5)                               # long flat pale ridges
-    if sp == "sugar_maple": return merge(plates(r, 4, 8, jitter=2), furrows(r, (2, 10), wobble=0.4, light_side=False))
+    if sp == "sugar_maple": return merge(furrows(r, (1, 6, 11), wobble=0.9), flecks(r, 6, "D", (2, 4)), flecks(r, 5, "L", (2, 3)),
+                                         flecks(r, 3, "D", (1, 2), horizontal=True))           # long shaggy plates, ragged breaks
     if sp == "red_maple": return merge(flecks(r, 5, "D", (3, 6)), flecks(r, 6, "L", (2, 4)))     # smooth, a few cracks
     if sp == "tulip_poplar": return braided(r, 4, seg=(2, 6), wide=0.0, ridge=0.85, broken=0.08, tight=True)   # a loose net, some furrows broken
     if sp == "shagbark_hickory": return strips(r, (0, 5, 9, 13), peel=5)
@@ -194,13 +195,23 @@ def pattern(sp, r):
     if sp == "american_beech": return merge(flecks(r, 4, "L", (2, 3), horizontal=True), flecks(r, 3, "D", (2, 2), horizontal=True))
     if sp == "sycamore": return blotches(r, ((3, 2, 2.3, "A"), (11, 6, 1.8, "B"), (6, 11, 2.6, "A"), (13, 13, 1.4, "A"), (1, 8, 1.2, "B")))
     if sp == "eastern_redbud": return merge(plates(r, 3, 3, jitter=4, edge=None), flecks(r, 7, "A"))   # fine scales, orange in the cracks
-    if sp == "flowering_dogwood": return plates(r, 3, 3, jitter=2)                              # small square plates
+    if sp == "flowering_dogwood": return merge(scales(r, 3), flecks(r, 5, "D"), flecks(r, 4, "L"))   # small uneven plates, broken joints
     if sp == "eastern_red_cedar": return merge(furrows(r, (0, 3, 7, 10, 13), wobble=0.3), flecks(r, 5, "A", (3, 6)))  # stringy, grey weathering
     if sp == "black_cherry": return merge(plates(r, 6, 4, jitter=3, edge=None), flecks(r, 7, "A", (2, 3), horizontal=True))  # chips, lenticels
     if sp == "sassafras": return merge(furrows(r, (1, 5, 9, 13), wobble=1.2), flecks(r, 4, "D", (2, 4)))   # deep, wandering furrows
     if sp == "ohio_buckeye": return scales(r, 3)
     if sp == "sky_willow": return merge(flecks(r, 5, "D", (2, 3), horizontal=True), flecks(r, 4, "L", (2, 4), horizontal=True))   # smooth, birch-like marks
     return grid()
+
+NOISY = {"sugar_maple": 0.35, "flowering_dogwood": 0.35}          # extra pixel noise, so the grain isn't too regular
+
+def noise(img, amount, r):
+    px = img.load()
+    for y in range(16):
+        for x in range(16):
+            if r.random() < amount:
+                k = r.uniform(0.84, 1.16); c = px[x, y]; px[x, y] = tuple(min(255, int(v * k)) for v in c[:3]) + (255,)
+    return img
 
 ACCENT = {"sycamore": ((222, 218, 196), (178, 176, 140)), "eastern_redbud": ((176, 96, 52), None),
           "eastern_red_cedar": ((150, 140, 128), None), "black_cherry": ((132, 112, 100), None)}
@@ -210,5 +221,6 @@ if __name__ == "__main__":
         img = mapped(tpl, dark, mid, light)
         a = ACCENT.get(sp, (None, None))
         apply(img, pattern(sp, random.Random(sp)), dark, light, a[0], a[1])
+        if sp in NOISY: noise(img, NOISY[sp], random.Random(sp + "n"))
         img.save(os.path.join(OUT, f"{sp}_log.png"))
     print("bark ok")
