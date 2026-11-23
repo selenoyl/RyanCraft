@@ -1,9 +1,10 @@
 """Garden crops (food/Crops.java): four growth stages each, drawn in the flat classic style, plus produce and seed
-icons, block and item models, loot (seeds back at every stage, produce when grown), seed recipes and lang.
+icons (both drawn by tools/food_art.py in the classic item style), block and item models, loot (seeds back at every stage, produce when grown), seed recipes and lang.
   python3 tools/crops.py      (tools/resources.py merges the lang)"""
 import json, os, random
 from PIL import Image
 import moon_assets as M
+import food_art as FA
 
 B = os.path.join(M.TEX, "block"); I = os.path.join(M.TEX, "item")
 G = {"d": (34, 92, 26), "g": (62, 138, 40), "l": (110, 180, 64), "s": (90, 120, 40)}      # dark leaf, leaf, light leaf, stem
@@ -136,12 +137,12 @@ def build():
     W, D = M.w, "data/ryancraft/"
     for name in ICONS:
         for st in range(4):
-            stage(name, st).save(os.path.join(B, f"{name}_stage{st}.png"))
+            FA.crop_stage(name, st).save(os.path.join(B, f"{name}_stage{st}.png"))
             W(f"assets/ryancraft/models/block/{name}_stage{st}.json", {"parent": "minecraft:block/crop", "textures": {"crop": f"ryancraft:block/{name}_stage{st}"}})
         W(f"assets/ryancraft/blockstates/{name}_crop.json", {"variants": {f"age={a}": {"model": f"ryancraft:block/{name}_stage{a}"} for a in range(4)}})
-        icon(ICONS[name]).save(os.path.join(I, f"{name}.png"))
+        FA.ICONS[name]().save(os.path.join(I, f"{name}.png"))
         items = [name] + ([SEEDS[name]] if name in SEEDS else [])
-        if name in SEEDS: seed_icon(SEEDS[name]).save(os.path.join(I, f"{SEEDS[name]}.png"))
+        if name in SEEDS: FA.seeds(SEEDS[name]).save(os.path.join(I, f"{SEEDS[name]}.png"))
         for it in items:
             W(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{it}"}})
             W(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{it}"}})
