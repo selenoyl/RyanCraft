@@ -51,6 +51,10 @@ public class GreatMoonRabbit extends Rabbit {
     private final ServerBossEvent bar = new ServerBossEvent(getDisplayName(), BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.NOTCHED_10);
     private final List<UUID> minions = new ArrayList<>();
     private int hopCd = 40, swingCd, slamCd = 120, meteorCd = 60, summonCd = 200;
+    /** The heart of its temple, where the portal home opens when it falls. */
+    private net.minecraft.core.@Nullable BlockPos home;
+
+    public void setHome(net.minecraft.core.BlockPos pos) { home = pos.immutable(); }
 
     public GreatMoonRabbit(EntityType<? extends GreatMoonRabbit> type, Level level) { super(type, level); xpReward = 100; }
 
@@ -145,9 +149,34 @@ public class GreatMoonRabbit extends Rabbit {
 
     @Override
     public void die(DamageSource source) {
-        if (level() instanceof ServerLevel level)
+        if (level() instanceof ServerLevel level && !isRemoved()) {
             for (UUID id : minions) { Entity e = level.getEntity(id); if (e != null) e.discard(); }
+            openWayHome(level, home != null ? home : blockPosition());
+        }
         super.die(source);
+    }
+
+    /** A lit jade portal home, standing where the rabbit fell (it stays, for later trips). */
+    private static void openWayHome(ServerLevel level, net.minecraft.core.BlockPos at) {
+        var jade = MoonBlocks.JADE_BLOCK.defaultBlockState();
+        var portal = MoonBlocks.MOON_PORTAL.defaultBlockState().setValue(net.minecraft.world.level.block.NetherPortalBlock.AXIS, net.minecraft.core.Direction.Axis.X);
+        for (int x = -1; x <= 2; x++) for (int y = -1; y <= 3; y++) {
+            boolean edge = x == -1 || x == 2 || y == -1 || y == 3;
+            level.setBlock(at.offset(x, y, 0), edge ? jade : portal, net.minecraft.world.level.block.Block.UPDATE_CLIENTS | net.minecraft.world.level.block.Block.UPDATE_KNOWN_SHAPE);
+        }
+        level.playSound(null, at, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1f, 1f);
+    }
+
+    @Override
+    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput out) {
+        super.addAdditionalSaveData(out);
+        if (home != null) out.putLong("Home", home.asLong());
+    }
+
+    @Override
+    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput in) {
+        super.readAdditionalSaveData(in);
+        in.getLong("Home").ifPresent(l -> home = net.minecraft.core.BlockPos.of(l));
     }
 
     @Override public void startSeenByPlayer(ServerPlayer p) { super.startSeenByPlayer(p); bar.addPlayer(p); }

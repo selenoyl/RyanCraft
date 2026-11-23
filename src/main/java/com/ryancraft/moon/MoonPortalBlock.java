@@ -32,15 +32,16 @@ import net.minecraft.world.phys.Vec3;
 /**
  * The jade portal to the Hollow Moon: a nether portal's shape framed in Blocks of Jade, lit with an eye of ender at
  * night under a full moon. Its surface is the night sky, stars drifting through a slow swirl.
- * <p>The trip is meant to be one way: you land on the moon with no portal back, and the way home opens when the Great
- * Moon Rabbit falls. Until the rabbit and its temple are in, {@link #WAY_HOME_OPEN} lets a jade frame lit on the moon
- * lead home (to your matching spot on Earth, where a jade portal is built for you).
+ * <p>The trip is one way: you land on the moon with no portal back, and a jade frame won't light up there. The way home
+ * is the portal that opens in a jade temple when its Great Moon Rabbit falls (it stays open for later trips), leading
+ * to your matching spot on Earth, where a jade portal is built for you. {@link #WAY_HOME_OPEN} would let any jade frame
+ * on the moon light (off).
  */
 public class MoonPortalBlock extends NetherPortalBlock {
     public static final MapCodec<NetherPortalBlock> CODEC = simpleCodec(MoonPortalBlock::new);
     public static final ResourceKey<Level> MOON = ResourceKey.create(Registries.DIMENSION, RyanCraft.id("moon"));
-    /** Interim, until the moon boss exists: may a jade portal be lit on the moon? */
-    public static final boolean WAY_HOME_OPEN = true;
+    /** May any jade frame be lit on the moon? (No: the way home is through the rabbit.) */
+    public static final boolean WAY_HOME_OPEN = false;
 
     public MoonPortalBlock(Properties p) { super(p); }
     @Override public MapCodec<NetherPortalBlock> codec() { return CODEC; }

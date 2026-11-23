@@ -257,7 +257,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   ![Hollow Moon concept art](docs/moon_concept.png)
 
   - **Getting there:** jade is a new rare ore, found deep in mountains and lush caves (and in the moon's own stone). Nine jade make a Block of Jade, a green cousin of the lapis block. *(Jade, its ores and its block are in.)*
-    Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through. *(Built: the jade portal with its night-sky surface. Until the Great Moon Rabbit exists, a jade portal lit on the moon leads home.)*
+    Build a frame of jade blocks the size of a nether portal (4 wide by 5 tall, around a 2 by 3 opening), light it with an eye of ender under a full moon, and step through. *(Built: the jade portal with its night-sky surface; one way, home only through a temple's portal once its rabbit falls.)*
     The portal's surface looks like the night sky, stars drifting with the End portal's parallax, and swirls like
     a nether portal.
   - **No air.** *(Built, with the Potion of Air; force fields and the crown to come.)* The moon has no air, so your air bar drains as if you were underwater, and when it runs out you
@@ -297,7 +297,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
   - **Things to do:**
     - Mine moonstone (a light building stone) and moon dust, a light material for gliding gear, slow-fall
       boots and lanterns.
-    - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore.
+    - Explore the ruined jade temples of the old moon people, which hold the boss arena, loot and lore. *(Built: open-roofed moonstone arenas with glowing jade pillars and two chests; lore to come.)*
     - **Meteors fall all the time** (on the moon only, never on Earth). Glowing rocks streak down out of the black sky at random, more often at
       "night" and in showers. They never break blocks, so your builds and the landscape are safe, but they're
       dangerous to you:
@@ -314,7 +314,7 @@ something back to the overworld, so it's worth the trip. All in the same vanilla
     bound with meteor iron, makes **Gravity Wells**: blocks that set a low-gravity
     field around them back on Earth. That means floaty jumps, slow falls and items that drift instead of drop, for
     sky bridges, safe drops, jump pads, low-gravity arenas and parkour. Nothing else gives it.
-  - **The boss: the Great Moon Rabbit.** *(Built: the fight, minions, meteors, crown and Moon Mortar. Next: the jade temple arena and the portal home.)* (Our own design in vanilla's boss style: moon-dust fur with bigger vanilla-rabbit eyes, [docs/moon_boss_rabbit_eyes.png](docs/moon_boss_rabbit_eyes.png))
+  - **The boss: the Great Moon Rabbit.** *(Built: the fight, minions, meteors, crown, Moon Mortar, the jade temples it waits in, and the portal home that opens when it falls.)* (Our own design in vanilla's boss style: moon-dust fur with bigger vanilla-rabbit eyes, [docs/moon_boss_rabbit_eyes.png](docs/moon_boss_rabbit_eyes.png))
     ![The Great Moon Rabbit](docs/moon_boss_rabbit_eyes.png)
 
     A giant crowned rabbit in the heart of the jade temple, wielding a

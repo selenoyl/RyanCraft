@@ -725,6 +725,7 @@ def worldgen():
         {"type": "minecraft:biome"}]})
     features = [[] for _ in range(11)]; features[6] = ["ryancraft:ore_meteor_iron", "ryancraft:ore_moon_jade"]
     features[9] = ["ryancraft:patch_moon_herb"]                                  # (moon_life.py writes the herb patch)
+    features[4] = ["ryancraft:jade_temple"]                                      # (and the jade temples)
     w(D + "worldgen/biome/moon.json", {"carvers": ["ryancraft:moon_cave", "ryancraft:moon_lava_tube", "ryancraft:moon_ravine"],
         "attributes": {"minecraft:visual/fog_color": "#000000", "minecraft:visual/sky_color": "#000000"}, "downfall": 0.0,
         "effects": {"water_color": "#3f76e4"}, "features": features, "has_precipitation": False, "spawn_costs": {},

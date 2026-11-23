@@ -198,3 +198,24 @@ def relics():
 
 if __name__ == "__main__":
     relics(); print("relics ok")
+
+
+# ---------------------------------------------------------------- jade temples (worldgen/JadeTempleFeature.java)
+def temples():
+    D = "data/ryancraft/worldgen/"
+    M.w(D + "configured_feature/jade_temple.json", {"type": "ryancraft:jade_temple", "config": {}})
+    M.w(D + "placed_feature/jade_temple.json", {"feature": "ryancraft:jade_temple", "placement": [
+        {"type": "minecraft:rarity_filter", "chance": 48}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
+    p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
+    b["features"][4] = ["ryancraft:jade_temple"]; json.dump(b, open(p, "w"), indent=2)
+    item = lambda n, lo, hi, w: {"type": "minecraft:item", "name": n, "weight": w, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}}]}
+    M.w("data/ryancraft/loot_table/chests/jade_temple.json", {"type": "minecraft:chest", "pools": [
+        {"rolls": {"type": "minecraft:uniform", "min": 4, "max": 7}, "entries": [
+            item("ryancraft:raw_meteor_iron", 2, 6, 20), item("ryancraft:meteor_iron_ingot", 1, 3, 10), item("ryancraft:jade", 2, 5, 15),
+            item("ryancraft:moon_herb", 2, 6, 15), item("minecraft:golden_carrot", 2, 5, 10), item("minecraft:ender_eye", 1, 2, 5),
+            {"type": "minecraft:item", "name": "minecraft:potion", "weight": 15, "functions": [{"function": "minecraft:set_potion", "id": "ryancraft:air"}]},
+            {"type": "minecraft:item", "name": "minecraft:potion", "weight": 5, "functions": [{"function": "minecraft:set_potion", "id": "ryancraft:long_air"}]}]}]})
+
+if __name__ == "__main__":
+    temples(); print("temples ok")

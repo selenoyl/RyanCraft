@@ -128,6 +128,7 @@ public final class MoonBlocks {
         MoonPortalBlock.init();
         MoonPhysics.init();
         MoonRelics.init();
+        net.minecraft.core.Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("jade_temple"), new com.ryancraft.worldgen.JadeTempleFeature());
         // jade ore in Earth's mountains and lush caves (the moon's comes with its own biome)
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addFeature(
                 net.fabricmc.fabric.api.biome.v1.BiomeSelectors.tag(net.minecraft.tags.BiomeTags.IS_MOUNTAIN)
