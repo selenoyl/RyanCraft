@@ -109,3 +109,92 @@ def spacemen():
 
 if __name__ == "__main__":
     spacemen(); print("spacemen ok")
+
+
+# ---------------------------------------------------------------- the Great Moon Rabbit and its relics
+DUST = [(120, 116, 104), (160, 156, 144), (196, 192, 180), (226, 222, 210)]           # moon-dust fur
+def recoat(pal, eyes, big=False):
+    im = Image.open(os.path.join(TPL, "white.png")).convert("RGBA"); px = im.load()
+    vals = [sum(px[x, y][:3]) / 3 for y in range(im.height) for x in range(im.width) if px[x, y][3]]
+    lo, hi = min(vals), max(vals)
+    for y in range(im.height):
+        for x in range(im.width):
+            r, g, b, a = px[x, y]
+            if not a: continue
+            if r > 120 and g < 110: px[x, y] = eyes[0] + (a,); continue                    # the eyes
+            h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            if s > 0.2 and (h < 0.05 or h > 0.85): continue                                 # pink nose, inner ears
+            px[x, y] = grad((sum((r, g, b)) / 3 - lo) / max(1, hi - lo), pal) + (a,)
+    if big:                                                                                 # bigger eyes: 2x2, with a glint
+        for ex in (37, 41):
+            for ey in (5, 6): px[ex, ey] = eyes[0] + (255,)
+        for gx in (37, 40): px[gx, 5] = eyes[1] + (255,)
+    return im
+
+def gear():
+    im = Image.new("RGBA", (32, 32), (0, 0, 0, 0)); px = im.load()
+    HAFT, HAFT_D, STONE, STONE_D, STONE_L = (92, 66, 44), (64, 44, 30), (170, 168, 160), (120, 118, 112), (204, 202, 194)
+    GOLD, GOLD_D, JADE = (232, 186, 52), (176, 128, 30), (84, 196, 122)
+    for y in range(16):
+        for x in range(4): px[x, y] = (HAFT if x % 2 == 0 else HAFT_D) + (255,)
+    for y in range(7):
+        for x in range(4, 20): px[x, y] = (STONE_L if y < 4 and x < 12 else STONE if (x + y) % 3 else STONE_D) + (255,)
+    for y in range(7, 11):
+        for x in range(4, 16): px[x, y] = (STONE_D if (x + y) % 2 else STONE) + (255,)
+    for y in range(16, 22):
+        for x in range(0, 20): px[x, y] = (JADE if x % 5 == 2 and y >= 21 else GOLD if (x + y) % 4 else GOLD_D) + (255,)
+    for y in range(22, 24):
+        for x in range(0, 4): px[x, y] = GOLD + (255,)
+    return im
+
+def sprite(rows, pal):
+    im = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); px = im.load()
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            if ch in pal: px[x, y] = pal[ch] + (255,)
+    return im
+
+CROWN_ICON = ["................", "................", "................", "................", "..g....g....g...", "..gg..ggg..gg...",
+              "..gGg.gGg.gGg...", "..gGGgGJGgGGg...", "..gGGGGGGGGGg...", "..gJGGJGGJGGg...", "..gGGGGGGGGGg...", "..dddddddddddd..",
+              "................", "................", "................", "................"]
+MORTAR_ICON = ["..........sSSs..", ".........sLLLSs.", "........sLddLSs.", "........sLddLs..", ".........sSSs...", "........hh......",
+               ".......hh.......", "......hh........", ".....hh.........", "....hh..........", "...hh...........", "..hh............",
+               ".hh.............", "hh..............", "h...............", "................"]
+
+def relics():
+    recoat(DUST, [(30, 34, 52), (220, 226, 255)], big=True).save(os.path.join(ENT, "great_moon_rabbit.png"))
+    recoat(SILVER, [(220, 40, 40), (255, 160, 160)]).save(os.path.join(ENT, "angry_moon_rabbit.png"))
+    recoat([(52, 46, 66), (86, 78, 102), (122, 114, 140), (156, 150, 176)], [(240, 40, 30), (255, 160, 150)]).save(os.path.join(ENT, "angry_moon_rabbit_brute.png"))
+    gear().save(os.path.join(ENT, "great_moon_rabbit_gear.png"))
+    I = os.path.join(M.A, "textures", "item")
+    sprite(CROWN_ICON, {"g": (176, 128, 30), "G": (232, 186, 52), "J": (84, 196, 122), "d": (120, 84, 20)}).save(os.path.join(I, "jade_crown.png"))
+    sprite(MORTAR_ICON, {"s": (120, 118, 112), "S": (150, 148, 140), "L": (204, 202, 194), "d": (70, 68, 64), "h": (92, 66, 44)}).save(os.path.join(I, "moon_mortar.png"))
+    for it, parent in (("jade_crown", "minecraft:item/generated"), ("moon_mortar", "minecraft:item/handheld")):
+        M.w(f"assets/ryancraft/models/item/{it}.json", {"parent": parent, "textures": {"layer0": f"ryancraft:item/{it}"}})
+        M.w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{it}"}})
+    # the crown as worn: a gold band with jade stones round the top of the head (humanoid armour layout)
+    eq = Image.new("RGBA", (64, 32), (0, 0, 0, 0)); px = eq.load()
+    for x in range(0, 32):                                    # the head's four sides, top two rows: band and points
+        px[x, 8 + 0] = ((84, 196, 122) if x % 4 == 2 else (232, 186, 52)) + (255,)
+        if x % 4 == 0: px[x, 8 - 1 + 0] = (232, 186, 52, 255)
+    for x in range(8, 16):
+        for y in range(0, 8):
+            if x in (8, 15) or y in (0, 7): px[x, y] = (232, 186, 52, 255)                 # the band seen from above
+    out = os.path.join(ENT, "equipment", "humanoid"); os.makedirs(out, exist_ok=True); eq.save(os.path.join(out, "jade_crown.png"))
+    M.w("assets/ryancraft/equipment/jade_crown.json", {"layers": {"humanoid": [{"texture": "ryancraft:jade_crown"}]}})
+    M.w("data/ryancraft/tags/item/jade_crown_repair.json", {"values": ["ryancraft:jade"]})
+    M.w("data/ryancraft/loot_table/entities/great_moon_rabbit.json", {"type": "minecraft:entity", "pools": [
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:jade_crown"}]},
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:moon_mortar"}]},
+        {"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:raw_meteor_iron", "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": 3, "max": 6}}]}]}]})
+    save_item("great_moon_rabbit_spawn_egg", egg_icon("#c4c0b4", "#54c47a"))
+    M.w("assets/ryancraft/models/item/great_moon_rabbit_spawn_egg.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/great_moon_rabbit_spawn_egg"}})
+    M.w("assets/ryancraft/items/great_moon_rabbit_spawn_egg.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/great_moon_rabbit_spawn_egg"}})
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p))
+    d.update({"entity.ryancraft.great_moon_rabbit": "Great Moon Rabbit", "entity.ryancraft.angry_moon_rabbit": "Angry Moon Rabbit",
+              "entity.ryancraft.boss_meteor": "Meteor", "item.ryancraft.jade_crown": "Jade Crown", "item.ryancraft.moon_mortar": "Moon Mortar",
+              "item.ryancraft.great_moon_rabbit_spawn_egg": "Great Moon Rabbit Spawn Egg"})
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+
+if __name__ == "__main__":
+    relics(); print("relics ok")

@@ -94,6 +94,13 @@ public final class RyanEntities {
             EntityType.Builder.of(MoonRabbit::new, MobCategory.CREATURE).sized(0.49f, 0.6f).eyeHeight(0.59f).clientTrackingRange(8));
     public static final EntityType<LostSpaceman> LOST_SPACEMAN = register("lost_spaceman",
             EntityType.Builder.of(LostSpaceman::new, MobCategory.MONSTER).sized(0.6f, 1.95f).eyeHeight(1.74f).clientTrackingRange(8));
+    /** The moon's boss, its minions and its meteors. */
+    public static final EntityType<GreatMoonRabbit> GREAT_MOON_RABBIT = register("great_moon_rabbit",
+            EntityType.Builder.of(GreatMoonRabbit::new, MobCategory.MONSTER).sized(0.49f, 0.6f).eyeHeight(0.59f).clientTrackingRange(16).fireImmune());
+    public static final EntityType<AngryMoonRabbit> ANGRY_MOON_RABBIT = register("angry_moon_rabbit",
+            EntityType.Builder.of(AngryMoonRabbit::new, MobCategory.MONSTER).sized(0.49f, 0.6f).eyeHeight(0.59f).clientTrackingRange(8));
+    public static final EntityType<BossMeteor> BOSS_METEOR = register("boss_meteor",
+            EntityType.Builder.<BossMeteor>of(BossMeteor::new, MobCategory.MISC).sized(1.0f, 1.0f).clientTrackingRange(6).updateInterval(10));
     public static final EntityType<GoldenEagle> GOLDEN_EAGLE = register("golden_eagle",
             EntityType.Builder.of(GoldenEagle::new, MobCategory.CREATURE).sized(0.7f, 0.9f).clientTrackingRange(10));
     public static final EntityType<RedTailedHawk> RED_TAILED_HAWK = register("red_tailed_hawk",
@@ -185,6 +192,8 @@ public final class RyanEntities {
         FabricDefaultAttributeRegistry.register(BALD_EAGLE, BaldEagle.createAttributes());
         FabricDefaultAttributeRegistry.register(SKY_RAY, SkyRay.createAttributes());
         FabricDefaultAttributeRegistry.register(LOST_SPACEMAN, LostSpaceman.createAttributes().build());
+        FabricDefaultAttributeRegistry.register(GREAT_MOON_RABBIT, GreatMoonRabbit.createAttributes());
+        FabricDefaultAttributeRegistry.register(ANGRY_MOON_RABBIT, AngryMoonRabbit.createAttributes());
         FabricDefaultAttributeRegistry.register(MOON_RABBIT, net.minecraft.world.entity.animal.rabbit.Rabbit.createAttributes());
         FabricDefaultAttributeRegistry.register(SKY_ROC, SkyRoc.createAttributes());
         FabricDefaultAttributeRegistry.register(PEGASUS, net.minecraft.world.entity.animal.equine.AbstractHorse.createBaseHorseAttributes());

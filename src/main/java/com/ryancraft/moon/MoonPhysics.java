@@ -45,7 +45,7 @@ public final class MoonPhysics {
     /** Whether this entity has to hold its breath here. */
     public static boolean breathless(LivingEntity e) {
         if (!(e instanceof Player p) || !onMoon(e) || p.isCreative() || p.isSpectator()) return false;
-        return !e.hasEffect(AIR);
+        return !e.hasEffect(AIR) && !MoonRelics.wearingCrown(e);
     }
 
     public static void init() {
