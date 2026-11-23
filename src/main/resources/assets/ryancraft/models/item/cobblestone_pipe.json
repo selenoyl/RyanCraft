@@ -5,33 +5,37 @@
     "end": "ryancraft:block/cobblestone_pipe_end",
     "particle": "ryancraft:block/cobblestone_pipe"
   },
-  "display": {
-    "gui": {
-      "rotation": [
-        30,
-        225,
-        0
-      ],
-      "scale": [
-        0.9,
-        0.9,
-        0.9
-      ]
-    }
-  },
   "elements": [
     {
       "from": [
         4,
-        4,
-        0
+        0,
+        4
       ],
       "to": [
         12,
-        12,
-        16
+        16,
+        12
       ],
       "faces": {
+        "north": {
+          "uv": [
+            4,
+            0,
+            12,
+            16
+          ],
+          "texture": "#pipe"
+        },
+        "south": {
+          "uv": [
+            4,
+            0,
+            12,
+            16
+          ],
+          "texture": "#pipe"
+        },
         "east": {
           "uv": [
             4,
@@ -39,8 +43,7 @@
             12,
             16
           ],
-          "texture": "#pipe",
-          "rotation": 90
+          "texture": "#pipe"
         },
         "west": {
           "uv": [
@@ -49,82 +52,86 @@
             12,
             16
           ],
-          "texture": "#pipe",
-          "rotation": 90
+          "texture": "#pipe"
         },
         "up": {
           "uv": [
             4,
-            0,
+            4,
             12,
-            16
+            12
           ],
-          "texture": "#pipe"
+          "texture": "#end"
         },
         "down": {
           "uv": [
             4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#end"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        0,
+        4
+      ],
+      "to": [
+        12,
+        16,
+        4
+      ],
+      "shade": false,
+      "faces": {
+        "south": {
+          "uv": [
+            4,
             0,
             12,
             16
           ],
           "texture": "#pipe"
-        },
-        "north": {
-          "uv": [
-            4,
-            4,
-            12,
-            12
-          ],
-          "texture": "#end"
-        },
-        "south": {
-          "uv": [
-            4,
-            4,
-            12,
-            12
-          ],
-          "texture": "#end"
         }
       }
     },
     {
       "from": [
-        12,
         4,
-        0
+        0,
+        12
       ],
       "to": [
         12,
-        12,
-        16
+        16,
+        12
       ],
       "shade": false,
       "faces": {
-        "west": {
+        "north": {
           "uv": [
             4,
             0,
             12,
             16
           ],
-          "texture": "#pipe",
-          "rotation": 90
+          "texture": "#pipe"
         }
       }
     },
     {
       "from": [
         4,
-        4,
-        0
+        0,
+        4
       ],
       "to": [
         4,
-        12,
-        16
+        16,
+        12
       ],
       "shade": false,
       "faces": {
@@ -135,25 +142,24 @@
             12,
             16
           ],
-          "texture": "#pipe",
-          "rotation": 90
+          "texture": "#pipe"
         }
       }
     },
     {
       "from": [
-        4,
         12,
-        0
+        0,
+        4
       ],
       "to": [
         12,
-        12,
-        16
+        16,
+        12
       ],
       "shade": false,
       "faces": {
-        "down": {
+        "west": {
           "uv": [
             4,
             0,
@@ -161,78 +167,6 @@
             16
           ],
           "texture": "#pipe"
-        }
-      }
-    },
-    {
-      "from": [
-        4,
-        4,
-        0
-      ],
-      "to": [
-        12,
-        4,
-        16
-      ],
-      "shade": false,
-      "faces": {
-        "up": {
-          "uv": [
-            4,
-            0,
-            12,
-            16
-          ],
-          "texture": "#pipe"
-        }
-      }
-    },
-    {
-      "from": [
-        4,
-        4,
-        0
-      ],
-      "to": [
-        12,
-        12,
-        0
-      ],
-      "shade": false,
-      "faces": {
-        "south": {
-          "uv": [
-            4,
-            4,
-            12,
-            12
-          ],
-          "texture": "#end"
-        }
-      }
-    },
-    {
-      "from": [
-        4,
-        4,
-        16
-      ],
-      "to": [
-        12,
-        12,
-        16
-      ],
-      "shade": false,
-      "faces": {
-        "north": {
-          "uv": [
-            4,
-            4,
-            12,
-            12
-          ],
-          "texture": "#end"
         }
       }
     }

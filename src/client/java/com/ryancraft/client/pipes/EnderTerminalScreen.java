@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * The Ender Terminal: four rows showing everything on the pipe network (scroll with the wheel; a button in the corner
+ * The Ender Terminal: four rows showing everything on the pipe network (scroll with the wheel or the bar beside them; a button in the corner
  * sorts by name or by amount), then
  * the two rows where your requests arrive. Left-click an item for a stack, right-click for one. Click the grid while
  * holding something to send it off into storage; shift-click items in your inventory to do the same.
@@ -30,6 +30,19 @@ public class EnderTerminalScreen extends AbstractContainerScreen<EnderTerminalMe
     private static boolean byAmount = false;
     private Button sort;
     private int scroll;
+    private boolean dragging;
+    /** The scroll bar, just outside the panel's right edge (the grid fills the panel's width). */
+    private static final int BAR_X = 177, BAR_W = 6;
+
+    private int rows() { return (visible().size() + 8) / 9; }
+    private int maxScroll() { return Math.max(0, rows() - ROWS); }
+    private boolean overBar(double mx, double my) {
+        return maxScroll() > 0 && mx >= leftPos + BAR_X && mx < leftPos + BAR_X + BAR_W && my >= topPos + GRID_Y - 1 && my < topPos + GRID_Y + ROWS * 18 - 1;
+    }
+    private void scrollTo(double my) {
+        double t = (my - (topPos + GRID_Y - 1)) / (ROWS * 18.0);
+        scroll = (int) Math.round(Math.max(0, Math.min(1, t)) * maxScroll());
+    }
 
     public EnderTerminalScreen(EnderTerminalMenu menu, Inventory inv, Component title) {
         super(menu, inv, title);
@@ -94,17 +107,39 @@ public class EnderTerminalScreen extends AbstractContainerScreen<EnderTerminalMe
         g.blit(RenderPipelines.GUI_TEXTURED, BG, x, y + 6 * 18 + 17, 0, 126, imageWidth, 96, 256, 256);
         g.fill(x + 7, y + GRID_Y - 1, x + 169, y + GRID_Y + ROWS * 18 - 1, 0x40301050);     // ender tint over the network view
         g.fill(x + 7, y + GRID_Y + ROWS * 18, x + 169, y + GRID_Y + ROWS * 18 + 1, 0xFF6A3A9A);
+        int max = maxScroll();
+        if (max > 0) {                                                   // the scroll bar: a dark track and an ender-purple thumb
+            int top = y + GRID_Y - 1, h = ROWS * 18, bx = x + BAR_X;
+            g.fill(bx - 1, top - 1, bx + BAR_W + 1, top + h + 1, 0xFF1A1020);
+            g.fill(bx, top, bx + BAR_W, top + h, 0xFF3A2A44);
+            int thumb = Math.max(10, h * ROWS / rows()), ty = top + (h - thumb) * scroll / max;
+            g.fill(bx, ty, bx + BAR_W, ty + thumb, 0xFF9A6ACA);
+            g.fill(bx, ty, bx + BAR_W, ty + 1, 0xFFC8A0F0);
+            g.fill(bx, ty + thumb - 1, bx + BAR_W, ty + thumb, 0xFF5A3A7A);
+        }
     }
 
     @Override
     public boolean mouseScrolled(double mx, double my, double dx, double dy) {
-        int rows = (visible().size() + 8) / 9;
-        scroll = Math.max(0, Math.min(Math.max(0, rows - ROWS), scroll - (int) Math.signum(dy)));
+        scroll = Math.max(0, Math.min(maxScroll(), scroll - (int) Math.signum(dy)));
         return true;
     }
 
     @Override
+    public boolean mouseDragged(MouseButtonEvent e, double dx, double dy) {
+        if (dragging) { scrollTo(e.y()); return true; }
+        return super.mouseDragged(e, dx, dy);
+    }
+
+    @Override
+    public boolean mouseReleased(MouseButtonEvent e) {
+        dragging = false;
+        return super.mouseReleased(e);
+    }
+
+    @Override
     public boolean mouseClicked(MouseButtonEvent e, boolean doubleClick) {
+        if (overBar(e.x(), e.y())) { dragging = true; scrollTo(e.y()); return true; }
         int cell = cellAt(e.x(), e.y());
         if (cell >= 0) {
             if (!menu.getCarried().isEmpty()) { ClientPlayNetworking.send(new TerminalPayloads.DepositCarried()); return true; }

@@ -96,12 +96,14 @@ def pipe_models(kind):
         parts.append({"when": {"OR": [{d: "false", p: "false"} for p in perp[d]]}, "apply": {"model": f"ryancraft:block/{kind}_pipe_core_{d}"}})
     for d, r in rot.items(): parts.append({"when": {d: "true"}, "apply": dict({"model": f"ryancraft:block/{kind}_pipe_arm"}, **r)})
     w(f"assets/ryancraft/blockstates/{kind}_pipe.json", {"multipart": parts})
-    # item: a straight run of pipe
-    w(f"assets/ryancraft/models/item/{kind}_pipe.json", {"parent": "block/block", "textures": {"pipe": t, "end": e, "particle": t}, "display": {
-        "gui": {"rotation": [30, 225, 0], "scale": [0.9, 0.9, 0.9]}},
-        "elements": [{"from": [4, 4, 0], "to": [12, 12, 16], "faces": {"east": face([4, 0, 12, 16], "#pipe", rot=90), "west": face([4, 0, 12, 16], "#pipe", rot=90),
-                      "up": face([4, 0, 12, 16], "#pipe"), "down": face([4, 0, 12, 16], "#pipe"), "north": face([4, 4, 12, 12], "#end"), "south": face([4, 4, 12, 12], "#end")}}]
-                    + inner_walls(0, 16, "#pipe") + [inner_face("north", [4, 4, 12, 12], "#end", z=(0, 16)), inner_face("south", [4, 4, 12, 12], "#end", z=(0, 16))]})
+    # item: a short upright length of pipe, ends showing top and bottom, at the standard block size and angle
+    side = lambda: face([4, 0, 12, 16], "#pipe")
+    inner = lambda f, t_, d: {"from": f, "to": t_, "shade": False, "faces": {d: face([4, 0, 12, 16], "#pipe")}}
+    w(f"assets/ryancraft/models/item/{kind}_pipe.json", {"parent": "block/block", "textures": {"pipe": t, "end": e, "particle": t},
+        "elements": [{"from": [4, 0, 4], "to": [12, 16, 12], "faces": {"north": side(), "south": side(), "east": side(), "west": side(),
+                      "up": face([4, 4, 12, 12], "#end"), "down": face([4, 4, 12, 12], "#end")}},
+                     inner([4, 0, 4], [12, 16, 4], "south"), inner([4, 0, 12], [12, 16, 12], "north"),       # the far walls, seen through the glass
+                     inner([4, 0, 4], [4, 16, 12], "east"), inner([12, 0, 4], [12, 16, 12], "west")]})
     w(f"assets/ryancraft/items/{kind}_pipe.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{kind}_pipe"}})
 
 def tile(img, tex, box):

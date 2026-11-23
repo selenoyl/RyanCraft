@@ -91,7 +91,7 @@ public class PumpRenderer<T extends BlockEntity> implements BlockEntityRenderer<
             out.submitModelPart(handle, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
         } else {
             pose.pushPose();
-            pose.mulPose(Axis.YP.rotation(s.angle));
+            pose.mulPose(Axis.YP.rotation(-s.angle));                            // threads climb, carrying the water up
             out.submitModelPart(screw, pose, rt, s.lightCoords, OverlayTexture.NO_OVERLAY, null);
             pose.popPose();
             if (s.tube > 1) {
