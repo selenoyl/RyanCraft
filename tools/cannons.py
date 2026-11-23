@@ -50,13 +50,14 @@ ART = {
     "musket_ball": ["................", "................", "................", "................", "................", "......kkk.......",
                     ".....kmwmk......", ".....kmmmk......", ".....kdmdk......", "......kkk.......", "................", "................",
                     "................", "................", "................", "................"],
-    "musket": ["................", "..............k.", ".............kmk", "............kmk.", "...........kmk..", "..........kmk...",
-               ".........kmk....", "........kmk.....", ".......kdkB.....", "......kdBBb.....", ".....BBBbbk.....", "....bBBbsk......",
-               "...bBBbs.k......", "..bBBbs.........", "..bbbs..........", "...s............"],
+    "musket": ["................", "................", "................", "................", "................", "....k..........k",   # side view:
+               "...kgkkkkkkkkkkk", "kk.kmlllllllllll", "kBkkmmmmmmmmmmmk", "kBBwBBBBBBBBBkkk", "kBBBbbkkbbbbbk..", "kBBBk.g.g.......",   # muzzle right,
+               "kBBBk..g........", "kbbbk...........", "................", "................"],                                        # butt left
     "cannon": ["................", "................", "................", "................", "...........kk...", ".........kkmmk..",
                ".......kkmmddk..", ".....kkmmddkk...", "..kkkmmddkk.....", ".kmdkddkkBBb....", ".kkkkkkBBBBbb...", "...bbBBBBbbBBbs.",
                "..bkkkb..bbBbs..", "..kbbbk...ssbs..", "..kbBbk.........", "...kkk.........."],
 }
+MUSKET_TP, MUSKET_FP = 95, 5
 TITLES = {"musket": "Musket", "cannon": "Cannon", "cannonball": "Cannonball", "heated_shot": "Heated Shot", "chain_shot": "Chain Shot", "grapeshot": "Grapeshot",
           "canister_shot": "Canister Shot", "explosive_shell": "Explosive Shell", "musket_ball": "Musket Ball"}
 
@@ -79,7 +80,12 @@ def build():
         sprite(rows).save(os.path.join(I, k + ".png"))
         W(f"assets/ryancraft/models/item/{k}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{k}"}})
         W(f"assets/ryancraft/items/{k}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{k}"}})
-    W("assets/ryancraft/models/item/musket.json", {"parent": "minecraft:item/handheld", "textures": {"layer0": "ryancraft:item/musket"}})
+    # held like a long gun: the side-view sprite turned so the barrel points out ahead, not up like a sword
+    W("assets/ryancraft/models/item/musket.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/musket"},
+        "display": {"thirdperson_righthand": {"rotation": [0, 90, MUSKET_TP], "translation": [0, 3, 1], "scale": [1.1, 1.1, 1.1]},
+                    "thirdperson_lefthand": {"rotation": [0, -90, -MUSKET_TP], "translation": [0, 3, 1], "scale": [1.1, 1.1, 1.1]},
+                    "firstperson_righthand": {"rotation": [0, -90, MUSKET_FP], "translation": [1.13, 3.4, 1.13], "scale": [0.7, 0.7, 0.7]},
+                    "firstperson_lefthand": {"rotation": [0, 90, -MUSKET_FP], "translation": [1.13, 3.4, 1.13], "scale": [0.7, 0.7, 0.7]}}})
     sh = lambda name, pat, key, n=1, suffix="": W(f"{R}{name}{suffix}.json", {"type": "minecraft:crafting_shaped", "category": "equipment", "pattern": pat,
         "key": key, "result": {"id": f"ryancraft:{name}", "count": n}})
     sl = lambda name, ing, n=1, suffix="": W(f"{R}{name}{suffix}.json", {"type": "minecraft:crafting_shapeless", "category": "equipment",

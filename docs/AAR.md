@@ -113,3 +113,4 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - Mod chest textures go in `assets/<ns>/textures/entity/chest/`: the chest atlas reads that folder in every namespace, so `Sheets.CHEST_MAPPER.apply(id)` and the `minecraft:chest` special item model both find them, and vanilla's ChestModel draws them, lid and all.
 - The test wait loop must not grep for "error:": ALSA prints it at startup and the screenshot catches the loading screen.
 - Villager trade screens can be tested headless: put the test player in creative facing a NoAI villager (give it `Xp:1` so it keeps its profession without a job site), then `xdotool windowactivate` the Minecraft window and `xdotool click 3`.
+- Item display rotations apply Z first, then Y, then X. Adding 180 on X while negating Z gives the same pose, so it won't flip a held item. To turn a side-view item upright, flip the sign of the Y turn (e.g. [0, 90, z] instead of [0, -90, z]).
