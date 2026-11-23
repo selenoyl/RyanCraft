@@ -1,5 +1,5 @@
 """Jade and lapis building blocks: bricks (vanilla stone-brick layout in the gem's colours), brick stairs, slabs and
-walls, and chiseled blocks with a carved motif (jade: the moon rabbit under its moon; lapis: a star).
+walls, and chiseled blocks: the gem block's own face carved into vanilla's stone-brick and chiseled patterns.
   python3 tools/gem_blocks.py      (tools/resources.py merges the lang)"""
 import json, os, random
 from PIL import Image
@@ -54,29 +54,27 @@ STAR = [
     "................",
     "................"]
 
-def bricks(g):
-    p = GEMS[g]
-    img = M.mapped(cb("stone_bricks"), p["dark"], p["light"]); px = img.load(); n = M.vnoise((21 if g == "jade" else 22), 4)
-    for y in range(16):
-        for x in range(16): px[x, y] = M.shade_px(px[x, y], 0.93 + 0.14 * n[y][x])
-    if p["fleck"]: M.dots(img, random.Random(5), 5, p["fleck"])
-    return img
+def gem_surface(g):
+    """The gem block's own face: our Block of Jade, or the classic lapis block."""
+    src = os.path.join(TEX, "jade_block.png") if g == "jade" else cb("lapis_block")
+    return Image.open(src).convert("RGBA").crop((0, 0, 16, 16))
 
-def chiseled(g, motif):
-    p = GEMS[g]
-    img = M.rock((21 if g == "jade" else 22), p["dark"], p["light"], 0.12)
-    mid = tuple((a + b) // 2 for a, b in zip(p["dark"], p["light"]))
-    img = M.frame(img, tuple(min(255, c + 30) for c in p["light"]), tuple(int(c * 0.6) for c in p["dark"]))
-    px = img.load(); groove = tuple(int(c * 0.7) for c in p["dark"]); lit = tuple(min(255, c + 40) for c in p["light"])
-    for y, row in enumerate(motif):
-        for x, ch in enumerate(row):
-            if ch == "#": px[x, y] = groove + (255,)
-            elif ch == "+": px[x, y] = lit + (255,)
-    for y in range(15):                                   # a lit lower-right lip on every groove pixel
-        for x in range(15):
-            if motif[y][x] == "#" and motif[y + 1][x + 1] == ".": px[x + 1, y + 1] = M.shade_px(px[x + 1, y + 1], 1.15)
-    if p["fleck"]: M.dots(img, random.Random(9), 3, p["fleck"])
-    return img
+def relief(g, template, strength=1.0):
+    """The gem block's face carved into a vanilla pattern: the template's shading (mortar, bevels, chisel cuts) is
+    laid over the gem's own texture, so it reads as that block cut and dressed."""
+    base = gem_surface(g); t = Image.open(cb(template)).convert("RGBA").crop((0, 0, 16, 16))
+    lum = [[sum(t.getpixel((x, y))[:3]) / 3 for x in range(16)] for y in range(16)]
+    mean = sum(sum(r) for r in lum) / 256
+    out = base.copy(); px = out.load()
+    for y in range(16):
+        for x in range(16):
+            k = (lum[y][x] / mean) ** strength
+            px[x, y] = M.shade_px(px[x, y], k)
+    return out
+
+def bricks(g): return relief(g, "stone_bricks", 1.1)
+
+def chiseled(g, motif=None): return relief(g, "chiseled_stone_bricks", 1.1)
 
 def json_files():
     for g in GEMS:
@@ -120,6 +118,6 @@ def json_files():
 
 if __name__ == "__main__":
     for g in GEMS: bricks(g).save(os.path.join(TEX, f"{g}_bricks.png"))
-    chiseled("jade", RABBIT).save(os.path.join(TEX, "chiseled_jade.png"))
-    chiseled("lapis", STAR).save(os.path.join(TEX, "chiseled_lapis.png"))
+    chiseled("jade").save(os.path.join(TEX, "chiseled_jade.png"))
+    chiseled("lapis").save(os.path.join(TEX, "chiseled_lapis.png"))
     json_files(); print("gem blocks ok")
