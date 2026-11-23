@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "ryancraft:block/sky_willow_leaves"
+  }
+}

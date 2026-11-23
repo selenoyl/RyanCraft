@@ -97,11 +97,16 @@ def dimension():
             {"type": "minecraft:rarity_filter", "chance": chance}, {"type": "minecraft:in_square"},
             {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 40}, "max_inclusive": {"absolute": 200}}},
             {"type": "minecraft:biome"}]})
+    M.w(D + "worldgen/placed_feature/sky_willow_islands.json", {"feature": "ryancraft:sky_willow", "placement": [
+        {"type": "minecraft:count", "count": {"type": "minecraft:weighted_list", "distribution": [{"weight": 3, "data": 1}, {"weight": 2, "data": 2}, {"weight": 1, "data": 0}]}},
+        {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "MOTION_BLOCKING_NO_LEAVES"}, {"type": "minecraft:biome"},
+        {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:would_survive",
+         "state": {"Name": "ryancraft:sky_willow_sapling", "Properties": {"stage": "0"}}}}]})
     b = copy.deepcopy(json.load(open(os.path.join(T, "meadow.json"))))
     b["carvers"] = []
     b["features"] = [[] for _ in range(11)]
     b["features"][4] = ["ryancraft:sky_cloud", "ryancraft:sky_blue_cloud", "ryancraft:sky_storm_cloud"]          # surface structures step
-    b["features"][9] = ["minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
+    b["features"][9] = ["ryancraft:sky_willow_islands", "minecraft:patch_tall_grass_2", "minecraft:patch_grass_meadow", "minecraft:flower_meadow", "minecraft:trees_meadow"]
     b["effects"]["grass_color"] = "#7ed65e"; b["effects"]["foliage_color"] = "#6ccf50"
     b["attributes"] = {"minecraft:visual/sky_color": "#8cc8ff"}
     M.w(D + "worldgen/biome/sky_meadow.json", b)

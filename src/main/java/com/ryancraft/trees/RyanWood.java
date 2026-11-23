@@ -54,6 +54,7 @@ public final class RyanWood {
     private record Look(MapColor bark, MapColor wood, int leaf) {}
     private static final Map<TreeSpecies, Look> LOOKS = Map.ofEntries(
             Map.entry(TreeSpecies.WHITE_OAK, new Look(MapColor.STONE, MapColor.WOOD, 0x5f8f3e)),
+            Map.entry(TreeSpecies.SKY_WILLOW, new Look(MapColor.QUARTZ, MapColor.ICE, 0x8fc8bc)),
             Map.entry(TreeSpecies.RED_OAK, new Look(MapColor.COLOR_GRAY, MapColor.TERRACOTTA_ORANGE, 0x3f7a2e)),
             Map.entry(TreeSpecies.SUGAR_MAPLE, new Look(MapColor.COLOR_GRAY, MapColor.SAND, 0x3e7a34)),
             Map.entry(TreeSpecies.RED_MAPLE, new Look(MapColor.STONE, MapColor.SAND, 0x4a8436)),

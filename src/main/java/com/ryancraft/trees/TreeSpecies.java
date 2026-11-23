@@ -58,6 +58,9 @@ public enum TreeSpecies {
     }),
     OHIO_BUCKEYE("ohio_buckeye", t -> { // short and stout, rounded crown
         int h = t.vi(9, 2); t.crown(h, (int) (h * .6), 0.42, TreeShape.ROUND, 4.5, 9, 0.6, 1.0, 1, TreeShape.Part.LOG, 0.9, TreeShape.CLUSTER, true);
+    }),
+    SKY_WILLOW("sky_willow", t -> { // the Skylands' own: tall and slender, a narrow crown of drooping silvery leaves
+        int h = t.vi(13, 3); t.crown(h, (int) (h * .7), 0.35, TreeShape.egg(.4), 3.2, 8, 0.9, 1.1, 1, TreeShape.Part.LOG, 0.75, TreeShape.CLUSTER, true);
     });
 
     public final String id;

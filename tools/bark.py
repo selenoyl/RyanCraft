@@ -26,6 +26,7 @@ BARK = {
     "eastern_red_cedar": ("spruce", (68, 36, 24),   (138, 78, 50),   (178, 118, 84)),    # red-brown, stringy
     "black_cherry":      ("jungle", (30, 22, 22),   (62, 46, 44),    (98, 78, 72)),      # dark plates, "burnt chips"
     "sassafras":         ("spruce", (64, 42, 30),   (120, 82, 56),   (164, 120, 88)),    # orange-brown furrows
+    "sky_willow":        ("birch",  (150, 156, 170), (198, 204, 216), (228, 232, 240)),  # silver, faintly blue
     "ohio_buckeye":      ("oak",    (72, 68, 62),   (122, 116, 106), (164, 158, 146)),   # grey, scaly
 }
 
@@ -198,6 +199,7 @@ def pattern(sp, r):
     if sp == "black_cherry": return merge(plates(r, 6, 4, jitter=3, edge=None), flecks(r, 7, "A", (2, 3), horizontal=True))  # chips, lenticels
     if sp == "sassafras": return merge(furrows(r, (1, 5, 9, 13), wobble=1.2), flecks(r, 4, "D", (2, 4)))   # deep, wandering furrows
     if sp == "ohio_buckeye": return scales(r, 3)
+    if sp == "sky_willow": return merge(flecks(r, 5, "D", (2, 3), horizontal=True), flecks(r, 4, "L", (2, 4), horizontal=True))   # smooth, birch-like marks
     return grid()
 
 ACCENT = {"sycamore": ((222, 218, 196), (178, 176, 140)), "eastern_redbud": ((176, 96, 52), None),

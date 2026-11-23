@@ -31,6 +31,7 @@ TREES = {
     "black_cherry":     ("#2e2622", "flaky", "#a8604a", "#3c6e2c", None),
     "sassafras":        ("#7a6250", "furrows", "#c89a6a", "#6aa040", None),
     "ohio_buckeye":     ("#8a847a", "plates", "#e0d4b8", "#4c7e30", None),
+    "sky_willow":       ("#c8ccd4", "furrows", "#b4c4d2", "#8fc8bc", None),
 }
 
 def wander(r, start, p):

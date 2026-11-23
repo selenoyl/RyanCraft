@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/sky_willow_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/sky_willow_planks"
+    },
+    "type=top": {
+      "model": "ryancraft:block/sky_willow_slab_top"
+    }
+  }
+}
