@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:eastern_redbud_checked",
+        "chance": 0.429
+      },
+      {
+        "feature": "ryancraft:flowering_dogwood_checked",
+        "chance": 0.75
+      }
+    ],
+    "default": "ryancraft:white_oak_checked"
+  }
+}

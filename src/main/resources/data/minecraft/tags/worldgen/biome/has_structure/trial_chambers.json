@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:oak_hickory_woods",
+    "ryancraft:maple_beech_forest",
+    "ryancraft:tulip_poplar_cove",
+    "ryancraft:sycamore_bottoms",
+    "ryancraft:cedar_glade",
+    "ryancraft:redbud_dogwood_glade",
+    "ryancraft:old_field",
+    "ryancraft:buckeye_hollow"
+  ]
+}

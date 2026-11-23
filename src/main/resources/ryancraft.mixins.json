@@ -20,7 +20,10 @@
     "FoodDataThirstMixin",
     "FurnaceSteelMixin",
     "EnderEyeMixin",
-    "WeatherClearMixin"
+    "WeatherClearMixin",
+    "OverworldBiomeBuilderMixin",
+    "StableWorldgenMixin",
+    "StableLevelSummaryMixin"
   ],
   "injectors": {
     "defaultRequire": 0

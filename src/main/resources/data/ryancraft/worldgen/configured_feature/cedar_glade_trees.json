@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [],
+    "default": "ryancraft:eastern_red_cedar_checked"
+  }
+}

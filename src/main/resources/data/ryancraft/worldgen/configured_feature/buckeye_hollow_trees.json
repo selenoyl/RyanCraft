@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:ohio_buckeye_checked",
+        "chance": 0.5
+      },
+      {
+        "feature": "ryancraft:american_beech_checked",
+        "chance": 0.75
+      }
+    ],
+    "default": "ryancraft:red_maple_checked"
+  }
+}

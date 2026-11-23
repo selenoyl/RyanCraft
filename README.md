@@ -71,6 +71,10 @@ Every catch is called out, and the **Angler's Logbook** keeps your personal best
 
 ![The fifteen trees](docs/trees_chart.jpg)
 
+**Eastern forest biomes**, mixed in among the vanilla ones (no extra mods needed): Oak-Hickory Woods, Maple-Beech Forest,
+Tulip Poplar Cove, Sycamore Bottoms, Cedar Glade, Redbud-Dogwood Glade, Old Field and Buckeye Hollow. Each has its own
+mix of trees, density and grass colour, and shares the animals of the vanilla biome it grows beside.
+
 ![The same grove in summer and late autumn](docs/trees_grove.jpg)
 
 **The year runs Serene Seasons-style**: early, mid and late spring, summer, autumn and winter, 8 days each.
@@ -134,7 +138,7 @@ All the ambience is original synthesised sound, made in the spirit of MAtmos.
 **Small touches:**
 - skeleton variants
 - armadillos, goats and turtles drop their scutes and horns when killed
-- Beta 1.7 biomes (with [TerraBlender](https://modrinth.com/mod/terrablender))
+- Beta 1.7 biomes, built in
 - no chat reporting
 - old-style splash text
 
@@ -144,7 +148,7 @@ Everything can be switched off in `config/ryancraft.json`.
 
 ## Install
 1. Install [Fabric Loader](https://fabricmc.net/use/) 0.20.1+ for Minecraft 1.21.11.
-2. Put the [latest RyanCraft jar](https://github.com/selenoyl/RyanCraft/releases/latest) and [Fabric API](https://modrinth.com/mod/fabric-api) in `.minecraft/mods`. Add [TerraBlender](https://modrinth.com/mod/terrablender) too if you want the Beta biomes.
+2. Put the [latest RyanCraft jar](https://github.com/selenoyl/RyanCraft/releases/latest) and [Fabric API](https://modrinth.com/mod/fabric-api) in `.minecraft/mods`.
 3. That's it: the classic pack ships inside the mod and switches on by default.
 
 ## Build

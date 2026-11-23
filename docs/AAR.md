@@ -50,6 +50,9 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - [ ] **Preview in game.** Place each tree with `/place feature` on flat ground, three of each, before committing. Keep test `fill`s under 32,768 blocks.
 
 ## Biomes
+- [ ] **Keep feature order consistent.** Inside each generation step, features shared between biomes must appear in
+      the same relative order in every biome, or the world won't load ("Feature order cycle"). When building a biome
+      from a vanilla one, only add features unique to it, or put shared ones where vanilla has them.
 - [ ] **Worldgen code never reads the level far away.** A placement filter or feature can only touch nearby chunks;
       to check the biome some distance off, ask the biome source with the climate sampler, not `level.getBiome`
       (that crashed chunk generation).

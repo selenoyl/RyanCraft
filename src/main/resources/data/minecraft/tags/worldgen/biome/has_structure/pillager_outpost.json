@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "ryancraft:shrubland",
-    "ryancraft:tundra"
+    "ryancraft:tundra",
+    "ryancraft:cedar_glade",
+    "ryancraft:old_field"
   ]
 }

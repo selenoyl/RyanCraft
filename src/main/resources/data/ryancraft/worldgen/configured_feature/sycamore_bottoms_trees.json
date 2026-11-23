@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:sycamore_checked",
+        "chance": 0.5
+      },
+      {
+        "feature": "ryancraft:red_maple_checked",
+        "chance": 0.5
+      }
+    ],
+    "default": "ryancraft:black_walnut_checked"
+  }
+}

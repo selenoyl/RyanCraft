@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:sassafras_checked",
+        "chance": 0.429
+      },
+      {
+        "feature": "ryancraft:black_cherry_checked",
+        "chance": 0.5
+      }
+    ],
+    "default": "ryancraft:eastern_red_cedar_checked"
+  }
+}

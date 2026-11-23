@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:white_oak_checked",
+        "chance": 0.273
+      },
+      {
+        "feature": "ryancraft:red_oak_checked",
+        "chance": 0.375
+      },
+      {
+        "feature": "ryancraft:shagbark_hickory_checked",
+        "chance": 0.6
+      },
+      {
+        "feature": "ryancraft:black_walnut_checked",
+        "chance": 0.5
+      }
+    ],
+    "default": "minecraft:oak_checked"
+  }
+}

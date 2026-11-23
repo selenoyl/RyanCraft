@@ -10,7 +10,8 @@
     "PlayerEntryMixin",
     "AvatarRendererCrowMixin",
     "HorseRendererZebraMixin",
-    "DustFogMixin"
+    "DustFogMixin",
+    "StableWorldCreationMixin"
   ],
   "injectors": {
     "defaultRequire": 0

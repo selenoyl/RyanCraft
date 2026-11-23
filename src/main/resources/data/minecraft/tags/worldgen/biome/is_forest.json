@@ -2,6 +2,11 @@
   "replace": false,
   "values": [
     "ryancraft:seasonal_forest",
-    "ryancraft:autumn_forest"
+    "ryancraft:autumn_forest",
+    "ryancraft:oak_hickory_woods",
+    "ryancraft:maple_beech_forest",
+    "ryancraft:tulip_poplar_cove",
+    "ryancraft:redbud_dogwood_glade",
+    "ryancraft:buckeye_hollow"
   ]
 }

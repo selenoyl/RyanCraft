@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:tulip_poplar_checked",
+        "chance": 0.714
+      },
+      {
+        "feature": "ryancraft:red_maple_checked",
+        "chance": 0.5
+      }
+    ],
+    "default": "ryancraft:american_beech_checked"
+  }
+}

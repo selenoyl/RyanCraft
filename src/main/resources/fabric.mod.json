@@ -10,8 +10,7 @@
   "environment": "*",
   "entrypoints": {
     "main": ["com.ryancraft.RyanCraft"],
-    "client": ["com.ryancraft.client.RyanCraftClient"],
-    "terrablender": ["com.ryancraft.worldgen.RyanTerraBlender"]
+    "client": ["com.ryancraft.client.RyanCraftClient"]
   },
   "mixins": [
     "ryancraft.mixins.json",
@@ -22,8 +21,5 @@
     "minecraft": "~1.21.11",
     "java": ">=21",
     "fabric-api": "*"
-  },
-  "recommends": {
-    "terrablender": "*"
   }
 }

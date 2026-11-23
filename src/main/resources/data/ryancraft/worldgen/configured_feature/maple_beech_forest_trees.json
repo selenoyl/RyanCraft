@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "features": [
+      {
+        "feature": "ryancraft:sugar_maple_checked",
+        "chance": 0.4
+      },
+      {
+        "feature": "ryancraft:american_beech_checked",
+        "chance": 0.667
+      },
+      {
+        "feature": "ryancraft:red_maple_checked",
+        "chance": 0.5
+      }
+    ],
+    "default": "minecraft:birch_checked"
+  }
+}
