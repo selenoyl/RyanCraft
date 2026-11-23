@@ -121,7 +121,7 @@ def json_files():
     names = [f"ryancraft:{n}" for n in every]
     MA.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", names)
     MA.add_tag("data/minecraft/tags/block/needs_stone_tool.json", names)
-    MA.add_tag("data/minecraft/tags/block/beacon_base_blocks.json", [x for x in names if x.endswith("silver_block")])
+    MA.add_tag("data/minecraft/tags/block/beacon_base_blocks.json", [x for x in names if x.endswith(("silver_block", "cut_silver", "chiseled_silver"))])
     for tag, k in (("stairs", "cut_silver_stairs"), ("slabs", "cut_silver_slab"), ("doors", "silver_door"), ("trapdoors", "silver_trapdoor")):
         sel = [x for x in names if x.endswith(k)]
         MA.add_tag(f"data/minecraft/tags/block/{tag}.json", sel); MA.add_tag(f"data/minecraft/tags/item/{tag}.json", sel)

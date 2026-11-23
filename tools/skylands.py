@@ -97,6 +97,8 @@ def blocks():
         "result": {"id": "ryancraft:zephyrite"}, "experience": 0.8, "cookingtime": 200})
     M.add_tag("data/minecraft/tags/block/mineable/pickaxe.json", ["ryancraft:zephyrite_ore", "ryancraft:zephyrite_block"])
     M.add_tag("data/minecraft/tags/block/needs_iron_tool.json", ["ryancraft:zephyrite_ore", "ryancraft:zephyrite_block"])
+    M.add_tag("data/minecraft/tags/block/beacon_base_blocks.json", ["ryancraft:zephyrite_block"])
+    M.add_tag("data/minecraft/tags/item/beacon_payment_items.json", ["ryancraft:zephyrite"])
 
     skystone().save(os.path.join(TEX, "skystone.png"))
     portal_tex().save(os.path.join(TEX, "sky_portal.png"))

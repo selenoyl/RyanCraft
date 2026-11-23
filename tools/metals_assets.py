@@ -110,9 +110,9 @@ def build(m):
     names = [f"ryancraft:{b}" for b in blocks]
     add_tag("data/minecraft/tags/block/mineable/pickaxe.json", names)
     add_tag(f"data/minecraft/tags/block/{'needs_iron_tool' if iron_tool else 'needs_stone_tool'}.json", names)
-    if m == "silver":
-        add_tag("data/minecraft/tags/block/beacon_base_blocks.json", ["ryancraft:silver_block"])
-        add_tag("data/minecraft/tags/item/beacon_payment_items.json", ["ryancraft:silver_ingot"])
+    # every metal block powers a beacon, and every ingot pays for one
+    add_tag("data/minecraft/tags/block/beacon_base_blocks.json", [f"ryancraft:{m}_block"] + ([f"ryancraft:chiseled_{m}"] if m != "silver" else []))
+    add_tag("data/minecraft/tags/item/beacon_payment_items.json", [f"ryancraft:{m}_ingot"])
     D = "data/ryancraft/worldgen/"
     targets = [{"state": {"Name": f"ryancraft:{m}_ore"}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:stone_ore_replaceables"}},
                {"state": {"Name": f"ryancraft:deepslate_{m}_ore"}, "target": {"predicate_type": "minecraft:tag_match", "tag": "minecraft:deepslate_ore_replaceables"}}]

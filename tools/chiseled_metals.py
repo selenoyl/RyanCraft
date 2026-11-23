@@ -1,5 +1,5 @@
 """Chiseled metal blocks, each with its own embossed motif on a bevelled plate:
-  silver   a crescent moon and a star      lead     a plumb bob (lead is plumbum)
+  silver   a crescent moon and a star      lead     a diamond lattice of cames, like leaded glass
   tin      a riveted ring                  zinc     honeycomb, after zinc's hexagonal crystals
   aluminum three wing chevrons, for the light metal
   uranium  a glowing core with rays
@@ -20,11 +20,11 @@ def motif(m):
                 if math.hypot(x - 7.5, y - 8) <= 4.6 and math.hypot(x - 9.6, y - 6.8) > 4.0: S.add((x, y))
         S -= {(x, y) for x in range(9, 14) for y in range(2, 8)}
         S |= {(11, 3), (10, 4), (11, 4), (12, 4), (11, 5)}             # the star, in the crescent's hollow
-    elif m == "lead":
-        S |= {(7, y) for y in range(2, 6)} | {(8, y) for y in range(2, 6)}            # the line
-        for y in range(6, 14):                                                       # the bob: wide top, point below
-            w = [2, 3, 3, 3, 2, 2, 1, 0][y - 6]
-            S |= {(x, y) for x in range(8 - w - 1, 8 + w + 1)}
+    elif m == "lead":                                                # a window of diamond quarrels, like leaded glass
+        for y in range(2, 14):
+            for x in range(2, 14):
+                d = abs(x - 7.5) + abs(y - 7.5)
+                if 5 <= d <= 6 or (d <= 5 and (x == y or x + y == 15)): S.add((x, y))
     elif m == "tin":
         for y in range(16):
             for x in range(16):

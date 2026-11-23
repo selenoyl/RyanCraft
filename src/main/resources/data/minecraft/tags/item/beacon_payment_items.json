@@ -3,6 +3,12 @@
   "values": [
     "ryancraft:steel_ingot",
     "ryancraft:meteor_iron_ingot",
-    "ryancraft:silver_ingot"
+    "ryancraft:silver_ingot",
+    "ryancraft:lead_ingot",
+    "ryancraft:tin_ingot",
+    "ryancraft:zinc_ingot",
+    "ryancraft:aluminum_ingot",
+    "ryancraft:uranium_ingot",
+    "ryancraft:zephyrite"
   ]
 }
