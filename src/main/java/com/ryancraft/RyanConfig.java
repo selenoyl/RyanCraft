@@ -42,6 +42,10 @@ public final class RyanConfig {
     public boolean ambience = true;
     /** Extra volume multiplier on top of the game's Ambient/Environment slider. */
     public float ambienceVolume = 1.0f;
+    /** Fireflies blinking on warm nights. Turn off (or down) if they slow your game. */
+    public boolean fireflies = true;
+    /** How many fireflies, from 0.0 (none) to 1.0 (the full swarm). */
+    public float fireflyAmount = 1.0f;
 
     // ---- Survival ----
     /** A thirst bar: drink from water (sneak-free, empty hand) or bottles; some foods give a little water. */
