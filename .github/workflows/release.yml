@@ -37,5 +37,5 @@ jobs:
           v="${{ steps.v.outputs.version }}"
           awk -v ver="## $v" '$0==ver{on=1;next} /^## /{on=0} on' docs/CHANGELOG.md > notes.md
           [ -s notes.md ] || echo "RyanCraft $v" > notes.md
-          printf '\nNeeds Fabric Loader 0.20.1+ and Fabric API for Minecraft 1.21.11 (TerraBlender optional, for the Beta biomes).\n' >> notes.md
+          printf '\nNeeds Fabric Loader 0.20.1+ and Fabric API for Minecraft 1.21.11.\n' >> notes.md
           gh release create "v$v" "build/libs/ryancraft-$v.jar" --title "RyanCraft $v" --notes-file notes.md --target "$GITHUB_SHA"
