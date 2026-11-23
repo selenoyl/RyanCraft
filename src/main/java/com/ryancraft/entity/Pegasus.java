@@ -30,13 +30,16 @@ import org.jspecify.annotations.Nullable;
  * Pegasus: a winged horse of the Skylands. A horse in every way (tame, saddle, armour, breed with pegasi), but it jumps
  * twice as high (its wings add a fixed boost on top of an ordinary horse's jump strength, so foals inherit normally) and
  * glides: falling, it spreads its wings, drifts down slowly and never takes fall damage. Ridden, it glides forward.
+ * Pegasi are white or grey. A pegasus can also breed with an ordinary horse: the foal is a winged hybrid in any horse
+ * coat (mixin/HorseBreedPegasusMixin handles the horse's side of the pairing).
  */
 public class Pegasus extends Horse {
     /** Jump velocity x sqrt(2) is twice the jump height. */
     private static final AttributeModifier WINGS = new AttributeModifier(RyanCraft.id("pegasus_wings"), Math.sqrt(2) - 1,
             AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     private static final double GLIDE_FALL = -0.12, GLIDE_SPEED = 0.42;
-    private static final Variant[] COATS = {Variant.WHITE, Variant.WHITE, Variant.CREAMY, Variant.GRAY};
+    /** A pure pegasus is always white or grey; a hybrid (pegasus x horse) can wear any horse coat. */
+    private static final Variant[] COATS = {Variant.WHITE, Variant.GRAY};
     /** Client: how far the wings are spread (0 folded, 1 open). */
     public float wingSpread, prevWingSpread;
 
@@ -91,21 +94,28 @@ public class Pegasus extends Horse {
         return out;
     }
 
+    /** Pegasi breed with pegasi and with ordinary horses (not zebras, which keep to their own). */
     @Override
     public boolean canMate(Animal other) {
-        return other != this && other instanceof Pegasus p && this.isInLove() && p.isInLove() && this.isTamed() && p.isTamed()
-                && !this.isBaby() && !p.isBaby();
+        return other != this && other instanceof Horse h && !(other instanceof Zebra) && this.isInLove() && h.isInLove()
+                && this.isTamed() && h.isTamed() && !this.isBaby() && !h.isBaby();
     }
 
     @Override
     public @Nullable AgeableMob getBreedOffspring(ServerLevel level, AgeableMob partner) {
         Pegasus foal = RyanEntities.PEGASUS.create(level, EntitySpawnReason.BREEDING);
-        if (foal != null && partner instanceof AbstractHorse) {
-            this.setOffspringAttributes(partner, foal);
-            Horse mate = (Horse) partner;
-            Variant coat = random.nextBoolean() ? this.getVariant() : mate.getVariant();
-            ((HorseVariantInvoker) foal).ryancraft$setVariantAndMarkings(coat, random.nextBoolean() ? this.getMarkings() : mate.getMarkings());
+        if (foal == null || !(partner instanceof Horse mate)) return foal;
+        this.setOffspringAttributes(partner, foal);
+        Variant coat; Markings marks;
+        if (mate instanceof Pegasus) {                                  // two pegasi: a white or grey pegasus
+            coat = COATS[random.nextInt(COATS.length)];
+            marks = random.nextBoolean() ? this.getMarkings() : mate.getMarkings();
+        } else {                                                        // a hybrid: any coat, any pattern
+            Variant[] all = Variant.values(); Markings[] m = Markings.values();
+            coat = random.nextBoolean() ? mate.getVariant() : all[random.nextInt(all.length)];
+            marks = random.nextInt(3) == 0 ? mate.getMarkings() : m[random.nextInt(m.length)];
         }
+        ((HorseVariantInvoker) foal).ryancraft$setVariantAndMarkings(coat, marks);
         return foal;
     }
 

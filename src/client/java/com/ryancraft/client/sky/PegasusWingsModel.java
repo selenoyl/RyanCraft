@@ -18,8 +18,9 @@ import net.minecraft.client.renderer.entity.state.HorseRenderState;
 import net.minecraft.util.Mth;
 
 /**
- * The pegasus's wings: two feathered plates hinged at the top of the horse's shoulders. On the ground they fold back
- * along the flanks; in the air they spread, beating while it rises and holding a slight lift while it glides.
+ * The pegasus's wings: two feathered plates hinged at the top of the horse's shoulders, just outside the body. On the
+ * ground each folds down against its flank, leading edge along the top, flight feathers hanging, tips toward the tail;
+ * in the air they spread out sideways, beating while it rises and holding a slight lift while it glides.
  */
 public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(RyanCraft.id("pegasus_wings"), "main");
@@ -37,8 +38,8 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static LayerDefinition create() {
         MeshDefinition mesh = new MeshDefinition(); PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0f, 11f, 5f));   // the horse body's pivot
-        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(-4.5f, -8f, -12f));
-        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(4.5f, -8f, -12f));
+        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(-5.6f, -8f, -11f));
+        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(5.6f, -8f, -11f));
         return LayerDefinition.create(mesh, 64, 32);
     }
 
@@ -51,10 +52,11 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
         float spread = sp == null ? 0f : sp, fold = 1f - spread;
         body.xRot = s.standAnimation * -45f * DEG;                     // follow the body when it rears
         float beat = rising ? Mth.sin(s.ageInTicks * 0.9f) * 35f : Mth.sin(s.ageInTicks * 0.15f) * 4f;
-        float lift = spread * (12f + beat) + fold * -18f;              // spread: a little above level; folded: drooping
-        float sweep = spread * 12f + fold * 82f;                       // folded: swept right back along the flank
-        right.yRot = sweep * DEG; right.zRot = lift * DEG;
-        left.yRot = -sweep * DEG; left.zRot = -lift * DEG;
+        // spread: out sideways, swept back a touch, a little above level. Folded (xRot -90, yRot +/-90): the plate turned
+        // to hang against the flank, length pointing back along the body, feathers downward.
+        float lift = spread * (12f + beat), sweep = spread * 12f + fold * 90f, tuck = fold * -90f;
+        right.xRot = tuck * DEG; right.yRot = sweep * DEG; right.zRot = lift * DEG;
+        left.xRot = tuck * DEG; left.yRot = -sweep * DEG; left.zRot = -lift * DEG;
     }
 
     /** Reaches vanilla's foal transformer, so the wings shrink with the foal's body. */

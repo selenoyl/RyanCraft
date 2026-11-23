@@ -31,7 +31,7 @@ def wing_face(flip=False):
 def wings():
     tex = Image.new("RGBA", (64, 32), (0, 0, 0, 0))
     for y0, flip in ((0, False), (12, True)):                         # right wing (tip at u=0), left wing (mirrored)
-        top = wing_face(flip)
+        top = wing_face(flip).transpose(Image.FLIP_TOP_BOTTOM)          # the model maps texture row 0 to the trailing edge
         under = Image.eval(top, lambda c: c)                           # underside a touch greyer
         upx = under.load()
         for y in range(11):

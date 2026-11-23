@@ -25,7 +25,8 @@
     "StableWorldgenMixin",
     "StableLevelSummaryMixin",
     "SilverTarnishMixin",
-    "HorseVariantInvoker"
+    "HorseVariantInvoker",
+    "HorseBreedPegasusMixin"
   ],
   "injectors": {
     "defaultRequire": 0

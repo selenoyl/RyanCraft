@@ -15,12 +15,14 @@ def lang_entries():
     out = {f"block.ryancraft.{k}": v for k, v in LANG.items()}; out.update({f"item.ryancraft.{k}": v for k, v in ITEM_LANG.items()}); out["biome.ryancraft.sky_meadow"] = "Sky Meadow"; return out
 
 def skystone():
-    """Pale blue-grey stone with faint white veins, light as the islands it holds up."""
-    img = M.rock(70, (150, 160, 176), (204, 212, 224), 0.22); px = img.load(); r = random.Random(71)
-    for _ in range(3):
-        x, y = r.randrange(16), r.randrange(16)
-        for k in range(r.randint(4, 7)):
-            px[x % 16, y % 16] = (232, 238, 246, 255); x += 1; y += r.choice((0, 0, 1, -1))
+    """Cloud strata: pale blue-grey layers, gently wavy, as if the islands were built up from settled cloud."""
+    cols = [(170, 182, 204), (196, 206, 224), (214, 222, 236), (150, 164, 190)]
+    r = random.Random(83); img = Image.new("RGBA", (16, 16)); px = img.load(); n = M.vnoise(83, 4)
+    bands = [r.randrange(len(cols)) for _ in range(16)]
+    for y in range(16):
+        for x in range(16):
+            yy = (y + int(n[x][0] * 3)) % 16; k = 0.94 + 0.12 * n[y][x] + (r.random() - .5) * 0.06
+            px[x, y] = M.shade_px(cols[bands[yy]], k)
     return img
 
 def portal_tex():
