@@ -60,8 +60,9 @@ public class GreatMoonRabbit extends Rabbit {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Rabbit.createAttributes().add(Attributes.MAX_HEALTH, 300.0).add(Attributes.MOVEMENT_SPEED, 0.35).add(Attributes.ATTACK_DAMAGE, 9.0)
-                .add(Attributes.ARMOR, 8.0).add(Attributes.KNOCKBACK_RESISTANCE, 0.9).add(Attributes.FOLLOW_RANGE, 48.0);
-        // its own giant model (client/moon/MoonBossRenderers.BossModel) is drawn at full size; the hitbox matches it
+                .add(Attributes.ARMOR, 8.0).add(Attributes.KNOCKBACK_RESISTANCE, 0.9).add(Attributes.FOLLOW_RANGE, 48.0)
+                .add(Attributes.SCALE, 1.5);
+        // its own giant model (client/moon/MoonBossRenderers.BossModel), half again as big: model and hitbox scale together
     }
 
     @Override protected void defineSynchedData(SynchedEntityData.Builder b) { super.defineSynchedData(b); b.define(SWING, 0); }
