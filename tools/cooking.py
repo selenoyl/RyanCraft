@@ -164,7 +164,7 @@ def lang_entries():
     for k, v in VANILLA.items(): out[f"meal.ryancraft.ingredient.minecraft.{k}"] = v
     d = json.load(open(os.path.join(M.A, "lang", "en_us.json")))
     for k, v in d.items():
-        if k.startswith("item.ryancraft.") and k.count(".") == 2: out[f"meal.ryancraft.ingredient.ryancraft.{k.split('.')[2]}"] = short(v)
+        if k.startswith("item.ryancraft.") and k.count(".") == 2 and not k.endswith("_spawn_egg"): out[f"meal.ryancraft.ingredient.ryancraft.{k.split('.')[2]}"] = short(v)
     return out
 
 def build():

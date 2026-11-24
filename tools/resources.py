@@ -5,6 +5,12 @@ SND = os.path.join(R, "assets/ryancraft/sounds")
 def w(path, obj):
     p = os.path.join(R, path); os.makedirs(os.path.dirname(p), exist_ok=True)
     with open(p, "w") as f: json.dump(obj, f, indent=2, ensure_ascii=False); f.write("\n")
+def merged(path, obj):
+    """`obj` on top of what the file already holds: other generators (moon_life.py, cooking.py, gear_assets.py, ...)
+    add their own entries to these shared files, and running this script alone must not wipe them."""
+    p = os.path.join(R, path); old = json.load(open(p)) if os.path.exists(p) else {}
+    if "values" in obj: return dict(old, replace=obj.get("replace", False), values=list(dict.fromkeys(old.get("values", []) + obj["values"])))
+    return dict(old, **obj)
 
 # ---- sounds.json: event -> files found on disk
 def files(prefix):
@@ -69,7 +75,7 @@ for ev, (prefix, sub, att, stream) in EVENTS.items():
     sounds[ev] = {"sounds": entries}
     if sub:
         sounds[ev]["subtitle"] = "subtitles.ryancraft." + ev; lang["subtitles.ryancraft." + ev] = sub
-w("assets/ryancraft/sounds.json", sounds)
+w("assets/ryancraft/sounds.json", merged("assets/ryancraft/sounds.json", sounds))
 
 # ---- items
 FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
@@ -119,18 +125,21 @@ def pool(item, a, b, cook=False, looting=True, chance=None):
 def loot(name, pools):
     w(f"data/ryancraft/loot_table/entities/{name}.json", {"type": "minecraft:entity", "pools": pools, "random_sequence": "ryancraft:entities/" + name})
 loot("turkey", [pool("ryancraft:raw_turkey", 1, 2, True), pool("minecraft:feather", 1, 3)])
-loot("black_bear", [pool("minecraft:leather", 0, 2)])
+loot("black_bear", [pool("minecraft:leather", 0, 2), pool("minecraft:beef", 1, 2, True)])
 loot("raccoon", [pool("ryancraft:raccoon_tail", 1, 1, chance=0.5)])
 loot("mink", [pool("minecraft:leather", 0, 1)])
 loot("beaver", [pool("minecraft:leather", 0, 1), pool("minecraft:stick", 0, 2, looting=False)])
 loot("songbird", [pool("minecraft:feather", 0, 1)])
-for name in ["skunk", "opossum", "squirrel", "chipmunk"]: loot(name, [])
+loot("skunk", [pool("minecraft:rabbit_hide", 0, 1)])
+loot("opossum", [pool("minecraft:rabbit_hide", 0, 1), pool("minecraft:bone", 0, 1)])
+loot("squirrel", [pool("minecraft:rabbit_hide", 0, 1), pool("ryancraft:black_walnut", 1, 1, looting=False, chance=0.25)])
+loot("chipmunk", [pool("minecraft:rabbit_hide", 0, 1)])
 loot("coyote", [pool("minecraft:bone", 0, 1)])
 loot("elk", [pool("ryancraft:venison", 2, 4, True), pool("minecraft:leather", 0, 2)])
 loot("moose", [pool("ryancraft:venison", 3, 5, True), pool("minecraft:leather", 1, 3)])
 loot("pronghorn", [pool("ryancraft:venison", 1, 2, True), pool("minecraft:leather", 0, 1)])
-loot("grizzly_bear", [pool("minecraft:leather", 1, 3)])
-loot("bobcat", [])
+loot("grizzly_bear", [pool("minecraft:leather", 1, 3), pool("minecraft:beef", 1, 3, True)])
+loot("bobcat", [pool("minecraft:leather", 0, 1), pool("minecraft:string", 0, 1)])
 loot("crow", [pool("minecraft:feather", 0, 2)])
 loot("zebra", [pool("minecraft:leather", 0, 2)])
 loot("swan", [pool("minecraft:feather", 1, 3), pool("minecraft:chicken", 1, 2, True)])
@@ -138,12 +147,22 @@ loot("moobloom", [pool("minecraft:beef", 1, 3, True), pool("minecraft:leather", 
 loot("reindeer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("black_tailed_deer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 1)])
 loot("bison", [pool("minecraft:beef", 3, 5, True), pool("minecraft:leather", 1, 3)])
-for name in ["cougar", "river_otter", "groundhog", "porcupine"]: loot(name, [])
+loot("cougar", [pool("minecraft:leather", 0, 2), pool("minecraft:bone", 0, 1)])
+loot("river_otter", [pool("minecraft:rabbit_hide", 0, 1), pool("minecraft:cod", 0, 1, True)])
+loot("groundhog", [pool("minecraft:rabbit_hide", 0, 1), pool("minecraft:carrot", 1, 1, looting=False, chance=0.15)])
+loot("porcupine", [pool("minecraft:arrow", 0, 2)])     # quills
 for name in ["bald_eagle", "golden_eagle", "red_tailed_hawk", "turkey_vulture", "great_horned_owl", "great_blue_heron"]: loot(name, [pool("minecraft:feather", 0, 2)])
 loot("canada_goose", [pool("ryancraft:raw_duck", 1, 1, True), pool("minecraft:feather", 1, 3)])
-for name in ["orca", "blue_whale", "shark", "manta_ray"]: loot(name, [])
+loot("orca", [pool("minecraft:cod", 1, 3, True), pool("minecraft:bone", 1, 3)])
+loot("blue_whale", [pool("minecraft:cod", 2, 4, True), pool("minecraft:bone", 3, 6)])
+loot("shark", [pool("minecraft:cod", 0, 2, True), pool("minecraft:bone", 1, 2)])     # teeth
+loot("manta_ray", [pool("minecraft:leather", 0, 1), pool("minecraft:prismarine_crystals", 0, 1)])
 loot("jellyfish", [pool("minecraft:slime_ball", 0, 1)])
-for name in ["butterfly", "box_turtle", "rattlesnake", "bullfrog"]: loot(name, [])
+loot("butterfly", [])     # like bees, nothing
+loot("box_turtle", [pool("minecraft:bone", 0, 1), pool("minecraft:seagrass", 0, 1, looting=False)])
+loot("rattlesnake", [pool("minecraft:leather", 0, 1), pool("minecraft:spider_eye", 0, 1)])     # skin and venom
+loot("bullfrog", [pool("minecraft:slime_ball", 0, 1)])
+loot("angry_moon_rabbit", [pool("minecraft:rabbit_hide", 0, 1), pool("ryancraft:moon_dust", 0, 2)])
 for name in ["hummingbird", "pileated_woodpecker"]: loot(name, [pool("minecraft:feather", 0, 1)])
 loot("bobwhite", [pool("ryancraft:raw_duck", 0, 1, True), pool("minecraft:feather", 0, 2)])
 loot("alligator", [pool("minecraft:leather", 1, 2)])
@@ -190,7 +209,7 @@ w("data/ryancraft/tags/item/repairs_coonskin.json", {"values": ["ryancraft:racco
 w("data/minecraft/tags/item/fishes.json", {"replace": False, "values": ["ryancraft:" + f for f in FISH] + ["ryancraft:cooked_" + f for f in FISH]})
 w("data/minecraft/tags/item/meat.json", {"replace": False, "values": ["ryancraft:venison", "ryancraft:cooked_venison", "ryancraft:raw_duck",
   "ryancraft:cooked_duck", "ryancraft:raw_turkey", "ryancraft:cooked_turkey"]})
-w("data/minecraft/tags/item/head_armor.json", {"replace": False, "values": ["ryancraft:coonskin_cap"]})
+w("data/minecraft/tags/item/head_armor.json", merged("data/minecraft/tags/item/head_armor.json", {"replace": False, "values": ["ryancraft:coonskin_cap"]}))
 
 # ---- lang
 lang.update({
@@ -293,5 +312,5 @@ from crops import lang_entries as crops_lang; lang.update(crops_lang())
 from dishes import lang_entries as dishes_lang; lang.update(dishes_lang())
 from eggs import lang_entries as eggs_lang; lang.update(eggs_lang())
 from moon_portal import lang_entries as moonportal_lang; lang.update(moonportal_lang())
-w("assets/ryancraft/lang/en_us.json", dict(sorted(lang.items())))
+w("assets/ryancraft/lang/en_us.json", dict(sorted(merged("assets/ryancraft/lang/en_us.json", lang).items())))
 print("ok", len(sounds), "sound events,", len(ITEMS), "items")
