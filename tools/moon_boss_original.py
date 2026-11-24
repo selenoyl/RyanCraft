@@ -63,7 +63,7 @@ def rabbit(kind, eye_override=None, mark_override=None, eye_style=None):
     m.box(I, (-1.2, -14, -1.8), (2.4, 11, 0.4), part=e)
     # crown, shaded gold with jade
     m.box(GOLD, (-6, -4, -7), (12, 2, 10), **sh)
-    for x in (-6, -2, 2): m.box(GOLD, (x, -7, -7), (2, 3, 1), **sh); m.box(JADE, (x + 0.5, -6, -7.4), (1, 1, 0.4))
+    for x in (-6, -1, 4): m.box(GOLD, (x, -7, -7), (2, 3, 1), **sh); m.box(JADE, (x + 0.5, -6, -7.4), (1, 1, 0.4))   # evenly spaced: the middle point centred, the outer two flush with the band's ends
     # arms and the staff
     for sgn in (-1, 1):
         a = m.part([sgn * 7, 16, -3], (-1.15, sgn * 0.45, 0)); m.box(F, (-2, -1, -2), (4, 13, 4), part=a, **sh); m.box(B, (-2.5, 10, -2.5), (5, 4, 5), part=a, **sh)
