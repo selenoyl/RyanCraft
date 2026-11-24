@@ -34,7 +34,7 @@ Rolling dusty plains under a starry black sky. **Moon dust** falls like sand, an
 brick, cracked and chiseled, with stairs, slabs and walls. Below about y=32 is **deep moonstone**. Caves, old lava
 tubes and ravines run through the stone down to bedrock at y=0.
 
-![Moon blocks](../moon_blocks.png)
+![Moon blocks and finds](../chart_moon.png)
 
 **Meteor iron** ore glows faintly in the caves. Smelt it into ingots for diamond-tier tools and armour.
 

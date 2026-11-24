@@ -27,7 +27,7 @@ with Slow Falling to land safely.
 Mined from Skylands ore. Zephyrite tools and armour are iron-tier and a little easier to enchant. The **boots stop
 fall damage**, and a **full set lets you glide** down slowly while you hold sneak.
 
-![Zephyrite gear](../zephyrite_gear.png)
+![Skylands blocks and zephyrite gear](../chart_skylands.png)
 
 ## Animals
 

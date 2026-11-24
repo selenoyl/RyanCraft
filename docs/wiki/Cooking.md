@@ -2,6 +2,8 @@
 
 # Cooking and Farming
 
+![Food](../chart_food.png)
+
 ## The cooking pot
 
 **Recipe:** iron ingots in a U shape (`I I / I I / III`).

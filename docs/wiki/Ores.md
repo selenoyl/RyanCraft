@@ -2,6 +2,8 @@
 
 # Ores, Metals and Gems
 
+![Ores, metals and gems](../chart_ores.png)
+
 ## Metals
 
 Each metal has stone and deepslate ore, raw metal, an ingot, a nugget, a block of raw metal, a block and a chiseled

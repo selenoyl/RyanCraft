@@ -35,6 +35,8 @@ a loud crack, a cloud of smoke and a hard-hitting ball that wanders off line pas
 
 ## Armour and tools
 
+![Tools and armour](../chart_gear.png)
+
 | Material | Tier | Special |
 |---|---|---|
 | Lead | Iron | Harder to enchant. Heavy armour that shrugs off a little knockback |

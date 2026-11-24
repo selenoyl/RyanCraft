@@ -15,6 +15,8 @@ Each has a **full wood set**: log, wood, stripped log and wood, planks, stairs, 
 trapdoor, button, pressure plate, sign, leaves and sapling (saplings can be potted). Every tree has its own crown
 shape and bark, and the broadleaf trees change colour through the [seasons](Seasons.md).
 
+![Tree textures](../chart_trees.png)
+
 **Fruit and nuts**: black cherry trees drop cherries (bake a cherry pie), and black walnut trees drop black walnuts
 (shell them for shelled walnuts). Squirrels drop walnuts sometimes too.
 

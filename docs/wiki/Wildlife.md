@@ -83,3 +83,5 @@ Freshwater game fish have [their own page](Fishing.md).
 
 Every animal has a spawn egg in the Spawn Eggs creative tab, and so does each of the 13 [mudling](Mudlings.md)
 kinds.
+
+![Spawn eggs](../chart_eggs.png)
