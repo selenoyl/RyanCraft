@@ -1,7 +1,7 @@
 {
  "texture": [
   912,
-  64
+  80
  ],
  "parts": [
   {
@@ -426,7 +426,24 @@
       5
      ],
      "mirror": false
-    },
+    }
+   ]
+  },
+  {
+   "name": "crown",
+   "parent": "head",
+   "pivot": [
+    0,
+    -16,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "crown",
+   "boxes": [
     {
      "uv": [
       614,
@@ -434,7 +451,7 @@
      ],
      "from": [
       -6,
-      -15,
+      1,
       -5
      ],
      "size": [
@@ -451,7 +468,7 @@
      ],
      "from": [
       -6,
-      -18,
+      -2,
       -5
      ],
      "size": [
@@ -468,7 +485,7 @@
      ],
      "from": [
       -5.5,
-      -17,
+      -1,
       -5.4
      ],
      "size": [
@@ -485,7 +502,7 @@
      ],
      "from": [
       -1,
-      -18,
+      -2,
       -5
      ],
      "size": [
@@ -502,7 +519,7 @@
      ],
      "from": [
       -0.5,
-      -17,
+      -1,
       -5.4
      ],
      "size": [
@@ -519,7 +536,7 @@
      ],
      "from": [
       4,
-      -18,
+      -2,
       -5
      ],
      "size": [
@@ -536,7 +553,7 @@
      ],
      "from": [
       4.5,
-      -17,
+      -1,
       -5.4
      ],
      "size": [
@@ -883,6 +900,430 @@
       6,
       0,
       6
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo",
+   "parent": "head",
+   "pivot": [
+    0,
+    -7,
+    7.5
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "role": "halo",
+   "boxes": []
+  },
+  {
+   "name": "halo_ray_0",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0.0
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_1",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    0.5236
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_2",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    1.0472
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_3",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    1.5708
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_4",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    2.0944
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_5",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    2.618
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_6",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    3.1416
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_7",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    3.6652
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_8",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    4.1888
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_9",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    4.7124
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_10",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    5.236
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      0,
+      64
+     ],
+     "from": [
+      -1,
+      -22,
+      -0.5
+     ],
+     "size": [
+      2,
+      11,
+      1
+     ],
+     "mirror": false
+    }
+   ]
+  },
+  {
+   "name": "halo_ray_11",
+   "parent": "halo",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "rot": [
+    0,
+    0,
+    5.7596
+   ],
+   "role": "halo",
+   "boxes": [
+    {
+     "uv": [
+      8,
+      64
+     ],
+     "from": [
+      -1,
+      -17,
+      -0.5
+     ],
+     "size": [
+      2,
+      6,
+      1
      ],
      "mirror": false
     }

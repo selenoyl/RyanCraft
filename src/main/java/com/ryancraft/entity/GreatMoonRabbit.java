@@ -42,12 +42,22 @@ import java.util.UUID;
  * The Great Moon Rabbit: the moon's boss, a giant crowned rabbit of moon-dust fur wielding a mortar staff. It hops about
  * the arena between attacks: a heavy staff swing up close, a ground slam that rings out across the floor and throws you
  * up into the low gravity, meteors batted at you from range (hit them back like ghast fireballs), and packs of angry
- * moon rabbits, one in four a brute. Below half health it goes into a frenzy. It always drops the jade crown and the
+ * moon rabbits, one in four a brute. Below half health it goes into a frenzy (the eclipse: its fur darkens, its eyes blaze
+ * and a halo of light flares behind its head). Each move has its own animation (see ANIM), and the slam and the summon
+ * have a wind-up you can read. It always drops the jade crown and the
  * Moon Mortar (loot table), and its minions vanish when it dies.
  */
 public class GreatMoonRabbit extends Rabbit {
-    /** Ticks left in the staff-swing animation (the client draws the staff from it). */
-    public static final EntityDataAccessor<Integer> SWING = SynchedEntityData.defineId(GreatMoonRabbit.class, EntityDataSerializers.INT);
+    /** Which move it's making ({@link #NONE}..{@link #SUMMON}) and the ticks left in it: the client poses the model from these. */
+    public static final EntityDataAccessor<Integer> ANIM = SynchedEntityData.defineId(GreatMoonRabbit.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> ANIM_T = SynchedEntityData.defineId(GreatMoonRabbit.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> FRENZY = SynchedEntityData.defineId(GreatMoonRabbit.class, EntityDataSerializers.BOOLEAN);
+    public static final int NONE = 0, SWING = 1, SLAM = 2, BAT = 3, SUMMON = 4;
+    /** How long each move lasts, in ticks. The slam lands {@link #SLAM_HIT} ticks before it ends, after a wind-up you can see coming. */
+    public static final int[] DURATION = {0, 10, 24, 12, 22};
+    public static final int SLAM_HIT = 10, BAT_HIT = 6, SUMMON_AT = 10;
+    /** The death plays out longer than a vanilla mob's: it staggers, drops the staff and topples back, losing its crown. */
+    public static final int DEATH_TICKS = 50;
     private final ServerBossEvent bar = new ServerBossEvent(getDisplayName(), BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.NOTCHED_10);
     private final List<UUID> minions = new ArrayList<>();
     private int hopCd = 40, swingCd, slamCd = 120, meteorCd = 60, summonCd = 200;
@@ -65,8 +75,14 @@ public class GreatMoonRabbit extends Rabbit {
         // its own giant model (client/moon/MoonBossRenderers.BossModel), half again as big: model and hitbox scale together
     }
 
-    @Override protected void defineSynchedData(SynchedEntityData.Builder b) { super.defineSynchedData(b); b.define(SWING, 0); }
-    public int swing() { return entityData.get(SWING); }
+    @Override protected void defineSynchedData(SynchedEntityData.Builder b) {
+        super.defineSynchedData(b); b.define(ANIM, NONE); b.define(ANIM_T, 0); b.define(FRENZY, false);
+    }
+    public int anim() { return entityData.get(ANIM_T) > 0 ? entityData.get(ANIM) : NONE; }
+    public int animTicks() { return entityData.get(ANIM_T); }
+    public boolean frenzied() { return entityData.get(FRENZY); }
+    private void start(int move) { entityData.set(ANIM, move); entityData.set(ANIM_T, DURATION[move]); }
+    private boolean busy() { return animTicks() > 0; }
 
     @Override
     protected void registerGoals() {
@@ -83,68 +99,108 @@ public class GreatMoonRabbit extends Rabbit {
     public void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
         bar.setProgress(getHealth() / getMaxHealth());
-        if (swing() > 0) entityData.set(SWING, swing() - 1);
+        if (frenzy() != frenzied()) {                                           // the eclipse: below half health
+            entityData.set(FRENZY, frenzy());
+            if (frenzy()) level.playSound(null, blockPosition(), SoundEvents.WITHER_SPAWN, SoundSource.HOSTILE, 1.2f, 1.6f);
+        }
         LivingEntity t = getTarget();
+        if (busy()) {
+            int move = anim(), left = animTicks() - 1;
+            entityData.set(ANIM_T, left);
+            if (move == SLAM && left == SLAM_HIT) slam(level);
+            if (move == BAT && left == BAT_HIT && t != null) bat(level, t);
+            if (move == SUMMON && left == SUMMON_AT && t != null) summon(level, t);
+            if (move == SUMMON && left > SUMMON_AT)                            // the staff's jade top glows as it calls them
+                level.sendParticles(ParticleTypes.END_ROD, getX(), getY() + getBbHeight() + 1.0, getZ(), 2, 0.3, 0.3, 0.3, 0.02);
+            if (move == SLAM || move == SUMMON) { getNavigation().stop(); return; }   // planted for the big moves
+        }
         if (t == null || !t.isAlive()) return;
         getLookControl().setLookAt(t, 30f, 30f);
         boolean f = frenzy(); double d = distanceTo(t);
         hopCd--; swingCd--; slamCd--; meteorCd--; summonCd--;
-        if (onGround() && hopCd <= 0) {                                         // a big floaty hop, toward and around you
+        if (onGround() && hopCd <= 0 && !busy()) {                                         // a big floaty hop, toward and around you
             Vec3 to = t.position().subtract(position()); Vec3 h = new Vec3(to.x, 0, to.z).normalize();
             Vec3 side = new Vec3(-h.z, 0, h.x).scale((random.nextDouble() - 0.5) * 1.6);
             Vec3 dir = (d < 5 ? side.subtract(h.scale(0.4)) : h.add(side)).normalize();
             setDeltaMovement(dir.x * 0.75, f ? 0.95 : 0.8, dir.z * 0.75); needsSync = true;
             hopCd = f ? 22 : 40 + random.nextInt(20);
         }
-        if (d < 4.5 && swingCd <= 0) {                                          // the mortar staff, swung wide
-            entityData.set(SWING, 10);
+        if (busy()) return;
+        if (d < 4.5 && swingCd <= 0) {                                          // the mortar staff, brought down overhead
+            start(SWING);
             if (t.hurtServer(level, damageSources().mobAttack(this), (float) getAttributeValue(Attributes.ATTACK_DAMAGE)))
                 t.knockback(2.2, getX() - t.getX(), getZ() - t.getZ());
             playSound(SoundEvents.PLAYER_ATTACK_SWEEP, 1.5f, 0.6f);
             swingCd = f ? 20 : 30;
+            return;
         }
-        if (d < 9 && onGround() && slamCd <= 0) {                               // ground slam: a ring bursts out across the floor
-            entityData.set(SWING, 10);
-            var dust = new BlockParticleOption(ParticleTypes.BLOCK, MoonBlocks.MOON_DUST.defaultBlockState());
-            for (int r = 1; r <= 7; r++)
-                for (int a = 0; a < r * 8; a++) {
-                    double ang = a * Math.PI * 2 / (r * 8);
-                    level.sendParticles(dust, getX() + Math.cos(ang) * r, getY() + 0.1, getZ() + Math.sin(ang) * r, 2, 0.1, 0.05, 0.1, 0.05);
-                }
-            for (Player p : level.getEntitiesOfClass(Player.class, getBoundingBox().inflate(7, 2, 7), p -> p.onGround() && !p.isSpectator())) {
-                p.hurtServer(level, damageSources().mobAttack(this), 6f);
-                p.setDeltaMovement(p.getDeltaMovement().add(0, 0.9, 0)); p.hurtMarked = true;
-            }
-            level.playSound(null, blockPosition(), SoundEvents.ANVIL_LAND, SoundSource.HOSTILE, 1.4f, 0.5f);
+        if (d < 9 && onGround() && slamCd <= 0) {                               // ground slam: wound up overhead, then down
+            start(SLAM);
+            level.playSound(null, blockPosition(), SoundEvents.RAVAGER_ROAR, SoundSource.HOSTILE, 1.2f, 1.4f);   // the warning: jump!
             slamCd = f ? 100 : 160;
+            return;
         }
         if (d > 6 && meteorCd <= 0) {                                            // bat a baby meteor (or a few) at you
-            entityData.set(SWING, 10);
-            int n = f ? 2 + random.nextInt(2) : 1;
-            for (int i = 0; i < n; i++) {
-                Vec3 aim = t.getEyePosition().subtract(getEyePosition()).normalize()
-                        .add((random.nextDouble() - 0.5) * 0.15 * i, (random.nextDouble() - 0.5) * 0.1 * i, (random.nextDouble() - 0.5) * 0.15 * i);
-                BossMeteor m = new BossMeteor(level, this, aim);
-                m.setPos(getX() + aim.x * 2, getEyeY() - 0.5, getZ() + aim.z * 2);
-                level.addFreshEntity(m);
-            }
-            playSound(SoundEvents.PLAYER_ATTACK_STRONG, 1.5f, 0.5f);
+            start(BAT);
             meteorCd = f ? 60 : 100;
+            return;
         }
         minions.removeIf(id -> !(level.getEntity(id) instanceof AngryMoonRabbit a) || !a.isAlive());
-        if (summonCd <= 0 && minions.size() < 6) {                               // a pack of angry moon rabbits
-            int n = 3 + random.nextInt(2);
-            for (int i = 0; i < n; i++) {
-                AngryMoonRabbit a = RyanEntities.ANGRY_MOON_RABBIT.create(level, EntitySpawnReason.MOB_SUMMONED);
-                if (a == null) continue;
-                double ang = random.nextDouble() * Math.PI * 2;
-                a.snapTo(getX() + Math.cos(ang) * 3, getY() + 0.5, getZ() + Math.sin(ang) * 3, random.nextFloat() * 360f, 0f);
-                if (random.nextInt(4) == 0) a.makeBrute();
-                a.setTarget(t);
-                level.addFreshEntity(a); minions.add(a.getUUID());
-                level.sendParticles(ParticleTypes.POOF, a.getX(), a.getY() + 0.3, a.getZ(), 6, 0.2, 0.2, 0.2, 0.02);
-            }
+        if (summonCd <= 0 && minions.size() < 6) {                               // raise the staff and call a pack
+            start(SUMMON);
+            level.playSound(null, blockPosition(), SoundEvents.EVOKER_PREPARE_SUMMON, SoundSource.HOSTILE, 1.4f, 0.8f);
             summonCd = f ? 300 : 400;
+        }
+    }
+
+    /** The slam lands: a ring bursts out across the floor, and anyone standing on it is hurt and thrown up. */
+    private void slam(ServerLevel level) {
+        var dust = new BlockParticleOption(ParticleTypes.BLOCK, MoonBlocks.MOON_DUST.defaultBlockState());
+        for (int r = 1; r <= 7; r++)
+            for (int a = 0; a < r * 8; a++) {
+                double ang = a * Math.PI * 2 / (r * 8);
+                level.sendParticles(dust, getX() + Math.cos(ang) * r, getY() + 0.1, getZ() + Math.sin(ang) * r, 2, 0.1, 0.05, 0.1, 0.05);
+            }
+        for (Player p : level.getEntitiesOfClass(Player.class, getBoundingBox().inflate(7, 2, 7), p -> p.onGround() && !p.isSpectator())) {
+            p.hurtServer(level, damageSources().mobAttack(this), 6f);
+            p.setDeltaMovement(p.getDeltaMovement().add(0, 0.9, 0)); p.hurtMarked = true;
+        }
+        level.playSound(null, blockPosition(), SoundEvents.ANVIL_LAND, SoundSource.HOSTILE, 1.4f, 0.5f);
+    }
+
+    /** The staff connects: a baby meteor (in the frenzy, a few) flies off at you. */
+    private void bat(ServerLevel level, LivingEntity t) {
+        int n = frenzy() ? 2 + random.nextInt(2) : 1;
+        for (int i = 0; i < n; i++) {
+            Vec3 aim = t.getEyePosition().subtract(getEyePosition()).normalize()
+                    .add((random.nextDouble() - 0.5) * 0.15 * i, (random.nextDouble() - 0.5) * 0.1 * i, (random.nextDouble() - 0.5) * 0.15 * i);
+            BossMeteor m = new BossMeteor(level, this, aim);
+            m.setPos(getX() + aim.x * 2, getEyeY() - 0.5, getZ() + aim.z * 2);
+            level.addFreshEntity(m);
+        }
+        playSound(SoundEvents.PLAYER_ATTACK_STRONG, 1.5f, 0.5f);
+    }
+
+    @Override
+    protected void tickDeath() {
+        if (++deathTime >= DEATH_TICKS && level() instanceof ServerLevel level && !isRemoved()) {
+            level.broadcastEntityEvent(this, (byte) 60);
+            remove(RemovalReason.KILLED);
+        }
+    }
+
+    /** A pack of angry moon rabbits pops out around it, one in four a brute. */
+    private void summon(ServerLevel level, LivingEntity t) {
+        int n = 3 + random.nextInt(2);
+        for (int i = 0; i < n; i++) {
+            AngryMoonRabbit a = RyanEntities.ANGRY_MOON_RABBIT.create(level, EntitySpawnReason.MOB_SUMMONED);
+            if (a == null) continue;
+            double ang = random.nextDouble() * Math.PI * 2;
+            a.snapTo(getX() + Math.cos(ang) * 4, getY() + 0.5, getZ() + Math.sin(ang) * 4, random.nextFloat() * 360f, 0f);
+            if (random.nextInt(4) == 0) a.makeBrute();
+            a.setTarget(t);
+            level.addFreshEntity(a); minions.add(a.getUUID());
+            level.sendParticles(ParticleTypes.POOF, a.getX(), a.getY() + 0.3, a.getZ(), 6, 0.2, 0.2, 0.2, 0.02);
         }
     }
 

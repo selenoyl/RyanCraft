@@ -55,4 +55,19 @@ Redstone switches it off.
 **Moon herbs** grow in the dust and can be potted. Bake them into **moon cakes** (2 moon herbs + 2 wheat + sugar +
 egg).
 
+## The Great Moon Rabbit
+
+The temple's guardian: a towering moon rabbit with a jade crown and the **Moon Mortar** staff. Watch its moves:
+
+- **Staff strike**: up and over the shoulder, then down on you. Hard knockback.
+- **Ground slam**: it roars, raises the staff high and crouches. **Jump when you see the wind-up**: the slam sends a
+  shockwave across the floor that hurts and throws anyone standing on it.
+- **Meteor bat**: from further away, it swings the staff sideways like a bat and knocks a baby meteor at you.
+- **Summon**: it holds the staff up with its ears pricked, the jade top glowing, and a pack of angry moon rabbits (one
+  in four a brute) pops up around it.
+- **Eclipse**: below half health its fur goes dark, its eyes blaze violet and a halo of light turns behind its head.
+  It hops faster and uses every move more often, batting several meteors at a time.
+
+When it falls, it drops its staff, loses its crown and topples over, and the portal home opens.
+
 ![The Great Moon Rabbit](../moon_boss_rabbit_eyes.png)

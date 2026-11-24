@@ -126,3 +126,10 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
   ore and cave-feature placements: pin those to `absolute` heights, or they slide down and thin out.
 - In functions, command feedback (e.g. `/locate`) is silent; `tellraw` still logs. With cheats on in the test world's
   level.dat (`allowCommands`), commands typed into chat with xdotool do print their results to the log.
+- **Boss animations (Great Moon Rabbit).** A death fall done in `setupRotations` turns everything in the model,
+  so a prop that's meant to drop free (the staff) fell back with the body and floated in the air. Do the fall inside
+  the model instead: rotate the top-level body parts about the feet (compose the rotation with a quaternion and read
+  ZYX Euler angles back) and leave the dropped props out. Also: a staff held in the paws has to move with the paws
+  (offset its pivot by the hand's arc), and on a mob with a big head, overhead wind-ups go over a shoulder, or the
+  shaft passes through the face. NoAI test mobs don't run their AI, so pin poses with a temporary tag hook in `tick()`
+  and delete it before committing.
