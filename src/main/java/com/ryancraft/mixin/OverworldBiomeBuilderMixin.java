@@ -57,6 +57,17 @@ public abstract class OverworldBiomeBuilderMixin {
         }
     }
 
+    /**
+     * List the Abyss's caverns with the overworld (so their features generate), at a depth no real point ever reaches:
+     * climate never picks them; DeepBiomeMixin hands them out below y=-64.
+     */
+    @Inject(method = "addUndergroundBiomes", at = @At("TAIL"))
+    private void ryancraft$abyssCaverns(Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> out, CallbackInfo ci) {
+        Climate.Parameter any = Climate.Parameter.span(-1.0f, 1.0f);
+        for (ResourceKey<Biome> b : com.ryancraft.deep.DeepCaves.BIOMES)
+            out.accept(Pair.of(Climate.parameters(any, any, any, any, Climate.Parameter.point(9.0f), any, 0.0f), b));
+    }
+
     @Unique
     private static Climate.Parameter ryancraft$part(Climate.Parameter p, int i, int of) {
         long span = p.max() - p.min();

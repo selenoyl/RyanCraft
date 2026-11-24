@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:moon_dust"
+    "ryancraft:moon_dust",
+    "ryancraft:toxic_sludge"
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:abyssal_stone",
+  "result": {
+    "id": "ryancraft:abyssal_bricks",
+    "count": 1
+  }
+}

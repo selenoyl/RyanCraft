@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "description": "RyanCraft: the Abyss, a cave layer below the deepslate (y -64 to -128)",
+    "min_format": [
+      94,
+      1
+    ],
+    "max_format": [
+      94,
+      1
+    ]
+  }
+}

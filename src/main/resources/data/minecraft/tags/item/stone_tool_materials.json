@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "ryancraft:cobbled_moonstone"
+    "ryancraft:cobbled_moonstone",
+    "ryancraft:cobbled_abyssal_stone"
   ]
 }

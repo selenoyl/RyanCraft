@@ -26,6 +26,8 @@
     "EnderEyeMixin",
     "WeatherClearMixin",
     "OverworldBiomeBuilderMixin",
+    "DeepFluidMixin",
+    "DeepBiomeMixin",
     "StableWorldgenMixin",
     "StableLevelSummaryMixin",
     "SilverTarnishMixin",

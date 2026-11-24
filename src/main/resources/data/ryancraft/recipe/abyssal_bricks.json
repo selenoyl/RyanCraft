@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "ryancraft:polished_abyssal_stone"
+  },
+  "result": {
+    "id": "ryancraft:abyssal_bricks",
+    "count": 4
+  }
+}

@@ -27,6 +27,7 @@ public class RyanCraft implements ModInitializer {
         RyanBiomes.init();
         com.ryancraft.trees.RyanWood.init();
         com.ryancraft.trees.RyanBoats.init();
+        com.ryancraft.deep.DeepCaves.init();
         com.ryancraft.bag.Cages.init();
         com.ryancraft.storage.RyanStorage.init();
         com.ryancraft.storage.RyanChests.init();

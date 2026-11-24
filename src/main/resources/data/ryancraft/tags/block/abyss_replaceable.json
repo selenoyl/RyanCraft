@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:abyssal_stone",
+    "minecraft:deepslate",
+    "minecraft:tuff",
+    "minecraft:stone",
+    "minecraft:gravel",
+    "minecraft:dirt",
+    "minecraft:clay"
+  ]
+}
