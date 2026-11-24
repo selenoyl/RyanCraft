@@ -130,7 +130,7 @@ FEATURES = {   # name: (configured feature, placement count, on the ceiling?)
 
 # vanilla features the Abyss gets its own copies of, placed only within it (y -128 to -64), by vanilla's own configuration
 ABYSS_COPIES = ["dripstone_cluster", "large_dripstone", "pointed_dripstone", "glow_lichen", "sculk_vein", "sculk_patch_deep_dark",
-                "lush_caves_ceiling_vegetation", "cave_vines", "rooted_azalea_tree", "spore_blossom", "ore_tuff", "ore_gravel"]
+                "lush_caves_ceiling_vegetation", "cave_vines", "rooted_azalea_tree", "spore_blossom", "ore_tuff"]
 ABYSS_ORES = {"ore_iron": ("minecraft:ore_iron", 8), "ore_gold": ("minecraft:ore_gold_buried", 4), "ore_redstone": ("minecraft:ore_redstone", 6),
               "ore_lapis": ("minecraft:ore_lapis_buried", 3), "ore_coal": ("minecraft:ore_coal_buried", 6)}
 
@@ -183,7 +183,7 @@ def biomes():
                            "minecraft:visual/sky_color": "#78a7ff", "minecraft:visual/fog_color": fog}
         f = [[] for _ in range(11)]
         f[2] = ["minecraft:amethyst_geode"]; f[3] = ["minecraft:monster_room_deep"]
-        f[6] = ["ryancraft:abyss_ore_tuff", "ryancraft:abyss_ore_gravel"] + [f"ryancraft:abyss_{n}" for n in ABYSS_ORES] + ["ryancraft:ore_abyssal_diamond"]
+        f[6] = ["ryancraft:abyss_ore_tuff"] + [f"ryancraft:abyss_{n}" for n in ABYSS_ORES] + ["ryancraft:ore_abyssal_diamond"]
         f[8] = ["minecraft:spring_water", "minecraft:spring_lava"]
         veg = [e for e in extra if "sculk" not in e]
         f[7] = [e for e in extra if "sculk" in e]
@@ -220,7 +220,8 @@ def abyss_density():
     and down to the bedrock below, with tall stone pillars here and there."""
     cheese = {"type": "minecraft:noise", "noise": "minecraft:cave_cheese", "xz_scale": 0.5, "y_scale": 0.6}
     pillars = {"type": "minecraft:mul", "argument1": -0.6, "argument2": {"type": "minecraft:noise", "noise": "minecraft:pillar", "xz_scale": 3.0, "y_scale": 0.15}}
-    return {"type": "minecraft:interpolated", "argument": add(add(0.18, cheese), add(add(grad(FLOOR, 1.8, FLOOR + 14, 0.0), grad(TOP - 9, 0.0, TOP, 1.8)),
+    wide = {"type": "minecraft:mul", "argument1": 1.6, "argument2": cheese}        # spread the noise so caverns open up wide
+    return {"type": "minecraft:interpolated", "argument": add(add(-0.12, wide), add(add(grad(FLOOR, 1.8, FLOOR + 14, 0.0), grad(TOP - 9, 0.0, TOP, 1.8)),
             {"type": "minecraft:max", "argument1": 0.0, "argument2": {"type": "minecraft:mul", "argument1": -1.0, "argument2": pillars}}))}
 
 def pack():

@@ -39,8 +39,8 @@ public abstract class DeepBiomeMixin {
         if (ryancraft$caverns.size() < DeepCaves.BIOMES.size()) return;
         Climate.TargetPoint p = sampler.sample(x, QuartPos.fromBlock(0), z);
         float t = Climate.unquantizeCoord(p.temperature()), h = Climate.unquantizeCoord(p.humidity()), e = Climate.unquantizeCoord(p.erosion());
-        ResourceKey<Biome> k = t < -0.45f ? DeepCaves.FROZEN_CAVERNS : h > 0.3f ? DeepCaves.SUNKEN_WILDS : h < -0.35f ? DeepCaves.TOXIC_CAVES
-                : e < -0.2f ? DeepCaves.HOLLOW_DARK : DeepCaves.ABYSSAL_CAVERNS;
+        ResourceKey<Biome> k = t < -0.5f ? DeepCaves.FROZEN_CAVERNS : h > 0.35f ? DeepCaves.SUNKEN_WILDS : h < -0.1f ? DeepCaves.TOXIC_CAVES
+                : e < -0.35f ? DeepCaves.HOLLOW_DARK : DeepCaves.ABYSSAL_CAVERNS;
         cir.setReturnValue(ryancraft$caverns.get(k));
     }
 }

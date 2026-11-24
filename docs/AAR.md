@@ -116,3 +116,13 @@ Lessons from playtest feedback, kept as a checklist. Check every new mob, block,
 - Item display rotations apply Z first, then Y, then X. Adding 180 on X while negating Z gives the same pose, so it won't flip a held item. To turn a side-view item upright, flip the sign of the Y turn (e.g. [0, 90, z] instead of [0, -90, z]).
 - Block model faces only render from the front, so a hollow model (a pot, a tub) needs separate thin inner-wall elements, or you see straight through its walls from inside. Ledges where one box sticks out of another need their own up and down faces too.
 - Sneaking lowers the eye, so a test camera angled at a block's top face from a standing eye can hit its side once the player sneaks. Log the hit face in the handler when a sneak-click "does nothing".
+
+## Built-in data packs that change worldgen
+- A built-in pack with `PackActivationType.DEFAULT_ENABLED` is switched on automatically in *existing* worlds too
+  ("Found new data pack ..., loading it automatically"), so a broken worldgen file in it stops every world from opening.
+  Always launch a world once before pushing a change to one.
+- Density functions: `y_clamped_gradient` accepts y and values only within about ±4062; use ±2032 for an identity "y".
+- Raising the world's floor (dimension type + noise settings `min_y`) moves every `above_bottom` height with it, including
+  ore and cave-feature placements: pin those to `absolute` heights, or they slide down and thin out.
+- In functions, command feedback (e.g. `/locate`) is silent; `tellraw` still logs. With cheats on in the test world's
+  level.dat (`allowCommands`), commands typed into chat with xdotool do print their results to the log.

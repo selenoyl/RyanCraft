@@ -81,6 +81,25 @@ public abstract class OceanAnimal extends WaterAnimal implements CritterVisual {
         return level.getFluidState(p).is(FluidTags.WATER) && level.getFluidState(p.above()).is(FluidTags.WATER);
     }
 
+    /**
+     * Swim straight toward a point under our own steam: turn smoothly to face it, pitch toward it and push forward.
+     * (Vanilla's smooth-swimming control only moves along a path, and a whale is far too big for swim paths.)
+     */
+    protected void steerTowards(double x, double y, double z, double speed) {
+        Vec3 to = new Vec3(x - getX(), y - getY(), z - getZ());
+        double flat = Math.sqrt(to.x * to.x + to.z * to.z);
+        if (to.lengthSqr() < 1.0e-4) return;
+        float yaw = (float) (net.minecraft.util.Mth.atan2(to.z, to.x) * (180f / Math.PI)) - 90f;
+        float turn = (float) Math.max(2.0, 6.0 - getBbWidth());                      // big animals turn slowly
+        setYRot(net.minecraft.util.Mth.approachDegrees(getYRot(), yaw, turn)); yBodyRot = getYRot(); yHeadRot = getYRot();
+        float pitch = (float) -(net.minecraft.util.Mth.atan2(to.y, flat) * (180f / Math.PI));
+        setXRot(net.minecraft.util.Mth.approachDegrees(getXRot(), net.minecraft.util.Mth.clamp(pitch, -45f, 45f), 3f));
+        double accel = 0.022 * speed;
+        float yr = getYRot() * ((float) Math.PI / 180f);
+        Vec3 fwd = new Vec3(-Math.sin(yr), net.minecraft.util.Mth.clamp(to.y / Math.max(4.0, flat), -0.5, 0.5), Math.cos(yr));
+        setDeltaMovement(getDeltaMovement().add(fwd.scale(accel)));
+    }
+
     /** How far below the surface air-breathers like to cruise between breaths. */
     protected int cruiseDepth() { return 8; }
 
@@ -91,17 +110,35 @@ public abstract class OceanAnimal extends WaterAnimal implements CritterVisual {
      * out of shallows and bays toward open ocean.
      */
     class DeepCruiseGoal extends Goal {
-        private int cooldown;
+        private Vec3 target;
+        private int time;
+        private double lastDist;
+        private int stuck;
         DeepCruiseGoal() { this.setFlags(EnumSet.of(Flag.MOVE)); }
 
         @Override public boolean canUse() {
             if (OceanAnimal.this.isVehicle() || !OceanAnimal.this.isInWater()) return false;
-            if (cooldown > 0) { cooldown--; return false; }
-            return OceanAnimal.this.getNavigation().isDone();
+            target = pick();
+            return target != null;
         }
-        @Override public boolean canContinueToUse() { return !OceanAnimal.this.getNavigation().isDone() && OceanAnimal.this.isInWater(); }
+        @Override public boolean canContinueToUse() {
+            return target != null && OceanAnimal.this.isInWater() && time < 600 && stuck < 60
+                    && OceanAnimal.this.position().distanceToSqr(target) > 4.0;
+        }
+        @Override public void start() { time = 0; stuck = 0; lastDist = Double.MAX_VALUE; }
+        @Override public void stop() { target = null; }
+        @Override public boolean requiresUpdateEveryTick() { return true; }
 
-        @Override public void start() {
+        /** Steered straight at the target (no pathfinding: a whale is far too big for swim paths), sliding along whatever it bumps. */
+        @Override public void tick() {
+            time++;
+            steerTowards(target.x, target.y, target.z, swimSpeed());
+            double d = OceanAnimal.this.position().distanceToSqr(target);
+            if (d > lastDist - 0.01) stuck++; else stuck = 0;
+            lastDist = d;
+        }
+
+        private Vec3 pick() {
             OceanAnimal self = OceanAnimal.this;
             Vec3 best = null; int bestDepth = -1;
             for (int i = 0; i < 6; i++) {
@@ -112,12 +149,13 @@ public abstract class OceanAnimal extends WaterAnimal implements CritterVisual {
                 if (col == null) continue;
                 int floor = col[0], surface = col[1], depth = surface - floor;
                 if (depth <= bestDepth) continue;
-                int lo = floor + 3, hi = Math.max(lo, surface - cruiseDepth());
-                if (depth < cruiseDepth() + 4) { lo = hi = (floor + surface) / 2; }       // shallow: just stay mid-water
+                // keep the whole body clear of the floor, and its back at least cruiseDepth below the surface
+                int body = (int) Math.ceil(self.getBbHeight());
+                int lo = floor + 2, hi = surface - cruiseDepth() - body;
+                if (hi < lo) lo = hi = Math.max(floor + 1, (floor + surface - body) / 2);   // shallow: as deep as it fits
                 best = new Vec3(x + 0.5, lo + self.random.nextInt(hi - lo + 1), z + 0.5); bestDepth = depth;
             }
-            if (best != null) self.getNavigation().moveTo(best.x, best.y, best.z, swimSpeed());
-            cooldown = 20 + self.random.nextInt(60);
+            return best;
         }
 
         /** The water column at x, z near y: {floor (first water block above the bottom), surface (top water block)}, or null if it's not water. */
@@ -154,7 +192,7 @@ public abstract class OceanAnimal extends WaterAnimal implements CritterVisual {
             while (self.level().getFluidState(p.above()).is(FluidTags.WATER) && guard++ < 64) p.move(0, 1, 0);
             double surface = p.getY() + 0.9 - self.getBbHeight() * 0.6;
             Vec3 ahead = self.getLookAngle().scale(2);
-            self.getMoveControl().setWantedPosition(self.getX() + ahead.x, surface, self.getZ() + ahead.z, 1.0);
+            self.steerTowards(self.getX() + ahead.x, surface, self.getZ() + ahead.z, 1.0);
             if (self.getY() >= surface - 0.4) {
                 if (hold++ == 0 && self.level() instanceof ServerLevel sl) {
                     double top = self.getY() + self.getBbHeight();
