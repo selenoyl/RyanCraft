@@ -54,7 +54,7 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
         return new ModelLayerLocation(RyanCraft.id(name), "main");
     }
 
-    static synchronized JsonObject spec(String name) {
+    public static synchronized JsonObject spec(String name) {
         return SPECS.computeIfAbsent(name, n -> {
             String path = "/assets/ryancraft/critter_models/" + n + ".json";
             try (InputStream in = CritterModel.class.getResourceAsStream(path)) {

@@ -22,8 +22,6 @@ import net.minecraft.util.Mth;
  * ground each folds down against its flank, leading edge along the top, flight feathers hanging, tips toward the tail;
  * in the air they spread out sideways, beating while it rises and holding a slight lift while it glides.
  */
-// Each wing is a flat plane (no thickness): a 1-pixel-thick box drew its edge faces as a solid strip of texture beside the
-// feathers' cut-out outline.
 public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(RyanCraft.id("pegasus_wings"), "main");
     public static final ModelLayerLocation BABY_LAYER = new ModelLayerLocation(RyanCraft.id("pegasus_wings_baby"), "main");
@@ -40,8 +38,8 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static LayerDefinition create() {
         MeshDefinition mesh = new MeshDefinition(); PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0f, 11f, 5f));   // the horse body's pivot
-        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, 0f, 0f, 18f, 0f, 11f, java.util.EnumSet.of(net.minecraft.core.Direction.UP)), PartPose.offset(-5.6f, -8f, -11f));
-        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, 0f, 0f, 18f, 0f, 11f, java.util.EnumSet.of(net.minecraft.core.Direction.UP)), PartPose.offset(5.6f, -8f, -11f));
+        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(-5.6f, -8f, -11f));
+        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(5.6f, -8f, -11f));
         return LayerDefinition.create(mesh, 64, 32);
     }
 

@@ -96,7 +96,7 @@ public final class RyanEntities {
             EntityType.Builder.of(LostSpaceman::new, MobCategory.MONSTER).sized(0.6f, 1.95f).eyeHeight(1.74f).clientTrackingRange(8));
     /** The moon's boss, its minions and its meteors. */
     public static final EntityType<GreatMoonRabbit> GREAT_MOON_RABBIT = register("great_moon_rabbit",
-            EntityType.Builder.of(GreatMoonRabbit::new, MobCategory.MONSTER).sized(0.49f, 0.6f).eyeHeight(0.59f).clientTrackingRange(16).fireImmune());
+            EntityType.Builder.of(GreatMoonRabbit::new, MobCategory.MONSTER).sized(2.4f, 4.3f).eyeHeight(3.3f).clientTrackingRange(16).fireImmune());
     public static final EntityType<AngryMoonRabbit> ANGRY_MOON_RABBIT = register("angry_moon_rabbit",
             EntityType.Builder.of(AngryMoonRabbit::new, MobCategory.MONSTER).sized(0.49f, 0.6f).eyeHeight(0.59f).clientTrackingRange(8));
     public static final EntityType<BossMeteor> BOSS_METEOR = register("boss_meteor",

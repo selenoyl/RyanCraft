@@ -35,8 +35,9 @@ def trim_edges(im):
     for v in (0, 12):
         top = lambda x, y: px[x, v + y][3] > 0                           # the wing's top face: u 11..28, rows v..v+10
         for k in range(18):
-            px[11 + k, v + 11] = px[11 + k, v + 11] if top(11 + k, 0) else (0, 0, 0, 0)     # north edge, beside row 0
-            px[40 + k, v + 11] = px[40 + k, v + 11] if top(28 - k, 10) else (0, 0, 0, 0)    # south edge, beside row 10
+            # a box's north (front) edge meets the LAST row of its top face, its south edge the first row
+            px[11 + k, v + 11] = px[11 + k, v + 11] if top(11 + k, 10) else (0, 0, 0, 0)    # north edge, beside row 10
+            px[40 + k, v + 11] = px[40 + k, v + 11] if top(28 - k, 0) else (0, 0, 0, 0)     # south edge, beside row 0
         for k in range(11):
             px[k, v + 11] = px[k, v + 11] if top(11, k) else (0, 0, 0, 0)                   # the two ends
             px[29 + k, v + 11] = px[29 + k, v + 11] if top(28, 10 - k) else (0, 0, 0, 0)
