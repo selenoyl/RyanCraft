@@ -10,6 +10,7 @@ A guide to everything RyanCraft adds to Minecraft 1.21.11. Pick a topic:
 | 🍲 **[Cooking and Farming](Cooking.md)** | The cooking pot, campfires that burn fuel, seasonal crops and dishes |
 | 🍂 **[Seasons, Thirst and Weather](Seasons.md)** | The twelve-part year, the thirst bar, dust storms and night ambience |
 | 🌳 **[Trees and Biomes](Trees.md)** | Fifteen eastern trees with full wood sets, and the forests they grow in |
+| 🕳️ **[The Abyss](Abyss.md)** | A new cave layer below the deepslate: five kinds of cavern down to y=−128 |
 | ⛏️ **[Ores, Metals and Gems](Ores.md)** | Silver, lead, tin, zinc, aluminum, uranium, steel, ruby, sapphire and jade |
 | ⚙️ **[Machines](Machines.md)** | Pipes, engines, pumps, tanks and the Ender Terminal |
 | 📦 **[Storage](Storage.md)** | Diamond, obsidian and lead glass chests, clay pots, cages and bundles |

@@ -23,7 +23,7 @@ Current version: **1.9.0** · [Download](https://github.com/selenoyl/RyanCraft/r
 - **Machines**: BuildCraft-style pipes, engines and pumps
 - **And more**: new metals and gems, cannons and muskets, mudlings
 
-The **[wiki](docs/wiki/Home.md)** covers every feature by topic: wildlife, cooking, mudlings, the moon, the Skylands and more.
+The **[wiki](docs/wiki/Home.md)** covers every feature by topic: wildlife, cooking, mudlings, the Abyss, the moon, the Skylands and more.
 
 ## Install
 1. Install [Fabric Loader](https://fabricmc.net/use/) 0.20.1 or newer for Minecraft 1.21.11.
