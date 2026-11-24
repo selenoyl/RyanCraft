@@ -235,8 +235,10 @@ def pack():
     r = ns["noise_router"]
     r["final_density"] = {"type": "minecraft:range_choice", "input": Y(), "min_inclusive": -1000000.0, "max_exclusive": float(TOP),
                           "when_in_range": abyss_density(), "when_out_of_range": r["final_density"]}
+    # like deepslate (solid in y -64..-1, blending into the stone above between 0 and 8), the Abyss fills its own four
+    # chunk sections (y -128..-65) solid, and blends up into the bottom of the deepslate between -64 and -56
     abyss_rule = {"type": "minecraft:condition", "if_true": {"type": "minecraft:vertical_gradient", "random_name": "ryancraft:abyss",
-        "true_at_and_below": {"absolute": TOP - 6}, "false_at_and_above": {"absolute": TOP}}, "then_run": {"type": "minecraft:block",
+        "true_at_and_below": {"absolute": TOP - 1}, "false_at_and_above": {"absolute": TOP + 8}}, "then_run": {"type": "minecraft:block",
         "result_state": {"Name": "ryancraft:abyssal_stone"}}}
     seq = ns["surface_rule"]["sequence"]; seq.insert(len(seq) - 1, abyss_rule)
     jw(os.path.join(PACK, "data", "minecraft", "worldgen", "noise_settings", "overworld.json"), ns)

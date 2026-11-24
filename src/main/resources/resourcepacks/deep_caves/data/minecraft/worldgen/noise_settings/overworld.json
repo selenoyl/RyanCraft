@@ -2648,10 +2648,10 @@
           "type": "minecraft:vertical_gradient",
           "random_name": "ryancraft:abyss",
           "true_at_and_below": {
-            "absolute": -70
+            "absolute": -65
           },
           "false_at_and_above": {
-            "absolute": -64
+            "absolute": -56
           }
         },
         "then_run": {
