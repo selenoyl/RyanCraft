@@ -2,6 +2,30 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.1
+- **The Abyss**, a new cave layer below the deepslate, down to bedrock at y=−128 (new chunks only; the built-in Deep
+  Caves data pack can be switched off for a new world). Five kinds of cavern follow the climate above: Abyssal
+  Caverns, Toxic Caves (poisonous sludge under glowing moss), Frozen Caverns, the Sunken Wilds (an underground
+  overworld under a bright lumen-moss ceiling) and the Hollow Dark (sculk). Abyssal stone with cobbled, polished and
+  brick versions, its own ores and diamond veins, and a lava floor. Vanilla ores stay at their usual heights.
+- **The Great Moon Rabbit** gets its own model, drawn from the concept art: half again as big, with a jade crown, buck
+  teeth and the Moon Mortar staff. Every move is animated: the overhead strike, a ground slam with a wind-up you can
+  jump, a sideways meteor bat, and a summon with the staff's jade top glowing. Below half health comes the eclipse:
+  darker fur, blazing eyes and a halo of light. When it dies it drops the staff, loses its crown and topples over.
+- **Boats and chest boats** for all fifteen of our woods; door items now match vanilla's size.
+- **Clay pots can be dyed**, and fish buckets use the classic bucket.
+- **Wildlife**: whales keep to the deep and visibly swim, surfacing now and then; birds and squirrels prefer the
+  trees; the zebra gets horse-style eyes and the coyote's eyes are fixed; elk antlers attach properly; tidier
+  pegasus wings; every mod mob now has drops; spawn eggs for each mudling kind; black bears a little commoner.
+- **Metals**: meteor iron gear is now netherite-strength; cut lead joins cut silver; cleaner ruby and sapphire art,
+  with their ores back to the emerald style.
+- **Fireflies** come out only once it's properly dark, and can be turned down or off in the config.
+- **Skylands**: fall off the islands into the overworld; islands 30% thinner, with fewer flowers and nests; the moon
+  portal lights on any night.
+- **Fixes**: glass chests no longer flicker at the bottom; white glints back on the new armour and tools; the screw
+  pump turns the right way; the Ender Terminal has a scroll bar.
+- **A wiki**, with a page for every topic, linked from the front page, plus fresh in-game photos and texture charts.
+
 ## 1.9.0
 - **The Skylands**, a floating-island dimension: a glowstone portal lit with water, cloud-strata skystone, the sky
   willow, zephyrite ore, tools and armour (boots stop fall damage; the full set glides on sneak), springs and
