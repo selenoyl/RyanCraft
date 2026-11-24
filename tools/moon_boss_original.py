@@ -55,7 +55,7 @@ def rabbit(kind, eye_override=None, mark_override=None, eye_style=None):
         for (bx, by) in ((2, 2), (3, 2), (4, 3), (12, 2), (11, 2), (10, 3)): face[(bx, by)] = (40, 38, 54, 255)   # angry brows
     m.box(F, (-7, -2, -8), (14, 13, 12), paint=face, **sh)
     m.box(B, (-4, 5, -11), (8, 6, 3), **sh); m.box(noise(inner, 5, 9), (-1.5, 5, -11.6), (3, 2, 1))   # muzzle, nose
-    m.box(Image.new("RGBA", (16, 16), WHITE), (-1.6, 10.6, -11.3), (1.4, 2.4, 0.6)); m.box(Image.new("RGBA", (16, 16), WHITE), (0.2, 10.6, -11.3), (1.4, 2.4, 0.6))   # buck teeth
+    m.box(Image.new("RGBA", (16, 16), WHITE), (-1.2, 10.6, -11.3), (1.4, 2.4, 0.6)); m.box(Image.new("RGBA", (16, 16), WHITE), (0.2, 10.6, -11.3), (1.4, 2.4, 0.6))   # buck teeth, a pair centred under the nose (each 1 wide once built)
     for x in (-9, 7): m.box(B, (x, 4, -6), (2, 6, 5), **sh)                                   # cheek tufts
     # ears: the left one torn, with a notch
     e = m.part([-4, -2, -1], (-0.12, 0, -0.24)); m.box(F, (-2, -22, -1.5), (4, 22, 3), part=e, **sh); m.box(I, (-1.2, -20, -1.8), (2.4, 17, 0.4), part=e)
