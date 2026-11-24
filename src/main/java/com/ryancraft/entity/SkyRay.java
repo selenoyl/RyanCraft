@@ -36,4 +36,5 @@ public class SkyRay extends SoaringBird {
     @Override protected SoundEvent getDeathSound() { return SoundEvents.DOLPHIN_DEATH; }
     @Override public float getVoicePitch() { return 0.6f; }
     @Override public int getAmbientSoundInterval() { return 400; }
+    @Override protected boolean perchesInTrees() { return false; }
 }

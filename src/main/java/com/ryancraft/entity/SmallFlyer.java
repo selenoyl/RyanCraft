@@ -32,7 +32,8 @@ public abstract class SmallFlyer extends CritterAnimal implements FlyingAnimal {
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(3, new TemptGoal(this, 1.0, this::isFood, false));
-        this.goalSelector.addGoal(4, new WaterAvoidingRandomFlyingGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new PerchInTreeGoal(this, 1.0, 80, 14));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
     }
 

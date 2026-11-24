@@ -136,4 +136,5 @@ public class SkyRoc extends SoaringBird {
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
     @Override public float getVoicePitch() { return super.getVoicePitch() * 0.6f; }      // a deep, far-carrying cry
     @Override public int getAmbientSoundInterval() { return 900; }
+    @Override protected boolean perchesInTrees() { return false; }
 }

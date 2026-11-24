@@ -208,7 +208,7 @@ def biomes():
 
 # ------------------------------------------------------------------ the data pack that deepens the world
 def Y():
-    return {"type": "minecraft:y_clamped_gradient", "from_y": -4064, "to_y": 4064, "from_value": -4064.0, "to_value": 4064.0}
+    return {"type": "minecraft:y_clamped_gradient", "from_y": -2032, "to_y": 2032, "from_value": -2032.0, "to_value": 2032.0}
 
 def grad(y0, v0, y1, v1):
     return {"type": "minecraft:y_clamped_gradient", "from_y": y0, "to_y": y1, "from_value": v0, "to_value": v1}

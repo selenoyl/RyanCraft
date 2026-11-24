@@ -86,7 +86,7 @@ public class Squirrel extends CritterAnimal {
 
         @Override public boolean canUse() {
             if (Squirrel.this.isBaby() || !Squirrel.this.onGround()) return false;
-            if (!spooked() && Squirrel.this.getRandom().nextInt(300) != 0) return false;
+            if (!spooked() && Squirrel.this.getRandom().nextInt(70) != 0) return false;      // squirrels spend most of their time in trees
             trunk = findTrunk();
             return trunk != null;
         }
@@ -94,7 +94,7 @@ public class Squirrel extends CritterAnimal {
         private net.minecraft.core.BlockPos findTrunk() {
             net.minecraft.core.BlockPos me = Squirrel.this.blockPosition(), best = null;
             double bestD = Double.MAX_VALUE;
-            for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(me.offset(-10, -2, -10), me.offset(10, 2, 10))) {
+            for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(me.offset(-14, -2, -14), me.offset(14, 2, 14))) {
                 var st = Squirrel.this.level().getBlockState(p);
                 if (!st.is(net.minecraft.tags.BlockTags.LOGS) || !Squirrel.this.level().getBlockState(p.above()).is(net.minecraft.tags.BlockTags.LOGS)) continue;
                 if (Squirrel.this.level().getBlockState(p.below()).is(net.minecraft.tags.BlockTags.LOGS)) continue;   // the trunk's foot
@@ -104,8 +104,9 @@ public class Squirrel extends CritterAnimal {
             return best;
         }
 
-        @Override public void start() { ticks = 0; perch = 0; }
-        @Override public boolean canContinueToUse() { return trunk != null && ticks < 600 && (perch == 0 || perch < 200); }
+        private int sitFor;
+        @Override public void start() { ticks = 0; perch = 0; sitFor = 400 + Squirrel.this.getRandom().nextInt(800); }
+        @Override public boolean canContinueToUse() { return trunk != null && ticks < 900 && (perch == 0 || perch < sitFor); }
         @Override public void stop() { trunk = null; Squirrel.this.getNavigation().stop(); }
         @Override public boolean requiresUpdateEveryTick() { return true; }
 

@@ -19,7 +19,7 @@ import net.minecraft.util.Mth;
 
 /**
  * The pegasus's wings: two feathered plates hinged at the top of the horse's shoulders, just outside the body. On the
- * ground each folds down against its flank, leading edge along the top, flight feathers hanging, tips toward the tail;
+ * ground each folds small against the upper flank, leading edge along the top, flight feathers hanging, tips toward the tail;
  * in the air they spread out sideways, beating while it rises and holding a slight lift while it glides.
  */
 public class PegasusWingsModel extends EntityModel<HorseRenderState> {
@@ -57,6 +57,11 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
         float lift = spread * (12f + beat), sweep = spread * 12f + fold * 90f, tuck = fold * -90f;
         right.xRot = tuck * DEG; right.yRot = sweep * DEG; right.zRot = lift * DEG;
         left.xRot = tuck * DEG; left.yRot = -sweep * DEG; left.zRot = -lift * DEG;
+        // folded, a wing tucks small along the upper flank (shorter, and only half as deep) instead of draping the whole
+        // side like a saddle blanket; it opens out to full size as it spreads
+        float len = 1f - 0.3f * fold, depth = 1f - 0.5f * fold;
+        right.xScale = left.xScale = len; right.zScale = left.zScale = depth;
+        right.zRot += fold * -8f * DEG; left.zRot += fold * 8f * DEG;      // and lies in against the body, not out from it
     }
 
     /** Reaches vanilla's foal transformer, so the wings shrink with the foal's body. */

@@ -64,6 +64,9 @@ public class Crow extends ShoulderRidingEntity implements FlyingAnimal, CritterV
                 e -> !this.isTame() && EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e) && !e.isCrouching()));
         this.goalSelector.addGoal(3, new FollowOwnerGoal(this, 1.0, 5.0f, 1.0f));
         this.goalSelector.addGoal(4, new LandOnOwnersShoulderGoal(this));
+        this.goalSelector.addGoal(5, new PerchInTreeGoal(this, 1.0, 100, 14) {
+            @Override public boolean canUse() { return !Crow.this.isOrderedToSit() && super.canUse(); }
+        });
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));

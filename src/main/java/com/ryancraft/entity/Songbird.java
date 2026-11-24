@@ -74,6 +74,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal, com.ryancra
                 e -> !this.isTrusting() && net.minecraft.world.entity.EntitySelector.NO_CREATIVE_OR_SPECTATOR.test(e)));
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1));
+        this.goalSelector.addGoal(4, new PerchInTreeGoal(this, 1.0, 60, 14));   // songbirds spend most of their time up in the trees
         this.goalSelector.addGoal(5, new WaterAvoidingRandomFlyingGoal(this, 1.0));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));

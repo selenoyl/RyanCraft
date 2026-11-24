@@ -51,10 +51,14 @@ public abstract class SoaringBird extends CritterAnimal implements FlyingAnimal 
         this.goalSelector.addGoal(2, new SoarGoal());
         this.goalSelector.addGoal(3, new BreedGoal(this, 1.0));
         this.goalSelector.addGoal(4, new TemptGoal(this, 1.0, this::isFood, false));
+        if (perchesInTrees()) this.goalSelector.addGoal(4, new PerchInTreeGoal(this, 1.0, 120, 18));   // between soars, a big bird sits up in a tree
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 12.0f));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         addPrey();
     }
+
+    /** Whether it comes down to sit in trees between soars (rays and rocs keep to the open sky). */
+    protected boolean perchesInTrees() { return true; }
 
     /** Add target goals for whatever it hunts. */
     protected void addPrey() {}
