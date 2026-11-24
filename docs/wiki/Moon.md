@@ -36,7 +36,7 @@ tubes and ravines run through the stone down to bedrock at y=0.
 
 ![Moon blocks and finds](../chart_moon.png)
 
-**Meteor iron** ore glows faintly in the caves. Smelt it into ingots for diamond-tier tools and armour.
+**Meteor iron** ore glows faintly in the caves. Smelt it into ingots for netherite-strength tools and armour.
 
 **Gravity well** (moon dust, meteor iron and chiseled moonstone bricks): takes moon gravity anywhere, even Earth.
 Redstone switches it off.
@@ -55,4 +55,4 @@ Redstone switches it off.
 **Moon herbs** grow in the dust and can be potted. Bake them into **moon cakes** (2 moon herbs + 2 wheat + sugar +
 egg).
 
-![The Great Moon Rabbit](../moon_rabbit_boss.png)
+![The Great Moon Rabbit](../moon_boss_rabbit_eyes.png)

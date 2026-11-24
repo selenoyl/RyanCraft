@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:cut_lead"
+  },
+  "result": {
+    "id": "ryancraft:cut_lead_slab",
+    "count": 6
+  }
+}

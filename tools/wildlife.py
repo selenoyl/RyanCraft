@@ -23,8 +23,8 @@ def entries():
     # forked (mule-deer style) racks by stage: spike; beam; fork; brow tines. Non-typical extras.
     parts = staged_antlers(parts, {1: [((-2, -8, -4), (1, 5, 1))], 2: [((-3, -11, -4), (1, 4, 1))],
                                    3: [((-3, -11, -6), (1, 1, 2)), ((-3, -13, -6), (1, 2, 1))],
-                                   4: [((-2, -9, -6), (1, 1, 2)), ((-2, -11, -7), (1, 2, 1))]},
-                           [((-4, -12, -3), (1, 1, 1)), ((-3, -14, -4), (1, 2, 1)), ((-2, -7, -6), (1, 2, 1))])
+                                   4: [((-2, -8, -6), (1, 1, 2)), ((-2, -10, -6), (1, 2, 1))]},
+                           [((-4, -10, -4), (1, 1, 1)), ((-3, -13, -4), (1, 2, 1)), ((-2, -7, -6), (1, 2, 1))])   # every tine touches the rack
     E["black_tailed_deer"] = (parts, {"black_tailed_deer": dict(st, antler=CLEAR), "black_tailed_deer_buck": st,
                                       "black_tailed_deer_buck_dark": dict(st, antler={"c": "#8a6c4a", "noise": 10}),
                                       "black_tailed_deer_buck_chocolate": dict(st, antler={"c": "#5e4430", "noise": 8})}, ("#7a6a58", "#141210"))

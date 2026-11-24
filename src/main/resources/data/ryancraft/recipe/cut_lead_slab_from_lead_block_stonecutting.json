@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "ryancraft:lead_block",
+  "result": {
+    "id": "ryancraft:cut_lead_slab",
+    "count": 8
+  }
+}

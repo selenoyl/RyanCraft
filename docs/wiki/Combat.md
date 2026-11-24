@@ -41,5 +41,5 @@ a loud crack, a cloud of smoke and a hard-hitting ball that wanders off line pas
 |---|---|---|
 | Lead | Iron | Harder to enchant. Heavy armour that shrugs off a little knockback |
 | Zephyrite | Iron | A little easier to enchant. Boots stop fall damage, and a full set glides while you sneak |
-| Meteor iron | Diamond | Made on the moon |
+| Meteor iron | Netherite | Made on the moon. As tough as netherite, tools and armour alike |
 | Coonskin cap | Leather | Leather and a raccoon tail |

@@ -175,7 +175,7 @@ P["chipmunk"] = {"chipmunk": {
 P["coyote"] = {"coyote": {
     "body": {"c": "#9a8468", "noise": 6, "grizzle": {"c": ["#6a5a48", "#c0ac8c", "#8a8a86"], "p": [0.25, 0.2, 0.12]}, "belly": "#e6dcc8"},
     "head": {"c": "#a08868", "noise": 6, "grizzle": {"c": ["#7a6650", "#c0ac8c"], "p": [0.2, 0.2]},
-             "eyes": "#1e140a", "eye_white": "#ece8de", "eye_inset": 0, "eye_row": 2, "bottom": "#e6dcc8"},
+             "eyes": "#1e140a", "eye_white": "#ece8de", "eye_inset": 0, "eye_row": 2, "pupils_in": True, "bottom": "#e6dcc8"},
     "snout": {"c": "#c8b494", "noise": 6, "nose": "#1a1410"},
     "ear": {"c": "#8a7458", "back": "#4a3a2a"}, "leg": {"c": "#b8a07c", "noise": 8},
     "tail": {"c": "#8a7a62", "noise": 8, "grizzle": {"c": ["#5a4a3a", "#b8a88c"], "p": [0.25, 0.2]}, "tip": {"c": "#1a1612", "frac": 0.18}}}}
@@ -274,6 +274,9 @@ def paint_box(img, b, style):
         if "eye_white" in style:      # pupil on the outside, white toward the middle (like the cow, pig, polar bear)
             img.putpixel((left + 1, fy + r), hexc(style["eye_white"]) + (255,))
             img.putpixel((right - 1, fy + r), hexc(style["eye_white"]) + (255,))
+            if style.get("pupils_in"):  # or the other way round: white on the outside, pupils toward the middle
+                for a, b in ((left, left + 1), (right, right - 1)):
+                    img.putpixel((a, fy + r), hexc(style["eye_white"]) + (255,)); img.putpixel((b, fy + r), hexc(style["eyes"]) + (255,))
     if "front_map" in style:       # hand-drawn face, one character per pixel (" " = leave as is)
         for j, row in enumerate(style["front_map"]):
             for i, ch in enumerate(row):

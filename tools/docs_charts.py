@@ -166,7 +166,7 @@ def main():
     chart("chart_trees.png", "Fifteen eastern trees", "Bark, log end, stripped log, planks, leaves (shown in summer green) and sapling for each species.",
           rows, cols=6, ts=96, cw=150, ch=150)
 
-    chart("chart_gear.png", "Tools and armour", "Lead (iron tier, heavy), zephyrite (iron tier, feather-falling boots) and meteor iron (diamond tier).", [
+    chart("chart_gear.png", "Tools and armour", "Lead (iron tier, heavy), zephyrite (iron tier, feather-falling boots) and meteor iron (netherite tier).", [
         (name(L, m + "_ingot").replace(" Ingot", ""), [(name(L, f"{m}_{g}"), f"item/{m}_{g}") for g in gear]) for m in ("lead", "zephyrite", "meteor_iron")]
         + [("Also", [(name(L, n), "item/" + n) for n in ("coonskin_cap", "musket", "musket_ball", "cannonball", "grapeshot", "chain_shot",
                                                           "canister_shot", "heated_shot", "explosive_shell") if os.path.exists(os.path.join(T, "item", n + ".png"))])], cols=9)

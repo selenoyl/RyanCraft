@@ -103,6 +103,9 @@
     "ryancraft:chiseled_lead",
     "ryancraft:chiseled_tin",
     "ryancraft:chiseled_zinc",
-    "ryancraft:chiseled_aluminum"
+    "ryancraft:chiseled_aluminum",
+    "ryancraft:cut_lead",
+    "ryancraft:cut_lead_stairs",
+    "ryancraft:cut_lead_slab"
   ]
 }

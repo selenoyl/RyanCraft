@@ -57,6 +57,14 @@ public final class Metals {
         if (!n.equals("silver"))                     // silver's chiseled block tarnishes with the rest of its set (Silver)
             block("chiseled_" + n, Block::new, BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f)
                     .sound(SoundType.METAL).lightLevel(s -> light));
+        if (n.equals("lead")) {                      // cut lead, with stairs and a slab (silver's cut set tarnishes, in Silver)
+            BlockBehaviour.Properties cp = BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL);
+            Block cut = block("cut_lead", Block::new, cp);
+            block("cut_lead_stairs", p -> new net.minecraft.world.level.block.StairBlock(cut.defaultBlockState(), p),
+                    BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+            block("cut_lead_slab", net.minecraft.world.level.block.SlabBlock::new,
+                    BlockBehaviour.Properties.of().mapColor(colour).requiresCorrectToolForDrops().strength(5.0f, 6.0f).sound(SoundType.METAL));
+        }
         ALL.put(n, new Metal(n, colour, light, ore, deep, rawBlock, block, item("raw_" + n), item(n + "_ingot"), item(n + "_nugget")));
     }
 

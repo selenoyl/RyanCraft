@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "ryancraft:block/cut_lead_slab"
+    },
+    "type=double": {
+      "model": "ryancraft:block/cut_lead"
+    },
+    "type=top": {
+      "model": "ryancraft:block/cut_lead_slab_top"
+    }
+  }
+}

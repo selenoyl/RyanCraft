@@ -117,6 +117,7 @@ def build():
                 "key": {"#": f"ryancraft:{n}"}, "result": {"id": f"ryancraft:{pn}", "count": 16}})
     # door and trapdoor (clear only), on vanilla's iron door / trapdoor models
     top, bot, icon = door()
+    import wood; icon = wood.door_icon(top, bot)          # vanilla's door-icon size and spot
     top.save(os.path.join(TEX, "leaded_glass_door_top.png")); bot.save(os.path.join(TEX, "leaded_glass_door_bottom.png")); icon.save(os.path.join(ITEM, "leaded_glass_door.png"))
     framed("square_leaded_glass").save(os.path.join(TEX, "leaded_glass_trapdoor.png"))
     S = os.path.join(HERE, "templates", "silver", "assets", "minecraft")

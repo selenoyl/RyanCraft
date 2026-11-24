@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "ryancraft:block/cut_lead",
+    "side": "ryancraft:block/cut_lead",
+    "top": "ryancraft:block/cut_lead"
+  }
+}

@@ -57,7 +57,40 @@ def lang_entries():
         out.update({f"block.ryancraft.{m}_ore": f"{t} Ore", f"block.ryancraft.deepslate_{m}_ore": f"Deepslate {t} Ore",
                     f"block.ryancraft.raw_{m}_block": f"Block of Raw {t}", f"block.ryancraft.{m}_block": f"Block of {t}",
                     f"block.ryancraft.chiseled_{m}": f"Chiseled {t}", f"item.ryancraft.raw_{m}": f"Raw {t}", f"item.ryancraft.{m}_ingot": f"{t} Ingot", f"item.ryancraft.{m}_nugget": f"{t} Nugget"})
+    out.update({"block.ryancraft.cut_lead": "Cut Lead", "block.ryancraft.cut_lead_stairs": "Cut Lead Stairs", "block.ryancraft.cut_lead_slab": "Cut Lead Slab"})
     return out
+
+def cut_lead():
+    """Cut lead, with stairs and a slab: vanilla's cut copper (texture, models, blockstates) in lead's colours."""
+    T = os.path.join(HERE, "templates", "steel"); pal = METALS["lead"][1]
+    recolour(os.path.join(T, "textures", "cut_copper.png"), pal).save(os.path.join(HERE, "..", "src/main/resources/assets/ryancraft/textures/block/cut_lead.png"))
+    def fix(o):
+        if isinstance(o, dict): return {k: fix(v) for k, v in o.items()}
+        if isinstance(o, list): return [fix(v) for v in o]
+        if isinstance(o, str) and "cut_copper" in o: return o.replace("minecraft:block/cut_copper", "ryancraft:block/cut_lead").replace("cut_copper", "cut_lead")
+        return o
+    for f in ("cut_copper_slab", "cut_copper_stairs"):
+        w(f"assets/ryancraft/blockstates/{f.replace('copper', 'lead')}.json", fix(json.load(open(os.path.join(T, "blockstates", f + ".json")))))
+    for f in os.listdir(os.path.join(T, "models")):
+        if f.startswith("cut_copper"): w(f"assets/ryancraft/models/block/{f.replace('copper', 'lead')}", fix(json.load(open(os.path.join(T, "models", f)))))
+    w("assets/ryancraft/blockstates/cut_lead.json", {"variants": {"": {"model": "ryancraft:block/cut_lead"}}})
+    for n in ("cut_lead", "cut_lead_stairs", "cut_lead_slab"):
+        w(f"assets/ryancraft/items/{n}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:block/{n}"}})
+    w("data/ryancraft/loot_table/blocks/cut_lead.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:cut_lead"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+    w("data/ryancraft/loot_table/blocks/cut_lead_stairs.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:cut_lead_stairs"}], "conditions": [{"condition": "minecraft:survives_explosion"}]}]})
+    w("data/ryancraft/loot_table/blocks/cut_lead_slab.json", {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "ryancraft:cut_lead_slab",
+        "functions": [{"function": "minecraft:set_count", "count": 2, "add": False, "conditions": [{"condition": "minecraft:block_state_property", "block": "ryancraft:cut_lead_slab", "properties": {"type": "double"}}]},
+                      {"function": "minecraft:explosion_decay"}]}]}]})
+    R = "data/ryancraft/recipe/"
+    w(R + "cut_lead.json", {"type": "minecraft:crafting_shaped", "category": "building", "pattern": ["##", "##"], "key": {"#": "ryancraft:lead_block"}, "result": {"id": "ryancraft:cut_lead", "count": 4}})
+    w(R + "cut_lead_stairs.json", {"type": "minecraft:crafting_shaped", "category": "building", "pattern": ["#  ", "## ", "###"], "key": {"#": "ryancraft:cut_lead"}, "result": {"id": "ryancraft:cut_lead_stairs", "count": 4}})
+    w(R + "cut_lead_slab.json", {"type": "minecraft:crafting_shaped", "category": "building", "pattern": ["###"], "key": {"#": "ryancraft:cut_lead"}, "result": {"id": "ryancraft:cut_lead_slab", "count": 6}})
+    for out, n, src in (("cut_lead", 4, "lead_block"), ("cut_lead_stairs", 4, "lead_block"), ("cut_lead_slab", 8, "lead_block"), ("cut_lead_stairs", 1, "cut_lead"), ("cut_lead_slab", 2, "cut_lead")):
+        w(R + f"{out}_from_{src}_stonecutting.json", {"type": "minecraft:stonecutting", "ingredient": f"ryancraft:{src}", "result": {"id": f"ryancraft:{out}", "count": n}})
+    blocks = ["ryancraft:cut_lead", "ryancraft:cut_lead_stairs", "ryancraft:cut_lead_slab"]
+    add_tag("data/minecraft/tags/block/mineable/pickaxe.json", blocks); add_tag("data/minecraft/tags/block/needs_stone_tool.json", blocks)
+    add_tag("data/minecraft/tags/block/stairs.json", ["ryancraft:cut_lead_stairs"]); add_tag("data/minecraft/tags/item/stairs.json", ["ryancraft:cut_lead_stairs"])
+    add_tag("data/minecraft/tags/block/slabs.json", ["ryancraft:cut_lead_slab"]); add_tag("data/minecraft/tags/item/slabs.json", ["ryancraft:cut_lead_slab"])
 
 def build(m):
     title, pal, iron_tool, (count, size, lo, hi, shape) = METALS[m]
@@ -127,5 +160,6 @@ def build(m):
 
 if __name__ == "__main__":
     for m in METALS: build(m)
+    cut_lead()
     p = os.path.join(A, "lang", "en_us.json"); d = json.load(open(p)); d.update(lang_entries()); json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
     print("metals ok")

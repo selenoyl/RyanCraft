@@ -19,9 +19,11 @@ import net.minecraft.util.Mth;
 
 /**
  * The pegasus's wings: two feathered plates hinged at the top of the horse's shoulders, just outside the body. On the
- * ground each folds small against the upper flank, leading edge along the top, flight feathers hanging, tips toward the tail;
+ * ground each folds down against its flank, leading edge along the top, flight feathers hanging, tips toward the tail;
  * in the air they spread out sideways, beating while it rises and holding a slight lift while it glides.
  */
+// Each wing is a flat plane (no thickness): a 1-pixel-thick box drew its edge faces as a solid strip of texture beside the
+// feathers' cut-out outline.
 public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static final ModelLayerLocation LAYER = new ModelLayerLocation(RyanCraft.id("pegasus_wings"), "main");
     public static final ModelLayerLocation BABY_LAYER = new ModelLayerLocation(RyanCraft.id("pegasus_wings_baby"), "main");
@@ -38,8 +40,8 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
     public static LayerDefinition create() {
         MeshDefinition mesh = new MeshDefinition(); PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.offset(0f, 11f, 5f));   // the horse body's pivot
-        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(-5.6f, -8f, -11f));
-        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, -0.5f, 0f, 18f, 1f, 11f), PartPose.offset(5.6f, -8f, -11f));
+        body.addOrReplaceChild("right_wing", CubeListBuilder.create().texOffs(0, 0).addBox(-18f, 0f, 0f, 18f, 0f, 11f, java.util.EnumSet.of(net.minecraft.core.Direction.UP)), PartPose.offset(-5.6f, -8f, -11f));
+        body.addOrReplaceChild("left_wing", CubeListBuilder.create().texOffs(0, 12).addBox(0f, 0f, 0f, 18f, 0f, 11f, java.util.EnumSet.of(net.minecraft.core.Direction.UP)), PartPose.offset(5.6f, -8f, -11f));
         return LayerDefinition.create(mesh, 64, 32);
     }
 
@@ -57,11 +59,6 @@ public class PegasusWingsModel extends EntityModel<HorseRenderState> {
         float lift = spread * (12f + beat), sweep = spread * 12f + fold * 90f, tuck = fold * -90f;
         right.xRot = tuck * DEG; right.yRot = sweep * DEG; right.zRot = lift * DEG;
         left.xRot = tuck * DEG; left.yRot = -sweep * DEG; left.zRot = -lift * DEG;
-        // folded, a wing tucks small along the upper flank (shorter, and only half as deep) instead of draping the whole
-        // side like a saddle blanket; it opens out to full size as it spreads
-        float len = 1f - 0.3f * fold, depth = 1f - 0.5f * fold;
-        right.xScale = left.xScale = len; right.zScale = left.zScale = depth;
-        right.zRot += fold * -8f * DEG; left.zRot += fold * 8f * DEG;      // and lies in against the body, not out from it
     }
 
     /** Reaches vanilla's foal transformer, so the wings shrink with the foal's body. */

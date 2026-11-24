@@ -274,6 +274,9 @@
     "ryancraft:abyssal_stone",
     "ryancraft:cobbled_abyssal_stone",
     "ryancraft:polished_abyssal_stone",
-    "ryancraft:abyssal_bricks"
+    "ryancraft:abyssal_bricks",
+    "ryancraft:cut_lead",
+    "ryancraft:cut_lead_stairs",
+    "ryancraft:cut_lead_slab"
   ]
 }

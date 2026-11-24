@@ -42,6 +42,11 @@ public final class GearSet {
         return new GearSet(name, BlockTags.INCORRECT_FOR_DIAMOND_TOOL, 1561, 8.0f, 3.0f, enchantability, 33, new int[]{3, 6, 8, 3}, 2.0f);
     }
 
+    /** Netherite's tier: durability 2031, speed 9, +4 damage; armour 3/6/8/3, toughness 3, a little knockback resistance, durability x37. */
+    public static GearSet netheriteTier(String name, int enchantability) {
+        return new GearSet(name, BlockTags.INCORRECT_FOR_NETHERITE_TOOL, 2031, 9.0f, 4.0f, enchantability, 37, new int[]{3, 6, 8, 3}, 3.0f, 0.1f);
+    }
+
     /** Lead: iron's tier, duller to enchant, and heavy armour that shrugs off a little knockback. */
     public static GearSet leadTier(String name) {
         return new GearSet(name, BlockTags.INCORRECT_FOR_IRON_TOOL, 220, 5.5f, 2.0f, 7, 15, new int[]{2, 5, 6, 2}, 0f, 0.05f);
@@ -63,7 +68,8 @@ public final class GearSet {
                 toughness, knockbackResistance, repair, asset);
         sword = tool("sword", p -> new Item(p.sword(tm, 3.0f, -2.4f)));
         pickaxe = tool("pickaxe", p -> new Item(p.pickaxe(tm, 1.0f, -2.8f)));
-        axe = tool("axe", p -> new AxeItem(tm, 6.0f, -3.1f, p));
+        // axes swing like vanilla's of the same tier: iron 6 / -3.1, diamond and netherite 5 / -3.0
+        axe = damage >= 3.0f ? tool("axe", p -> new AxeItem(tm, 5.0f, -3.0f, p)) : tool("axe", p -> new AxeItem(tm, 6.0f, -3.1f, p));
         shovel = tool("shovel", p -> new ShovelItem(tm, 1.5f, -3.0f, p));
         hoe = tool("hoe", p -> new HoeItem(tm, -2.0f, -1.0f, p));
         helmet = armour("helmet", p -> new Item(p.humanoidArmor(am, ArmorType.HELMET)));

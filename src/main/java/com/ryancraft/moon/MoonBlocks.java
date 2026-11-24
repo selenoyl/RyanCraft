@@ -135,7 +135,7 @@ public final class MoonBlocks {
     }
 
     /** Meteor iron gear: diamond's tier, made from the ingot. */
-    public static final com.ryancraft.metal.GearSet METEOR_IRON_GEAR = com.ryancraft.metal.GearSet.diamondTier("meteor_iron", 10);
+    public static final com.ryancraft.metal.GearSet METEOR_IRON_GEAR = com.ryancraft.metal.GearSet.netheriteTier("meteor_iron", 15);
 
     public static void init() {
         METEOR_IRON_GEAR.addToTabs();

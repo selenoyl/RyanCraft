@@ -46,7 +46,7 @@ Lapis gets bricks and chiseled blocks too.
 
 ## Moon and sky ores
 
-- **Meteor iron**: found in the moon's caves, where it glows faintly. Its gear is on par with diamond. See
+- **Meteor iron**: found in the moon's caves, where it glows faintly. Its gear matches netherite. See
   [The Moon](Moon.md).
 - **Zephyrite**: found in the Skylands. Its gear is on par with iron, and the boots stop fall damage. See
   [The Skylands](Skylands.md).

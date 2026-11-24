@@ -58,6 +58,12 @@ HAND = {
         *[Pt([x, 18, 1], [B([36, 0], [-0.5, 0, -0.5], [1, 6, 1])]) for x in (-1.5, 1.5)]]),
 }
 
+# vanilla's cow (the moobloom wears it): head with horns, body turned upright, udder, four legs
+HAND["cow"] = (64, 64, [
+    Pt([0, 4, -8], [B([0, 0], [-4, -4, -6], [8, 8, 6]), B([22, 0], [-5, -5, -4], [1, 3, 1]), B([22, 0], [4, -5, -4], [1, 3, 1], True)]),
+    Pt([0, 5, 2], [B([18, 4], [-6, -10, -7], [12, 18, 10]), B([52, 0], [-2, 2, -8], [4, 6, 1])], (1.5708, 0, 0)),
+    *[Pt([x, 12, z], [B([0, 16], [-2, 0, -2], [4, 12, 4], x > 0)]) for x in (-4, 4) for z in (7, -6)]])
+
 def deer_antlers(stage, drop=False, head_pivot=None):
     spec = json.load(open(os.path.join(ROOT, "critter_models", "deer_antlers.json")))
     hp = head_pivot or spec["head_pivot"]; out = []
@@ -175,6 +181,8 @@ LAND = [
     ("Black Bear", "with cub", "black_bear", "black", 1.0, ("black", 0.5)),
     ("Cinnamon Bear", "rare colour phase", "black_bear", "cinnamon", 1.0, None),
     ("Deer", "10-point trophy buck", "deer:4", "deer", 1.06, None),
+    ("Reindeer", "bull", "deer:4", "reindeer", 1.06, None),
+    ("Moobloom", "flower forests; milk it for suspicious stew", "cow", "moobloom", 1.0, None),
     ("Black-tailed Deer", "buck", "black_tailed_deer", "black_tailed_deer_buck", 1.0, None),
     ("Pronghorn", "with fawn", "pronghorn", "pronghorn", 1.0, ("pronghorn_fawn", 0.5)),
     ("Zebra", "savanna herds; tame and ride it", "horse", "zebra", 1.0, None),

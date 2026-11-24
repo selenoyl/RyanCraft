@@ -70,11 +70,17 @@ def door_textures(k, sp):
     hx = 13 if k % 3 else 2                                     # handle
     bp[hx, 1] = (70, 70, 74, 255); bp[hx, 2] = (110, 110, 116, 255)
     top.save(f"{TEX}/block/{sp}_door_top.png"); bot.save(f"{TEX}/block/{sp}_door_bottom.png")
-    # item icon: the whole door squeezed into 16x16, like vanilla's
-    icon = Image.new("RGBA", (16, 16))
+    door_icon(top, bot).save(f"{TEX}/item/{sp}_door.png")
+
+def door_icon(top, bot):
+    """The item icon: the whole door shrunk to vanilla's door-icon size and spot (10 wide, 14 tall, from x 3, y 2),
+    sampling evenly spaced rows and columns that always include the frame's edges, so the outline survives."""
     tall = Image.new("RGBA", (16, 32)); tall.paste(top, (0, 0)); tall.paste(bot, (0, 16))
-    icon.alpha_composite(tall.resize((8, 16), Image.NEAREST), (4, 0))
-    icon.save(f"{TEX}/item/{sp}_door.png")
+    xs = [round(i * 15 / 9) for i in range(10)]; ys = [round(j * 31 / 13) for j in range(14)]
+    icon = Image.new("RGBA", (16, 16)); ip, tp = icon.load(), tall.load()
+    for j, y in enumerate(ys):
+        for i, x in enumerate(xs): ip[3 + i, 2 + j] = tp[x, y]
+    return icon
 
 def trapdoor_texture(k, sp):
     bark, _, wood, leaf, bloom = TREES[sp]
