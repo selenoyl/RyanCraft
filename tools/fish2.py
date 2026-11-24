@@ -1,5 +1,5 @@
 """Game fish: models and textures for the newer species, and item icons for every RyanCraft fish built on the base-game
-templates (the classic raw/cooked fish and the Programmer Art fish bucket), recoloured per species."""
+templates (the classic raw/cooked fish and the Programmer Art fish bucket), recoloured per species. Fish buckets put the fish in the classic water bucket."""
 import colorsys, os, random
 from PIL import Image
 import critters
@@ -39,6 +39,38 @@ ICONS = {
 }
 EGGS = {"rainbow_trout": ("#6e7a4a", "#d8607a"), "smallmouth_bass": ("#7a6638", "#4a3a20"), "yellow_perch": ("#c8a830", "#3a4a1a"),
         "walleye": ("#8a8040", "#e8e0b0"), "northern_pike": ("#4e6a38", "#c8d4a0"), "muskellunge": ("#8a8a68", "#4a4a34")}
+
+CLASSIC_WATER_BUCKET = os.path.join(HERE, "..", "src/main/resources/resourcepacks/classic/assets/minecraft/textures/item/water_bucket.png")
+
+def classic_bucket(fish_icon):
+    """The species' fish, lifted out of the Programmer Art fish bucket (its coloured pixels, and the dark outline and
+    eye touching them), set into the classic 1.2.5 water bucket so fish buckets match the bucket the classic pack shows."""
+    out = Image.open(CLASSIC_WATER_BUCKET).convert("RGBA").crop((0, 0, 16, 16)); po, pf = out.load(), fish_icon.load()
+    raw = Image.open(os.path.join(HERE, "template_fish_bucket.png")).convert("RGBA").load()
+    def hsv(c): return colorsys.rgb_to_hsv(*[v / 255 for v in c[:3]])
+    fish = {(x, y) for y in range(16) for x in range(16) if pf[x, y][3] and pf[x, y] != raw[x, y]}   # what recolour painted
+    edge = {(x, y) for y in range(16) for x in range(16) if pf[x, y][3] and hsv(pf[x, y])[2] < 0.16
+            and any((x + dx, y + dy) in fish for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+    for x, y in fish | edge: po[x, y] = pf[x, y]
+    return out
+
+VANILLA_BUCKETS = ("cod", "salmon", "pufferfish", "tropical_fish", "axolotl", "tadpole")
+
+def classic_vanilla_buckets():
+    """The classic pack's versions of vanilla's creature buckets: each creature (where vanilla's bucket differs from its
+    plain water bucket) set into the classic water bucket, so they match ours and the classic pack's own buckets."""
+    water = Image.open(os.path.join(HERE, "templates", "vanilla_water_bucket.png")).convert("RGBA").load()
+    for b in VANILLA_BUCKETS:
+        src = Image.open(os.path.join(HERE, "templates", "vanilla_buckets", b + "_bucket.png")).convert("RGBA"); ps = src.load()
+        out = Image.open(CLASSIC_WATER_BUCKET).convert("RGBA").crop((0, 0, 16, 16)); po = out.load()
+        for y in range(16):
+            for x in range(16):
+                c = ps[x, y]
+                if not c[3] or c == water[x, y]: continue
+                h, sat, v = colorsys.rgb_to_hsv(*[k / 255 for k in c[:3]])
+                if b != "axolotl" and ((sat < 0.12 and v > 0.2) or (0.55 < h < 0.7 and sat > 0.45 and v > 0.5)): continue   # bucket metal, water (the axolotl is pale pink itself)
+                po[x, y] = c
+        out.save(os.path.join(os.path.dirname(CLASSIC_WATER_BUCKET), b + "_bucket.png"))
 
 def lerp(a, b, t): return tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
@@ -89,5 +121,6 @@ if __name__ == "__main__":
     for i, (name, (back, belly, fin, pattern, pc)) in enumerate(ICONS.items()):
         save_item(name, recolour("template_fish.png", back, belly, fin, pattern, pc, 100 + i))
         save_item("cooked_" + name, cooked_icon(back, 200 + i))
-        save_item(name + "_bucket", recolour("template_fish_bucket.png", back, belly, fin, pattern, pc, 300 + i, bucket=True))
+        save_item(name + "_bucket", classic_bucket(recolour("template_fish_bucket.png", back, belly, fin, pattern, pc, 300 + i, bucket=True)))
+    classic_vanilla_buckets()
     print("icons ok")
