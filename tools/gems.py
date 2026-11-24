@@ -1,7 +1,7 @@
 """Ruby and sapphire (deco/Gems.java): stone and deepslate ores, the gem and its block. Rubies come from hot, dry lands
 (desert, badlands, savanna); sapphires from snowy and frozen ones. The gems are hand-drawn: a cushion-cut ruby and a
-pear-cut sapphire. The ores are the classic diamond ore's clusters in each gem's colours (vanilla's deepslate diamond ore for deepslate);
-the blocks are the classic diamond block's plate in each gem's colours.
+pear-cut sapphire. The ores are emerald ore in each gem's colours (Programmer Art's emerald ore on classic stone, and vanilla's
+deepslate one); the blocks are the classic diamond block's plate in each gem's colours.
   python3 tools/gems.py      (tools/resources.py merges the lang)"""
 import json, os
 from PIL import Image
@@ -12,7 +12,8 @@ import raw_ores as RO
 HERE = os.path.dirname(os.path.abspath(__file__)); B = os.path.join(M.TEX, "block"); I = os.path.join(M.TEX, "item")
 cb = lambda n: os.path.join(M.CLASSIC, "block", n + ".png")
 G = os.path.join(HERE, "templates", "gems")
-DEEP, DEEP_ORE = os.path.join(G, "deepslate.png"), os.path.join(G, "deepslate_diamond_ore.png")      # vanilla
+DEEP, DEEP_ORE = os.path.join(G, "deepslate.png"), os.path.join(G, "deepslate_emerald_ore.png")      # vanilla
+PA_STONE, PA_ORE = os.path.join(G, "pa_stone.png"), os.path.join(G, "emerald_ore.png")             # Programmer Art
 
 GEMS = {   # outline, shadow, body, light, glint
     "ruby":     {"title": "Ruby", "o": (70, 8, 22), "d": (138, 18, 40), "m": (204, 34, 58), "l": (246, 98, 116), "w": (255, 214, 220)},
@@ -54,7 +55,6 @@ ART = {
         "....oodddddo....",
         "......oooo......"],
 }
-TURN = {"ruby": None, "sapphire": "flip"}   # the two ores get different cluster layouts
 BLOCK = {   # the classic diamond block's plate, dark rim -> pale highlight
     "ruby":     [(112, 14, 34), (170, 24, 48), (210, 40, 64), (236, 82, 102), (252, 160, 172)],
     "sapphire": [(18, 38, 120), (30, 64, 178), (46, 98, 222), (92, 144, 246), (170, 204, 255)],
@@ -68,26 +68,22 @@ def sprite(g):
             if ch in P and ch != "title": px[x, y] = P[ch] + (255,)
     return im
 
-def gem_ore(stone, tpl_stone, tpl_ore, pal, how=None):
-    """The classic diamond ore's crystal clusters (turned per gem), gradient-mapped onto the gem's colours, on our
-    stone. Using the diamond's chunky clusters (not emerald's single specks) keeps the ore clean and 1.2.5-looking."""
-    s, o = Image.open(tpl_stone).convert("RGBA").crop((0, 0, 16, 16)), Image.open(tpl_ore).convert("RGBA").crop((0, 0, 16, 16))
-    m = Image.new("L", (16, 16)); mp = m.load()
-    for y in range(16):
-        for x in range(16):
-            if abs(sum(s.getpixel((x, y))[:3]) - sum(o.getpixel((x, y))[:3])) > 24: mp[x, y] = 255
-    o, m = RO.transform(o, how), RO.transform(m, how)
-    spots = {(x, y) for y in range(16) for x in range(16) if m.getpixel((x, y))}
-    out = Image.open(stone).convert("RGBA").crop((0, 0, 16, 16)); po = out.load(); ro = RO.remap(o.copy(), pal, 0.0, spots).load()
-    for x, y in spots: po[x, y] = ro[x, y]
+def gem_ore(base, tpl_stone, tpl_ore, pal):
+    """Emerald ore in the gem's colours, on our stone: the emeralds' green pixels are gradient-mapped onto the gem's
+    palette by brightness (keeping their shading), and the grey sockets round them are kept as they are."""
+    s, o = Image.open(tpl_stone).convert("RGBA"), Image.open(tpl_ore).convert("RGBA")
+    differs = {(x, y) for y in range(16) for x in range(16) if abs(sum(s.getpixel((x, y))[:3]) - sum(o.getpixel((x, y))[:3])) > 24}
+    green = {(x, y) for x, y in differs if o.getpixel((x, y))[1] > max(o.getpixel((x, y))[0], o.getpixel((x, y))[2]) + 16}
+    out = Image.open(base).convert("RGBA").crop((0, 0, 16, 16)); po = out.load(); ro = MA.recolour(o.copy(), pal, green).load()
+    for x, y in differs: po[x, y] = ro[x, y] if (x, y) in green else o.getpixel((x, y))
     return out
 
 def textures():
     for g, P in GEMS.items():
         sprite(g).save(os.path.join(I, f"{g}.png"))
-        how = TURN[g]
-        gem_ore(cb("stone"), cb("stone"), cb("diamond_ore"), [P["o"], P["d"], P["m"], P["l"], P["w"]], how).save(os.path.join(B, f"{g}_ore.png"))
-        gem_ore(DEEP, DEEP, DEEP_ORE, [P["o"], P["d"], P["m"], P["l"], P["w"]], how).save(os.path.join(B, f"deepslate_{g}_ore.png"))
+        pal = [P["d"], P["m"], P["l"], P["w"]]
+        gem_ore(cb("stone"), PA_STONE, PA_ORE, pal).save(os.path.join(B, f"{g}_ore.png"))
+        gem_ore(DEEP, DEEP, DEEP_ORE, pal).save(os.path.join(B, f"deepslate_{g}_ore.png"))
         RO.remap(Image.open(cb("diamond_block")).convert("RGBA").crop((0, 0, 16, 16)), BLOCK[g]).save(os.path.join(B, f"{g}_block.png"))
 
 def lang_entries():
