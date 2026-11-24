@@ -5,7 +5,7 @@
 Mudlings are little biome soldiers made of their biome's own stuff. Wild ones live at their camps and scatter when
 a player comes near.
 
-![Mudlings concept art](../mudlings_concept.png)
+![Two teams of mudlings](../photos/mudlings.jpg)
 
 ## Finding them
 

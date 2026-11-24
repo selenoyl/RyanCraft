@@ -2,6 +2,8 @@
 
 # Storage
 
+![Obsidian, lead glass and diamond chests](../photos/chests.jpg)
+
 ## Special chests
 
 | Chest | Recipe | What it does |

@@ -4,7 +4,7 @@
 
 Floating islands above the clouds, RyanCraft's own take on the old Aether.
 
-![The Skylands](../skylands.png)
+![The Skylands](../photos/skylands.jpg)
 
 ## Getting there
 
@@ -38,7 +38,6 @@ fall damage**, and a **full set lets you glide** down slowly while you hold snea
 - **Cloud sheep**: woolly sheep of the islands. Drops mutton.
 - **Sky ray**: glides through the air. Drops phantom membrane.
 
-![Sky rays](../sky_rays.png)
 
 ## Raising a roc
 

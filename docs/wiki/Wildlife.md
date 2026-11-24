@@ -5,6 +5,8 @@
 RyanCraft fills the overworld with the animals of the eastern US forests, plus big game, birds of prey and ocean
 life. All of them spawn naturally in fitting biomes, all have spawn eggs, and almost all breed on a sensible food.
 
+![Deer, turkeys and a black bear](../photos/forest.jpg)
+
 ![Field guide: land animals](../field_guide_land.png)
 
 ## Land animals
@@ -38,6 +40,10 @@ life. All of them spawn naturally in fitting biomes, all have spawn eggs, and al
 | Timber rattlesnake | Hills, badlands, shrubland | Leather, spider eye | |
 | Bullfrog | Swamps, rivers | Slime ball | |
 | American alligator | Swamps | Leather | |
+
+![Zebras and pronghorn on the savanna](../photos/savanna.jpg)
+
+![Reindeer and a moose](../photos/snow.jpg)
 
 ## Birds
 

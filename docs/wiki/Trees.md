@@ -17,6 +17,8 @@ shape and bark, and the broadleaf trees change colour through the [seasons](Seas
 
 ![Tree textures](../chart_trees.png)
 
+![Every block in each wood family](../wood_families.png)
+
 **Fruit and nuts**: black cherry trees drop cherries (bake a cherry pie), and black walnut trees drop black walnuts
 (shell them for shelled walnuts). Squirrels drop walnuts sometimes too.
 

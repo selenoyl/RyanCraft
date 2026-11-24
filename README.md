@@ -5,7 +5,13 @@ a few trips further afield. It keeps the classic 1.2.5 / Programmer Art look, wi
 
 Current version: **1.9.0** · [Download](https://github.com/selenoyl/RyanCraft/releases) · **[Wiki](docs/wiki/Home.md)** · [Changelog](docs/CHANGELOG.md) · [Roadmap](ROADMAP.md)
 
-![Kentucky wildlife on a 1.2.5-textured platform](docs/kentucky.png)
+![The Skylands](docs/photos/skylands.jpg)
+
+<table>
+<tr><td><img src="docs/photos/forest.jpg" alt="Deer, turkeys and a black bear in an eastern forest"></td><td><img src="docs/photos/savanna.jpg" alt="Zebras and pronghorn on the savanna"></td></tr>
+<tr><td><img src="docs/photos/moon.jpg" alt="Moon rabbits and a lost spaceman on the moon"></td><td><img src="docs/photos/mudlings.jpg" alt="Two teams of mudlings"></td></tr>
+<tr><td><img src="docs/photos/cooking.jpg" alt="A cooking pot over a campfire, with dyed clay pots"></td><td><img src="docs/photos/snow.jpg" alt="Reindeer and a moose in the snow"></td></tr>
+</table>
 
 ## Features
 - **Wildlife**: deer, elk, bears, birds and more, plus fish you catch, measure and log

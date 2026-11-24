@@ -4,7 +4,7 @@
 
 Low gravity, no air, falling meteors, and a boss guarding the way home.
 
-![The moon](../moon_concept.png)
+![On the moon](../photos/moon.jpg)
 
 ## Getting there
 

@@ -4,6 +4,8 @@
 
 ![Food](../chart_food.png)
 
+![A cooking pot over a campfire, with dyed clay pots](../photos/cooking.jpg)
+
 ## The cooking pot
 
 **Recipe:** iron ingots in a U shape (`I I / I I / III`).
