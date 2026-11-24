@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ryancraft:item/clay_pot"
+    "layer0": "ryancraft:item/clay_pot",
+    "layer1": "ryancraft:item/clay_pot_band"
   }
 }

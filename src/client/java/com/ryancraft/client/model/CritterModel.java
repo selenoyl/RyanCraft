@@ -159,7 +159,10 @@ public class CritterModel extends EntityModel<LivingEntityRenderState> {
             for (ModelPart b : bodyParts) b.y += sitDrop * 0.9f;
         } else for (ModelPart l : legParts) l.visible = true;
         ModelPart whaleTail = roles.get("whale_tail");                 // whale flukes beat up and down
-        if (whaleTail != null) whaleTail.xRot = Mth.sin(age * 0.18f) * 0.28f;
+        if (whaleTail != null) {                                     // a slow idle sway, beating harder and faster the faster it swims
+            float sp = Math.min(1.0f, speed * 2.5f);
+            whaleTail.xRot = Mth.sin(age * (0.1f + 0.14f * sp)) * (0.14f + 0.3f * sp);
+        }
         ModelPart fishTail = roles.get("fish_tail");
         if (fishTail != null) {
             fishTail.yRot = Mth.sin(age * 0.6f) * (state.isInWater ? 0.45f : 0.7f);

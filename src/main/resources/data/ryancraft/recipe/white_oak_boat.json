@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:white_oak_planks"
+  },
+  "result": {
+    "id": "ryancraft:white_oak_boat",
+    "count": 1
+  }
+}

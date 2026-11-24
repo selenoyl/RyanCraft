@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:ohio_buckeye_planks"
+  },
+  "result": {
+    "id": "ryancraft:ohio_buckeye_boat",
+    "count": 1
+  }
+}

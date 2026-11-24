@@ -65,8 +65,11 @@ def pot_model(n):
         els.append(el([x + 1, 5, z + 1], [x + 5, 6, z + 5], box_faces("#pot", 4, 1, uvx=6, uvy=3)))
         els.append(el([x + 0.5, 6, z + 0.5], [x + 5.5, 6.5, z + 5.5], box_faces("#lid", 5, 0.5, top="#lid")))
         els.append(el([x + 2.5, 6.5, z + 2.5], [x + 3.5, 7, z + 3.5], box_faces("#lid", 1, 0.5)))
+    for i, (x, z) in enumerate(SPOTS[n - 1]):      # the band round each pot, tinted by its own colour (tintindex = which pot)
+        band = {"texture": "#band", "uv": [0, 0, 6, 2], "tintindex": i}
+        els.append(el([x - 0.02, 1, z - 0.02], [x + 6.02, 3, z + 6.02], {k: dict(band) for k in ("north", "south", "east", "west")}))
     return {"parent": "minecraft:block/block", "textures": {"particle": "ryancraft:block/clay_pot", "pot": "ryancraft:block/clay_pot",
-            "lid": "ryancraft:block/clay_pot_lid"}, "elements": els}
+            "lid": "ryancraft:block/clay_pot_lid", "band": "ryancraft:block/clay_pot_band"}, "elements": els}
 
 def bowl_model(contents):
     s = {"texture": "#wood"}
@@ -113,10 +116,22 @@ if __name__ == "__main__":
     for name, base, bits in (("mushroom_stew", (150, 100, 62), [(196, 160, 120), (110, 70, 44)]),
                              ("beetroot_soup", (150, 30, 40), [(190, 60, 70), (110, 20, 30)]),
                              ("rabbit_stew", (170, 110, 56), [(220, 160, 60), (110, 150, 60), (120, 80, 40)])):
-        r = random.Random(hash(name) & 0xffff); img = solid(6, base, 6); px = img.load()
+        r = random.Random(sum(map(ord, name))); img = solid(6, base, 6); px = img.load()   # (a stable seed; hash() changes per run)
         for _ in range(14): px[r.randrange(16), r.randrange(16)] = r.choice(bits) + (255,)
         img.save(f"{TEX}/block/bowl_{name}.png")
     icon(POT_ICON, {"L": (150, 80, 46), "l": (186, 104, 64), "d": (110, 56, 32), "m": (178, 96, 58), "h": (214, 136, 90), "B": (120, 60, 34)}, 7).save(f"{TEX}/item/clay_pot.png")
+    # dyeable band: a pale grey band (tinted in game: the natural dark band undyed, the dye's colour once dyed)
+    solid(9, (236, 236, 236), 10).save(f"{TEX}/block/clay_pot_band.png")
+    band = Image.new("RGBA", (16, 16), (0, 0, 0, 0)); bp = band.load(); r = random.Random(10)
+    for y, row in enumerate(POT_ICON):
+        for x, ch in enumerate(row):
+            if ch == "B": bp[x, y] = jit(r, (236, 236, 236), 8) + (255,)
+    band.save(f"{TEX}/item/clay_pot_band.png")
+    w("assets/ryancraft/models/item/clay_pot.json", {"parent": "minecraft:item/generated",
+        "textures": {"layer0": "ryancraft:item/clay_pot", "layer1": "ryancraft:item/clay_pot_band"}})
+    w("assets/ryancraft/items/clay_pot.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/clay_pot",
+        "tints": [{"type": "minecraft:constant", "value": -1}, {"type": "minecraft:dye", "default": -8897502}]}})
+    w("data/minecraft/tags/item/dyeable.json", {"replace": False, "values": ["ryancraft:clay_pot"]})
     icon(POT_ICON, {"L": (130, 136, 150), "l": (164, 170, 184), "d": (104, 108, 122), "m": (152, 158, 172), "h": (184, 190, 204), "B": (136, 142, 156)}, 8).save(f"{TEX}/item/unfired_clay_pot.png")
     # models and blockstates
     for n in range(1, 5): w(f"assets/ryancraft/models/block/clay_pot_{n}.json", pot_model(n))
@@ -127,7 +142,7 @@ if __name__ == "__main__":
     buckets = ["empty", "water", "lava", "milk", "powder_snow"]
     for c in buckets: w(f"assets/ryancraft/models/block/placed_bucket_{c}.json", bucket_model(c))
     w("assets/ryancraft/blockstates/placed_bucket.json", {"variants": {f"contents={c}": {"model": f"ryancraft:block/placed_bucket_{c}"} for c in buckets}})
-    for it in ("clay_pot", "unfired_clay_pot"):
+    for it in ("unfired_clay_pot",):       # (the clay pot's own item model, with its dyeable band, is written above)
         w(f"assets/ryancraft/models/item/{it}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"ryancraft:item/{it}"}})
         w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{it}"}})
     # loot: a placed bowl or bucket drops itself with its contents

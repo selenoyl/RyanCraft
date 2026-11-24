@@ -28,6 +28,9 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
 
     /** Babies always use the first texture (so young bulls don't sprout antlers). */
     public CritterRenderer<T> plainBabies() { this.plainBabies = true; return this; }
+    private boolean whale;
+    /** Whales and orcas: no side-to-side fish waggle; the body pitches with the way it's swimming (nose up to rise, down to dive). */
+    public CritterRenderer<T> whale() { this.whale = true; return this; }
 
     @Override
     public CritterRenderState createRenderState() {
@@ -68,7 +71,14 @@ public class CritterRenderer<T extends Mob & CritterVisual> extends MobRenderer<
     @Override
     protected void setupRotations(CritterRenderState state, PoseStack pose, float bodyRot, float entityScale) {
         super.setupRotations(state, pose, bodyRot, entityScale);
-        if (fish) {
+        if (whale) {
+            if (state.isInWater) {
+                float h = state.boundingBoxHeight * 0.5f;
+                pose.translate(0.0f, h, 0.0f);
+                pose.mulPose(Axis.XP.rotationDegrees(-state.xRot * 0.8f));
+                pose.translate(0.0f, -h, 0.0f);
+            }
+        } else if (fish) {
             float wobble = (state.isInWater ? 1.0f : 1.7f) * 4.3f * Mth.sin(0.6f * state.ageInTicks);
             pose.mulPose(Axis.YP.rotationDegrees(wobble));
             if (!state.isInWater) {

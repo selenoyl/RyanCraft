@@ -36,7 +36,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * Fired clay pots for keeping food, Vintage Story style. Up to four sit together on one block (like candles); each
  * has its own little store. Right-click a pot to open it, or right-click it holding food to drop the food straight in.
- * A broken pot keeps what's inside it.
+ * A broken pot keeps what's inside it. Use a dye on a pot to colour its band (just that pot), or dye the pot item in
+ * the crafting grid like leather armour; the colour stays with the pot when it's broken and placed again.
  */
 public class ClayPotBlock extends BaseEntityBlock {
     public static final IntegerProperty POTS = IntegerProperty.create("pots", 1, 4);
@@ -110,6 +111,14 @@ public class ClayPotBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (stack.getItem() instanceof net.minecraft.world.item.DyeItem dye && level.getBlockEntity(pos) instanceof ClayPotBlockEntity pot) {
+            // dye the band of just the pot you're pointing at
+            if (!level.isClientSide() && pot.dye(potAt(state, pos, hit.getLocation()), dye.getDyeColor().getTextureDiffuseColor() & 0xFFFFFF)) {
+                stack.consume(1, player);
+                level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
+            }
+            return InteractionResult.SUCCESS;
+        }
         if (stack.is(this.asItem()) || !PotContainer.storable(stack)) return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (!(level.getBlockEntity(pos) instanceof ClayPotBlockEntity be)) return InteractionResult.PASS;
         if (!level.isClientSide()) {

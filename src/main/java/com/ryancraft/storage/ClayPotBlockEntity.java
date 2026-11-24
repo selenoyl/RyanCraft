@@ -16,6 +16,9 @@ public class ClayPotBlockEntity extends BlockEntity {
     public static final int SLOTS = 5;
     private final NonNullList<ItemStack>[] pots;
     private boolean dropped;
+    /** Each pot's band colour (RGB), or -1 for the natural fired-clay band. */
+    private final int[] colours = {-1, -1, -1, -1};
+    public static final int NATURAL_BAND = 0x783C22;
 
     @SuppressWarnings("unchecked")
     public ClayPotBlockEntity(BlockPos pos, BlockState state) {
@@ -28,7 +31,31 @@ public class ClayPotBlockEntity extends BlockEntity {
 
     void fillFrom(int pot, ItemStack item) {
         ItemContainerContents c = item.get(DataComponents.CONTAINER);
-        if (c != null) { c.copyInto(pots[pot]); setChanged(); }
+        if (c != null) c.copyInto(pots[pot]);
+        net.minecraft.world.item.component.DyedItemColor dye = item.get(DataComponents.DYED_COLOR);
+        colours[pot] = dye != null ? dye.rgb() & 0xFFFFFF : -1;
+        changed();
+    }
+
+    /** The band colour to draw for a pot (the natural band if undyed). */
+    public int bandColour(int pot) { return pot >= 0 && pot < 4 && colours[pot] != -1 ? colours[pot] : NATURAL_BAND; }
+
+    /** Dyes one pot's band; returns false if it was already that colour. */
+    boolean dye(int pot, int rgb) {
+        if (colours[pot] == rgb) return false;
+        colours[pot] = rgb; changed(); return true;
+    }
+
+    private void changed() {
+        setChanged();
+        if (level != null) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
+    }
+
+    @Override public net.minecraft.network.protocol.Packet<net.minecraft.network.protocol.game.ClientGamePacketListener> getUpdatePacket() {
+        return net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket.create(this);
+    }
+    @Override public net.minecraft.nbt.CompoundTag getUpdateTag(net.minecraft.core.HolderLookup.Provider reg) {
+        net.minecraft.nbt.CompoundTag t = new net.minecraft.nbt.CompoundTag(); t.putIntArray("Colours", colours.clone()); return t;
     }
 
     /** Puts as much of the stack as fits into one pot; returns what's left. */
@@ -57,6 +84,7 @@ public class ClayPotBlockEntity extends BlockEntity {
         for (int i = 0; i < n; i++) {
             ItemStack pot = new ItemStack(RyanStorage.CLAY_POT_ITEM);
             if (pots[i].stream().anyMatch(s -> !s.isEmpty())) pot.set(DataComponents.CONTAINER, ItemContainerContents.fromItems(pots[i]));
+            if (colours[i] != -1) pot.set(DataComponents.DYED_COLOR, new net.minecraft.world.item.component.DyedItemColor(colours[i]));
             Containers.dropItemStack(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.3, worldPosition.getZ() + 0.5, pot);
             pots[i].clear();
         }
@@ -73,6 +101,7 @@ public class ClayPotBlockEntity extends BlockEntity {
     protected void saveAdditional(ValueOutput out) {
         super.saveAdditional(out);
         for (int i = 0; i < 4; i++) net.minecraft.world.ContainerHelper.saveAllItems(out.child("Pot" + i), pots[i]);
+        out.putIntArray("Colours", colours.clone());
     }
 
     @Override
@@ -83,5 +112,8 @@ public class ClayPotBlockEntity extends BlockEntity {
             int k = i;
             in.child("Pot" + i).ifPresent(c -> net.minecraft.world.ContainerHelper.loadAllItems(c, pots[k]));
         }
+        int[] c = in.getIntArray("Colours").orElse(new int[0]);
+        for (int i = 0; i < 4; i++) colours[i] = i < c.length ? c[i] : -1;
+        if (level != null && level.isClientSide()) level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
     }
 }

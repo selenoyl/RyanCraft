@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "ryancraft:white_oak_boat",
+    "ryancraft:red_oak_boat",
+    "ryancraft:sugar_maple_boat",
+    "ryancraft:red_maple_boat",
+    "ryancraft:tulip_poplar_boat",
+    "ryancraft:shagbark_hickory_boat",
+    "ryancraft:black_walnut_boat",
+    "ryancraft:american_beech_boat",
+    "ryancraft:sycamore_boat",
+    "ryancraft:eastern_redbud_boat",
+    "ryancraft:flowering_dogwood_boat",
+    "ryancraft:eastern_red_cedar_boat",
+    "ryancraft:black_cherry_boat",
+    "ryancraft:sassafras_boat",
+    "ryancraft:ohio_buckeye_boat",
+    "ryancraft:sky_willow_boat"
+  ]
+}

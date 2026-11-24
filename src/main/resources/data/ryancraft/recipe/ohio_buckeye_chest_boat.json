@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    "minecraft:chest",
+    "ryancraft:ohio_buckeye_boat"
+  ],
+  "result": {
+    "id": "ryancraft:ohio_buckeye_chest_boat",
+    "count": 1
+  }
+}

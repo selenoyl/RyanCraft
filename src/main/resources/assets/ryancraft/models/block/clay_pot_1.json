@@ -3,7 +3,8 @@
   "textures": {
     "particle": "ryancraft:block/clay_pot",
     "pot": "ryancraft:block/clay_pot",
-    "lid": "ryancraft:block/clay_pot_lid"
+    "lid": "ryancraft:block/clay_pot_lid",
+    "band": "ryancraft:block/clay_pot_band"
   },
   "elements": [
     {
@@ -275,6 +276,60 @@
             1,
             1
           ]
+        }
+      }
+    },
+    {
+      "from": [
+        4.98,
+        1,
+        4.98
+      ],
+      "to": [
+        11.02,
+        3,
+        11.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#band",
+          "uv": [
+            0,
+            0,
+            6,
+            2
+          ],
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#band",
+          "uv": [
+            0,
+            0,
+            6,
+            2
+          ],
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#band",
+          "uv": [
+            0,
+            0,
+            6,
+            2
+          ],
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#band",
+          "uv": [
+            0,
+            0,
+            6,
+            2
+          ],
+          "tintindex": 0
         }
       }
     }

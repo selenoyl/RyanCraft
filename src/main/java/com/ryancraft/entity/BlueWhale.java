@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 
-/** Blue whale: the biggest animal there is. Glides slowly through the deep ocean, sings, and surfaces to blow a towering spout. Harmless. */
+/** Blue whale: the biggest animal there is. Glides slowly through the deep ocean well below the surface, sings, and every couple of minutes rises to blow a towering spout. Harmless. */
 public class BlueWhale extends OceanAnimal {
     public BlueWhale(EntityType<? extends BlueWhale> type, Level level) { super(type, level); }
 
@@ -18,7 +18,8 @@ public class BlueWhale extends OceanAnimal {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 200.0).add(Attributes.MOVEMENT_SPEED, 0.6).add(Attributes.KNOCKBACK_RESISTANCE, 1.0);
     }
 
-    @Override protected int breathInterval() { return 1200; }
+    @Override protected int breathInterval() { return 2400; }      // about every two minutes (a little random)
+    @Override protected int cruiseDepth() { return 12; }
     @Override protected float spoutSize() { return 3.0f; }
     @Override protected double swimSpeed() { return 0.7; }
     @Override protected SoundEvent getAmbientSound() { return RyanSounds.WHALE_SONG; }

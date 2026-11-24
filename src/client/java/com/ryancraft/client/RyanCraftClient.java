@@ -23,6 +23,9 @@ public class RyanCraftClient implements ClientModInitializer {
     public void onInitializeClient() {
         ThirstHud.init();
         // winter: our leaves go drab (they can't fall), a dull tint over their colours
+        net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) ->     // each clay pot's band colour
+                level != null && pos != null && level.getBlockEntity(pos) instanceof com.ryancraft.storage.ClayPotBlockEntity be
+                        ? be.bandColour(tint) : com.ryancraft.storage.ClayPotBlockEntity.NATURAL_BAND, com.ryancraft.storage.RyanStorage.CLAY_POT);
         net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry.BLOCK.register((state, level, pos, tint) -> {
                     var mcLevel = net.minecraft.client.Minecraft.getInstance().level;
                     if (level == null || pos == null || mcLevel == null) return 0xFFFFFFFF;
@@ -76,6 +79,15 @@ public class RyanCraftClient implements ClientModInitializer {
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry.register(com.ryancraft.pipes.RyanPipes.HAND_PUMP_ENTITY, com.ryancraft.client.pipes.PumpRenderer::new);
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.PumpRenderer.LAYER, com.ryancraft.client.pipes.PumpRenderer::createLayer);
+        for (var e : com.ryancraft.trees.RyanBoats.BOATS.entrySet()) {     // our boats: vanilla's model, our textures (entity/boat/<wood>.png)
+            String id = e.getKey().id;
+            var boatLayer = new net.minecraft.client.model.geom.ModelLayerLocation(com.ryancraft.RyanCraft.id("boat/" + id), "main");
+            var chestLayer = new net.minecraft.client.model.geom.ModelLayerLocation(com.ryancraft.RyanCraft.id("chest_boat/" + id), "main");
+            EntityModelLayerRegistry.registerModelLayer(boatLayer, net.minecraft.client.model.object.boat.BoatModel::createBoatModel);
+            EntityModelLayerRegistry.registerModelLayer(chestLayer, net.minecraft.client.model.object.boat.BoatModel::createChestBoatModel);
+            net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(e.getValue().boat(), c -> new net.minecraft.client.renderer.entity.BoatRenderer(c, boatLayer));
+            net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry.register(e.getValue().chestBoat(), c -> new net.minecraft.client.renderer.entity.BoatRenderer(c, chestLayer));
+        }
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.combat.CannonRenderer.LAYER, com.ryancraft.client.combat.CannonRenderer.Model::create);
         net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry.registerModelLayer(com.ryancraft.client.pipes.EngineRenderer.LAYER, com.ryancraft.client.pipes.EngineRenderer::createLayer);
         net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap.putBlocks(net.minecraft.client.renderer.chunk.ChunkSectionLayer.CUTOUT,
@@ -177,8 +189,8 @@ public class RyanCraftClient implements ClientModInitializer {
         EntityRendererRegistry.register(RyanEntities.GREAT_HORNED_OWL, c -> new CritterRenderer<>(c, "great_horned_owl", 0.4f, 1.0f, false, "great_horned_owl"));
         EntityRendererRegistry.register(RyanEntities.GREAT_BLUE_HERON, c -> new CritterRenderer<>(c, "great_blue_heron", 0.4f, 1.0f, false, "great_blue_heron"));
         EntityRendererRegistry.register(RyanEntities.CANADA_GOOSE, c -> new CritterRenderer<>(c, "canada_goose", 0.4f, 1.0f, false, "canada_goose"));
-        EntityRendererRegistry.register(RyanEntities.ORCA, c -> new CritterRenderer<>(c, "orca", 1.0f, 2.0f, true, "orca"));
-        EntityRendererRegistry.register(RyanEntities.BLUE_WHALE, c -> new CritterRenderer<>(c, "blue_whale", 2.0f, 3.0f, true, "blue_whale"));
+        EntityRendererRegistry.register(RyanEntities.ORCA, c -> new CritterRenderer<>(c, "orca", 1.0f, 2.0f, true, "orca").whale());
+        EntityRendererRegistry.register(RyanEntities.BLUE_WHALE, c -> new CritterRenderer<>(c, "blue_whale", 2.0f, 3.0f, true, "blue_whale").whale());
         EntityRendererRegistry.register(RyanEntities.SHARK, c -> new CritterRenderer<>(c, "shark", 0.7f, 1.6f, true, "shark"));
         EntityRendererRegistry.register(RyanEntities.MANTA_RAY, c -> new CritterRenderer<>(c, "manta_ray", 0.8f, 1.5f, true, "manta_ray"));
         EntityRendererRegistry.register(RyanEntities.SKY_RAY, c -> new CritterRenderer<>(c, "manta_ray", 0.8f, 1.8f, false, "sky_ray"));

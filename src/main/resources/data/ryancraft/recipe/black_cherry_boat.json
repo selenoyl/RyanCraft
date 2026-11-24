@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:black_cherry_planks"
+  },
+  "result": {
+    "id": "ryancraft:black_cherry_boat",
+    "count": 1
+  }
+}

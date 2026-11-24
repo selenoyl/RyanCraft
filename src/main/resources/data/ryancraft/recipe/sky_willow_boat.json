@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:sky_willow_planks"
+  },
+  "result": {
+    "id": "ryancraft:sky_willow_boat",
+    "count": 1
+  }
+}

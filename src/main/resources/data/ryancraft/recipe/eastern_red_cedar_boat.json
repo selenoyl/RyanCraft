@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": "ryancraft:eastern_red_cedar_planks"
+  },
+  "result": {
+    "id": "ryancraft:eastern_red_cedar_boat",
+    "count": 1
+  }
+}

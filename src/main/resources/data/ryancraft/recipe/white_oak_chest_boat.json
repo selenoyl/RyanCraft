@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    "minecraft:chest",
+    "ryancraft:white_oak_boat"
+  ],
+  "result": {
+    "id": "ryancraft:white_oak_chest_boat",
+    "count": 1
+  }
+}
