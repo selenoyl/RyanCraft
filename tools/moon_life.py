@@ -319,15 +319,42 @@ CAKE = ["................", "................", "................", "....ggggggg
         "..dgGGGGGGGGgd..", "..ddggggggggdd..", "..dDDDDDDDDDDd..", "..dDdDDdDDdDDd..", "..dDDDDDDDDDDd..", "...dddddddddd...", "................",
         "................", "................"]
 def moon_cake():
-    sprite(CAKE, {"g": (150, 176, 166), "G": (196, 218, 208), "h": (196, 214, 255), "d": (150, 108, 60), "D": (212, 166, 96)}).save(
-        os.path.join(M.A, "textures", "item", "moon_cake.png"))
+    """The moon cake, a variation on the classic cake: its icing a pale moonlit blue-white, the cherries swapped for
+    jade-green moon herb, and golden sponge. Placed, it's eaten a slice at a time (moon/MoonCakeBlock.java)."""
+    import colorsys
+    C = os.path.join(M.RES, "resourcepacks", "classic", "assets", "minecraft", "textures")
+    def recolour(path):
+        im = Image.open(path).convert("RGBA").crop((0, 0, 16, 16)); px = im.load()
+        for y in range(16):
+            for x in range(16):
+                r, g, b, a = px[x, y]
+                if not a: continue
+                h, sat, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+                if sat < 0.15 and v > 0.55:                                 # icing: pale moonlight
+                    k = v; px[x, y] = (int(196 * k + 22), int(208 * k + 22), int(232 * k + 20), a)
+                elif r > 150 and g < 70 and b < 70 and r > 2.6 * g:          # cherries: moon herb, jade green
+                    k = v / 0.85; px[x, y] = (min(255, int(70 * k)), min(255, int(186 * k)), min(255, int(118 * k)), a)
+                else:                                                        # sponge: golden, like a moon cake's pastry
+                    c = colorsys.hsv_to_rgb(0.105, min(1, sat * 0.95), min(1, v * 1.22)); px[x, y] = tuple(int(255 * t) for t in c) + (a,)
+        return im
+    B = os.path.join(M.A, "textures", "block")
+    for part in ("top", "side", "inner", "bottom"):
+        recolour(os.path.join(C, "block", f"cake_{part}.png")).save(os.path.join(B, f"moon_cake_{part}.png"))
+    recolour(os.path.join(C, "item", "cake.png")).save(os.path.join(M.A, "textures", "item", "moon_cake.png"))
+    tex = {"particle": "ryancraft:block/moon_cake_side", "bottom": "ryancraft:block/moon_cake_bottom",
+           "top": "ryancraft:block/moon_cake_top", "side": "ryancraft:block/moon_cake_side", "inside": "ryancraft:block/moon_cake_inner"}
+    M.w("assets/ryancraft/models/block/moon_cake.json", {"parent": "minecraft:block/cake", "textures": tex})
+    for i in range(1, 7):
+        M.w(f"assets/ryancraft/models/block/moon_cake_slice{i}.json", {"parent": f"minecraft:block/cake_slice{i}", "textures": tex})
+    M.w("assets/ryancraft/blockstates/moon_cake.json", {"variants": {f"bites={i}": {"model": "ryancraft:block/moon_cake" + (f"_slice{i}" if i else "")} for i in range(7)}})
     M.w("assets/ryancraft/models/item/moon_cake.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "ryancraft:item/moon_cake"}})
     M.w("assets/ryancraft/items/moon_cake.json", {"model": {"type": "minecraft:model", "model": "ryancraft:item/moon_cake"}})
+    M.w("data/ryancraft/loot_table/blocks/moon_cake.json", {"type": "minecraft:block", "pools": []})          # like a cake: nothing
     M.w("data/ryancraft/recipe/moon_cake.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [
         "ryancraft:moon_herb", "ryancraft:moon_herb", "minecraft:wheat", "minecraft:wheat", "minecraft:sugar", "minecraft:egg"],
         "result": {"id": "ryancraft:moon_cake", "count": 1}})
-    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d["item.ryancraft.moon_cake"] = "Moon Cake"
-    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2)
+    p = os.path.join(M.A, "lang", "en_us.json"); d = json.load(open(p)); d.pop("item.ryancraft.moon_cake", None); d["block.ryancraft.moon_cake"] = "Moon Cake"
+    json.dump(dict(sorted(d.items())), open(p, "w"), indent=2); open(p, "a").write("\n")
 
 if __name__ == "__main__":
     moon_cake(); print("moon cake ok")

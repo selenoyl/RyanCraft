@@ -40,10 +40,10 @@ public final class MoonBlocks {
             DEEP_MOONSTONE, COBBLED_DEEP_MOONSTONE, POLISHED_DEEP_MOONSTONE, DEEP_MOONSTONE_BRICKS, DEEP_METEOR_IRON_ORE,
             JADE_ORE, DEEPSLATE_JADE_ORE, MOONSTONE_JADE_ORE, DEEP_MOONSTONE_JADE_ORE, JADE_BLOCK;
     public static final Item RAW_METEOR_IRON, METEOR_IRON_INGOT, JADE;
-    /** Moon cake: food, and the moon rabbit's favourite. */
+    /** Moon cake: set down and eaten a slice at a time like a cake, and the moon rabbit's favourite. */
+    public static final Block MOON_CAKE_BLOCK = blockNoItem("moon_cake", MoonCakeBlock::new, BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.CAKE));
     public static final Item MOON_CAKE = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, ResourceKey.create(Registries.ITEM, RyanCraft.id("moon_cake")),
-            new Item(new Item.Properties().setId(ResourceKey.create(Registries.ITEM, RyanCraft.id("moon_cake")))
-                    .food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(6).saturationModifier(0.7f).build())));
+            new BlockItem(MOON_CAKE_BLOCK, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, RyanCraft.id("moon_cake"))).stacksTo(1).useBlockDescriptionPrefix()));
     /** The jade portal's surface (no item: you light a jade frame with an eye of ender). */
     public static final Block MOON_PORTAL;
     /** Moon herb: the moon rabbit's food. */

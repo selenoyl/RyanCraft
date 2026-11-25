@@ -54,8 +54,8 @@ Redstone switches it off.
 | Lost spaceman | Rotten flesh, tinted glass | Comes in several suit colours |
 | **Great Moon Rabbit** | Jade crown, Moon Mortar, meteor iron | The boss. It summons angry moon rabbits |
 
-**Moon herbs** grow in the dust and can be potted. Bake them into **moon cakes** (2 moon herbs + 2 wheat + sugar +
-egg).
+**Moon herbs** grow in the dust and can be potted. Bake them into a **moon cake** (2 moon herbs + 2 wheat + sugar +
+egg): set it down and eat it a slice at a time, like a cake. Moon rabbits love it.
 
 ## The Great Moon Rabbit
 
