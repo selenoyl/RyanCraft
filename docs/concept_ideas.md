@@ -241,3 +241,16 @@ Two kinds of island out in the ocean, found the way mushroom islands are, but a 
   moon gate and a pagoda hall.
 
 ![Temple concepts](temple_concept.png)
+
+## The Deep Freeze, our way (the Frozen Caverns, deepened)
+Mojang's coming Deep Freeze update (26.4: ice caves, icicles, brittle ice over crevasses, a frozen zombie) points at
+the same place as our Frozen Caverns. Our own take, so it sits beside theirs rather than copying it:
+- **Icicles** hanging from the ice spires and the cavern roof, growing slowly in the cold; they snap and fall when
+  something walks beneath (like pointed dripstone), and can be broken off for a frosty drink of water.
+- **Thin ice**: a brittle crust over hidden crevasses that cracks under your feet and gives way after a moment, so a
+  careful walker can step back; a slow-falling sheet of snow drifts down after it.
+- **Permafrost**: frozen abyssal stone with ice veins, its own block set (bricks, polished, tiles, chiseled), and a
+  pale blue **rime brick** set from packed ice and snow.
+- **The Rimebound**: miners who lost their way down here long ago, now slow, ice-crusted undead that breathe frost
+  (a few seconds of slowness) and shatter into ice and old mining gear; and **frost moths** glowing pale blue.
+- **Cold**: down here, without warm clothing or a heater, you slowly freeze (ties into the warm-clothing idea).
