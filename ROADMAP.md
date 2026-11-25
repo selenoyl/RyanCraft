@@ -19,7 +19,8 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
 
 **Predators and big game**
 - ~~**Grizzly bear**~~ (built)
-- **Elephants**, including big **war elephants** you can saddle and armour.
+- **Elephants**, including big **war elephants** you can saddle and armour (armour in every tier, up to meteor iron;
+  see [docs/concept_ideas.md](docs/concept_ideas.md)).
 - ~~**Bobcat**~~ (built)
 - ~~**Alligator** (swamps)~~ (built)
 
@@ -196,6 +197,11 @@ Turning power from wind, water, muscle or engines, carried by axles and cogs to 
 - **A gear-driven contraption mob** (Vintage Story style): a clockwork creature of cogs and axles. To brainstorm
   when the gears and mechanics are built.
 
+## Zephyrite and airships
+More uses for zephyrite (the zephyrite windmill, weathervane, wind chimes, zephyr fan, renewable wind charges, the
+zephyr charm) and airships (the zephyr balloon, the four-balloon base, the Zephyr Zeppelin): see
+[docs/concept_ideas.md](docs/concept_ideas.md).
+
 ## Engineering ideas
 A brainstorm of vanilla-plus machines (waterwheels, windmills, gearboxes, bellows, millstones, a shulker conveyor and
 more) that run on the same engine pulse as everything else: see [docs/engineering_ideas.md](docs/engineering_ideas.md).
@@ -212,8 +218,15 @@ more) that run on the same engine pulse as everything else: see [docs/engineerin
 - **Force field generator**, fuelled by nether stars. On the moon it keeps the falling meteors off your base.
 - **Cage upgrades**.
 
+## Electricity: early industrial
+Rubber trees, wires, dynamos, turbines, windmills, solar mirrors, battery banks, machines, wide-reaching lamps, and
+work for the metals (bronze, brass, tin cans, aluminum, uranium glass, the brass golem porter), frames and motors,
+and the block breaker and placer: see [docs/concept_ideas.md](docs/concept_ideas.md). Also there: **brewing** (hops,
+kegs, beer, mead, cider, a tavern), **distilling** (bourbon, the copper still, charred barrels), perishable food (icehouse, electric fridge), seasonal villages, greenhouse physics, hardiness zones and the tropics, Alpha Island and tropical islands, the naturalist's journal, the early camera, the lunar rover, the Skylands boss, life in the Abyss, and the **meteor iron armoury** (greatsword, spear, crossbow, cannon, musket, horse and war elephant armour, an anvil that never breaks, a magnet).
+
 ## Vehicles (primitive, Flan's-style)
 - **A little biplane**: basically a boat with wings, fuelled with coal, with that primitive early-mod look.
+  A **zephyr propeller** upgrade makes it faster and steadier (see Zephyrite).
 - Other simple vehicles in the same style.
 
 ## The Skylands: our sky dimension (our own, not the Aether)

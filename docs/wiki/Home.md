@@ -19,6 +19,9 @@ A guide to everything RyanCraft adds to Minecraft 1.21.11. Pick a topic:
 | 🌕 **[The Moon](Moon.md)** | Low gravity, no air, meteors, and the Great Moon Rabbit |
 | 🔧 **[Settings and Commands](Settings.md)** | The config file and every command |
 
+Curious where it's headed? The **[concept ideas](../concept_ideas.md)** page collects the bigger ideas worked out so
+far (airships, electricity, brewing, the tropics and more), with concept art.
+
 New to the mod? Start with [Wildlife](Wildlife.md) and [Seasons](Seasons.md), which you'll notice first. Then build
 a [cooking pot](Cooking.md), and when you're ready for a trip, light a [Skylands portal](Skylands.md).
 
