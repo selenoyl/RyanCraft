@@ -46,7 +46,17 @@ public final class MoonRelics {
 
     public static final Item JADE_CROWN = register("jade_crown", p -> new Item(p.humanoidArmor(CROWN, ArmorType.HELMET).rarity(Rarity.EPIC).fireResistant()));
     public static final Item MOON_MORTAR = register("moon_mortar", p -> new MoonMortar(p.rarity(Rarity.EPIC).durability(600)
-            .component(DataComponents.TOOL, MaceItem.createToolProperties()).attributes(MaceItem.createAttributes()).enchantable(15).fireResistant()));
+            .component(DataComponents.TOOL, MaceItem.createToolProperties()).attributes(mortarAttributes()).enchantable(15).fireResistant()));
+
+    /** Heavier than the mace: 14 attack damage, at the mace's slow swing. */
+    private static net.minecraft.world.item.component.ItemAttributeModifiers mortarAttributes() {
+        var main = net.minecraft.world.entity.EquipmentSlotGroup.MAINHAND;
+        var add = net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE;
+        return net.minecraft.world.item.component.ItemAttributeModifiers.builder()
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_DAMAGE, new net.minecraft.world.entity.ai.attributes.AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, 13.0, add), main)
+                .add(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_SPEED, new net.minecraft.world.entity.ai.attributes.AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -3.4, add), main)
+                .build();
+    }
 
     private static Item register(String name, java.util.function.Function<Item.Properties, Item> f) {
         ResourceKey<Item> k = ResourceKey.create(Registries.ITEM, RyanCraft.id(name));

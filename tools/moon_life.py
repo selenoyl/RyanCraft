@@ -163,24 +163,44 @@ MORTAR_ICON = ["..........sSSs..", ".........sLLLSs.", "........sLddLSs.", "....
                ".hh.............", "hh..............", "h...............", "................"]
 
 def relics():
-    recoat(DUST, [(30, 34, 52), (220, 226, 255)], big=True).save(os.path.join(ENT, "great_moon_rabbit.png"))
+    # (the Great Moon Rabbit's own texture and model come from tools/moon_boss_model.py)
     recoat(SILVER, [(220, 40, 40), (255, 160, 160)]).save(os.path.join(ENT, "angry_moon_rabbit.png"))
     recoat([(52, 46, 66), (86, 78, 102), (122, 114, 140), (156, 150, 176)], [(240, 40, 30), (255, 160, 150)]).save(os.path.join(ENT, "angry_moon_rabbit_brute.png"))
-    gear().save(os.path.join(ENT, "great_moon_rabbit_gear.png"))
+    crown_and_mortar()
+
+# the Moon Mortar held big, like the rabbit's own staff cut down: grip low on the shaft, the head well above the hand
+MORTAR_DISPLAY = {
+    "thirdperson_righthand": {"rotation": [0, -90, 55], "translation": [0, 9.5, 2.5], "scale": [1.7, 1.7, 0.85]},
+    "thirdperson_lefthand": {"rotation": [0, 90, -55], "translation": [0, 9.5, 2.5], "scale": [1.7, 1.7, 0.85]},
+    "firstperson_righthand": {"rotation": [0, -90, 25], "translation": [1.13, 6.5, 1.13], "scale": [1.3, 1.3, 0.68]},
+    "firstperson_lefthand": {"rotation": [0, 90, -25], "translation": [1.13, 6.5, 1.13], "scale": [1.3, 1.3, 0.68]}}
+
+def crown_and_mortar():
     I = os.path.join(M.A, "textures", "item")
     sprite(CROWN_ICON, {"g": (176, 128, 30), "G": (232, 186, 52), "J": (84, 196, 122), "d": (120, 84, 20)}).save(os.path.join(I, "jade_crown.png"))
     sprite(MORTAR_ICON, {"s": (120, 118, 112), "S": (150, 148, 140), "L": (204, 202, 194), "d": (70, 68, 64), "h": (92, 66, 44)}).save(os.path.join(I, "moon_mortar.png"))
     for it, parent in (("jade_crown", "minecraft:item/generated"), ("moon_mortar", "minecraft:item/handheld")):
-        M.w(f"assets/ryancraft/models/item/{it}.json", {"parent": parent, "textures": {"layer0": f"ryancraft:item/{it}"}})
+        model = {"parent": parent, "textures": {"layer0": f"ryancraft:item/{it}"}}
+        if it == "moon_mortar": model["display"] = MORTAR_DISPLAY
+        M.w(f"assets/ryancraft/models/item/{it}.json", model)
         M.w(f"assets/ryancraft/items/{it}.json", {"model": {"type": "minecraft:model", "model": f"ryancraft:item/{it}"}})
-    # the crown as worn: a gold band with jade stones round the top of the head (humanoid armour layout)
+    # the crown as worn, like the rabbit's own (humanoid armour layout: the head's sides are 8 px each from x 0 to 32,
+    # rows 8-15): three points along each side rising from a gold band set with jade, a big jade on the brow
+    G, g, d, H, J, j = (232, 186, 52), (196, 148, 38), (132, 92, 22), (255, 228, 120), (84, 196, 122), (40, 128, 76)
+    SIDE = ["H..HH..H",                       # point tips
+            "G..GG..G",
+            "GG.GG.GG",
+            "HGGGGGGH",                       # the band
+            "gJggggJg",
+            "dddddddd"]
     eq = Image.new("RGBA", (64, 32), (0, 0, 0, 0)); px = eq.load()
-    for x in range(0, 32):                                    # the head's four sides, top two rows: band and points
-        px[x, 8 + 0] = ((84, 196, 122) if x % 4 == 2 else (232, 186, 52)) + (255,)
-        if x % 4 == 0: px[x, 8 - 1 + 0] = (232, 186, 52, 255)
-    for x in range(8, 16):
-        for y in range(0, 8):
-            if x in (8, 15) or y in (0, 7): px[x, y] = (232, 186, 52, 255)                 # the band seen from above
+    pal = {"H": H, "G": G, "g": g, "d": d, "J": J}
+    for side in range(4):                     # right, front, left, back
+        for r, row in enumerate(SIDE):
+            for c, ch in enumerate(row):
+                if ch != ".": px[side * 8 + c, 8 + r] = pal[ch] + (255,)
+    for (x, y) in ((11, 12), (12, 12), (11, 11), (12, 11)): px[x, y] = J + (255,)          # the brow jade
+    px[11, 11] = (150, 230, 170, 255); px[12, 13 - 1] = j + (255,)
     out = os.path.join(ENT, "equipment", "humanoid"); os.makedirs(out, exist_ok=True); eq.save(os.path.join(out, "jade_crown.png"))
     M.w("assets/ryancraft/equipment/jade_crown.json", {"layers": {"humanoid": [{"texture": "ryancraft:jade_crown"}]}})
     M.w("data/ryancraft/tags/item/jade_crown_repair.json", {"values": ["ryancraft:jade"]})
