@@ -1,0 +1,184 @@
+{
+  "variants": {
+    "facing=north,page=0": {
+      "model": "ryancraft:block/season_calendar_0"
+    },
+    "facing=north,page=1": {
+      "model": "ryancraft:block/season_calendar_1"
+    },
+    "facing=north,page=2": {
+      "model": "ryancraft:block/season_calendar_2"
+    },
+    "facing=north,page=3": {
+      "model": "ryancraft:block/season_calendar_3"
+    },
+    "facing=north,page=4": {
+      "model": "ryancraft:block/season_calendar_4"
+    },
+    "facing=north,page=5": {
+      "model": "ryancraft:block/season_calendar_5"
+    },
+    "facing=north,page=6": {
+      "model": "ryancraft:block/season_calendar_6"
+    },
+    "facing=north,page=7": {
+      "model": "ryancraft:block/season_calendar_7"
+    },
+    "facing=north,page=8": {
+      "model": "ryancraft:block/season_calendar_8"
+    },
+    "facing=north,page=9": {
+      "model": "ryancraft:block/season_calendar_9"
+    },
+    "facing=north,page=10": {
+      "model": "ryancraft:block/season_calendar_10"
+    },
+    "facing=north,page=11": {
+      "model": "ryancraft:block/season_calendar_11"
+    },
+    "facing=east,page=0": {
+      "model": "ryancraft:block/season_calendar_0",
+      "y": 90
+    },
+    "facing=east,page=1": {
+      "model": "ryancraft:block/season_calendar_1",
+      "y": 90
+    },
+    "facing=east,page=2": {
+      "model": "ryancraft:block/season_calendar_2",
+      "y": 90
+    },
+    "facing=east,page=3": {
+      "model": "ryancraft:block/season_calendar_3",
+      "y": 90
+    },
+    "facing=east,page=4": {
+      "model": "ryancraft:block/season_calendar_4",
+      "y": 90
+    },
+    "facing=east,page=5": {
+      "model": "ryancraft:block/season_calendar_5",
+      "y": 90
+    },
+    "facing=east,page=6": {
+      "model": "ryancraft:block/season_calendar_6",
+      "y": 90
+    },
+    "facing=east,page=7": {
+      "model": "ryancraft:block/season_calendar_7",
+      "y": 90
+    },
+    "facing=east,page=8": {
+      "model": "ryancraft:block/season_calendar_8",
+      "y": 90
+    },
+    "facing=east,page=9": {
+      "model": "ryancraft:block/season_calendar_9",
+      "y": 90
+    },
+    "facing=east,page=10": {
+      "model": "ryancraft:block/season_calendar_10",
+      "y": 90
+    },
+    "facing=east,page=11": {
+      "model": "ryancraft:block/season_calendar_11",
+      "y": 90
+    },
+    "facing=south,page=0": {
+      "model": "ryancraft:block/season_calendar_0",
+      "y": 180
+    },
+    "facing=south,page=1": {
+      "model": "ryancraft:block/season_calendar_1",
+      "y": 180
+    },
+    "facing=south,page=2": {
+      "model": "ryancraft:block/season_calendar_2",
+      "y": 180
+    },
+    "facing=south,page=3": {
+      "model": "ryancraft:block/season_calendar_3",
+      "y": 180
+    },
+    "facing=south,page=4": {
+      "model": "ryancraft:block/season_calendar_4",
+      "y": 180
+    },
+    "facing=south,page=5": {
+      "model": "ryancraft:block/season_calendar_5",
+      "y": 180
+    },
+    "facing=south,page=6": {
+      "model": "ryancraft:block/season_calendar_6",
+      "y": 180
+    },
+    "facing=south,page=7": {
+      "model": "ryancraft:block/season_calendar_7",
+      "y": 180
+    },
+    "facing=south,page=8": {
+      "model": "ryancraft:block/season_calendar_8",
+      "y": 180
+    },
+    "facing=south,page=9": {
+      "model": "ryancraft:block/season_calendar_9",
+      "y": 180
+    },
+    "facing=south,page=10": {
+      "model": "ryancraft:block/season_calendar_10",
+      "y": 180
+    },
+    "facing=south,page=11": {
+      "model": "ryancraft:block/season_calendar_11",
+      "y": 180
+    },
+    "facing=west,page=0": {
+      "model": "ryancraft:block/season_calendar_0",
+      "y": 270
+    },
+    "facing=west,page=1": {
+      "model": "ryancraft:block/season_calendar_1",
+      "y": 270
+    },
+    "facing=west,page=2": {
+      "model": "ryancraft:block/season_calendar_2",
+      "y": 270
+    },
+    "facing=west,page=3": {
+      "model": "ryancraft:block/season_calendar_3",
+      "y": 270
+    },
+    "facing=west,page=4": {
+      "model": "ryancraft:block/season_calendar_4",
+      "y": 270
+    },
+    "facing=west,page=5": {
+      "model": "ryancraft:block/season_calendar_5",
+      "y": 270
+    },
+    "facing=west,page=6": {
+      "model": "ryancraft:block/season_calendar_6",
+      "y": 270
+    },
+    "facing=west,page=7": {
+      "model": "ryancraft:block/season_calendar_7",
+      "y": 270
+    },
+    "facing=west,page=8": {
+      "model": "ryancraft:block/season_calendar_8",
+      "y": 270
+    },
+    "facing=west,page=9": {
+      "model": "ryancraft:block/season_calendar_9",
+      "y": 270
+    },
+    "facing=west,page=10": {
+      "model": "ryancraft:block/season_calendar_10",
+      "y": 270
+    },
+    "facing=west,page=11": {
+      "model": "ryancraft:block/season_calendar_11",
+      "y": 270
+    }
+  }
+}

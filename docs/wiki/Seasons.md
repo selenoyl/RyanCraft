@@ -17,7 +17,9 @@ new world starts in spring.
 - [Crops](Cooking.md#seasonal-crops) each have their own growing seasons.
 - The Skylands and the moon have no seasons.
 
-**Season Calendar** (3 paper + a clock): shows the date. Operators can use `/season` and `/season set <season>
+**Season Calendar** (3 paper + a clock): use it to see the date, or hang it on a wall like a painting (use it on the
+side of a block). On the wall its page shows the part of the year (a picture for the season, and early, mid or late
+marked along the bottom) and turns by itself as the seasons pass; use it there to read the date. Operators can use `/season` and `/season set <season>
 [early|mid|late]`.
 
 ## Thirst

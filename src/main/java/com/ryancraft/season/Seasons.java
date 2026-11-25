@@ -97,10 +97,16 @@ public final class Seasons {
     }
 
     public static Item CALENDAR;
+    public static net.minecraft.world.level.block.Block CALENDAR_BLOCK;
 
     public static void init() {
+        ResourceKey<net.minecraft.world.level.block.Block> bkey = ResourceKey.create(Registries.BLOCK, RyanCraft.id("season_calendar"));
+        CALENDAR_BLOCK = Registry.register(BuiltInRegistries.BLOCK, bkey, new SeasonCalendarBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                .setId(bkey).noCollision().instabreak().sound(net.minecraft.world.level.block.SoundType.WOOL).noOcclusion()
+                .pushReaction(net.minecraft.world.level.material.PushReaction.DESTROY)));
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, RyanCraft.id("season_calendar"));
-        CALENDAR = Registry.register(BuiltInRegistries.ITEM, key, new Item(new Item.Properties().stacksTo(1).setId(key)) {
+        // in hand, use it to read the date; on a wall (use it on the side of a block), it hangs there and turns its pages
+        CALENDAR = Registry.register(BuiltInRegistries.ITEM, key, new net.minecraft.world.item.BlockItem(CALENDAR_BLOCK, new Item.Properties().stacksTo(1).setId(key)) {
             @Override public InteractionResult use(Level level, Player player, InteractionHand hand) {
                 if (!level.isClientSide()) player.displayClientMessage(describe(level.getDayTime()), true);
                 return InteractionResult.SUCCESS;
