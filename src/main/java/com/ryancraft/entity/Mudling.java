@@ -51,7 +51,8 @@ import java.util.Optional;
  * Mudlings: little biome soldiers made of their biome's own stuff. Wild ones live at their camps and scatter from
  * players; scoop them up in a bundle (4 to a bundle) and set them down elsewhere. Dye a mudling to put it on that
  * colour's team: mudlings of different teams fight on their own. The loser crumbles into its biome's materials; the
- * winner gets a victory, and with it a little more health and bite (up to five).
+ * winner gets a victory, and with it a little more health and bite (up to five). Each is born a little different: its
+ * health, attack and speed are rolled around its kind's (0.85 to 1.15). Sneak and use an empty hand on one to look it over.
  */
 public class Mudling extends PathfinderMob implements Baggable {
     /** The biome kinds, in texture order. health, damage, speed. */
@@ -90,6 +91,9 @@ public class Mudling extends PathfinderMob implements Baggable {
     private static final EntityDataAccessor<Integer> TEAM = SynchedEntityData.defineId(Mudling.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> WINS = SynchedEntityData.defineId(Mudling.class, EntityDataSerializers.INT);
 
+    /** Each mudling's own rolls on its kind's health, attack and speed (0.85 to 1.15 each), set when it's born. */
+    private float rollHealth = 1f, rollAttack = 1f, rollSpeed = 1f;
+
     public Mudling(EntityType<? extends Mudling> type, Level level) { super(type, level); }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -114,9 +118,9 @@ public class Mudling extends PathfinderMob implements Baggable {
 
     private void applyStats() {
         Kind k = kind(); int w = Math.min(5, wins());
-        getAttribute(Attributes.MAX_HEALTH).setBaseValue(k.health + 2 * w);
-        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(k.damage + 0.5 * w);
-        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(k.speed);
+        getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.round(k.health * rollHealth) + 2 * w);
+        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(k.damage * rollAttack + 0.5 * w);
+        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(k.speed * rollSpeed);
     }
 
     // ------------------------------------------------------------------ behaviour
@@ -245,7 +249,19 @@ public class Mudling extends PathfinderMob implements Baggable {
             }
             return InteractionResult.SUCCESS;
         }
+        if (stack.isEmpty() && player.isShiftKeyDown()) {                     // sneak and look it over: its stats
+            if (!level().isClientSide()) player.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.ryancraft.mudling_stats",
+                    getDisplayName(), (int) getMaxHealth(), rating(rollHealth), String.format("%.1f", getAttributeValue(Attributes.ATTACK_DAMAGE)),
+                    rating(rollAttack), rating(rollSpeed), wins()), true);
+            return InteractionResult.SUCCESS;
+        }
         return super.mobInteract(player, hand);
+    }
+
+    /** How a roll compares with its kind's usual: a word for each. */
+    private static net.minecraft.network.chat.Component rating(float r) {
+        String k = r < 0.93f ? "weak" : r < 0.98f ? "fair" : r <= 1.02f ? "average" : r <= 1.07f ? "good" : "great";
+        return net.minecraft.network.chat.Component.translatable("message.ryancraft.mudling_rating." + k);
     }
 
     // ------------------------------------------------------------------ spawning, saving
@@ -254,14 +270,22 @@ public class Mudling extends PathfinderMob implements Baggable {
         if (reason != EntitySpawnReason.BUCKET && reason != EntitySpawnReason.LOAD) {
             setKind(MudlingKinds.forBiome(level.getBiome(blockPosition())));
             setVariant(random.nextInt(20) == 0 ? 1 + random.nextInt(3) : 0);
+            rollStats(); setHealth(getMaxHealth());
         }
         return super.finalizeSpawn(level, diff, reason, data);
     }
+
+    /** Roll this mudling's own stats: each a little above or below its kind's, clustered near the middle. */
+    private void rollStats() {
+        rollHealth = roll(); rollAttack = roll(); rollSpeed = roll(); applyStats();
+    }
+    private float roll() { return 1f + (random.nextFloat() + random.nextFloat() - 1f) * 0.15f; }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putInt("Kind", entityData.get(KIND)); out.putInt("Variant", variant()); out.putInt("Team", team()); out.putInt("Wins", wins());
+        out.putFloat("RollHealth", rollHealth); out.putFloat("RollAttack", rollAttack); out.putFloat("RollSpeed", rollSpeed);
     }
 
     @Override
@@ -269,6 +293,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         super.readAdditionalSaveData(in);
         entityData.set(KIND, in.getIntOr("Kind", 0)); entityData.set(VARIANT, in.getIntOr("Variant", 0));
         entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, in.getIntOr("Wins", 0));
+        rollHealth = in.getFloatOr("RollHealth", 1f); rollAttack = in.getFloatOr("RollAttack", 1f); rollSpeed = in.getFloatOr("RollSpeed", 1f);
         applyStats();
     }
 

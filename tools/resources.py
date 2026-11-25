@@ -284,6 +284,10 @@ from cages import lang_entries as cage_lang; lang.update(cage_lang())
 from storage_assets import lang_entries as storage_lang; lang.update(storage_lang())
 lang["entity.ryancraft.moobloom"] = "Moobloom"; lang["item.ryancraft.moobloom_spawn_egg"] = "Moobloom Spawn Egg"
 lang["entity.ryancraft.mudling"] = "Mudling"; lang["item.ryancraft.mudling_spawn_egg"] = "Mudling Spawn Egg"
+lang.update({"message.ryancraft.mudling_stats": "%s: %s health (%s), %s attack (%s), speed %s, %s/5 wins",
+             "message.ryancraft.mudling_rating.weak": "weak", "message.ryancraft.mudling_rating.fair": "fair",
+             "message.ryancraft.mudling_rating.average": "average", "message.ryancraft.mudling_rating.good": "good",
+             "message.ryancraft.mudling_rating.great": "great"})
 lang["entity.ryancraft.swan"] = "Mute Swan"; lang["entity.ryancraft.swan.black"] = "Black Swan"; lang["item.ryancraft.swan_spawn_egg"] = "Swan Spawn Egg"
 from flora import lang_entries as flora_lang; lang.update(flora_lang())
 from autumn import lang_entries as autumn_lang; lang.update(autumn_lang())

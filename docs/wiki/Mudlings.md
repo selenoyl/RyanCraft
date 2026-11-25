@@ -38,6 +38,13 @@ colouring: **gilded**, **mossy** or **charred**.
 Scoop mudlings up in a **bundle** (4 to a bundle) and set them down wherever you like. Creative players can use
 the per-kind spawn eggs.
 
+## Every mudling is different
+
+Each mudling is born with its own **health, attack and speed**, rolled a little above or below its kind's (up to 15%
+either way, most near the middle). **Sneak and use an empty hand** on one to look it over: it tells you its health
+and attack, how each roll compares with its kind's (weak, fair, average, good or great) and how many wins it has.
+Worth knowing before you pick your champions.
+
 ## Teams and battles
 
 **Dye a mudling** to put it on that colour's team. Mudlings of different teams find each other and fight on their
