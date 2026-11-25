@@ -31,6 +31,8 @@ public final class RyanItems {
 
     public static final Item VENISON = food("venison", 3, 0.3f);
     public static final Item COOKED_VENISON = food("cooked_venison", 8, 0.8f);
+    public static final Item RAW_BISON = food("raw_bison", 3, 0.3f);
+    public static final Item BISON_STEAK = food("bison_steak", 8, 0.8f);
     public static final Item RAW_DUCK = food("raw_duck", 2, 0.3f);
     public static final Item COOKED_DUCK = food("cooked_duck", 6, 0.6f);
     public static final Item RAW_TURKEY = food("raw_turkey", 3, 0.3f);
@@ -155,7 +157,7 @@ public final class RyanItems {
 
     public static void init() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(e -> {
-            for (Item i : new Item[]{VENISON, COOKED_VENISON, RAW_DUCK, COOKED_DUCK, RAW_TURKEY, COOKED_TURKEY,
+            for (Item i : new Item[]{VENISON, COOKED_VENISON, RAW_BISON, BISON_STEAK, RAW_DUCK, COOKED_DUCK, RAW_TURKEY, COOKED_TURKEY,
                     BLUEGILL, COOKED_BLUEGILL, CRAPPIE, COOKED_CRAPPIE, LARGEMOUTH_BASS, COOKED_LARGEMOUTH_BASS,
                     CHANNEL_CATFISH, COOKED_CHANNEL_CATFISH, RAINBOW_TROUT, COOKED_RAINBOW_TROUT, SMALLMOUTH_BASS, COOKED_SMALLMOUTH_BASS, YELLOW_PERCH, COOKED_YELLOW_PERCH, WALLEYE, COOKED_WALLEYE, NORTHERN_PIKE, COOKED_NORTHERN_PIKE, MUSKELLUNGE, COOKED_MUSKELLUNGE, CHERRIES, CHERRY_PIE, SHELLED_WALNUT}) e.accept(i);
         });

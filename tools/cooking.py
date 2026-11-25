@@ -114,6 +114,7 @@ def meal_tex(kind):
 
 def short(name):
     for p in ("Raw ", "Cooked ", "Roast ", "Baked ", "Shelled "): name = name.replace(p, "")
+    if name.endswith(" Steak"): name = name[:-6]                              # "Bison Steak" stew -> "Bison" stew
     return name
 
 VANILLA = {"apple": "Apple", "bread": "Bread", "porkchop": "Pork", "cooked_porkchop": "Pork", "cod": "Cod", "cooked_cod": "Cod", "salmon": "Salmon",

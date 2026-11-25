@@ -12,7 +12,8 @@
     "HorseRendererZebraMixin",
     "DustFogMixin",
     "StableWorldCreationMixin",
-    "LivingEntityRendererInvoker"
+    "LivingEntityRendererInvoker",
+    "AttackIndicatorMixin"
   ],
   "injectors": {
     "defaultRequire": 0

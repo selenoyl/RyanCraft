@@ -97,7 +97,7 @@ DISHES = {"roasted_corn": ("Roasted Corn", roasted_corn), "baked_squash": ("Bake
           "stuffed_pepper": ("Stuffed Pepper", stuffed_pepper), "cabbage_roll": ("Cabbage Roll", cabbage_roll),
           "sandwich": ("Sandwich", sandwich), "garden_salad": ("Garden Salad", garden_salad), "cornbread": ("Cornbread", cornbread)}
 COOKED = ["minecraft:cooked_beef", "minecraft:cooked_porkchop", "minecraft:cooked_chicken", "minecraft:cooked_mutton", "minecraft:cooked_rabbit",
-          "ryancraft:cooked_venison", "ryancraft:cooked_duck", "ryancraft:cooked_turkey"]
+          "ryancraft:cooked_venison", "ryancraft:bison_steak", "ryancraft:cooked_duck", "ryancraft:cooked_turkey"]
 
 def lang_entries(): return {f"item.ryancraft.{k}": v[0] for k, v in DISHES.items()}
 

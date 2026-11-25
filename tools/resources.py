@@ -78,7 +78,7 @@ for ev, (prefix, sub, att, stream) in EVENTS.items():
 w("assets/ryancraft/sounds.json", merged("assets/ryancraft/sounds.json", sounds))
 
 # ---- items
-FOODS = ["venison", "cooked_venison", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
+FOODS = ["venison", "cooked_venison", "raw_bison", "bison_steak", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"] + ['rainbow_trout', 'smallmouth_bass', 'yellow_perch', 'walleye', 'northern_pike', 'muskellunge']
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge",
@@ -106,7 +106,7 @@ w("assets/ryancraft/items/deer_skull_mount.json", {"model": {"type": "minecraft:
 w("assets/ryancraft/equipment/coonskin.json", {"layers": {"humanoid": [{"texture": "ryancraft:coonskin"}]}})
 
 # ---- recipes
-for raw, cooked in [("venison", "cooked_venison"), ("raw_duck", "cooked_duck"), ("raw_turkey", "cooked_turkey")] + [(f, "cooked_" + f) for f in FISH]:
+for raw, cooked in [("venison", "cooked_venison"), ("raw_bison", "bison_steak"), ("raw_duck", "cooked_duck"), ("raw_turkey", "cooked_turkey")] + [(f, "cooked_" + f) for f in FISH]:
     for kind, t, sfx in [("smelting", 200, ""), ("smoking", 100, "_from_smoking"), ("campfire_cooking", 600, "_from_campfire_cooking")]:
         w(f"data/ryancraft/recipe/{cooked}{sfx}.json", {"type": "minecraft:" + kind, "category": "food", "cookingtime": t,
           "experience": 0.35, "ingredient": "ryancraft:" + raw, "result": {"id": "ryancraft:" + cooked}})
@@ -146,7 +146,7 @@ loot("swan", [pool("minecraft:feather", 1, 3), pool("minecraft:chicken", 1, 2, T
 loot("moobloom", [pool("minecraft:beef", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("reindeer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 2)])
 loot("black_tailed_deer", [pool("ryancraft:venison", 1, 3, True), pool("minecraft:leather", 0, 1)])
-loot("bison", [pool("minecraft:beef", 3, 5, True), pool("minecraft:leather", 1, 3)])
+loot("bison", [pool("ryancraft:raw_bison", 3, 5, True), pool("minecraft:leather", 1, 3)])
 loot("cougar", [pool("minecraft:leather", 0, 2), pool("minecraft:bone", 0, 1)])
 loot("river_otter", [pool("minecraft:rabbit_hide", 0, 1), pool("minecraft:cod", 0, 1, True)])
 loot("groundhog", [pool("minecraft:rabbit_hide", 0, 1), pool("minecraft:carrot", 1, 1, looting=False, chance=0.15)])
@@ -207,7 +207,7 @@ from fishing_assets import fish_table; w("data/minecraft/loot_table/gameplay/fis
 w("data/ryancraft/tags/item/kentucky_fish.json", {"values": ["ryancraft:" + f for f in FISH]})
 w("data/ryancraft/tags/item/repairs_coonskin.json", {"values": ["ryancraft:raccoon_tail", "minecraft:leather"]})
 w("data/minecraft/tags/item/fishes.json", {"replace": False, "values": ["ryancraft:" + f for f in FISH] + ["ryancraft:cooked_" + f for f in FISH]})
-w("data/minecraft/tags/item/meat.json", {"replace": False, "values": ["ryancraft:venison", "ryancraft:cooked_venison", "ryancraft:raw_duck",
+w("data/minecraft/tags/item/meat.json", {"replace": False, "values": ["ryancraft:venison", "ryancraft:cooked_venison", "ryancraft:raw_bison", "ryancraft:bison_steak", "ryancraft:raw_duck",
   "ryancraft:cooked_duck", "ryancraft:raw_turkey", "ryancraft:cooked_turkey"]})
 w("data/minecraft/tags/item/head_armor.json", merged("data/minecraft/tags/item/head_armor.json", {"replace": False, "values": ["ryancraft:coonskin_cap"]}))
 
@@ -224,6 +224,7 @@ lang.update({
     "entity.ryancraft.bluegill": "Bluegill", "entity.ryancraft.crappie": "Crappie", "entity.ryancraft.largemouth_bass": "Largemouth Bass",
     "entity.ryancraft.channel_catfish": "Channel Catfish",
     "item.ryancraft.venison": "Raw Venison", "item.ryancraft.cooked_venison": "Cooked Venison",
+    "item.ryancraft.raw_bison": "Raw Bison", "item.ryancraft.bison_steak": "Bison Steak",
     "item.ryancraft.raw_duck": "Raw Duck", "item.ryancraft.cooked_duck": "Cooked Duck",
     "item.ryancraft.raw_turkey": "Raw Turkey", "item.ryancraft.cooked_turkey": "Roast Turkey",
     "item.ryancraft.bluegill": "Raw Bluegill", "item.ryancraft.cooked_bluegill": "Fried Bluegill",

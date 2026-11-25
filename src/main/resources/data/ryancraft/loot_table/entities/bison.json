@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:beef",
+          "name": "ryancraft:raw_bison",
           "functions": [
             {
               "function": "minecraft:set_count",
