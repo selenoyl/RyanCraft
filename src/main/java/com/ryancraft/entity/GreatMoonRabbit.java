@@ -208,12 +208,12 @@ public class GreatMoonRabbit extends Rabbit {
     public void die(DamageSource source) {
         if (level() instanceof ServerLevel level && !isRemoved()) {
             for (UUID id : minions) { Entity e = level.getEntity(id); if (e != null) e.discard(); }
-            openWayHome(level, home != null ? home : blockPosition());
+            openWayHome(level, (home != null ? home : blockPosition()).north(8));          // at the back of the arena, not on top of you
         }
         super.die(source);
     }
 
-    /** A lit jade portal home, standing where the rabbit fell (it stays, for later trips). */
+    /** A lit jade portal home at the back of the temple's arena (it stays, for later trips). */
     private static void openWayHome(ServerLevel level, net.minecraft.core.BlockPos at) {
         var jade = MoonBlocks.JADE_BLOCK.defaultBlockState();
         var portal = MoonBlocks.MOON_PORTAL.defaultBlockState().setValue(net.minecraft.world.level.block.NetherPortalBlock.AXIS, net.minecraft.core.Direction.Axis.X);
@@ -221,6 +221,10 @@ public class GreatMoonRabbit extends Rabbit {
             boolean edge = x == -1 || x == 2 || y == -1 || y == 3;
             level.setBlock(at.offset(x, y, 0), edge ? jade : portal, net.minecraft.world.level.block.Block.UPDATE_CLIENTS | net.minecraft.world.level.block.Block.UPDATE_KNOWN_SHAPE);
         }
+        // nobody gets swallowed by it the moment it opens: step anyone standing in the frame out to the front
+        var box = new net.minecraft.world.phys.AABB(at.getX() - 1, at.getY() - 1, at.getZ() - 1, at.getX() + 3, at.getY() + 4, at.getZ() + 2);
+        for (Entity e : level.getEntitiesOfClass(Entity.class, box, e -> !(e instanceof GreatMoonRabbit)))
+            e.teleportTo(e.getX(), e.getY(), at.getZ() + 3.5);
         level.playSound(null, at, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1f, 1f);
     }
 

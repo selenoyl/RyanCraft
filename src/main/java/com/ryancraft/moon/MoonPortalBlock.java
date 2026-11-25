@@ -32,8 +32,9 @@ import net.minecraft.world.phys.Vec3;
 /**
  * The jade portal to the Hollow Moon: a nether portal's shape framed in Blocks of Jade, lit with an eye of ender. Its surface is the night sky, stars drifting through a slow swirl.
  * <p>The trip is one way: you land on the moon with no portal back, and a jade frame won't light up there. The way home
- * is the portal that opens in a jade temple when its Great Moon Rabbit falls (it stays open for later trips), leading
- * to your matching spot on Earth, where a jade portal is built for you. {@link #WAY_HOME_OPEN} would let any jade frame
+ * is the portal that opens in the jade temple when its Great Moon Rabbit falls (it stays open for later trips). Every
+ * jade portal lands you at the same site on the moon, a short walk from the temple, and the way home takes you back to
+ * the portal you went up through (or builds one there if it's gone). {@link #WAY_HOME_OPEN} would let any jade frame
  * on the moon light (off).
  */
 public class MoonPortalBlock extends NetherPortalBlock {
@@ -81,13 +82,28 @@ public class MoonPortalBlock extends NetherPortalBlock {
         });
     }
 
+    /** Where every jade portal lands you on the moon: its 0, 0, a short walk from the one jade temple. */
+    public static final int LANDING_X = 0, LANDING_Z = 0;
+    /** The jade portal each traveller last went up through, so the way home brings them back to it. */
+    public static final net.fabricmc.fabric.api.attachment.v1.AttachmentType<BlockPos> CAME_FROM =
+            net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry.create(RyanCraft.id("moon_came_from"),
+                    b -> b.persistent(BlockPos.CODEC).copyOnDeath());
+
     @Override
     public TeleportTransition getPortalDestination(ServerLevel from, Entity e, BlockPos pos) {
         boolean up = !from.dimension().equals(MOON);
         ServerLevel to = from.getServer().getLevel(up ? MOON : Level.OVERWORLD);
         if (to == null) return null;
-        BlockPos target = findPortal(to, pos);
-        if (target == null) target = up ? landing(to, pos) : buildPortal(to, pos);     // the moon end gets no portal: one way
+        BlockPos target;
+        if (up) {                                                                       // everyone lands at the one site
+            e.setAttached(CAME_FROM, pos.immutable());
+            target = landing(to, new BlockPos(LANDING_X + e.getRandom().nextInt(5) - 2, 0, LANDING_Z + e.getRandom().nextInt(5) - 2));
+        } else {                                                                        // home: back to the portal you came through
+            BlockPos home = e.getAttached(CAME_FROM);
+            if (home == null) home = pos;
+            target = findPortal(to, home);
+            if (target == null) target = buildPortal(to, home);
+        }
         return new TeleportTransition(to, Vec3.atBottomCenterOf(target), Vec3.ZERO, e.getYRot(), e.getXRot(),
                 TeleportTransition.PLAY_PORTAL_SOUND.then(TeleportTransition.PLACE_PORTAL_TICKET));
     }
@@ -112,12 +128,14 @@ public class MoonPortalBlock extends NetherPortalBlock {
 
     /** A clear spot on the moon's surface near x/z. */
     private static BlockPos landing(ServerLevel level, BlockPos near) {
+        level.getChunk(near.getX() >> 4, near.getZ() >> 4);                            // make sure the ground there exists first
         int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, near.getX(), near.getZ());
         return new BlockPos(near.getX(), Math.max(y, level.getMinY() + 2), near.getZ());
     }
 
     /** Home: a jade-framed portal (2x3 inside) at the matching spot on Earth's surface. */
     private static BlockPos buildPortal(ServerLevel level, BlockPos near) {
+        level.getChunk(near.getX() >> 4, near.getZ() >> 4);
         int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, near.getX(), near.getZ());
         BlockPos base = new BlockPos(near.getX(), Math.max(y, level.getSeaLevel() + 1), near.getZ());
         BlockState jade = MoonBlocks.JADE_BLOCK.defaultBlockState(), portal = MoonBlocks.MOON_PORTAL.defaultBlockState().setValue(AXIS, Direction.Axis.X);

@@ -31,8 +31,9 @@ public abstract class MoonAirMixin {
         hurtServer(level, self.damageSources().drown(), 2.0f);
     }
 
-    @Inject(method = "calculateFallDamage", at = @At("RETURN"), cancellable = true)
-    private void ryancraft$softLanding(double distance, float multiplier, CallbackInfoReturnable<Integer> cir) {
-        if (MoonPhysics.lowGravity((LivingEntity) (Object) this)) cir.setReturnValue((int) Math.floor(cir.getReturnValue() * MoonPhysics.LIVING_GRAVITY));
+    /** In low gravity you land as if you'd fallen only a fraction as far (so a 10-block drop is like 3 on Earth). */
+    @org.spongepowered.asm.mixin.injection.ModifyVariable(method = "calculateFallDamage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
+    private double ryancraft$softLanding(double distance) {
+        return MoonPhysics.lowGravity((LivingEntity) (Object) this) ? distance * MoonPhysics.LIVING_GRAVITY : distance;
     }
 }

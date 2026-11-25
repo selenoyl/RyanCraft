@@ -23,15 +23,21 @@ import net.minecraft.world.level.storage.loot.LootTable;
  * foundation, with tall jade pillars at its corners (glowing at their tops, so a temple can be spotted across the dark
  * craters), a doorway in each wall, a chiseled ring in the floor and two chests. The Great Moon Rabbit waits at its
  * heart; when it falls, the portal home opens where it stood (GreatMoonRabbit#die).
+ * <p>There's only one, a short walk from the moon's landing site (MoonPortalBlock), where every jade portal leads.
  */
 public class JadeTempleFeature extends Feature<NoneFeatureConfiguration> {
     public static final int R = 11, WALL = 6, PILLAR = 11;
+    /** Where the one temple stands: a short walk north of the landing site at the moon's 0, 0. */
+    public static final int TEMPLE_X = 0, TEMPLE_Z = -48;
     public static final ResourceKey<LootTable> LOOT = ResourceKey.create(Registries.LOOT_TABLE, RyanCraft.id("chests/jade_temple"));
     public JadeTempleFeature() { super(NoneFeatureConfiguration.CODEC); }
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
-        WorldGenLevel level = ctx.level(); BlockPos o = ctx.origin(); RandomSource r = ctx.random();
+        WorldGenLevel level = ctx.level(); RandomSource r = ctx.random();
+        BlockPos c0 = ctx.origin();
+        if (c0.getX() >> 4 != TEMPLE_X >> 4 || c0.getZ() >> 4 != TEMPLE_Z >> 4) return false;      // only the one temple
+        BlockPos o = new BlockPos(TEMPLE_X, level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE_WG, TEMPLE_X, TEMPLE_Z), TEMPLE_Z);
         if (o.getY() < level.getMinY() + 12) return false;
         BlockState bricks = MoonBlocks.MOONSTONE_BRICKS.defaultBlockState(), cracked = MoonBlocks.CRACKED_MOONSTONE_BRICKS.defaultBlockState(),
                 floor = MoonBlocks.POLISHED_MOONSTONE.defaultBlockState(), ring = MoonBlocks.CHISELED_MOONSTONE_BRICKS.defaultBlockState(),

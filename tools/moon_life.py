@@ -205,9 +205,8 @@ if __name__ == "__main__":
 def temples():
     D = "data/ryancraft/worldgen/"
     M.w(D + "configured_feature/jade_temple.json", {"type": "ryancraft:jade_temple", "config": {}})
-    M.w(D + "placed_feature/jade_temple.json", {"feature": "ryancraft:jade_temple", "placement": [
-        {"type": "minecraft:rarity_filter", "chance": 48}, {"type": "minecraft:in_square"},
-        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
+    # just one temple, by the landing site: the feature itself only builds in that chunk
+    M.w(D + "placed_feature/jade_temple.json", {"feature": "ryancraft:jade_temple", "placement": [{"type": "minecraft:biome"}]})
     p = os.path.join(M.RES, "data", "ryancraft", "worldgen", "biome", "moon.json"); b = json.load(open(p))
     b["features"][4] = ["ryancraft:jade_temple"]; json.dump(b, open(p, "w"), indent=2)
     item = lambda n, lo, hi, w: {"type": "minecraft:item", "name": n, "weight": w, "functions": [{"function": "minecraft:set_count", "count": {"type": "minecraft:uniform", "min": lo, "max": hi}}]}

@@ -11,15 +11,17 @@ Low gravity, no air, falling meteors, and a boss guarding the way home.
 Build a nether-portal-shaped frame from **Blocks of Jade** (9 jade each) and light it with an **eye of ender**. Jade
 ore is found in mountains and lush caves.
 
-**The trip is one way.** You land on the moon with no portal back, and a jade frame won't light there. The way home
-is the portal that opens in a **jade temple** when you defeat its **Great Moon Rabbit**. It stays open for later
-trips and leads to your matching spot on Earth, where a jade portal is built for you.
+**The trip is one way.** Every jade portal lands you at the same spot on the moon, with no portal back, and a jade
+frame won't light there. A short walk away stands the **jade temple** of the **Great Moon Rabbit**: defeat it and a
+portal home opens at the back of the temple. It stays open for later trips and takes you back to the jade portal
+you went up through (or builds one there if it's gone).
 
 **Pack for it:** Potions of Air, food, good armour and building blocks.
 
 ## Surviving
 
-- **Low gravity**: floaty jumps, slow falls, gentle landings, and items that drift instead of dropping.
+- **Low gravity**: floaty jumps, slow falls, gentle landings, and items that drift instead of dropping. You can drop
+  about 10 blocks without getting hurt.
 - **No air**: you run out of breath like underwater. Ways to breathe:
   - **Potion of Air**: brew an awkward potion with a **wind charge**, and add redstone for a longer one.
   - **Force field generator** (meteor iron, glass, a diamond block, a redstone block): holds a sphere of 8, 12 or 16
