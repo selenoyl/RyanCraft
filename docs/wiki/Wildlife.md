@@ -19,7 +19,7 @@ life. All of them spawn naturally in fitting biomes, all have spawn eggs, and al
 | Moose | Taiga, snowy plains, swamps | Venison, leather | |
 | Reindeer | Snowy plains, groves, tundra | Venison, leather | |
 | Pronghorn | Plains, savanna, badlands | Venison, leather | |
-| American bison | Plains, shrubland | Beef, leather | |
+| American bison | Plains, shrubland | Raw bison, leather | Cook it into a bison steak, or make **pemmican** |
 | Black bear | Forests, taiga | Leather, beef | Usually leaves you alone |
 | Grizzly bear | Taiga, groves, windswept hills | Leather, beef | Attacks if it sees you |
 | Cougar | Hills, taiga, badlands | Leather, bone | |

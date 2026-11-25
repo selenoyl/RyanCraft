@@ -78,7 +78,7 @@ for ev, (prefix, sub, att, stream) in EVENTS.items():
 w("assets/ryancraft/sounds.json", merged("assets/ryancraft/sounds.json", sounds))
 
 # ---- items
-FOODS = ["venison", "cooked_venison", "raw_bison", "bison_steak", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
+FOODS = ["venison", "cooked_venison", "raw_bison", "bison_steak", "pemmican", "raw_duck", "cooked_duck", "raw_turkey", "cooked_turkey"]
 FISH = ["bluegill", "crappie", "largemouth_bass", "channel_catfish"] + ['rainbow_trout', 'smallmouth_bass', 'yellow_perch', 'walleye', 'northern_pike', 'muskellunge']
 EGG_MOBS = ["boar", "deer", "duck", "turkey", "black_bear", "raccoon", "skunk", "mink", "opossum", "beaver", "squirrel",
             "songbird", "chipmunk", "coyote", "bluegill", "crappie", "largemouth_bass", "channel_catfish", "rainbow_trout", "smallmouth_bass", "yellow_perch", "walleye", "northern_pike", "muskellunge",
@@ -110,6 +110,9 @@ for raw, cooked in [("venison", "cooked_venison"), ("raw_bison", "bison_steak"),
     for kind, t, sfx in [("smelting", 200, ""), ("smoking", 100, "_from_smoking"), ("campfire_cooking", 600, "_from_campfire_cooking")]:
         w(f"data/ryancraft/recipe/{cooked}{sfx}.json", {"type": "minecraft:" + kind, "category": "food", "cookingtime": t,
           "experience": 0.35, "ingredient": "ryancraft:" + raw, "result": {"id": "ryancraft:" + cooked}})
+# pemmican: dried bison, berries and fat (a bison steak, a raw one for its fat, and sweet berries) -> 3 cakes
+w("data/ryancraft/recipe/pemmican.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
+  "ingredients": ["ryancraft:bison_steak", "ryancraft:raw_bison", "minecraft:sweet_berries"], "result": {"id": "ryancraft:pemmican", "count": 3}})
 w("data/ryancraft/recipe/coonskin_cap.json", {"type": "minecraft:crafting_shaped", "category": "equipment",
   "pattern": ["LTL", "L L"], "key": {"L": "minecraft:leather", "T": "ryancraft:raccoon_tail"}, "result": {"id": "ryancraft:coonskin_cap"}})
 
@@ -224,7 +227,7 @@ lang.update({
     "entity.ryancraft.bluegill": "Bluegill", "entity.ryancraft.crappie": "Crappie", "entity.ryancraft.largemouth_bass": "Largemouth Bass",
     "entity.ryancraft.channel_catfish": "Channel Catfish",
     "item.ryancraft.venison": "Raw Venison", "item.ryancraft.cooked_venison": "Cooked Venison",
-    "item.ryancraft.raw_bison": "Raw Bison", "item.ryancraft.bison_steak": "Bison Steak",
+    "item.ryancraft.raw_bison": "Raw Bison", "item.ryancraft.bison_steak": "Bison Steak", "item.ryancraft.pemmican": "Pemmican",
     "item.ryancraft.raw_duck": "Raw Duck", "item.ryancraft.cooked_duck": "Cooked Duck",
     "item.ryancraft.raw_turkey": "Raw Turkey", "item.ryancraft.cooked_turkey": "Roast Turkey",
     "item.ryancraft.bluegill": "Raw Bluegill", "item.ryancraft.cooked_bluegill": "Fried Bluegill",

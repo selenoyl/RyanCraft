@@ -52,7 +52,8 @@ import java.util.Optional;
  * players; scoop them up in a bundle (4 to a bundle) and set them down elsewhere. Dye a mudling to put it on that
  * colour's team: mudlings of different teams fight on their own. The loser crumbles into its biome's materials; the
  * winner gets a victory, and with it a little more health and bite (up to five). Each is born a little different: its
- * health, attack and speed are rolled around its kind's (0.85 to 1.15). Sneak and use an empty hand on one to look it over.
+ * health, attack and speed are rolled around its kind's (0.85 to 1.15). Use an empty hand on one to see its health over
+ * its head; sneak and do it to look it over. After five minutes without a scratch it slowly heals back to full.
  */
 public class Mudling extends PathfinderMob implements Baggable {
     /** The biome kinds, in texture order. health, damage, speed. */
@@ -93,6 +94,11 @@ public class Mudling extends PathfinderMob implements Baggable {
 
     /** Each mudling's own rolls on its kind's health, attack and speed (0.85 to 1.15 each), set when it's born. */
     private float rollHealth = 1f, rollAttack = 1f, rollSpeed = 1f;
+    /** Ticks since it was last hurt: after five quiet minutes it slowly heals back to full. */
+    private int calm;
+    /** Ticks left showing its health above its head, and the name to put back afterwards. */
+    private int showHealth; private net.minecraft.network.chat.@Nullable Component ownName; private boolean ownNameVisible;
+    public static final int HEAL_AFTER = 20 * 60 * 5, HEAL_EVERY = 40;
 
     public Mudling(EntityType<? extends Mudling> type, Level level) { super(type, level); }
 
@@ -198,7 +204,9 @@ public class Mudling extends PathfinderMob implements Baggable {
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         // shield wall and shells: the sandstone legionary and shell guard shrug off a third of every blow
         if (kind() == Kind.SANDSTONE || kind() == Kind.SHELL) amount *= 0.67f;
-        return super.hurtServer(level, source, amount);
+        boolean hurt = super.hurtServer(level, source, amount);
+        if (hurt) { calm = 0; if (showHealth > 0) showHealthTag(); }
+        return hurt;
     }
 
     @Override
@@ -235,6 +243,30 @@ public class Mudling extends PathfinderMob implements Baggable {
         if (random.nextInt(kind() == Kind.SHELL || kind() == Kind.CINDER || kind() == Kind.PEBBLE ? 4 : 2) == 0) spawnAtLocation(level, new ItemStack(mats[2]));
     }
 
+    // ------------------------------------------------------------------ healing, and its health shown on request
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (level().isClientSide() || !isAlive()) return;
+        if (calm < HEAL_AFTER) calm++;
+        else if (getHealth() < getMaxHealth() && tickCount % HEAL_EVERY == 0) {     // five quiet minutes: a slow trickle back to full
+            heal(1f); if (showHealth > 0) showHealthTag();
+        }
+        if (showHealth > 0 && --showHealth == 0) {                                  // put its own name back
+            setCustomName(ownName); setCustomNameVisible(ownNameVisible);
+        }
+    }
+
+    /** Hearts over its head for a few seconds: "Sod Mudling ❤ 7/9". */
+    private void showHealthTag() {
+        if (showHealth == 0) { ownName = getCustomName(); ownNameVisible = isCustomNameVisible(); }
+        showHealth = 60;
+        net.minecraft.network.chat.Component base = ownName != null ? ownName : getType().getDescription();
+        setCustomName(base.copy().append(net.minecraft.network.chat.Component.literal(String.format(" \u2764 %d/%d", (int) Math.ceil(getHealth()), (int) getMaxHealth()))
+                .withStyle(net.minecraft.ChatFormatting.RED)));
+        setCustomNameVisible(true);
+    }
+
     // ------------------------------------------------------------------ dye a team
     @Override
     protected InteractionResult mobInteract(Player player, InteractionHand hand) {
@@ -247,6 +279,10 @@ public class Mudling extends PathfinderMob implements Baggable {
                 stack.consume(1, player);
                 level().playSound(null, this, SoundEvents.DYE_USE, SoundSource.NEUTRAL, 1.0f, 1.0f);
             }
+            return InteractionResult.SUCCESS;
+        }
+        if (stack.isEmpty() && !player.isShiftKeyDown()) {                    // a quick look: its health over its head
+            if (!level().isClientSide()) showHealthTag();
             return InteractionResult.SUCCESS;
         }
         if (stack.isEmpty() && player.isShiftKeyDown()) {                     // sneak and look it over: its stats
@@ -285,6 +321,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putInt("Kind", entityData.get(KIND)); out.putInt("Variant", variant()); out.putInt("Team", team()); out.putInt("Wins", wins());
+        out.putInt("Calm", calm);
         out.putFloat("RollHealth", rollHealth); out.putFloat("RollAttack", rollAttack); out.putFloat("RollSpeed", rollSpeed);
     }
 
@@ -293,6 +330,13 @@ public class Mudling extends PathfinderMob implements Baggable {
         super.readAdditionalSaveData(in);
         entityData.set(KIND, in.getIntOr("Kind", 0)); entityData.set(VARIANT, in.getIntOr("Variant", 0));
         entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, in.getIntOr("Wins", 0));
+        calm = in.getIntOr("Calm", 0);
+        // saved while its health was showing? take the hearts back off its name
+        if (getCustomName() != null && getCustomName().getString().contains(" \u2764 ")) {
+            String n = getCustomName().getString(); n = n.substring(0, n.indexOf(" \u2764 "));
+            if (n.equals(getType().getDescription().getString())) { setCustomName(null); setCustomNameVisible(false); }
+            else setCustomName(net.minecraft.network.chat.Component.literal(n));
+        }
         rollHealth = in.getFloatOr("RollHealth", 1f); rollAttack = in.getFloatOr("RollAttack", 1f); rollSpeed = in.getFloatOr("RollSpeed", 1f);
         applyStats();
     }

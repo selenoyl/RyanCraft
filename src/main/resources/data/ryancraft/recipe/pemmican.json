@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ryancraft:bison_steak",
+    "ryancraft:raw_bison",
+    "minecraft:sweet_berries"
+  ],
+  "result": {
+    "id": "ryancraft:pemmican",
+    "count": 3
+  }
+}

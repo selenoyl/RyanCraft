@@ -43,7 +43,11 @@ the per-kind spawn eggs.
 Each mudling is born with its own **health, attack and speed**, rolled a little above or below its kind's (up to 15%
 either way, most near the middle). **Sneak and use an empty hand** on one to look it over: it tells you its health
 and attack, how each roll compares with its kind's (weak, fair, average, good or great) and how many wins it has.
-Worth knowing before you pick your champions.
+Worth knowing before you pick your champions. Use an empty hand without sneaking for a quick look: its health shows
+over its head for a few seconds.
+
+**Healing:** a hurt mudling heals on its own, slowly. After five minutes without taking a hit, it trickles back to
+full health.
 
 ## Teams and battles
 

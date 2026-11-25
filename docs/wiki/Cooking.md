@@ -71,3 +71,8 @@ campfire.
 Shape clay into an **unfired clay pot** (`C C / CCC`) and fire it in a furnace. Pots stack and each one holds its
 own little store. Right-click to open one, or right-click holding food to drop it straight in. Broken pots keep
 their contents. See [Storage](Storage.md).
+
+## Pemmican
+
+The trail food of the plains: dried bison pounded with fat and berries. Craft a **bison steak**, a **raw bison** and
+**sweet berries** into three cakes of pemmican. Each one is small but very filling.
