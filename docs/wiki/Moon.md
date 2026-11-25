@@ -57,6 +57,13 @@ Redstone switches it off.
 **Moon herbs** grow in the dust and can be potted. Bake them into a **moon cake** (2 moon herbs + 2 wheat + sugar +
 egg): set it down and eat it a slice at a time, like a cake. Moon rabbits love it.
 
+## The jade temple
+
+The old moon people's temple stands on two stepped terraces of moonstone banded in jade, with jade lanterns at the
+corners. A grand stair climbs its south face through a great circular **moon gate** to the arena on top, and at the
+back stands a **pagoda hall** with tiered jade roofs, where the temple's chests are kept. When the rabbit falls, the
+portal home opens in the hall's doorway.
+
 ## The Great Moon Rabbit
 
 The temple's guardian: a towering moon rabbit with a jade crown and the **Moon Mortar** staff. Watch its moves:
