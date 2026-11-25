@@ -215,14 +215,15 @@ public class GreatMoonRabbit extends Rabbit {
 
     /** A lit jade portal home at the back of the temple's arena (it stays, for later trips). */
     private static void openWayHome(ServerLevel level, net.minecraft.core.BlockPos at) {
+        // the temple's own portal: 3 wide and 4 tall inside a jade frame, centred on the hall's doorway
         var jade = MoonBlocks.JADE_BLOCK.defaultBlockState();
         var portal = MoonBlocks.MOON_PORTAL.defaultBlockState().setValue(net.minecraft.world.level.block.NetherPortalBlock.AXIS, net.minecraft.core.Direction.Axis.X);
-        for (int x = -1; x <= 2; x++) for (int y = -1; y <= 3; y++) {
-            boolean edge = x == -1 || x == 2 || y == -1 || y == 3;
+        for (int x = -2; x <= 2; x++) for (int y = -1; y <= 4; y++) {
+            boolean edge = Math.abs(x) == 2 || y == -1 || y == 4;
             level.setBlock(at.offset(x, y, 0), edge ? jade : portal, net.minecraft.world.level.block.Block.UPDATE_CLIENTS | net.minecraft.world.level.block.Block.UPDATE_KNOWN_SHAPE);
         }
         // nobody gets swallowed by it the moment it opens: step anyone standing in the frame out to the front
-        var box = new net.minecraft.world.phys.AABB(at.getX() - 1, at.getY() - 1, at.getZ() - 1, at.getX() + 3, at.getY() + 4, at.getZ() + 2);
+        var box = new net.minecraft.world.phys.AABB(at.getX() - 2, at.getY() - 1, at.getZ() - 1, at.getX() + 3, at.getY() + 5, at.getZ() + 2);
         for (Entity e : level.getEntitiesOfClass(Entity.class, box, e -> !(e instanceof GreatMoonRabbit)))
             e.teleportTo(e.getX(), e.getY(), at.getZ() + 3.5);
         level.playSound(null, at, SoundEvents.END_PORTAL_SPAWN, SoundSource.HOSTILE, 1f, 1f);

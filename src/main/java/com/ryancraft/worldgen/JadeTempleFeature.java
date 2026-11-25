@@ -110,10 +110,10 @@ public class JadeTempleFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = hz1; z <= hz0; z++)
                 for (int y = TOP + 1; y <= TOP + 5; y++) {
                     boolean wall = Math.abs(x) == hx || z == hz1 || z == hz0;
-                    boolean door = z == hz0 && x >= -1 && x <= 2 && y <= TOP + 4;
+                    boolean door = z == hz0 && Math.abs(x) <= 2 && y <= TOP + 4;      // centred: the portal home fills it
                     set(x, y, z, wall && !door ? worn(bricks, cracked) : air);
                 }
-        for (int x : new int[]{-hx, -3, 4, hx}) for (int y = TOP + 1; y <= TOP + 5; y++) set(x, y, hz0 + 1, jade);   // the columns
+        for (int x : new int[]{-hx, -4, 4, hx}) for (int y = TOP + 1; y <= TOP + 5; y++) set(x, y, hz0 + 1, jade);   // the columns
         // its roofs: two tiers of jade, the lower overhanging, with the corners turned up and a lantern on top
         int ry = TOP + 6;
         fill(-hx - 2, ry, hz1 - 1, hx + 2, ry, hz0 + 2, jadeBricks);
