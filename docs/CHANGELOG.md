@@ -2,6 +2,26 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.2
+- **A new jade temple**, and just one: two stepped terraces banded in jade, a grand stair through a great circular
+  moon gate, the arena on top and a pagoda hall at the back. Every jade portal now lands you a short walk from it,
+  and the portal home (opening, centred, in the pagoda's doorway) takes you back to the portal you went up through.
+  It no longer opens on top of you when the rabbit falls (new worlds' moons).
+- **The moon**: falls count at moon gravity (about 10 blocks before it hurts); the Moon Mortar hits for 14 and is
+  held big; the worn jade crown is redrawn; the **moon cake** is a real cake, set down and eaten a slice at a time.
+- **The Abyss reworked**: a belt of rocky cavern between each kind; giant **ice spires** in the Frozen Caverns; the
+  Toxic Caves about a quarter sludge instead of most of it; more varied floors all round (and no longer solid
+  dripstone).
+- **The Skylands**: islands half as thick; zephyr vents and roc nests far rarer; falling out into the overworld no
+  longer gives Slow Falling (except in Peaceful).
+- **Mudlings** roll their own health, attack and speed; click one to see its health, sneak-click to look it over;
+  they slowly heal after five quiet minutes.
+- **Bison** drop raw bison (cooks into a bison steak), and **pemmican** is the plains' trail food.
+- **The season calendar** hangs on the wall and turns its own pages.
+- **Fixes**: no attack indicator under the crosshair in old combat; armour icons keep vanilla's black outline.
+- **Wiki**: a [Recipes](wiki/Recipes.md) page with every recipe, and a [concept ideas](concept_ideas.md) page for
+  what's being planned.
+
 ## 1.9.1
 - **The Abyss**, a new cave layer below the deepslate, down to bedrock at y=−128 (new chunks only; the built-in Deep
   Caves data pack can be switched off for a new world). Five kinds of cavern follow the climate above: Abyssal

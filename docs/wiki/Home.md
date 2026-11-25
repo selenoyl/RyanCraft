@@ -17,6 +17,7 @@ A guide to everything RyanCraft adds to Minecraft 1.21.11. Pick a topic:
 | 💣 **[Combat](Combat.md)** | Old-style combat, cannons with six kinds of shot, and muskets |
 | ☁️ **[The Skylands](Skylands.md)** | Floating islands, pegasi, rideable rocs and zephyrite gear |
 | 🌕 **[The Moon](Moon.md)** | Low gravity, no air, meteors, and the Great Moon Rabbit |
+| 📜 **[Recipes](Recipes.md)** | Every recipe in the mod, by category and A to Z |
 | 🔧 **[Settings and Commands](Settings.md)** | The config file and every command |
 
 Curious where it's headed? The **[concept ideas](../concept_ideas.md)** page collects the bigger ideas worked out so
