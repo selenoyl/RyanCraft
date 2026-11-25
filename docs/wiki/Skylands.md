@@ -12,13 +12,14 @@ Build a frame of **glowstone** in a nether portal's shape, then **pour water int
 portal within 32 blocks, or builds one on an island or a little skystone ledge.
 
 **Falling off** an island isn't the end: drop below the islands and you fall out of the sky into the overworld,
-with Slow Falling to land safely.
+from far up. Bring a way down (zephyrite boots, the glider, a water bucket), because only in Peaceful do you drift
+down safely with Slow Falling.
 
 ## The land
 
 - **Skystone**, banded like cloud strata, and the **sky willow** with its full wood set.
 - **Springs and waterfalls** pouring off the island edges, and clouds drifting just below.
-- **Zephyr vents**: openings in the grass that blow you upward. Craft your own from 4 skystone around a zephyrite.
+- **Zephyr vents**: rare openings in the grass that blow you upward. Craft your own from 4 skystone around a zephyrite.
 - **Sky flowers**: windflower, cloudbloom, sunpetal and sky bell.
 - Its own high-wind ambience. No seasons.
 
@@ -33,7 +34,7 @@ fall damage**, and a **full set lets you glide** down slowly while you hold snea
 
 - **Pegasus**: white or grey. Tame, saddle and armour it like a horse. It jumps twice as high and glides instead
   of falling, so it never takes fall damage. Breed it with a horse for a winged foal in any horse coat.
-- **Sky roc**: a huge pale bird that circles the islands and nests on the highest ones. Leave it be and it leaves
+- **Sky roc**: a huge pale bird that circles the islands and, now and then, nests on the highest ones. Leave it be and it leaves
   you be. Strike it and it strikes back hard.
 - **Cloud sheep**: woolly sheep of the islands. Drops mutton.
 - **Sky ray**: glides through the air. Drops phantom membrane.

@@ -190,9 +190,12 @@ def blocks():
 def dimension():
     D = "data/ryancraft/"
     ns = json.load(open(os.path.join(T, "floating_islands.json")))
-    # islands about 30% thinner than vanilla's floating islands: the End's base noise with its vertical scale compressed
+    # islands about a third as thick as vanilla's floating islands: the End's base noise squeezed vertically and nudged a
+    # little toward air (K and BIAS; SKY_K / SKY_B override them for experiments)
+    K, BIAS = float(os.environ.get("SKY_K", 0.35)), float(os.environ.get("SKY_B", 0.05))
     thin = {"type": "minecraft:old_blended_noise", "smear_scale_multiplier": 4.0, "xz_factor": 80.0, "xz_scale": 0.25,
-            "y_factor": 160.0 * 0.7, "y_scale": 0.25 / 0.7}
+            "y_factor": 160.0 * K, "y_scale": 0.25 / K}
+    if BIAS: thin = {"type": "minecraft:add", "argument1": -BIAS, "argument2": thin}
     ns = json.loads(json.dumps(ns).replace('"minecraft:end/base_3d_noise"', json.dumps(thin)))
     ns["default_block"] = {"Name": "ryancraft:skystone"}
     ns["default_fluid"] = {"Name": "minecraft:air"}
@@ -232,16 +235,16 @@ def dimension():
         {"type": "minecraft:count", "count": 40}, {"type": "minecraft:in_square"},
         {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": 30}, "max_inclusive": {"absolute": 220}}},
         {"type": "minecraft:biome"}]})
-    # roc nests on the high islands (the feature itself checks the height and a flat patch of grass)
+    # roc nests on the high islands, a rare find (the feature itself checks the height and a flat patch of grass)
     M.w(D + "worldgen/configured_feature/roc_nest.json", {"type": "ryancraft:roc_nest", "config": {}})
     M.w(D + "worldgen/placed_feature/roc_nest.json", {"feature": "ryancraft:roc_nest", "placement": [
-        {"type": "minecraft:rarity_filter", "chance": 24}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:rarity_filter", "chance": 80}, {"type": "minecraft:in_square"},
         {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
-    # updrafts: zephyr vents set into the island grass now and then
+    # updrafts: zephyr vents set into the island grass, a rare thing to come across
     M.w(D + "worldgen/configured_feature/zephyr_vent.json", {"type": "minecraft:simple_block", "config": {"to_place": {"type": "minecraft:simple_state_provider",
         "state": {"Name": "ryancraft:zephyr_vent"}}}})
     M.w(D + "worldgen/placed_feature/zephyr_vent.json", {"feature": "ryancraft:zephyr_vent", "placement": [
-        {"type": "minecraft:count", "count": 3}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+        {"type": "minecraft:rarity_filter", "chance": 24}, {"type": "minecraft:in_square"}, {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
         {"type": "minecraft:random_offset", "xz_spread": 0, "y_spread": -1},
         {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
             {"type": "minecraft:matching_blocks", "blocks": "minecraft:grass_block"},

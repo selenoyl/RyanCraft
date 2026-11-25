@@ -2,8 +2,8 @@
   "feature": "ryancraft:zephyr_vent",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 3
+      "type": "minecraft:rarity_filter",
+      "chance": 24
     },
     {
       "type": "minecraft:in_square"

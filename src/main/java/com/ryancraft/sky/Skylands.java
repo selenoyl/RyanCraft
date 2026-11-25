@@ -109,7 +109,8 @@ public final class Skylands {
     /** Zephyrite gear: iron's tier, a little easier to enchant; the boots stop fall damage, the full set glides (init). */
     public static final com.ryancraft.metal.GearSet ZEPHYRITE_GEAR = com.ryancraft.metal.GearSet.ironTier("zephyrite", 18);
 
-    /** Fall out of the bottom of the Skylands and you drop into the overworld's sky at the same spot (as in the Aether). */
+    /** Fall out of the bottom of the Skylands and you drop into the overworld's sky at the same spot (as in the Aether), and fall
+     *  the whole way: only in peaceful do you drift down gently. */
     public static final int FALL_OUT_Y = -24, ARRIVE_Y = 300;
 
     private static void fallOut(net.minecraft.server.level.ServerLevel sky) {
@@ -122,7 +123,8 @@ public final class Skylands {
             var v = e.getDeltaMovement();
             e.teleport(new net.minecraft.world.level.portal.TeleportTransition(overworld, new net.minecraft.world.phys.Vec3(e.getX(), ARRIVE_Y, e.getZ()),
                     new net.minecraft.world.phys.Vec3(v.x, Math.min(v.y, 0), v.z), e.getYRot(), e.getXRot(), net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
-            if (e instanceof net.minecraft.world.entity.LivingEntity le)                       // a long way down: drift the last of it
+            if (e instanceof net.minecraft.world.entity.LivingEntity le                       // a long way down: only peaceful drifts you the last of it
+                    && sky.getDifficulty() == net.minecraft.world.Difficulty.PEACEFUL)
                 le.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.SLOW_FALLING, 20 * 40, 0));   // about 25 s from y 300 to the ground
         }
     }
