@@ -33,12 +33,13 @@ def is_metal(c):
 
 def recolour(src, pal, keep_wood=True):
     im = Image.open(src).convert("RGBA"); px = im.load()
-    vals = [sum(c[:3]) / 3 for c in im.get_flattened_data() if c[3] and (is_metal(c) or not keep_wood)]
+    dark = lambda c: keep_wood and sum(c[:3]) / 3 < 40                     # item icons keep vanilla's black outline
+    vals = [sum(c[:3]) / 3 for c in im.get_flattened_data() if c[3] and (is_metal(c) or not keep_wood) and not dark(c)]
     lo, hi = (min(vals), max(vals)) if vals else (0, 255)
     for y in range(im.height):
         for x in range(im.width):
             c = px[x, y]
-            if not c[3] or (keep_wood and not is_metal(c)): continue
+            if not c[3] or (keep_wood and not is_metal(c)) or dark(c): continue
             if keep_wood and sum(c[:3]) / 3 >= 230: continue               # the white glints, as on vanilla's armour and tools
             t = (sum(c[:3]) / 3 - lo) / max(1, hi - lo); i = min(len(pal) - 2, int(t * (len(pal) - 1))); f = t * (len(pal) - 1) - i
             px[x, y] = tuple(int(pal[i][k] + (pal[i + 1][k] - pal[i][k]) * f) for k in range(3)) + (c[3],)
