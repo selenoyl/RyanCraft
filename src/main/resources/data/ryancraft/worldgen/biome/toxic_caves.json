@@ -47,7 +47,10 @@
     [
       "ryancraft:abyss_glow_lichen",
       "ryancraft:toxic_sludge_floor",
-      "ryancraft:toxic_moss_ceiling"
+      "ryancraft:toxic_moss_ceiling",
+      "ryancraft:toxic_moss_floor",
+      "ryancraft:abyss_gravel_floor",
+      "ryancraft:abyss_tuff_floor"
     ],
     []
   ],

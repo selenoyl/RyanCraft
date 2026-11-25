@@ -48,7 +48,8 @@
       "minecraft:spring_lava"
     ],
     [
-      "ryancraft:abyss_glow_lichen"
+      "ryancraft:abyss_glow_lichen",
+      "ryancraft:abyss_tuff_floor"
     ],
     []
   ],

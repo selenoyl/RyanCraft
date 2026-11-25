@@ -19,13 +19,14 @@ heights and densities as before. The Abyss adds ores of its own on top.
 
 ## The five caverns
 
-Which cavern you're in follows the climate of the land above.
+Which cavern you're in follows the climate of the land above, and a belt of ordinary rocky cavern always lies
+between one kind and the next.
 
 | Cavern | Found under | What's there | Watch out for |
 |---|---|---|---|
-| **Abyssal Caverns** | Most places | Huge chambers, dripstone and glow lichen | The usual cave mobs |
-| **Toxic Caves** | Dry lands | Floors of **toxic sludge** under glowing **toxic moss** | Sludge slows and poisons you; lots of slimes |
-| **Frozen Caverns** | Cold lands | Packed and blue ice, snow, powder snow | Strays instead of skeletons; powder snow traps |
+| **Abyssal Caverns** | Most places, and between the others | Huge rocky chambers, dripstone, tuff, gravel and glow lichen | The usual cave mobs |
+| **Toxic Caves** | Dry lands | Pools of **toxic sludge** across about a fifth of the floor, glowing **toxic moss** creeping over ceilings and floors, tuff and gravel | Sludge slows and poisons you; lots of slimes |
+| **Frozen Caverns** | Cold lands | Like the ice spikes biome underground: great **ice spires** rising from the floor and hanging from the ceiling (now and then a giant), over patches of packed ice, snow and bare rock | Strays instead of skeletons; powder snow traps |
 | **Sunken Wilds** | Wet lands | An underground overworld: moss, grass, azaleas, cave vines and spore blossoms under a bright **lumen moss** ceiling | Axolotls and glow squid live here too |
 | **Hollow Dark** | Mountains and rugged hills | Sculk-choked caverns, like the deep dark | Sculk sensors and shriekers. Tread quietly |
 

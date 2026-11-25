@@ -46,9 +46,13 @@
     ],
     [
       "ryancraft:abyss_glow_lichen",
+      "ryancraft:abyss_gravel_floor",
       "ryancraft:frozen_floor",
+      "ryancraft:snow_floor",
       "ryancraft:powder_snow_floor",
-      "ryancraft:blue_ice_ceiling"
+      "ryancraft:blue_ice_ceiling",
+      "ryancraft:ice_stalagmites",
+      "ryancraft:ice_stalactites"
     ],
     []
   ],

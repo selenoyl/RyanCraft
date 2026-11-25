@@ -89,6 +89,8 @@ public final class DeepCaves {
     }
 
     public static void init() {
+        Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("ice_stalagmite"), new IceSpireFeature(false));
+        Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("ice_stalactite"), new IceSpireFeature(true));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         FabricLoader.getInstance().getModContainer(RyanCraft.MOD_ID).ifPresent(mod ->
                 ResourceLoader.registerBuiltinPack(RyanCraft.id("deep_caves"), mod, Component.literal("RyanCraft: the Abyss (deeper world)"), PackActivationType.DEFAULT_ENABLED));

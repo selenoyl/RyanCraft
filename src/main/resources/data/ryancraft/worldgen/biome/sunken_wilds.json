@@ -46,13 +46,13 @@
     ],
     [
       "ryancraft:abyss_glow_lichen",
-      "ryancraft:lumen_moss_ceiling",
-      "ryancraft:wilds_floor",
-      "ryancraft:wilds_grass",
       "ryancraft:abyss_lush_caves_ceiling_vegetation",
       "ryancraft:abyss_cave_vines",
       "ryancraft:abyss_rooted_azalea_tree",
-      "ryancraft:abyss_spore_blossom"
+      "ryancraft:abyss_spore_blossom",
+      "ryancraft:lumen_moss_ceiling",
+      "ryancraft:wilds_floor",
+      "ryancraft:wilds_grass"
     ],
     []
   ],

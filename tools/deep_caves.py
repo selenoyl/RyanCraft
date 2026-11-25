@@ -115,11 +115,21 @@ def simple_block(b, props=None):
     return {"feature": {"type": "minecraft:simple_block", "config": {"to_place": state(b, props)}}, "placement": []}
 
 FEATURES = {   # name: (configured feature, placement count, on the ceiling?)
-    "toxic_sludge_floor": (patch(state("ryancraft:toxic_sludge"), "floor", (3, 7), 2), 90, False),
-    "toxic_moss_ceiling": (patch(state("ryancraft:toxic_moss"), "ceiling", (2, 5)), 70, True),
-    "frozen_floor": (patch(state("minecraft:packed_ice"), "floor", (3, 7), 2, simple_block("minecraft:snow", {"layers": "2"}), 0.6), 90, False),
-    "powder_snow_floor": (patch(state("minecraft:powder_snow"), "floor", (1, 3), 2), 20, False),
-    "blue_ice_ceiling": (patch(state("minecraft:blue_ice"), "ceiling", (2, 5)), 50, True),
+    # the Toxic Caves: mostly bare cave, with pools of sludge here and there (about a fifth of the floor), glowing moss
+    # on the ceiling and creeping across the floor, and loose gravel and tuff
+    "toxic_sludge_floor": (patch(state("ryancraft:toxic_sludge"), "floor", (2, 5), 2), 7, False),
+    "toxic_moss_ceiling": (patch(state("ryancraft:toxic_moss"), "ceiling", (2, 5)), 40, True),
+    "toxic_moss_floor": (patch(state("ryancraft:toxic_moss"), "floor", (1, 3)), 14, False),
+    "abyss_gravel_floor": (patch(state("minecraft:gravel"), "floor", (2, 4), 1), 10, False),
+    "abyss_tuff_floor": (patch(state("minecraft:tuff"), "floor", (2, 4), 1), 10, False),
+    # the Frozen Caverns: ice spires like the ice spikes biome, patches of packed ice and snow over bare stone, a little
+    # powder snow and blue ice
+    "frozen_floor": (patch(state("minecraft:packed_ice"), "floor", (2, 5), 2, simple_block("minecraft:snow", {"layers": "2"}), 0.6), 14, False),
+    "snow_floor": (patch(state("minecraft:snow_block"), "floor", (2, 4), 1, simple_block("minecraft:snow", {"layers": "1"}), 0.5), 20, False),
+    "powder_snow_floor": (patch(state("minecraft:powder_snow"), "floor", (1, 2), 2), 10, False),
+    "blue_ice_ceiling": (patch(state("minecraft:blue_ice"), "ceiling", (1, 3)), 15, True),
+    "ice_stalagmites": ({"type": "ryancraft:ice_stalagmite", "config": {}}, 4, False),
+    "ice_stalactites": ({"type": "ryancraft:ice_stalactite", "config": {}}, 4, True),
     "lumen_moss_ceiling": (patch(state("ryancraft:lumen_moss"), "ceiling", (2, 4)), 60, True),
     "wilds_floor": (patch(state("minecraft:moss_block"), "floor", (4, 7), 1, {"feature": "minecraft:moss_vegetation", "placement": []}, 0.8), 110, False),
     "wilds_grass": (patch(state("minecraft:grass_block"), "floor", (2, 4), 1,
@@ -134,12 +144,22 @@ ABYSS_COPIES = ["dripstone_cluster", "large_dripstone", "pointed_dripstone", "gl
 ABYSS_ORES = {"ore_iron": ("minecraft:ore_iron", 8), "ore_gold": ("minecraft:ore_gold_buried", 4), "ore_redstone": ("minecraft:ore_redstone", 6),
               "ore_lapis": ("minecraft:ore_lapis_buried", 3), "ore_coal": ("minecraft:ore_coal_buried", 6)}
 
+COPY_DENSITY = 0.25
+
 def abyss_copies():
     for n in ABYSS_COPIES:
         d = json.load(open(os.path.join(V, "placed", n + ".json")))
+        scaled = False
         for pl in d["placement"]:
             if pl.get("type") == "minecraft:height_range":
                 pl["height"] = {"type": "minecraft:uniform", "min_inclusive": {"absolute": FLOOR + 1}, "max_inclusive": {"absolute": TOP - 1}}
+            # vanilla's counts are spread over the whole world's height; packed into the Abyss's 64 blocks they'd be
+            # five times as dense, so scale the (first) count down to match
+            if pl.get("type") == "minecraft:count" and not scaled:
+                scaled = True; c = pl["count"]
+                if isinstance(c, int): pl["count"] = max(1, round(c * COPY_DENSITY))
+                elif c.get("type") == "minecraft:uniform":
+                    c["min_inclusive"] = max(1, round(c["min_inclusive"] * COPY_DENSITY)); c["max_inclusive"] = max(1, round(c["max_inclusive"] * COPY_DENSITY))
         M.w(f"data/ryancraft/worldgen/placed_feature/abyss_{n}.json", d)
     for n, (cf, count) in ABYSS_ORES.items():
         M.w(f"data/ryancraft/worldgen/placed_feature/abyss_{n}.json", {"feature": cf, "placement": [{"type": "minecraft:count", "count": count},
@@ -166,12 +186,15 @@ def biomes():
     ores = lush["features"][6]
     common_late = ["ryancraft:abyss_glow_lichen"]
     per = {
-        "abyssal_caverns": (["ryancraft:abyss_dripstone_cluster", "ryancraft:abyss_large_dripstone", "ryancraft:abyss_pointed_dripstone"], "minecraft:music.overworld.dripstone_caves", 0.8, "#3f76e4", "#202436"),
-        "toxic_caves": (["ryancraft:toxic_sludge_floor", "ryancraft:toxic_moss_ceiling"], "minecraft:music.overworld.dripstone_caves", 0.9, "#58a028", "#1c2a10"),
-        "frozen_caverns": (["ryancraft:frozen_floor", "ryancraft:powder_snow_floor", "ryancraft:blue_ice_ceiling"], "minecraft:music.overworld.frozen_peaks", -0.7, "#3d57d6", "#b8d4ee"),
+        "abyssal_caverns": (["ryancraft:abyss_dripstone_cluster", "ryancraft:abyss_large_dripstone", "ryancraft:abyss_pointed_dripstone",
+                             "ryancraft:abyss_gravel_floor", "ryancraft:abyss_tuff_floor"], "minecraft:music.overworld.dripstone_caves", 0.8, "#3f76e4", "#202436"),
+        "toxic_caves": (["ryancraft:toxic_sludge_floor", "ryancraft:toxic_moss_ceiling", "ryancraft:toxic_moss_floor",
+                         "ryancraft:abyss_gravel_floor", "ryancraft:abyss_tuff_floor"], "minecraft:music.overworld.dripstone_caves", 0.9, "#58a028", "#1c2a10"),
+        "frozen_caverns": (["ryancraft:ice_stalagmites", "ryancraft:ice_stalactites", "ryancraft:frozen_floor", "ryancraft:snow_floor",
+                            "ryancraft:powder_snow_floor", "ryancraft:blue_ice_ceiling", "ryancraft:abyss_gravel_floor"], "minecraft:music.overworld.frozen_peaks", -0.7, "#3d57d6", "#b8d4ee"),
         "sunken_wilds": (["ryancraft:lumen_moss_ceiling", "ryancraft:wilds_floor", "ryancraft:wilds_grass", "ryancraft:abyss_lush_caves_ceiling_vegetation",
                           "ryancraft:abyss_cave_vines", "ryancraft:abyss_rooted_azalea_tree", "ryancraft:abyss_spore_blossom"], "minecraft:music.overworld.lush_caves", 0.7, "#3f76e4", "#5a7a48"),
-        "hollow_dark": (["ryancraft:abyss_sculk_vein", "ryancraft:abyss_sculk_patch_deep_dark"], "minecraft:music.overworld.deep_dark", 0.8, "#3f76e4", "#0a0c14"),
+        "hollow_dark": (["ryancraft:abyss_sculk_vein", "ryancraft:abyss_sculk_patch_deep_dark", "ryancraft:abyss_tuff_floor"], "minecraft:music.overworld.deep_dark", 0.8, "#3f76e4", "#0a0c14"),
     }
     monsters = lush["spawners"]["monster"]
     for b in BIOMES:
@@ -185,7 +208,9 @@ def biomes():
         f[2] = ["minecraft:amethyst_geode"]; f[3] = ["minecraft:monster_room_deep"]
         f[6] = ["ryancraft:abyss_ore_tuff"] + [f"ryancraft:abyss_{n}" for n in ABYSS_ORES] + ["ryancraft:ore_abyssal_diamond"]
         f[8] = ["minecraft:spring_water", "minecraft:spring_lava"]
-        veg = [e for e in extra if "sculk" not in e]
+        # one shared order for every cavern's features, or the game refuses to load (a "feature order cycle")
+        order = [f"ryancraft:abyss_{n}" for n in ABYSS_COPIES] + [f"ryancraft:{n}" for n in FEATURES]
+        veg = sorted((e for e in extra if "sculk" not in e), key=order.index)
         f[7] = [e for e in extra if "sculk" in e]
         f[9] = common_late + veg
         d["features"] = f

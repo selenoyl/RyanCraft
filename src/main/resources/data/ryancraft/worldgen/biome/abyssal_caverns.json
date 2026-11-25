@@ -48,7 +48,9 @@
       "ryancraft:abyss_glow_lichen",
       "ryancraft:abyss_dripstone_cluster",
       "ryancraft:abyss_large_dripstone",
-      "ryancraft:abyss_pointed_dripstone"
+      "ryancraft:abyss_pointed_dripstone",
+      "ryancraft:abyss_gravel_floor",
+      "ryancraft:abyss_tuff_floor"
     ],
     []
   ],
