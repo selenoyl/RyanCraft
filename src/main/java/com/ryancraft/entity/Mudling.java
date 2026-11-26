@@ -131,10 +131,14 @@ public class Mudling extends PathfinderMob implements Baggable {
     public void setKind(Kind k) { entityData.set(KIND, k.ordinal()); applyStats(); }
     public void setVariant(int v) { entityData.set(VARIANT, v); }
 
+    private static final double HEALTH_SCALE = 1.5, DAMAGE_SCALE = 1.0 / 3.0;
+
     private void applyStats() {
         Kind k = kind(); int w = Math.min(5, wins());
-        getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.round(k.health * rollHealth) + 2 * w + (has(CAP) ? 3 : 0));
-        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(k.damage * rollAttack + 0.5 * w + (has(SPEAR) ? 1.0 : 0));
+        // tougher and softer-hitting than their kind's raw numbers (1.5x health, a third of the damage) so battles last;
+        // the bonuses from wins and gear are scaled the same way so they keep their weight
+        getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.round(HEALTH_SCALE * (k.health * rollHealth + 2 * w + (has(CAP) ? 3 : 0))));
+        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(DAMAGE_SCALE * (k.damage * rollAttack + 0.5 * w + (has(SPEAR) ? 1.0 : 0)));
         getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(k.speed * rollSpeed * (has(CAP) ? 1.08 : 1.0));
     }
 

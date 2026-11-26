@@ -16,19 +16,19 @@ mudlings. Camps never refill, so each one is a find.
 
 | Kind | Biome | Health | Bite | Camp built of |
 |---|---|---|---|---|
-| Sod | Plains and anywhere else | 8 | 2 | Coarse dirt |
-| Twig | Forests | 6 | 1.5 | Oak planks |
-| Bark | Taiga | 12 | 2 | Spruce logs |
-| Mud | Swamps, Sycamore Bottoms | 9 | 1.5 | Mud |
-| Sandstone | Desert | 11 | 2 | Cut sandstone |
-| Terracotta | Badlands | 10 | 3 | Terracotta |
-| Snowpack | Snowy biomes | 6 | 1 | Packed ice |
-| Vine | Jungle | 7 | 2 | Mossy cobblestone |
-| Gravel | Mountains | 9 | 2 | Gravel |
-| Shell | Beaches | 10 | 1.5 | Smooth sandstone |
-| Pebble | Stony shores, caves | 10 | 2 | Cobblestone |
-| Cinder | The Nether | 7 | 2 | Blackstone |
-| Kite | The Skylands | 6 | 1.5 | Skystone |
+| Sod | Plains and anywhere else | 12 | 0.7 | Coarse dirt |
+| Twig | Forests | 9 | 0.5 | Oak planks |
+| Bark | Taiga | 18 | 0.7 | Spruce logs |
+| Mud | Swamps, Sycamore Bottoms | 14 | 0.5 | Mud |
+| Sandstone | Desert | 16 | 0.7 | Cut sandstone |
+| Terracotta | Badlands | 15 | 1.0 | Terracotta |
+| Snowpack | Snowy biomes | 9 | 0.3 | Packed ice |
+| Vine | Jungle | 10 | 0.7 | Mossy cobblestone |
+| Gravel | Mountains | 14 | 0.7 | Gravel |
+| Shell | Beaches | 15 | 0.5 | Smooth sandstone |
+| Pebble | Stony shores, caves | 15 | 0.7 | Cobblestone |
+| Cinder | The Nether | 10 | 0.7 | Blackstone |
+| Kite | The Skylands | 9 | 0.5 | Skystone |
 
 Snowpack scouts keep their distance and throw snowballs. Kites strike from above. About 1 in 20 mudlings has a rare
 colouring: **gilded**, **mossy** or **charred**.
