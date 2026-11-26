@@ -254,3 +254,18 @@ the same place as our Frozen Caverns. Our own take, so it sits beside theirs rat
 - **The Rimebound**: miners who lost their way down here long ago, now slow, ice-crusted undead that breathe frost
   (a few seconds of slowness) and shatter into ice and old mining gear; and **frost moths** glowing pale blue.
 - **Cold**: down here, without warm clothing or a heater, you slowly freeze (ties into the warm-clothing idea).
+
+## Rift capsules: spatial storage, the ender way
+Our own take on AE2's spatial storage and its "holodeck", built on the Ender Terminal's ender theme, with no AE2:
+- **Rift pylons**: ender-crystal posts you set at the corners of a cube (small 4x4x4, medium 8x8x8, large 16x16x16).
+  When they line up, a faint purple frame of light shows the space they hold.
+- **Rift capsule**: an ender item, one per size (eye of ender, obsidian and shards of the matching size). Put it in
+  the **rift controller** and pulse it: everything inside the frame (blocks, chests and their contents, machines,
+  even the animals) swaps places with whatever the capsule holds. An empty capsule takes the space and leaves air; a
+  full one puts its space back and takes yours. The capsule shows what it holds ("Workshop, 8x8x8").
+- **The holodeck**: keep a shelf of capsules (a farm, a forge, a garden, a guest room) and swap them into one rift
+  room as you need them, the room loading in and out of existence around you with a ripple of ender particles.
+- **How it works**: each capsule's space lives in a hidden "pocket" dimension (one pocket per capsule), so nothing
+  stored can be lost, and the swap is a copy between the two. It shares its moving-blocks machinery with frames and
+  motors and the airships, so building one helps build the others.
+- **Cost**: each swap uses ender pearls (or, once electricity arrives, a big draw of power); bigger capsules cost more.
