@@ -3,7 +3,7 @@
 A Fabric mod for **Minecraft 1.21.11** that adds the wildlife, trees and seasons of the eastern US forests, plus
 a few trips further afield. It keeps the classic 1.2.5 / Programmer Art look, with its own classic texture pack built in.
 
-Current version: **1.9.4** · [Download](https://github.com/selenoyl/RyanCraft/releases) · **[Wiki](docs/wiki/Home.md)** · [Changelog](docs/CHANGELOG.md) · [Roadmap](ROADMAP.md)
+Current version: **1.9.5** · [Download](https://github.com/selenoyl/RyanCraft/releases) · **[Wiki](docs/wiki/Home.md)** · [Changelog](docs/CHANGELOG.md) · [Roadmap](ROADMAP.md)
 
 ![The Skylands](docs/photos/skylands.jpg)
 

@@ -2,6 +2,11 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.5
+- **Longer mudling battles**: mudlings have half again as much health and hit for a third as hard (their rolled
+  stats, wins and gear scale the same way). Existing mudlings update when their world loads.
+- **The classic title screen** is soft and lightly blurred like 1.2.5's, instead of blocky and grainy.
+
 ## 1.9.4
 - **Shelf mushrooms grow in the wild** at last (they never generated before): clusters of turkey tail and sulphur
   shelf up the trunks of forest, taiga, jungle and swamp trees, in newly generated chunks. A shelf goes into mushroom
