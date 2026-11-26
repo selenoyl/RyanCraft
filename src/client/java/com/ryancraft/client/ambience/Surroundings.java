@@ -39,7 +39,7 @@ final class Surroundings {
         s.skyLight = level.getBrightness(LightLayer.SKY, eye) / 15.0f;
 
         long t = level.getDayTime() % 24000L;
-        s.dawn = t >= 22800 || t < 1200;
+        s.dawn = t >= 23000 || t < 1200;
         s.day = t >= 0 && t < 12000;
         s.dusk = t >= 11800 && t < 13500;
         s.night = t >= 13000 && t < 23000;

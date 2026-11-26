@@ -65,7 +65,7 @@ public class Bobwhite extends CritterAnimal implements Baggable {
     @Override public boolean isFlyingVisual() { return airborne(); }
     @Override public boolean isFood(ItemStack s) { return s.is(ItemTags.CHICKEN_FOOD); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return offspring(RyanEntities.BOBWHITE, l, p); }
-    @Override protected SoundEvent getAmbientSound() { return RyanSounds.BOBWHITE_CALL; }
+    @Override protected SoundEvent getAmbientSound() { return DayBirds.quiet(this) ? null : RyanSounds.BOBWHITE_CALL; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.CHICKEN_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.CHICKEN_DEATH; }
     @Override public int getAmbientSoundInterval() { return 400; }

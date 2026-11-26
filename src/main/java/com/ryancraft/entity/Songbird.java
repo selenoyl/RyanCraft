@@ -96,6 +96,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal, com.ryancra
 
     @Override
     protected SoundEvent getAmbientSound() {
+        if (DayBirds.quiet(this)) return null;
         return switch (getVariant()) {
             case GOLDFINCH -> RyanSounds.SONG_GOLDFINCH;
             case ROBIN -> RyanSounds.SONG_ROBIN;

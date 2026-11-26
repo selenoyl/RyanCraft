@@ -40,7 +40,7 @@ public class GoldenEagle extends SoaringBird {
 
     @Override public boolean isFood(ItemStack s) { return s.is(net.minecraft.world.item.Items.RABBIT); }
     @Override public AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
-    @Override protected SoundEvent getAmbientSound() { return RyanSounds.HAWK; }
+    @Override protected SoundEvent getAmbientSound() { return DayBirds.quiet(this) ? null : RyanSounds.HAWK; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.PARROT_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
     @Override public float getVoicePitch() { return super.getVoicePitch() * 1.0f; }

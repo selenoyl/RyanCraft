@@ -136,7 +136,7 @@ public class Crow extends ShoulderRidingEntity implements FlyingAnimal, CritterV
     @Override public @Nullable AgeableMob getBreedOffspring(ServerLevel l, AgeableMob p) { return null; }
     @Override public boolean canMate(Animal other) { return false; }
 
-    @Override protected SoundEvent getAmbientSound() { return RyanSounds.CROW_CAW; }
+    @Override protected SoundEvent getAmbientSound() { return DayBirds.quiet(this) ? null : RyanSounds.CROW_CAW; }
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.PARROT_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
     @Override public int getAmbientSoundInterval() { return 240; }
