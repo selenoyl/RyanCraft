@@ -530,6 +530,13 @@ public class Mudling extends PathfinderMob implements Baggable {
 
     @Override public boolean removeWhenFarAway(double d) { return false; }                     // camps don't refill: keep them
     @Override public int bagCapacity() { return 4; }
+    /** Middle-click gives this kind's own spawn egg, not whichever mudling egg the game finds first. */
+    @Override
+    public ItemStack getPickResult() {
+        net.minecraft.world.item.Item egg = net.minecraft.core.registries.BuiltInRegistries.ITEM.getValue(com.ryancraft.RyanCraft.id("mudling_" + kind().id + "_spawn_egg"));
+        return egg == Items.AIR ? super.getPickResult() : new ItemStack(egg);
+    }
+
     @Override public CageKind cageKind() { return CageKind.NONE; }
 
     @Override protected @Nullable SoundEvent getAmbientSound() { return null; }
