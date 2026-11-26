@@ -5,7 +5,10 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
 ## Next up
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
 - ~~**Thirst bar**~~ (built in 1.4.0): drink from water or bottles; some foods give a little water.
-- **Deep layer below deepslate** (Alex's Caves style): regular, toxic, frozen, underground-overworld and deep-dark caverns.
+- ~~**Deep layer below deepslate**~~ (built as the Abyss: regular, toxic, frozen, underground-overworld and deep-dark
+  caverns). **More rework to come**: the Toxic Caves' sludge becomes a **toxic sludge fluid**, a glowing green, slow,
+  lava-like liquid that flows and pools (poisoning and slowing whatever wades in, not burning) instead of a solid block;
+  plus the Abyss's own creatures and glowing life, and the Deep Freeze ideas (see [docs/concept_ideas.md](docs/concept_ideas.md)).
 - ~~**Fishing loop**~~ (built): catch-and-measure fish, trophies, personal bests in the Angler's Logbook, fish plaques.
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
 - ~~**Old-school spawn eggs**~~ (built): redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
