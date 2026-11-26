@@ -9,6 +9,11 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
   caverns). **More rework to come**: the Toxic Caves' sludge becomes a **toxic sludge fluid**, a glowing green, slow,
   lava-like liquid that flows and pools (poisoning and slowing whatever wades in, not burning) instead of a solid block;
   plus the Abyss's own creatures and glowing life, and the Deep Freeze ideas (see [docs/concept_ideas.md](docs/concept_ideas.md)).
+  Also: a **new abyssal stone texture** (drafts in [docs/abyss_texture_concept.png](docs/abyss_texture_concept.png):
+  layered slate, upright basalt prisms, or flecked glimmerstone); **abyssal ores** in that stone instead of deepslate
+  ores; **clearer dividers** between cavern kinds (a solid wall of stone with only narrow passages through, or a
+  transition band of mixed blocks, rather than an open blend); and a **rework of the Toxic Caves** so they look good
+  (the sludge fluid above, sickly green fog, bubbling vents, moss and toxic crystals instead of flat patches).
 - ~~**Fishing loop**~~ (built): catch-and-measure fish, trophies, personal bests in the Angler's Logbook, fish plaques.
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
 - ~~**Old-school spawn eggs**~~ (built): redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
