@@ -2,6 +2,13 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.4
+- **Shelf mushrooms grow in the wild** at last (they never generated before): clusters of turkey tail and sulphur
+  shelf up the trunks of forest, taiga, jungle and swamp trees, in newly generated chunks. A shelf goes into mushroom
+  stew with another shelf or any mushroom, and they compost like mushrooms.
+- **Top up a water bottle**: right-click water with a part-drunk bottle to fill it again.
+- **Quieter nature**: birdsong half as often, crickets half as loud.
+
 ## 1.9.3
 - **Quiet nights**: songbirds, bobwhites, crows, hawks and eagles stop calling once it's dark and wait for the dawn
   chorus.
