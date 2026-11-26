@@ -228,7 +228,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         @Override public boolean requiresUpdateEveryTick() { return true; }
 
         private void updateTactic(java.util.List<Mudling> squad) {
-            if (--tacticFor > 0) return;
+            if (tacticFor > 0) return;                                          // counted down every tick, in tick()
             Mudling leader = Mudling.this;
             for (Mudling a : squad) if (a.rank() > leader.rank()) leader = a;
             if (leader == Mudling.this) {                                       // I call it
@@ -236,6 +236,7 @@ public class Mudling extends PathfinderMob implements Baggable {
                 if (next == tactic && random.nextBoolean()) next = all[random.nextInt(all.length)];
                 tactic = next;
                 if (squad.size() < 2 && tactic == Tactic.PINCER) tactic = Tactic.CHARGE;   // no pincer with no one to pinch with
+                if (squad.isEmpty() && tactic == Tactic.HOLD) tactic = Tactic.CHARGE;      // a line of one holds nothing
             } else tactic = leader.tactic;
             tacticFor = 160 + random.nextInt(140);
         }
@@ -264,6 +265,7 @@ public class Mudling extends PathfinderMob implements Baggable {
 
         @Override public void tick() {
             LivingEntity t = getTarget(); if (t == null) return;
+            tacticFor--;
             if (--think <= 0) {
                 think = 15 + random.nextInt(10);
                 java.util.List<Mudling> squad = allies(16), foes = enemies(16);
@@ -282,7 +284,8 @@ public class Mudling extends PathfinderMob implements Baggable {
                 if (attackCd <= 0 && d < 100 && hasLineOfSight(t)) { attackCd = 26 + random.nextInt(10); throwSnowball(t); }
                 return;
             }
-            if (tactic == Tactic.HOLD && d > 36 && role != Role.FLANKER) {      // stand our ground until they come
+            boolean standoff = t instanceof Mudling m && m.tactic == Tactic.HOLD;  // both sides holding? then someone has to go
+            if (tactic == Tactic.HOLD && d > 36 && role != Role.FLANKER && !standoff) {      // stand our ground until they come
                 getNavigation().stop(); return;
             }
             if (skirmishBack > 0) { skirmishBack--; away(t, 4, 1.2); return; }
@@ -376,7 +379,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     }
 
     private void addWin() {
-        entityData.set(WINS, wins() + 1); applyStats(); heal(getMaxHealth() * 0.5f);   // a win heals half, not all, so the first kill doesn't decide the fight
+        entityData.set(WINS, Math.min(5, wins() + 1)); applyStats(); heal(getMaxHealth() * 0.5f);   // a win heals half, not all, so the first kill doesn't decide the fight
         playSound(SoundEvents.PLAYER_LEVELUP, 0.4f, 1.8f);
     }
 
@@ -511,7 +514,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     protected void readAdditionalSaveData(ValueInput in) {
         super.readAdditionalSaveData(in);
         entityData.set(KIND, in.getIntOr("Kind", 0)); entityData.set(VARIANT, in.getIntOr("Variant", 0));
-        entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, in.getIntOr("Wins", 0));
+        entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, Math.min(5, in.getIntOr("Wins", 0)));
         calm = in.getIntOr("Calm", 0); gear = in.getIntOr("Gear", 0);
         if (in.getInt("Role").isPresent()) role = Role.values()[Math.floorMod(in.getIntOr("Role", 0), Role.values().length)]; else rollRole();
         // saved while its health was showing? take the hearts back off its name
