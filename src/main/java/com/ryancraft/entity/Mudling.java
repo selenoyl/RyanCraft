@@ -484,7 +484,9 @@ public class Mudling extends PathfinderMob implements Baggable {
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance diff, EntitySpawnReason reason, @Nullable SpawnGroupData data) {
         if (reason != EntitySpawnReason.BUCKET && reason != EntitySpawnReason.LOAD) {
-            setKind(MudlingKinds.forBiome(level.getBiome(blockPosition())));
+            // the plain spawn egg hatches any kind (a kind's own egg sets its kind afterwards); otherwise the biome decides
+            setKind(reason == EntitySpawnReason.SPAWN_ITEM_USE ? Kind.values()[random.nextInt(Kind.values().length)]
+                    : MudlingKinds.forBiome(level.getBiome(blockPosition())));
             setVariant(random.nextInt(20) == 0 ? 1 + random.nextInt(3) : 0);
             rollStats(); rollRole(); setHealth(getMaxHealth());
         }
@@ -520,6 +522,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         }
         rollHealth = in.getFloatOr("RollHealth", 1f); rollAttack = in.getFloatOr("RollAttack", 1f); rollSpeed = in.getFloatOr("RollSpeed", 1f);
         applyStats();
+        if (in.getBooleanOr("FullHealth", false)) setHealth(getMaxHealth());          // fresh from a kind's spawn egg
     }
 
     @Override public boolean removeWhenFarAway(double d) { return false; }                     // camps don't refill: keep them

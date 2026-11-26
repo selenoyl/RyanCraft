@@ -36,7 +36,7 @@ colouring: **gilded**, **mossy** or **charred**.
 ## Collecting
 
 Scoop mudlings up in a **bundle** (4 to a bundle) and set them down wherever you like. Creative players can use
-the per-kind spawn eggs.
+the per-kind spawn eggs, or the plain mudling egg for a random kind.
 
 ## Every mudling is different
 
