@@ -4,7 +4,12 @@
   "group": "mushroom_stew",
   "ingredients": [
     "ryancraft:turkey_tail",
-    "ryancraft:turkey_tail",
+    [
+      "ryancraft:turkey_tail",
+      "ryancraft:sulphur_shelf",
+      "minecraft:brown_mushroom",
+      "minecraft:red_mushroom"
+    ],
     "minecraft:bowl"
   ],
   "result": {

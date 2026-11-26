@@ -44,22 +44,40 @@ public final class ShelfMushrooms {
                 @Override
                 public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> ctx) {
                     WorldGenLevel level = ctx.level(); RandomSource r = ctx.random(); BlockPos o = ctx.origin();
-                    int placed = 0, want = 1 + r.nextInt(3);
-                    for (int tries = 0; tries < 64 && placed < want; tries++) {
-                        int x = o.getX() + r.nextInt(16), z = o.getZ() + r.nextInt(16);
-                        int top = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z) - 1;   // a trunk's top log
-                        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos(x, top, z);
+                    // every trunk in the chunk (a log column at least 3 tall), found by checking all 256 columns
+                    java.util.List<BlockPos> trunks = new java.util.ArrayList<>();
+                    for (int dx = 0; dx < 16; dx++) for (int dz = 0; dz < 16; dz++) {
+                        int x = o.getX() + dx, z = o.getZ() + dz;
+                        // while a chunk generates, the worldgen heightmap may or may not include the trees just placed, so
+                        // look for bark just above the ground, then drop through the canopy if we started above it
+                        int y0 = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z);
+                        BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos(x, y0, z);
+                        if (!level.getBlockState(p).is(BlockTags.LOGS)) {
+                            p.setY(y0 - 1);
+                            for (int k = 0; k < 24; k++) {
+                                BlockState st = level.getBlockState(p);
+                                if (st.is(BlockTags.LEAVES) || st.isAir() || st.is(net.minecraft.world.level.block.Blocks.VINE)) p.move(0, -1, 0); else break;
+                            }
+                        }
                         if (!level.getBlockState(p).is(BlockTags.LOGS)) continue;
+                        while (level.getBlockState(p.below()).is(BlockTags.LOGS)) p.move(0, -1, 0);           // down to its foot
                         int n = 0;
-                        while (n < 24 && level.getBlockState(p.below()).is(BlockTags.LOGS)) { p.move(0, -1, 0); n++; }   // down to its foot
-                        if (n < 3) continue;
-                        p.move(0, 1 + r.nextInt(Math.min(4, n - 1)), 0);
-                        Direction d = Direction.Plane.HORIZONTAL.getRandomDirection(r);
-                        BlockPos at = p.relative(d);
-                        if (!level.getBlockState(at).isAir()) continue;
+                        while (n < 24 && level.getBlockState(p.above(n + 1)).is(BlockTags.LOGS)) n++;          // and its height
+                        if (n >= 3) trunks.add(p.above(1 + r.nextInt(Math.min(4, n - 1))).immutable());
+                    }
+                    int placed = 0, want = 2 + r.nextInt(4);
+                    java.util.Collections.shuffle(trunks, new java.util.Random(r.nextLong()));
+                    for (BlockPos p : trunks) {
+                        if (placed >= want) break;
                         Block kind = r.nextInt(4) == 0 ? SULPHUR_SHELF : TURKEY_TAIL;
-                        BlockState s = kind.defaultBlockState().setValue(ShelfMushroomBlock.FACING, d).setValue(ShelfMushroomBlock.SHELVES, 1 + r.nextInt(3));
-                        level.setBlock(at, s, 2); placed++;
+                        // a little cluster up one side of the trunk
+                        Direction d = Direction.Plane.HORIZONTAL.getRandomDirection(r);
+                        for (int k = 0, c = 1 + r.nextInt(3); k < c; k++) {
+                            BlockPos at = p.above(k).relative(d);
+                            if (!level.getBlockState(at).isAir() || !level.getBlockState(p.above(k)).is(BlockTags.LOGS)) break;
+                            level.setBlock(at, kind.defaultBlockState().setValue(ShelfMushroomBlock.FACING, d).setValue(ShelfMushroomBlock.SHELVES, 1 + r.nextInt(3)), 2);
+                        }
+                        placed++;
                     }
                     return placed > 0;
                 }
@@ -75,9 +93,12 @@ public final class ShelfMushrooms {
     }
 
     public static void init() {
-        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST).or(BiomeSelectors.tag(BiomeTags.IS_TAIGA))
+        BiomeModifications.addFeature(BiomeSelectors.tag(BiomeTags.IS_FOREST).or(BiomeSelectors.tag(BiomeTags.IS_TAIGA)).or(BiomeSelectors.tag(BiomeTags.IS_JUNGLE))
+                        .or(BiomeSelectors.includeByKey(ResourceKey.create(Registries.BIOME, RyanCraft.id("sycamore_bottoms")), ResourceKey.create(Registries.BIOME, RyanCraft.id("cedar_glade")), ResourceKey.create(Registries.BIOME, RyanCraft.id("rainforest"))))
                         .or(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP)),
                 GenerationStep.Decoration.VEGETAL_DECORATION, ResourceKey.create(Registries.PLACED_FEATURE, RyanCraft.id("shelf_mushrooms")));
+        net.fabricmc.fabric.api.registry.CompostingChanceRegistry.INSTANCE.add(TURKEY_TAIL, 0.65f);   // as vanilla's mushrooms
+        net.fabricmc.fabric.api.registry.CompostingChanceRegistry.INSTANCE.add(SULPHUR_SHELF, 0.65f);
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> { e.accept(TURKEY_TAIL); e.accept(SULPHUR_SHELF); });
     }
 

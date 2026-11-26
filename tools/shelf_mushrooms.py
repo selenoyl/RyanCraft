@@ -86,6 +86,9 @@ def model(k, n):
 
 def lang_entries(): return {f"block.ryancraft.{k}": v["title"] for k, v in KINDS.items()}
 
+# a shelf goes into stew with another shelf or with any vanilla mushroom
+ANY_MUSHROOM = ["ryancraft:turkey_tail", "ryancraft:sulphur_shelf", "minecraft:brown_mushroom", "minecraft:red_mushroom"]
+
 def build():
     W, D = M.w, "data/ryancraft/"
     rot = {"north": 0, "east": 90, "south": 180, "west": 270}
@@ -101,10 +104,10 @@ def build():
             "functions": [{"function": "minecraft:set_count", "count": n, "add": False, "conditions": [{"condition": "minecraft:block_state_property",
             "block": f"ryancraft:{k}", "properties": {"shelves": str(n)}}]} for n in (2, 3)] + [{"function": "minecraft:explosion_decay"}]}]}]})
         W(f"{D}recipe/mushroom_stew_from_{k}.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "group": "mushroom_stew",
-            "ingredients": [f"ryancraft:{k}", f"ryancraft:{k}", "minecraft:bowl"], "result": {"id": "minecraft:mushroom_stew", "count": 1}})
+            "ingredients": [f"ryancraft:{k}", ANY_MUSHROOM, "minecraft:bowl"], "result": {"id": "minecraft:mushroom_stew", "count": 1}})
     W(f"{D}worldgen/configured_feature/shelf_mushrooms.json", {"type": "ryancraft:shelf_mushrooms", "config": {}})
     W(f"{D}worldgen/placed_feature/shelf_mushrooms.json", {"feature": "ryancraft:shelf_mushrooms", "placement": [
-        {"type": "minecraft:rarity_filter", "chance": 2}, {"type": "minecraft:biome"}]})
+        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})   # biome checked at the surface, not the world's floor
     M.add_tag("data/minecraft/tags/block/mineable/axe.json", [f"ryancraft:{k}" for k in KINDS])
 
 if __name__ == "__main__":
