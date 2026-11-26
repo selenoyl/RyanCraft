@@ -3,6 +3,9 @@
 Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
+- **Mudling coonskin cap**: draw it on the mudling when worn (it isn't shown at all yet), redo the cap's texture, and
+  check its health bonus in game: by the code it adds 4.5 max health, but in play it didn't seem to raise max health
+  (current health doesn't rise with it, at the least).
 - **Next release**: the new venison and bison icons (done, unreleased) go out with a **redone cornbread**
   texture, in the same Programmer Art food style (get approval on drafts before committing).
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
