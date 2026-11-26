@@ -50,7 +50,9 @@ public class MudlingRenderer extends MobRenderer<Mudling, MudlingRenderState, Mu
         public void submit(PoseStack pose, SubmitNodeCollector out, int light, MudlingRenderState s, float yRot, float xRot) {
             if (s.team < 0) return;
             int colour = DyeColor.byId(s.team).getTextureDiffuseColor() | 0xFF000000;
-            out.submitModel(getParentModel(), s, pose, getParentModel().renderType(SASH), light, OverlayTexture.NO_OVERLAY, colour, null, s.outlineColor, null);
+            // drawn in a later pass (as vanilla does the wolf collar): same geometry as the body, so in the same pass it
+            // could land underneath, depending on which texture the batch happened to draw first
+            out.order(1).submitModel(getParentModel(), s, pose, getParentModel().renderType(SASH), light, OverlayTexture.NO_OVERLAY, colour, null, s.outlineColor, null);
         }
     }
 }
