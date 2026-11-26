@@ -75,10 +75,8 @@ def pemmican():
     return img
 
 if __name__ == "__main__":
-    recolour("template_mutton.png", 0.99, 1.15, 0.82).save(os.path.join(OUT, "venison.png"))
-    recolour("template_cooked_mutton.png", 0.04, 1.05, 0.78).save(os.path.join(OUT, "cooked_venison.png"))
-    recolour("template_mutton.png", 0.0, 1.3, 0.66).save(os.path.join(OUT, "raw_bison.png"))          # bison: dark, rich red
-    recolour("template_cooked_mutton.png", 0.05, 1.1, 0.62).save(os.path.join(OUT, "bison_steak.png"))
+    import meat_cuts                                                     # venison and bison have cuts of their own
+    for name, im in meat_cuts.icons().items(): im.save(os.path.join(OUT, f"{name}.png"))
     pemmican().save(os.path.join(OUT, "pemmican.png"))
     drumstick(False).save(os.path.join(OUT, "raw_turkey.png")); drumstick(True).save(os.path.join(OUT, "cooked_turkey.png"))
     for n in ("beef", "cooked_beef", "chicken", "cooked_chicken", "porkchop", "cooked_porkchop"):
