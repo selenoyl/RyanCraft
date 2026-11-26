@@ -186,7 +186,7 @@ public final class AmbienceEngine {
 
         if (e.surface && calm && (e.day || e.dawn) && !e.desert && (treed || e.open || e.grass > 10)) {
             // Birds sing hardest at dawn
-            maybe(mc, RyanSounds.BIRD, e.dawn ? 30 : 70, e.dawn ? 120 : 260, 8, 24, 3, 9, 0.35f, 0.75f, master);
+            maybe(mc, RyanSounds.BIRD, e.dawn ? 60 : 140, e.dawn ? 240 : 520, 8, 24, 3, 9, 0.35f, 0.75f, master);
         }
         if (e.surface && calm && e.day && e.leaves > 25) {
             maybe(mc, RyanSounds.WOODPECKER, 600, 1800, 12, 30, 2, 8, 0.4f, 0.7f, master);

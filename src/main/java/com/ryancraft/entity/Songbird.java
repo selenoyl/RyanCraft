@@ -109,7 +109,7 @@ public class Songbird extends CritterAnimal implements FlyingAnimal, com.ryancra
 
     @Override protected SoundEvent getHurtSound(DamageSource s) { return SoundEvents.PARROT_HURT; }
     @Override protected SoundEvent getDeathSound() { return SoundEvents.PARROT_DEATH; }
-    @Override public int getAmbientSoundInterval() { return 160; }
+    @Override public int getAmbientSoundInterval() { return 320; }
     @Override protected float getSoundVolume() { return 0.8f; }
     @Override protected String variantName() { return switch (getVariant()) { case GOLDFINCH -> "goldfinch"; case ROBIN -> "robin"; case BLUE_JAY -> "blue_jay"; case BLUEBIRD -> "bluebird"; case MOURNING_DOVE -> "mourning_dove"; default -> null; }; }
 }
