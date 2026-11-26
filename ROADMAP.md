@@ -3,6 +3,8 @@
 Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
+- **Next release**: the new venison and bison icons (done, unreleased) go out with a **redone cornbread**
+  texture, in the same Programmer Art food style (get approval on drafts before committing).
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
 - ~~**Thirst bar**~~ (built in 1.4.0): drink from water or bottles; some foods give a little water.
 - **The Abyss (switched off for now)**: the deep cave layer below the deepslate (regular, toxic, frozen,
