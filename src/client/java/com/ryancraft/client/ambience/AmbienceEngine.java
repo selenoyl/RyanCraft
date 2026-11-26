@@ -112,7 +112,7 @@ public final class AmbienceEngine {
 
         // Crickets on warm, dry nights wherever there's grass or trees
         boolean lively = e.leaves > 3 || e.grass > 6 || e.forest || e.open || e.jungle || e.savanna;
-        float crickets = e.surface && (e.night || e.dusk) && calm && !e.snowy && !e.desert && lively ? 0.5f : 0;
+        float crickets = e.surface && (e.night || e.dusk) && calm && !e.snowy && !e.desert && lively ? 0.25f : 0;
         loop(mc, RyanSounds.CRICKETS, crickets * m, null);
 
         // Cicadas: the drone of a hot summer day in the trees
