@@ -139,6 +139,7 @@ public final class Thirst {
         PayloadTypeRegistry.playC2S().register(Drink.TYPE, Drink.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(Drink.TYPE, (payload, ctx) -> drinkFromWater(ctx.player()));
         ServerTickEvents.END_SERVER_TICK.register(Thirst::tick);
+        net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.register(Thirst::topUp);
         net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((d, ctx, env) -> d.register(
                 net.minecraft.commands.Commands.literal("thirst")
                         .executes(c -> { ServerPlayer p = c.getSource().getPlayerOrException(); Data t = get(p);
@@ -147,6 +148,18 @@ public final class Thirst {
                                 .then(net.minecraft.commands.Commands.argument("level", com.mojang.brigadier.arguments.IntegerArgumentType.integer(0, MAX))
                                         .executes(c -> { ServerPlayer p = c.getSource().getPlayerOrException();
                                             p.setAttached(DATA, new Data(com.mojang.brigadier.arguments.IntegerArgumentType.getInteger(c, "level"), 0f, 0f)); return 1; })))));
+    }
+
+    /** A part-drunk water bottle tops back up from water you're looking at, without drinking it down first. */
+    private static net.minecraft.world.InteractionResult topUp(net.minecraft.world.entity.player.Player p, Level level, net.minecraft.world.InteractionHand hand) {
+        ItemStack stack = p.getItemInHand(hand);
+        if (!isWater(stack) || sipsLeft(stack) >= SIPS) return net.minecraft.world.InteractionResult.PASS;
+        HitResult hit = p.pick(p.blockInteractionRange(), 0f, true);
+        if (!(hit instanceof BlockHitResult bh) || hit.getType() != HitResult.Type.BLOCK
+                || !level.getFluidState(bh.getBlockPos()).is(FluidTags.WATER)) return net.minecraft.world.InteractionResult.PASS;
+        stack.remove(DataComponents.CUSTOM_MODEL_DATA);                       // no fill marker means full
+        level.playSound(p, p.getX(), p.getY(), p.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1f, 1f);
+        return net.minecraft.world.InteractionResult.SUCCESS;
     }
 
     private static final Map<UUID, Long> LAST_SIP = new HashMap<>();
