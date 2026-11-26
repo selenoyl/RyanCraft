@@ -39,7 +39,7 @@ public final class ClassicPack {
         selected.add(PACK_ID);          // last = highest priority
         cfg.classicPackAutoEnabled = true;
         cfg.save();
-        mc.options.menuBackgroundBlurriness().set(0);   // the old menus drew the panorama sharp
+        mc.options.menuBackgroundBlurriness().set(0);   // the classic panorama has its own soft 1.2.5 blur baked in
         mc.options.save();
         repo.setSelected(selected);
         mc.options.updateResourcePacks(repo);
