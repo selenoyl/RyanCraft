@@ -1279,7 +1279,7 @@
   "message.ryancraft.mudling_rating.good": "good",
   "message.ryancraft.mudling_rating.great": "great",
   "message.ryancraft.mudling_rating.weak": "weak",
-  "message.ryancraft.mudling_stats": "%s: %s health (%s), %s attack (%s), speed %s, %s/5 wins",
+  "message.ryancraft.mudling_stats": "%s: %s health (%s), %s attack (%s), speed %s, %s/5 wins, gear: %s",
   "subtitles.ryancraft.ambience.bird": "Bird sings",
   "subtitles.ryancraft.ambience.bullfrog": "Bullfrog croaks",
   "subtitles.ryancraft.ambience.cicadas": "Cicadas buzz",

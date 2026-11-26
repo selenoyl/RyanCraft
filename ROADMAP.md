@@ -71,7 +71,8 @@ with its own stats and special (snowballs, slowing mud, knockback gravel, fiery 
 guards' tougher hides); camps in every biome (a ring of the biome's blocks and a flag, 3-6 mudlings, never refilled);
 scooping into bundles, 4 to a bundle; teams by dye (right-click with a dye: different colours fight on their own, the
 team colour shows as a sash); type matchups; losers crumble into their biome's materials; winners level up (up to 5
-victories: more health, harder hits, a little taller). The cloud kite lives in the Skylands. Still to come: gear, a battle table.
+victories: more health, harder hits, a little taller). The cloud kite lives in the Skylands. Also built: rolled stats, slow healing, health on a click, and **gear**
+(leather armour, a flint spearhead, a feather to glide, a coonskin cap for morale). Still to come: a battle table.
 
 ![Mudling concept art](docs/mudlings_concept.png)
 

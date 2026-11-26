@@ -99,6 +99,15 @@ public class Mudling extends PathfinderMob implements Baggable {
     /** Ticks left showing its health above its head, and the name to put back afterwards. */
     private int showHealth; private net.minecraft.network.chat.@Nullable Component ownName; private boolean ownNameVisible;
     public static final int HEAL_AFTER = 20 * 60 * 5, HEAL_EVERY = 40;
+    /** Gear, one of each, handed over by right-clicking: leather armour, a flint spearhead, a feather to glide on and a
+     *  coonskin cap for morale (bits of {@link #gear}). It drops again when the mudling crumbles. */
+    public static final int ARMOUR = 1, SPEAR = 2, GLIDE = 4, CAP = 8;
+    private int gear;
+    private static int gearFor(ItemStack s) {
+        return s.is(Items.LEATHER) ? ARMOUR : s.is(Items.FLINT) ? SPEAR : s.is(Items.FEATHER) ? GLIDE
+                : s.is(com.ryancraft.RyanItems.COONSKIN_CAP) ? CAP : 0;
+    }
+    public boolean has(int g) { return (gear & g) != 0; }
 
     public Mudling(EntityType<? extends Mudling> type, Level level) { super(type, level); }
 
@@ -124,9 +133,9 @@ public class Mudling extends PathfinderMob implements Baggable {
 
     private void applyStats() {
         Kind k = kind(); int w = Math.min(5, wins());
-        getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.round(k.health * rollHealth) + 2 * w);
-        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(k.damage * rollAttack + 0.5 * w);
-        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(k.speed * rollSpeed);
+        getAttribute(Attributes.MAX_HEALTH).setBaseValue(Math.round(k.health * rollHealth) + 2 * w + (has(CAP) ? 3 : 0));
+        getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(k.damage * rollAttack + 0.5 * w + (has(SPEAR) ? 1.0 : 0));
+        getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(k.speed * rollSpeed * (has(CAP) ? 1.08 : 1.0));
     }
 
     // ------------------------------------------------------------------ behaviour
@@ -204,6 +213,8 @@ public class Mudling extends PathfinderMob implements Baggable {
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         // shield wall and shells: the sandstone legionary and shell guard shrug off a third of every blow
         if (kind() == Kind.SANDSTONE || kind() == Kind.SHELL) amount *= 0.67f;
+        if (has(ARMOUR)) amount *= 0.7f;                                       // leather armour
+        if (has(GLIDE) && source.is(net.minecraft.tags.DamageTypeTags.IS_FALL)) return false;
         boolean hurt = super.hurtServer(level, source, amount);
         if (hurt) { calm = 0; if (showHealth > 0) showHealthTag(); }
         return hurt;
@@ -223,6 +234,10 @@ public class Mudling extends PathfinderMob implements Baggable {
     /** Losers crumble into their biome's materials. */
     @Override
     protected void dropFromLootTable(ServerLevel level, DamageSource source, boolean playerKill) {
+        if (has(ARMOUR)) spawnAtLocation(level, new ItemStack(Items.LEATHER));      // its gear falls with it
+        if (has(SPEAR)) spawnAtLocation(level, new ItemStack(Items.FLINT));
+        if (has(GLIDE)) spawnAtLocation(level, new ItemStack(Items.FEATHER));
+        if (has(CAP)) spawnAtLocation(level, new ItemStack(com.ryancraft.RyanItems.COONSKIN_CAP));
         net.minecraft.world.item.Item[] mats = switch (kind()) {
             case SOD -> new net.minecraft.world.item.Item[]{Items.DIRT, Items.WHEAT_SEEDS, Items.DANDELION};
             case TWIG -> new net.minecraft.world.item.Item[]{Items.STICK, Items.OAK_SAPLING, Items.OAK_LEAVES};
@@ -248,6 +263,8 @@ public class Mudling extends PathfinderMob implements Baggable {
     public void aiStep() {
         super.aiStep();
         if (level().isClientSide() || !isAlive()) return;
+        if (has(GLIDE) && !onGround() && getDeltaMovement().y < -0.12)          // the feather: a gentle glide down
+            setDeltaMovement(getDeltaMovement().x, -0.12, getDeltaMovement().z);
         if (calm < HEAL_AFTER) calm++;
         else if (getHealth() < getMaxHealth() && tickCount % HEAL_EVERY == 0) {     // five quiet minutes: a slow trickle back to full
             heal(1f); if (showHealth > 0) showHealthTag();
@@ -281,6 +298,14 @@ public class Mudling extends PathfinderMob implements Baggable {
             }
             return InteractionResult.SUCCESS;
         }
+        int g = gearFor(stack);
+        if (g != 0 && !has(g)) {                                               // kit it out
+            if (!level().isClientSide()) {
+                gear |= g; applyStats(); stack.consume(1, player); setPersistenceRequired();
+                level().playSound(null, this, SoundEvents.ARMOR_EQUIP_LEATHER.value(), SoundSource.NEUTRAL, 1.0f, 1.4f);
+            }
+            return InteractionResult.SUCCESS;
+        }
         if (stack.isEmpty() && !player.isShiftKeyDown()) {                    // a quick look: its health over its head
             if (!level().isClientSide()) showHealthTag();
             return InteractionResult.SUCCESS;
@@ -288,10 +313,16 @@ public class Mudling extends PathfinderMob implements Baggable {
         if (stack.isEmpty() && player.isShiftKeyDown()) {                     // sneak and look it over: its stats
             if (!level().isClientSide()) player.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.ryancraft.mudling_stats",
                     getDisplayName(), (int) getMaxHealth(), rating(rollHealth), String.format("%.1f", getAttributeValue(Attributes.ATTACK_DAMAGE)),
-                    rating(rollAttack), rating(rollSpeed), wins()), true);
+                    rating(rollAttack), rating(rollSpeed), wins(), gearList()), true);
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
+    }
+
+    private net.minecraft.network.chat.Component gearList() {
+        java.util.List<String> g = new java.util.ArrayList<>();
+        if (has(ARMOUR)) g.add("armour"); if (has(SPEAR)) g.add("spear"); if (has(GLIDE)) g.add("feather"); if (has(CAP)) g.add("cap");
+        return net.minecraft.network.chat.Component.literal(g.isEmpty() ? "none" : String.join(", ", g));
     }
 
     /** How a roll compares with its kind's usual: a word for each. */
@@ -321,7 +352,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putInt("Kind", entityData.get(KIND)); out.putInt("Variant", variant()); out.putInt("Team", team()); out.putInt("Wins", wins());
-        out.putInt("Calm", calm);
+        out.putInt("Calm", calm); out.putInt("Gear", gear);
         out.putFloat("RollHealth", rollHealth); out.putFloat("RollAttack", rollAttack); out.putFloat("RollSpeed", rollSpeed);
     }
 
@@ -330,7 +361,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         super.readAdditionalSaveData(in);
         entityData.set(KIND, in.getIntOr("Kind", 0)); entityData.set(VARIANT, in.getIntOr("Variant", 0));
         entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, in.getIntOr("Wins", 0));
-        calm = in.getIntOr("Calm", 0);
+        calm = in.getIntOr("Calm", 0); gear = in.getIntOr("Gear", 0);
         // saved while its health was showing? take the hearts back off its name
         if (getCustomName() != null && getCustomName().getString().contains(" \u2764 ")) {
             String n = getCustomName().getString(); n = n.substring(0, n.indexOf(" \u2764 "));

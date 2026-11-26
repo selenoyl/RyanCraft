@@ -49,6 +49,19 @@ over its head for a few seconds.
 **Healing:** a hurt mudling heals on its own, slowly. After five minutes without taking a hit, it trickles back to
 full health.
 
+## Gear
+
+Right-click a mudling with a piece of gear to kit it out (one of each; it drops again if the mudling crumbles):
+
+| Gear | Effect |
+|---|---|
+| **Leather** | Armour: takes 30% less damage |
+| **Flint** | A spearhead: hits harder |
+| **Feather** | Glides down gently and never takes fall damage |
+| **Coonskin cap** | Morale: more health, and a little quicker |
+
+Sneak and use an empty hand on a mudling to see what it's wearing.
+
 ## Teams and battles
 
 **Dye a mudling** to put it on that colour's team. Mudlings of different teams find each other and fight on their
