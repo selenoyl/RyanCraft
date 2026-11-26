@@ -3,6 +3,8 @@
 Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
+- **Dispensers dye mudlings**: a dispenser loaded with dye puts that team colour on the mudling in front of it (like it
+  dyes sheep in vanilla), so teams can be sorted with redstone.
 - **Mudling sashes on every kind**: the sod sash was fixed (drawn in a later pass), but sandstone mudlings still seemed
   to have none; check each of the 13 kinds and the rare variants in game.
 - **Mudling coonskin cap**: draw it on the mudling when worn (it isn't shown at all yet), redo the cap's texture, and
