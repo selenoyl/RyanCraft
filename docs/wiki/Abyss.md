@@ -2,6 +2,9 @@
 
 # The Abyss
 
+> **Switched off by default since 1.9.3** while it's reworked (see the [roadmap](../../ROADMAP.md)). To use it, turn on the
+> "RyanCraft: the Abyss" data pack in the Data Packs screen when you create a new world.
+
 A new cave layer below the deepslate. The world now goes down to **bedrock at y=−128**, and everything between y=−64
 and the bedrock is the Abyss: big open caverns cut through **abyssal stone**.
 

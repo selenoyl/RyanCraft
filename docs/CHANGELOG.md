@@ -2,6 +2,17 @@
 
 Release jars are on [GitHub Releases](https://github.com/selenoyl/RyanCraft/releases); each version is built and published automatically when `mod_version` is bumped. Plans for later are in [ROADMAP.md](../ROADMAP.md).
 
+## 1.9.3
+- **Quiet nights**: songbirds, bobwhites, crows, hawks and eagles stop calling once it's dark and wait for the dawn
+  chorus.
+- **Mudlings fight smarter**: squads pick roles and tactics, call for help and gang up; they can wear gear (armour,
+  spear, glider, cap); a win heals half.
+- **Recipes** unlock in the recipe book as you pick up their ingredients.
+- **Water**: no splash sounds underwater, and swimming sounds are quieter.
+- **The Abyss is switched off for now** while it's reworked (new stone, its own ores, clearer borders, a better Toxic
+  Caves; see the [roadmap](../ROADMAP.md)). Worlds that already have it keep it; new worlds can still switch on the
+  "RyanCraft: the Abyss" data pack.
+
 ## 1.9.2
 - **A new jade temple**, and just one: two stepped terraces banded in jade, a grand stair through a great circular
   moon gate, the arena on top and a pagoda hall at the back. Every jade portal now lands you a short walk from it,

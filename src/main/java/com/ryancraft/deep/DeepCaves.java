@@ -41,7 +41,7 @@ import java.util.function.Function;
  * <li>Sunken Wilds (wet regions): an underground overworld of moss, azaleas and grass under a bright lumen-moss ceiling</li>
  * <li>Hollow Dark: sculk-choked caverns, like the deep dark</li></ul>
  * The deepening itself (the overworld's height, its noise and the ore heights it shifts) is the built-in data pack
- * resourcepacks/deep_caves, on by default and switchable off in a new world's Data Packs screen. Assets: tools/deep_caves.py.
+ * resourcepacks/deep_caves, off by default for now (being reworked) and switchable on in a new world's Data Packs screen. Assets: tools/deep_caves.py.
  */
 public final class DeepCaves {
     public static final int TOP = -64, FLOOR = -128, LAVA_BELOW = -118;
@@ -93,7 +93,7 @@ public final class DeepCaves {
         Registry.register(BuiltInRegistries.FEATURE, RyanCraft.id("ice_stalactite"), new IceSpireFeature(true));
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(e -> ITEMS.forEach(e::accept));
         FabricLoader.getInstance().getModContainer(RyanCraft.MOD_ID).ifPresent(mod ->
-                ResourceLoader.registerBuiltinPack(RyanCraft.id("deep_caves"), mod, Component.literal("RyanCraft: the Abyss (deeper world)"), PackActivationType.DEFAULT_ENABLED));
+                ResourceLoader.registerBuiltinPack(RyanCraft.id("deep_caves"), mod, Component.literal("RyanCraft: the Abyss (deeper world)"), PackActivationType.NORMAL));
     }
 
     private DeepCaves() {}

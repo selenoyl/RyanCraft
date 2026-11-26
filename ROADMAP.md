@@ -5,15 +5,21 @@ Ideas queued for later, roughly grouped. Struck-through items are built; see [do
 ## Next up
 - ~~**Seasons**~~ (built in 1.3.0). Still to do: antler shedding in late winter.
 - ~~**Thirst bar**~~ (built in 1.4.0): drink from water or bottles; some foods give a little water.
-- ~~**Deep layer below deepslate**~~ (built as the Abyss: regular, toxic, frozen, underground-overworld and deep-dark
-  caverns). **More rework to come**: the Toxic Caves' sludge becomes a **toxic sludge fluid**, a glowing green, slow,
-  lava-like liquid that flows and pools (poisoning and slowing whatever wades in, not burning) instead of a solid block;
-  plus the Abyss's own creatures and glowing life, and the Deep Freeze ideas (see [docs/concept_ideas.md](docs/concept_ideas.md)).
-  Also: a **new abyssal stone texture** (drafts in [docs/abyss_texture_concept.png](docs/abyss_texture_concept.png):
-  layered slate, upright basalt prisms, or flecked glimmerstone); **abyssal ores** in that stone instead of deepslate
-  ores; **clearer dividers** between cavern kinds (a solid wall of stone with only narrow passages through, or a
-  transition band of mixed blocks, rather than an open blend); and a **rework of the Toxic Caves** so they look good
-  (the sludge fluid above, sickly green fog, bubbling vents, moss and toxic crystals instead of flat patches).
+- **The Abyss (switched off for now)**: the deep cave layer below the deepslate (regular, toxic, frozen,
+  underground-overworld and deep-dark caverns) is built, but its data pack is off by default while it's reworked
+  (it can still be switched on in a new world's Data Packs screen). Before it comes back on:
+  - **Abyssal stone with a grain of its own**, unique the way deepslate is, not recoloured stone. Second-round drafts in
+    [docs/abyss_stone_concept.png](docs/abyss_stone_concept.png): A shale (splintered shards), B pillow rock (round
+    lumps), C abyssalite (pale veins), D pumice (gas pockets); first round in
+    [docs/abyss_texture_concept.png](docs/abyss_texture_concept.png). Perhaps each cavern kind gets its own stone, as in
+    Alex's Caves. Full families: stone, top, cobbled, bricks, polished.
+  - **Abyssal ores** in that stone instead of deepslate ores (coal ash-grey so it reads in dark rock).
+  - **Clearer dividers** between cavern kinds: a solid wall of stone with only narrow passages through, or a transition
+    band of mixed blocks, rather than an open blend.
+  - **The Toxic Caves reworked** so they look good: a **toxic sludge fluid** (glowing green, slow, lava-like; it flows
+    and pools, poisoning and slowing whatever wades in rather than burning), sickly green fog, bubbling vents, moss and
+    toxic crystals instead of flat patches.
+  - The Abyss's own creatures and glowing life, and the Deep Freeze ideas (see [docs/concept_ideas.md](docs/concept_ideas.md)).
 - ~~**Fishing loop**~~ (built): catch-and-measure fish, trophies, personal bests in the Angler's Logbook, fish plaques.
 - **Squirrels that really climb**: run up trunks, cling sideways and hang upside down on bark.
 - ~~**Old-school spawn eggs**~~ (built): redo the egg icons to look like the classic two-tone spotted eggs, cleaner and calmer.
