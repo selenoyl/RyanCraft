@@ -62,21 +62,21 @@ public final class AmbienceEngine {
 
     private double wadeDistance;
 
-    /** Sloshing splashes as you wade or swim through water, paced by how fast you move. */
+    /** Sloshing splashes as you wade or swim along the surface, paced by how fast you move (silent once you're under). */
     private void splashes(Minecraft mc, float master) {
         var player = mc.player;
         if (!player.isInWater() || player.isSpectator() || player.isPassenger()) { wadeDistance = 0; return; }
         Vec3 v = player.getDeltaMovement();
         double speed = Math.sqrt(v.x * v.x + v.z * v.z);
         if (speed < 0.02) return;
-        boolean submerged = player.isEyeInFluid(net.minecraft.tags.FluidTags.WATER);
+        if (player.isEyeInFluid(net.minecraft.tags.FluidTags.WATER)) { wadeDistance = 0; return; }   // no sloshing once you're under
         wadeDistance += speed;
-        double stride = submerged ? 1.6 : (player.onGround() ? 0.9 : 1.2);
+        double stride = player.onGround() ? 0.9 : 1.2;
         if (wadeDistance >= stride) {
             wadeDistance = 0;
-            float vol = (submerged ? 0.15f : 0.35f + (float) Math.min(speed, 0.3) * 1.2f) * master;
+            float vol = (0.26f + (float) Math.min(speed, 0.3) * 0.9f) * master;           // a quarter quieter than it was
             mc.getSoundManager().play(new SimpleSoundInstance(RyanSounds.SPLASH, SoundSource.PLAYERS, vol,
-                    (submerged ? 0.7f : 0.9f) + random.nextFloat() * 0.2f, random, player.getX(), player.getY() + 0.2, player.getZ()));
+                    0.9f + random.nextFloat() * 0.2f, random, player.getX(), player.getY() + 0.2, player.getZ()));
         }
     }
 

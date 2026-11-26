@@ -1835,7 +1835,7 @@
     "sounds": [
       {
         "name": "random/splash",
-        "volume": 0.35
+        "volume": 0.262
       }
     ]
   },
@@ -1844,7 +1844,7 @@
     "sounds": [
       {
         "name": "random/splash",
-        "volume": 0.35
+        "volume": 0.262
       }
     ]
   }
