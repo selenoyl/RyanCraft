@@ -3,6 +3,8 @@
 Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
+- **Mudling sashes on every kind**: the sod sash was fixed (drawn in a later pass), but sandstone mudlings still seemed
+  to have none; check each of the 13 kinds and the rare variants in game.
 - **Mudling coonskin cap**: draw it on the mudling when worn (it isn't shown at all yet), redo the cap's texture, and
   check its health bonus in game: by the code it adds 4.5 max health, but in play it didn't seem to raise max health
   (current health doesn't rise with it, at the least).
