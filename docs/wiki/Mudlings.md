@@ -71,4 +71,19 @@ own.
   mud beats sandstone and cinder, snowpack beats twig and cinder, cinder beats twig, bark, vine and kite, and gravel
   beats sandstone, terracotta and kite.
 - **The loser crumbles** into its biome's materials.
-- **The winner levels up**: every victory gives it a little more health and bite, up to five victories.
+- **The winner levels up**: every victory gives it a little more health and bite, up to five victories, and heals it
+  by half.
+
+## How they fight
+
+Mudlings fight as squads, not a scrum. Each is born with a **battle role**, more likely some than others for its kind:
+- **Vanguards** go straight in. Sandstone, bark, shell and terracotta mudlings are often vanguards or guards.
+- **Flankers** circle round to hit from the side or behind, and go for the snowball throwers at the back.
+- **Skirmishers** dart in, strike and fall back to strike again.
+- **Guards** stay by their weakest squadmate and set on whatever comes near it.
+
+The squad's most seasoned mudling calls a **tactic**, and calls a new one every so often, so no two fights go the same:
+**charge**, a **pincer** (flankers swing wide), **hold the line** (wait for the enemy to come, then counter) or
+**focus fire** (gang up on one foe, the weakest first). Squadmates rally to anyone who's attacked, they favour targets
+they have the matchup on, and a badly hurt mudling falls back behind its friends for a while, unless it's alone.
+Snowpack scouts keep their distance and throw. Sneak-click a mudling to see its role.

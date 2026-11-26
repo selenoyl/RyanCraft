@@ -142,10 +142,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new FloatGoal(this));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false) {
-            @Override public boolean canUse() { return kind() != Kind.SNOWPACK && super.canUse(); }
-        });
-        goalSelector.addGoal(1, new SnowballGoal());
+        goalSelector.addGoal(1, new SquadCombatGoal());
         goalSelector.addGoal(2, new AvoidEntityGoal<>(this, Player.class, 6.0f, 1.0, 1.25, e -> team() < 0));   // wild ones scatter
         goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8));
         goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
@@ -156,25 +153,170 @@ public class Mudling extends PathfinderMob implements Baggable {
 
     public boolean isEnemy(Mudling m) { return team() >= 0 && m.team() >= 0 && m.team() != team() && m.isAlive(); }
 
-    /** The snowpack scout throws snowballs from a few blocks off instead of closing in. */
-    private class SnowballGoal extends net.minecraft.world.entity.ai.goal.Goal {
-        private int cooldown;
-        SnowballGoal() { setFlags(java.util.EnumSet.of(Flag.MOVE, Flag.LOOK)); }
-        @Override public boolean canUse() { return kind() == Kind.SNOWPACK && getTarget() != null && getTarget().isAlive(); }
+    // ------------------------------------------------------------------ squad combat
+    /** A mudling's part in a fight, rolled at birth (weighted by its kind) and kept for life. */
+    public enum Role { VANGUARD, FLANKER, SKIRMISHER, GUARD }
+    /** What its squad is doing right now, called by the squad's most battle-hardened member and changed every so often. */
+    public enum Tactic { CHARGE, PINCER, HOLD, FOCUS }
+    private Role role = Role.VANGUARD; private Tactic tactic = Tactic.CHARGE; private int tacticFor;
+    public Role role() { return role; }
+
+    private void rollRole() {
+        Role[] pool = switch (kind()) {
+            case BARK, SANDSTONE, SHELL, TERRACOTTA -> new Role[]{Role.VANGUARD, Role.VANGUARD, Role.GUARD, Role.GUARD, Role.FLANKER};
+            case TWIG, VINE, KITE -> new Role[]{Role.FLANKER, Role.FLANKER, Role.SKIRMISHER, Role.SKIRMISHER, Role.VANGUARD};
+            case SNOWPACK, CINDER -> new Role[]{Role.SKIRMISHER, Role.SKIRMISHER, Role.FLANKER, Role.GUARD};
+            case MUD, PEBBLE -> new Role[]{Role.GUARD, Role.GUARD, Role.VANGUARD, Role.SKIRMISHER};
+            default -> Role.values();
+        };
+        role = pool[random.nextInt(pool.length)];
+    }
+
+    private java.util.List<Mudling> allies(double r) {
+        return level().getEntitiesOfClass(Mudling.class, getBoundingBox().inflate(r), m -> m != this && m.isAlive() && team() >= 0 && m.team() == team());
+    }
+    private java.util.List<Mudling> enemies(double r) {
+        return level().getEntitiesOfClass(Mudling.class, getBoundingBox().inflate(r), this::isEnemy);
+    }
+    /** Seniority in the squad: wins first, then health; the senior one calls the tactic. */
+    private double rank() { return wins() * 100 + getMaxHealth() + getId() * 1e-6; }
+
+    /** Squadmates come to help when one is attacked (called from hurtServer). */
+    private void callForHelp(LivingEntity attacker) {
+        for (Mudling a : allies(10)) {
+            LivingEntity t = a.getTarget();
+            if (t == null || !t.isAlive() || a.distanceToSqr(t) > a.distanceToSqr(attacker) + 16 || a.random.nextInt(3) == 0) a.setTarget(attacker);
+        }
+    }
+
+    /** The snowpack scout's snowball: thrown from a few blocks off. */
+    private void throwSnowball(LivingEntity t) {
+        Snowball s = new Snowball(level(), Mudling.this, new ItemStack(net.minecraft.world.item.Items.SNOWBALL));
+        double dx = t.getX() - getX(), dy = t.getY(0.4) - s.getY(), dz = t.getZ() - getZ();
+        s.shoot(dx, dy + Math.sqrt(dx * dx + dz * dz) * 0.15, dz, 1.0f, 4f);
+        level().addFreshEntity(s);
+        playSound(SoundEvents.SNOWBALL_THROW, 0.5f, 1.6f);
+        if (level() instanceof ServerLevel sl) t.hurtServer(sl, damageSources().thrown(s, Mudling.this), (float) getAttributeValue(Attributes.ATTACK_DAMAGE) * matchup(t));
+    }
+
+    /**
+     * How a mudling fights in a squad. Every second or so it re-reads the battle: its squad's tactic (called by the most
+     * seasoned member, and changed every 8-15 seconds, so no two fights go the same), its own role, its health and who's
+     * where. Then it picks a target (the nearest, the one the squad is ganging up on, the weakest, or whoever's at its
+     * guard's back) and a way to go at it:
+     * <ul><li>vanguards go straight in;</li>
+     * <li>flankers circle round to come at the target from the side or behind (wide, on a pincer);</li>
+     * <li>skirmishers dart in, strike and fall back to strike again;</li>
+     * <li>guards stay by their weakest squadmate and set on whatever comes near it;</li>
+     * <li>on "hold the line" the squad stands its ground until the enemy comes close, then counters;</li>
+     * <li>snowpack scouts keep their distance and throw;</li>
+     * <li>and a badly hurt mudling falls back behind its friends for a while, unless it's alone.</li></ul>
+     * Choices carry a little randomness, so the same squads won't fight the same way twice.
+     */
+    private class SquadCombatGoal extends net.minecraft.world.entity.ai.goal.Goal {
+        private int think, attackCd, retreatFor, skirmishBack;
+        private double flankSide = 1;
+        SquadCombatGoal() { setFlags(java.util.EnumSet.of(Flag.MOVE, Flag.LOOK)); }
+        @Override public boolean canUse() { return getTarget() != null && getTarget().isAlive() && team() >= 0; }
+        @Override public boolean canContinueToUse() { return canUse(); }
+        @Override public void start() { think = 0; flankSide = random.nextBoolean() ? 1 : -1; }
+        @Override public void stop() { getNavigation().stop(); }
+        @Override public boolean requiresUpdateEveryTick() { return true; }
+
+        private void updateTactic(java.util.List<Mudling> squad) {
+            if (--tacticFor > 0) return;
+            Mudling leader = Mudling.this;
+            for (Mudling a : squad) if (a.rank() > leader.rank()) leader = a;
+            if (leader == Mudling.this) {                                       // I call it
+                Tactic[] all = Tactic.values(); Tactic next = all[random.nextInt(all.length)];
+                if (next == tactic && random.nextBoolean()) next = all[random.nextInt(all.length)];
+                tactic = next;
+                if (squad.size() < 2 && tactic == Tactic.PINCER) tactic = Tactic.CHARGE;   // no pincer with no one to pinch with
+            } else tactic = leader.tactic;
+            tacticFor = 160 + random.nextInt(140);
+        }
+
+        private LivingEntity pickTarget(java.util.List<Mudling> squad, java.util.List<Mudling> foes) {
+            LivingEntity cur = getTarget();
+            if (foes.isEmpty()) return cur;
+            Mudling best = null; double bestScore = Double.MAX_VALUE;
+            Mudling weakAlly = null;
+            if (role == Role.GUARD) for (Mudling a : squad) if (weakAlly == null || a.getHealth() / a.getMaxHealth() < weakAlly.getHealth() / weakAlly.getMaxHealth()) weakAlly = a;
+            for (Mudling f : foes) {
+                double score = Math.sqrt(distanceToSqr(f));
+                if (tactic == Tactic.FOCUS) {
+                    int onIt = 0; for (Mudling a : squad) if (a.getTarget() == f) onIt++;
+                    score -= onIt * 3 + (1 - f.getHealth() / f.getMaxHealth()) * 6;
+                }
+                if (role == Role.FLANKER && f.kind() == Kind.SNOWPACK) score -= 4;   // flankers go for the throwers at the back
+                if (role == Role.GUARD && weakAlly != null) score = Math.sqrt(weakAlly.distanceToSqr(f));
+                if (kind().beats(f.kind())) score -= 2;                         // and for a matchup it wins
+                if (f == cur) score -= 1.5;                                     // a little stubborn, so it doesn't dither
+                score += random.nextDouble() * 2;
+                if (score < bestScore) { bestScore = score; best = f; }
+            }
+            return best;
+        }
+
         @Override public void tick() {
             LivingEntity t = getTarget(); if (t == null) return;
+            if (--think <= 0) {
+                think = 15 + random.nextInt(10);
+                java.util.List<Mudling> squad = allies(16), foes = enemies(16);
+                updateTactic(squad);
+                LivingEntity pick = pickTarget(squad, foes);
+                if (pick != null && pick != t) { setTarget(pick); t = pick; }
+                if (retreatFor <= 0 && getHealth() < getMaxHealth() * 0.3f && !squad.isEmpty() && random.nextInt(3) > 0) retreatFor = 60 + random.nextInt(60);
+            }
             getLookControl().setLookAt(t, 30, 30);
             double d = distanceToSqr(t);
-            if (d > 36) getNavigation().moveTo(t, 1.1); else getNavigation().stop();
-            if (--cooldown <= 0 && d < 100 && hasLineOfSight(t)) {
-                cooldown = 30;
-                Snowball s = new Snowball(level(), Mudling.this, new ItemStack(net.minecraft.world.item.Items.SNOWBALL));
-                double dx = t.getX() - getX(), dy = t.getY(0.4) - s.getY(), dz = t.getZ() - getZ();
-                s.shoot(dx, dy + Math.sqrt(dx * dx + dz * dz) * 0.15, dz, 1.0f, 4f);
-                level().addFreshEntity(s);
-                playSound(SoundEvents.SNOWBALL_THROW, 0.5f, 1.6f);
-                if (level() instanceof ServerLevel sl) t.hurtServer(sl, damageSources().thrown(s, Mudling.this), (float) getAttributeValue(Attributes.ATTACK_DAMAGE) * matchup(t));
+            attackCd--;
+            if (retreatFor > 0) { retreatFor--; fallBack(t); return; }
+
+            if (kind() == Kind.SNOWPACK) {                                      // keep a throwing distance
+                if (d > 49) getNavigation().moveTo(t, 1.1); else if (d < 12) away(t, 4, 1.15); else getNavigation().stop();
+                if (attackCd <= 0 && d < 100 && hasLineOfSight(t)) { attackCd = 26 + random.nextInt(10); throwSnowball(t); }
+                return;
             }
+            if (tactic == Tactic.HOLD && d > 36 && role != Role.FLANKER) {      // stand our ground until they come
+                getNavigation().stop(); return;
+            }
+            if (skirmishBack > 0) { skirmishBack--; away(t, 4, 1.2); return; }
+            switch (role) {
+                case FLANKER -> {
+                    double wide = tactic == Tactic.PINCER ? 4.5 : 3.0;
+                    net.minecraft.world.phys.Vec3 to = t.position().subtract(position());
+                    net.minecraft.world.phys.Vec3 side = new net.minecraft.world.phys.Vec3(-to.z, 0, to.x).normalize().scale(wide * flankSide);
+                    if (d > 9) getNavigation().moveTo(t.getX() + side.x + to.normalize().x * 1.5, t.getY(), t.getZ() + side.z + to.normalize().z * 1.5, 1.3);
+                    else getNavigation().moveTo(t, 1.3);
+                }
+                case GUARD -> {
+                    Mudling weak = null;
+                    for (Mudling a : allies(10)) if (weak == null || a.getHealth() < weak.getHealth()) weak = a;
+                    if (weak != null && weak.distanceToSqr(t) > 36 && distanceToSqr(weak) > 9) getNavigation().moveTo(weak, 1.15);
+                    else getNavigation().moveTo(t, 1.2);
+                }
+                default -> getNavigation().moveTo(t, role == Role.VANGUARD && tactic == Tactic.CHARGE ? 1.35 : 1.2);
+            }
+            if (attackCd <= 0 && isWithinMeleeAttackRange(t) && hasLineOfSight(t) && level() instanceof ServerLevel sl) {
+                attackCd = 18 + random.nextInt(6);
+                swing(InteractionHand.MAIN_HAND); doHurtTarget(sl, t);
+                if (role == Role.SKIRMISHER) skirmishBack = 20 + random.nextInt(20);   // hit and fall back
+            }
+        }
+
+        private void away(LivingEntity from, double dist, double speed) {
+            net.minecraft.world.phys.Vec3 v = position().subtract(from.position()); v = new net.minecraft.world.phys.Vec3(v.x, 0, v.z).normalize().scale(dist);
+            getNavigation().moveTo(getX() + v.x, getY(), getZ() + v.z, speed);
+        }
+        /** Back behind the squad: toward its middle, away from the enemy. */
+        private void fallBack(LivingEntity from) {
+            java.util.List<Mudling> squad = allies(16);
+            if (squad.isEmpty()) { retreatFor = 0; return; }
+            double cx = 0, cz = 0; for (Mudling a : squad) { cx += a.getX(); cz += a.getZ(); }
+            cx /= squad.size(); cz /= squad.size();
+            net.minecraft.world.phys.Vec3 away = new net.minecraft.world.phys.Vec3(cx - from.getX(), 0, cz - from.getZ()).normalize().scale(3);
+            getNavigation().moveTo(cx + away.x, getY(), cz + away.z, 1.25);
         }
     }
 
@@ -216,7 +358,10 @@ public class Mudling extends PathfinderMob implements Baggable {
         if (has(ARMOUR)) amount *= 0.7f;                                       // leather armour
         if (has(GLIDE) && source.is(net.minecraft.tags.DamageTypeTags.IS_FALL)) return false;
         boolean hurt = super.hurtServer(level, source, amount);
-        if (hurt) { calm = 0; if (showHealth > 0) showHealthTag(); }
+        if (hurt) {
+            calm = 0; if (showHealth > 0) showHealthTag();
+            if (source.getEntity() instanceof Mudling m && isEnemy(m)) callForHelp(m);
+        }
         return hurt;
     }
 
@@ -227,7 +372,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     }
 
     private void addWin() {
-        entityData.set(WINS, wins() + 1); applyStats(); setHealth(getMaxHealth());
+        entityData.set(WINS, wins() + 1); applyStats(); heal(getMaxHealth() * 0.5f);   // a win heals half, not all, so the first kill doesn't decide the fight
         playSound(SoundEvents.PLAYER_LEVELUP, 0.4f, 1.8f);
     }
 
@@ -312,7 +457,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         }
         if (stack.isEmpty() && player.isShiftKeyDown()) {                     // sneak and look it over: its stats
             if (!level().isClientSide()) player.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.ryancraft.mudling_stats",
-                    getDisplayName(), (int) getMaxHealth(), rating(rollHealth), String.format("%.1f", getAttributeValue(Attributes.ATTACK_DAMAGE)),
+                    getDisplayName().copy().append(", " + role.name().toLowerCase()), (int) getMaxHealth(), rating(rollHealth), String.format("%.1f", getAttributeValue(Attributes.ATTACK_DAMAGE)),
                     rating(rollAttack), rating(rollSpeed), wins(), gearList()), true);
             return InteractionResult.SUCCESS;
         }
@@ -337,7 +482,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         if (reason != EntitySpawnReason.BUCKET && reason != EntitySpawnReason.LOAD) {
             setKind(MudlingKinds.forBiome(level.getBiome(blockPosition())));
             setVariant(random.nextInt(20) == 0 ? 1 + random.nextInt(3) : 0);
-            rollStats(); setHealth(getMaxHealth());
+            rollStats(); rollRole(); setHealth(getMaxHealth());
         }
         return super.finalizeSpawn(level, diff, reason, data);
     }
@@ -352,7 +497,7 @@ public class Mudling extends PathfinderMob implements Baggable {
     protected void addAdditionalSaveData(ValueOutput out) {
         super.addAdditionalSaveData(out);
         out.putInt("Kind", entityData.get(KIND)); out.putInt("Variant", variant()); out.putInt("Team", team()); out.putInt("Wins", wins());
-        out.putInt("Calm", calm); out.putInt("Gear", gear);
+        out.putInt("Calm", calm); out.putInt("Gear", gear); out.putInt("Role", role.ordinal());
         out.putFloat("RollHealth", rollHealth); out.putFloat("RollAttack", rollAttack); out.putFloat("RollSpeed", rollSpeed);
     }
 
@@ -362,6 +507,7 @@ public class Mudling extends PathfinderMob implements Baggable {
         entityData.set(KIND, in.getIntOr("Kind", 0)); entityData.set(VARIANT, in.getIntOr("Variant", 0));
         entityData.set(TEAM, in.getIntOr("Team", -1)); entityData.set(WINS, in.getIntOr("Wins", 0));
         calm = in.getIntOr("Calm", 0); gear = in.getIntOr("Gear", 0);
+        if (in.getInt("Role").isPresent()) role = Role.values()[Math.floorMod(in.getIntOr("Role", 0), Role.values().length)]; else rollRole();
         // saved while its health was showing? take the hearts back off its name
         if (getCustomName() != null && getCustomName().getString().contains(" \u2764 ")) {
             String n = getCustomName().getString(); n = n.substring(0, n.indexOf(" \u2764 "));
