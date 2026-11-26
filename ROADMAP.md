@@ -3,6 +3,9 @@
 Ideas queued for later, roughly grouped. Struck-through items are built; see [docs/CHANGELOG.md](docs/CHANGELOG.md).
 
 ## Next up
+- **Title screen cloned from 1.2.5 exactly**: the softened panorama still isn't right. Match how 1.2.5 drew it: the
+  panorama cube rendered many times with tiny jitters into a small texture, then blurred in passes and stretched to
+  the screen, with its slow sway/rotation, the dark gradient over it, and the 1.2.5 logo, splash and button layout.
 - **Dispensers dye mudlings**: a dispenser loaded with dye puts that team colour on the mudling in front of it (like it
   dyes sheep in vanilla), so teams can be sorted with redstone.
 - **Mudling sashes on every kind**: the sod sash was fixed (drawn in a later pass), but sandstone mudlings still seemed
